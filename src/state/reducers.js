@@ -9,7 +9,6 @@ const initialState = {
   technical: [],
   commercial: [],
   legal: [],
-  values: [],
 };
 // to be used as initial state instead of riskData
 
