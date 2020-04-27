@@ -1,12 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleLiklihood } from '../state/actionCreators';
 import styled from "styled-components";
-import { data } from "./dummyData";
+import { riskData } from "./dummyData";
 
-export default function RiskTable() {
+function RiskTable(props) {
+
+  // console.log(props);
+  console.log(riskData)
+  console.log(props.projectRisks.risks[1].entries[1].liklihood);
+
+  function riskValue(value) {
+    return riskData.ranking[value]
+  }
+
   return (
     <Container>
       <header>
-        <h4>Project [title] - [company]</h4>
+        <h4>Project {props.projectRisks.project} - {props.projectRisks.company}</h4>
         <h4>Risk Management Table</h4>
       </header>
       <div className="tableContents">
@@ -37,7 +48,7 @@ export default function RiskTable() {
         </div>
       </div>
       <div className="tableContents">
-        {data.map((type, index) => (
+        {riskData.risks.map((type, index) => (
           <div
             key={index}
             className={index % 2 === 0 ? "section odd" : "section even"}
@@ -54,11 +65,14 @@ export default function RiskTable() {
                   <div className="description">
                     <p>{entry.description}</p>
                   </div>
-                  <div className={entry.liklihood + ' liklihood'}>
-                    <p>{entry.liklihood}</p>
+                  <div className={riskValue(entry.liklihood).toLowerCase() + ' liklihood'}>
+
+                    {console.log(riskValue(entry.liklihood))}
+
+                    <p>{riskValue(entry.liklihood)}</p>
                   </div>
-                  <div className={entry.severity + " severity"}>
-                    <p>{entry.severity}</p>
+                  <div className={riskValue(entry.severity).toLowerCase() + " severity"}>
+                    <p>{riskValue(entry.severity)}</p>
                   </div>
                   <div className="owner">
                     <p>{entry.owner}</p>
@@ -112,7 +126,7 @@ const Container = styled.div`
     }
     .section {
       display: grid;
-      grid-template-columns: 200px 1fr;
+      grid-template-columns: 170px 1fr;
       column-gap: 2px;
       /* margin-top: 5px; */
       width: 100%;
@@ -122,7 +136,7 @@ const Container = styled.div`
         justify-content: center;
       }
       .risks {
-        padding: 20px;
+        padding: 20px 20px 20px 0px;
         display: grid;
         grid-template-columns: 1fr;
         /* row-gap: 10px; */
@@ -167,3 +181,7 @@ const Container = styled.div`
     }
   }
 `;
+
+export default connect(
+  state => state
+)(RiskTable);
