@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { riskData } from "./dummyData";
 import RiskType from "./RiskType";
 
 function RiskTable(props) {
-  console.log(riskData);
+  // console.log(riskData);
+  // console.log(riskData.riskRange.length);
 
   return (
     <Container>
@@ -54,11 +54,11 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
-    
+
     .description {
       text-align: left;
     }
   }
 `;
 
-export default connect((state) => state)(RiskTable);
+export default connect((state) => state, {})(RiskTable);

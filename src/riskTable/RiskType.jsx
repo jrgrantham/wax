@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import { updateProbability, updateConsequence } from "../state/actionCreators";
 
-export default function RiskType(props) {
+function RiskType(props) {
   const { type, risks, riskRange } = props;
 
   function riskValue(value) {
@@ -23,21 +25,38 @@ export default function RiskType(props) {
               <p>{risk.description}</p>
             </div>
             <div
+              onClick={() =>
+                props.updateProbability(
+                  type.toLowerCase(),
+                  risk.id,
+                  (risk.probability + 1) % riskRange.length,
+                )
+              } // here
               className={
-                riskValue(risk.liklihood).toLowerCase() + " liklihood flag"
+                riskValue(risk.probability).toLowerCase() + " probability flag"
               }
             >
-              <p>{riskValue(risk.liklihood)}</p>
+              <h6>{riskValue(risk.probability)}</h6>
+              <p className="small">Probability</p>
             </div>
             <div
+              onClick={() =>
+                props.updateConsequence(
+                  type.toLowerCase(),
+                  risk.id,
+                  (risk.consequence + 1) % riskRange.length,
+                )
+              }
               className={
-                riskValue(risk.severity).toLowerCase() + " severity flag"
+                riskValue(risk.consequence).toLowerCase() + " consequence flag"
               }
             >
-              <p>{riskValue(risk.severity)}</p>
+              <h6>{riskValue(risk.consequence)}</h6>
+              <p className="small">Consequence</p>
             </div>
             <div className="owner">
               <p>{risk.owner}</p>
+              <p className="small">Responsible</p>
             </div>
             <div className="mitigation">
               <p>{risk.mitigation}</p>
@@ -49,10 +68,16 @@ export default function RiskType(props) {
   );
 }
 
+export default connect((state) => state, { updateProbability, updateConsequence })(RiskType);
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   /* border: 1px solid red; */
+
+  h6 {
+    margin-bottom: 2px;
+  }
 
   .type {
     display: flex;
@@ -78,22 +103,31 @@ const Container = styled.div`
       /* background-color: #909090; */
       align-items: center;
       display: grid;
-      grid-template-columns: 2fr 100px 100px 120px 1fr;
+      grid-template-columns: 2fr 120px 120px 120px 1fr;
       /* border-radius: 10px; */
     }
     .description {
       justify-content: flex-start;
       align-items: center;
+      margin-right: 20px;
     }
     .flag {
+      display: flex;
+      flex-direction: column;
       align-items: center;
       border-radius: 10px;
-      height: 50px;
+      height: 60px;
+      &:hover {
+        cursor: pointer;
+      }
     }
-    .liklihood {
+    .small {
+      font-size: 0.8rem;
+    }
+    .probability {
       margin-right: 5px;
     }
-    .severity {
+    .consequence {
       margin-left: 5px;
     }
     .high {
@@ -106,6 +140,8 @@ const Container = styled.div`
       background-color: rgba(0, 125, 0, 0.5);
     }
     .owner {
+      display: flex;
+      flex-direction: column;
       align-items: center;
     }
   }

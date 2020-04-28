@@ -1,11 +1,23 @@
-import * as types from "./actionTypes";
+import * as actionTypes from "./actionTypes";
 
-export function toggleLiklihood(type, entry) {
+export function updateProbability(type, id, value) {
   return {
-    type: toggleLiklihood,
+    type: actionTypes.UPDATE_PROBABILITY,
     payload: {
-      type: type,
-      entry: entry
+      type,
+      id,
+      value
+    }
+  };
+}
+
+export function updateConsequence(type, id, value) {
+  return {
+    type: actionTypes.UPDATE_CONSEQUENCE,
+    payload: {
+      type,
+      id,
+      value
     }
   };
 }

@@ -4,7 +4,7 @@ import { riskData } from "../riskTable/dummyData";
 const initialState = {
   company: "",
   project: "",
-  ranking: [],
+  riskRange: [],
   managerial: [],
   technical: [],
   commercial: [],
@@ -14,32 +14,38 @@ const initialState = {
 
 export function riskReducer(state = riskData, action) {
   switch (action.type) {
-    case actionTypes.TOGGLE_LIKLIHOOD:
+    case actionTypes.UPDATE_PROBABILITY:
+      console.log(
+        // "reducer",
+        ' risk type: ', action.payload.type, '\n',
+        'risk id:   ', action.payload.id, '\n',
+        'prob value:', action.payload.value
+      );
       return {
         ...state,
-        values: state.values.map((type) => {
-          if (type === action.payload.type) {
-            type.entries.map((entry) => {
-              if (entry === action.payload.entry) {
-                entry.liklihood = entry.liklihood++;
-              }
-            });
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return { ...entry, probability: action.payload.value}
           }
-        }),
+          return entry
+        })
       };
-    // case actionTypes.REMOVE_FAVOURITE:
-    //   return {
-    //     ...state,
-    //     favourites: state.favourites.filter(
-    //       character => character.id !== action.payload.id,
-    //     ),
-    //     characters: [...state.characters, action.payload]
-    //   };
-    // case actionTypes.IMPORT_CHARACTERS:
-    //   return {
-    //     ...state,
-    //     characters: action.payload
-    //   };
+    case actionTypes.UPDATE_CONSEQUENCE:
+      console.log(
+        // "reducer",
+        ' risk type: ', action.payload.type, '\n',
+        'risk id:   ', action.payload.id, '\n',
+        'cons value:', action.payload.value
+      );
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return { ...entry, consequence: action.payload.value}
+          }
+          return entry
+        })
+      }
     default:
       return state;
   }
