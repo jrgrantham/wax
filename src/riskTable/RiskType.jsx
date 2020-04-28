@@ -178,6 +178,7 @@ const Container = styled.div`
       background-color: rgba(180, 180, 180, 0.5);
     }
     .addRisk {
+      width: 100%;
       justify-content: flex-end;
       padding: 10px;
       img {
