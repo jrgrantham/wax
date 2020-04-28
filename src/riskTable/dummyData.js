@@ -1,5 +1,5 @@
 export const riskData = {
-  company: "damien",
+  company: "test",
   project: "test",
   riskRange: ["TBC", "Low", "Medium", "High"],
   managerial: [
