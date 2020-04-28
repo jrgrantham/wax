@@ -17,35 +17,52 @@ export function riskReducer(state = riskData, action) {
     case actionTypes.UPDATE_PROBABILITY:
       console.log(
         // "reducer",
-        ' risk type: ', action.payload.type, '\n',
-        'risk id:   ', action.payload.id, '\n',
-        'prob value:', action.payload.value
+        " risk type: ",
+        action.payload.type,
+        "\n",
+        "risk id:   ",
+        action.payload.id,
+        "\n",
+        "prob value:",
+        action.payload.value
       );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
           if (entry.id === action.payload.id) {
-            return { ...entry, probability: action.payload.value}
+            return { ...entry, probability: action.payload.value };
           }
-          return entry
-        })
+          return entry;
+        }),
       };
     case actionTypes.UPDATE_CONSEQUENCE:
       console.log(
         // "reducer",
-        ' risk type: ', action.payload.type, '\n',
-        'risk id:   ', action.payload.id, '\n',
-        'cons value:', action.payload.value
+        " risk type: ",
+        action.payload.type,
+        "\n",
+        "risk id:   ",
+        action.payload.id,
+        "\n",
+        "cons value:",
+        action.payload.value
       );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
           if (entry.id === action.payload.id) {
-            return { ...entry, consequence: action.payload.value}
+            return { ...entry, consequence: action.payload.value };
           }
-          return entry
-        })
-      }
+          return entry;
+        }),
+      };
+    case actionTypes.DELETE_RISK:
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].filter(
+          (entry) => entry.id !== action.payload.id
+        ),
+      };
     default:
       return state;
   }

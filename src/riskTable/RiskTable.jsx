@@ -15,6 +15,13 @@ function RiskTable(props) {
         </h4>
         <h4>Risk Management Table</h4>
       </header>
+      <div className='titles'>
+        <h5>Risk</h5>
+        <h5>Liklihood</h5>
+        <h5>Severity</h5>
+        <h5>Owner</h5>
+        <h5>Mitigation</h5>
+      </div>
       <RiskType
         risks={props.projectRisks.managerial}
         type="Managerial"
@@ -45,9 +52,12 @@ const Container = styled.div`
   padding: 30px;
   /* border: 1px solid red; */
 
-  div {
-    display: flex;
-    justify-content: center;
+  .titles {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 120px 1fr 30px;
+    margin: 20px 0 20px 66px;
+    padding: 20px 0;
+    background-color: #e0e0e0;
   }
 
   header {
