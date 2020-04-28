@@ -6,6 +6,7 @@ import {
   updateConsequence,
   deleteRisk,
 } from "../state/actionCreators";
+import deleteIcon from '../images/deleteIcon.png';
 
 function RiskType(props) {
   const { type, risks, riskRange } = props;
@@ -18,14 +19,10 @@ function RiskType(props) {
     <Container>
       <div className="type">
         <h5>{type}</h5>
-        <button>add</button>
       </div>
       <div className="risks">
         {risks.map((risk, index) => (
-          <div
-            className={index % 2 === 0 ? "risk even" : "risk odd"}
-            key={index}
-          >
+          <div className="risk" key={index}>
             <div className="description">
               <p>{risk.description}</p>
             </div>
@@ -66,11 +63,16 @@ function RiskType(props) {
             <div className="mitigation">
               <p>{risk.mitigation}</p>
             </div>
-            <div onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}>
-              x
+            <div className='delete' onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}>
+              <img src={deleteIcon} alt="delete"/>
             </div>
           </div>
         ))}
+        <div
+          className={risks.length % 2 === 0 ? "addRisk even" : "addRisk odd"}
+        >
+          <button>add</button>
+        </div>
       </div>
     </Container>
   );
@@ -106,24 +108,16 @@ const Container = styled.div`
 
   .risks {
     display: grid;
-    /* grid-template-columns: 1fr; */
-    /* border-radius: 3px; */
-    overflow: hidden;
-    /* row-gap: 10px; */
-
-    .odd {
-      background-color: #f0f0f0;
-    }
-    .even {
-      background-color: #e0e0e0;
-    }
     .risk {
+      width: 100%;
       padding: 10px;
-      /* background-color: #909090; */
       align-items: center;
       display: grid;
-      grid-template-columns: 1fr 120px 120px 120px 1fr 20px;
-      /* border-radius: 10px; */
+      grid-template-columns: 1fr 120px 120px 120px 1fr 60px;
+      background-color: #f0f0f0;
+      :nth-child(2n) {
+        background-color: #e0e0e0;
+      }
     }
     .description {
       justify-content: flex-start;
@@ -162,6 +156,30 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+    .addRisk {
+      justify-content: flex-end;
+      padding: 20px;
+    }
+    .even {
+      background-color: #f0f0f0;
+    }
+    .odd {
+      background-color: #e0e0e0;
+    }
+    .delete {
+      margin: auto;
+      border-radius: 50%;
+      width: 40px;
+      background-color: white;
+      padding: 10px;
+      /* width: 50px;
+      height: 50px; */
+
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 `;
