@@ -21,3 +21,13 @@ export function updateConsequence(type, id, value) {
     }
   };
 }
+
+export function deleteRisk(type, id) {
+  return {
+    type: actionTypes.DELETE_RISK,
+    payload: {
+      type,
+      id
+    }
+  }
+}

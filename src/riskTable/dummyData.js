@@ -1,6 +1,6 @@
 export const riskData = {
-  company: "Alpha Company",
-  project: "Trial Run",
+  company: "damien",
+  project: "test",
   riskRange: ["TBC", "Low", "Medium", "High"],
   managerial: [
     {
@@ -170,5 +170,4 @@ export const riskData = {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
   ],
-
 };

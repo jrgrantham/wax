@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { updateProbability, updateConsequence } from "../state/actionCreators";
+import {
+  updateProbability,
+  updateConsequence,
+  deleteRisk,
+} from "../state/actionCreators";
 
 function RiskType(props) {
   const { type, risks, riskRange } = props;
@@ -14,6 +18,7 @@ function RiskType(props) {
     <Container>
       <div className="type">
         <h5>{type}</h5>
+        <button>add</button>
       </div>
       <div className="risks">
         {risks.map((risk, index) => (
@@ -29,7 +34,7 @@ function RiskType(props) {
                 props.updateProbability(
                   type.toLowerCase(),
                   risk.id,
-                  (risk.probability + 1) % riskRange.length,
+                  (risk.probability + 1) % riskRange.length
                 )
               } // here
               className={
@@ -44,7 +49,7 @@ function RiskType(props) {
                 props.updateConsequence(
                   type.toLowerCase(),
                   risk.id,
-                  (risk.consequence + 1) % riskRange.length,
+                  (risk.consequence + 1) % riskRange.length
                 )
               }
               className={
@@ -55,11 +60,14 @@ function RiskType(props) {
               <p className="small">Consequence</p>
             </div>
             <div className="owner">
-              <p>{risk.owner}</p>
+              <h6>{risk.owner}</h6>
               <p className="small">Responsible</p>
             </div>
             <div className="mitigation">
               <p>{risk.mitigation}</p>
+            </div>
+            <div onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}>
+              x
             </div>
           </div>
         ))}
@@ -68,20 +76,31 @@ function RiskType(props) {
   );
 }
 
-export default connect((state) => state, { updateProbability, updateConsequence })(RiskType);
+export default connect((state) => state, {
+  updateProbability,
+  updateConsequence,
+  deleteRisk,
+})(RiskType);
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
   /* border: 1px solid red; */
 
   h6 {
     margin-bottom: 2px;
   }
 
+  button {
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+  }
+
   .type {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin: 20px 0;
   }
 
@@ -103,7 +122,7 @@ const Container = styled.div`
       /* background-color: #909090; */
       align-items: center;
       display: grid;
-      grid-template-columns: 2fr 120px 120px 120px 1fr;
+      grid-template-columns: 1fr 120px 120px 120px 1fr 20px;
       /* border-radius: 10px; */
     }
     .description {
