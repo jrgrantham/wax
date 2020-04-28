@@ -6,7 +6,7 @@ import {
   updateConsequence,
   deleteRisk,
 } from "../state/actionCreators";
-import deleteIcon from '../images/deleteIcon.png';
+import deleteIcon from "../images/deleteIcon.png";
 
 function RiskType(props) {
   const { type, risks, riskRange } = props;
@@ -63,8 +63,11 @@ function RiskType(props) {
             <div className="mitigation">
               <p>{risk.mitigation}</p>
             </div>
-            <div className='delete' onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}>
-              <img src={deleteIcon} alt="delete"/>
+            <div
+              className="delete"
+              onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}
+            >
+              <img src={deleteIcon} alt="delete" />
             </div>
           </div>
         ))}
@@ -74,6 +77,7 @@ function RiskType(props) {
           <button>add</button>
         </div>
       </div>
+      {/* <div className='type' /> */}
     </Container>
   );
 }
@@ -86,7 +90,7 @@ export default connect((state) => state, {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 20px;
   /* border: 1px solid red; */
 
@@ -102,8 +106,20 @@ const Container = styled.div`
 
   .type {
     display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    justify-content: center;
+    writing-mode: tb-rl;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    /* white-space: nowrap; */
+    padding: 10px;
+    /* border: 1px solid red; */
+  }
+  background-color: #f0f0f0;
+  :nth-child(2n) {
+    background-color: #e0e0e0;
   }
 
   .risks {
