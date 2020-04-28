@@ -7,9 +7,9 @@ export const riskData = {
       id: 1,
       description:
         "first one.",
-      probability: 0,
+      probability: 1,
       consequence: 2,
-      owner: "Damien",
+      owner: "TBC",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -17,8 +17,8 @@ export const riskData = {
       id: 2,
       description:
         "Lorem Ipsum has been the industry's standa.",
-      probability: 1,
-      consequence: 1,
+      probability: 0,
+      consequence: 0,
       owner: "Damien",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -69,7 +69,7 @@ export const riskData = {
       id: 7,
       description:
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      probability: 3,
+      probability: 1,
       consequence: 2,
       owner: "Damien",
       mitigation:

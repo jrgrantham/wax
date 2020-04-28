@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from "../actionTypes";
 
 export function updateProbability(type, id, value) {
   return {
@@ -31,3 +31,4 @@ export function deleteRisk(type, id) {
     }
   }
 }
+
