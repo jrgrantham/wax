@@ -1,0 +1,4 @@
+export const UPDATE_CONSEQUENCE = 'UPDATE_CONSEQUENCE';
+export const UPDATE_PROBABILITY = 'UPDATE_PROBABILITY';
+
+// export const 
