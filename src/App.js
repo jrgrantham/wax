@@ -6,7 +6,9 @@ import { riskReducer, stylingReducer } from "./state/reducers";
 import { combineReducers, createStore, compose } from "redux";
 // import thunk from "redux-thunk";
 
-import RiskTable from "./riskTable/RiskTable";
+import RiskTable from "./riskManagement/RiskTable";
+import RiskText from "./riskManagement/TextRisks";
+import { Route } from "react-router-dom";
 
 const monsterReducer = combineReducers({
   projectRisks: riskReducer,
@@ -25,7 +27,8 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <RiskTable />
+        <Route exact path='/' component={RiskTable} />
+        <Route exact path='/risk-document' component={RiskText} />
       </div>
     </Provider>
   );
