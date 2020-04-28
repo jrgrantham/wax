@@ -6,7 +6,8 @@ import {
   updateConsequence,
   deleteRisk,
 } from "../state/actionCreators";
-import deleteIcon from "../images/deleteIcon.png";
+import removeIcon from "../images/removeIcon.png";
+import addIcon from "../images/addIcon.png";
 
 function RiskType(props) {
   const { type, risks, riskRange } = props;
@@ -39,7 +40,7 @@ function RiskType(props) {
               }
             >
               <h6>{riskValue(risk.probability)}</h6>
-              <p className="small">Probability</p>
+              {/* <p className="small">Probability</p> */}
             </div>
             <div
               onClick={() =>
@@ -54,11 +55,11 @@ function RiskType(props) {
               }
             >
               <h6>{riskValue(risk.consequence)}</h6>
-              <p className="small">Consequence</p>
+              {/* <p className="small">Consequence</p> */}
             </div>
-            <div className="owner">
+            <div className="owner flag">
               <h6>{risk.owner}</h6>
-              <p className="small">Responsible</p>
+              {/* <p className="small">Responsible</p> */}
             </div>
             <div className="mitigation">
               <p>{risk.mitigation}</p>
@@ -67,14 +68,14 @@ function RiskType(props) {
               className="delete"
               onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}
             >
-              <img src={deleteIcon} alt="delete" />
+              <img src={removeIcon} alt="delete" />
             </div>
           </div>
         ))}
         <div
           className={risks.length % 2 === 0 ? "addRisk even" : "addRisk odd"}
         >
-          <button>add</button>
+            <img src={addIcon} alt="delete" />
         </div>
       </div>
       {/* <div className='type' /> */}
@@ -90,8 +91,10 @@ export default connect((state) => state, {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   margin-bottom: 20px;
+  /* display: grid;
+  grid-template-columns: 120px 1fr; */
   /* border: 1px solid red; */
 
   h6 {
@@ -105,16 +108,18 @@ const Container = styled.div`
   }
 
   .type {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
+    align-items: center;
     writing-mode: tb-rl;
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    padding: 20px;
     /* white-space: nowrap; */
-    padding: 10px;
+    /* width: 200px; */
     /* border: 1px solid red; */
   }
   background-color: #f0f0f0;
@@ -129,7 +134,7 @@ const Container = styled.div`
       padding: 10px;
       align-items: center;
       display: grid;
-      grid-template-columns: 1fr 120px 120px 120px 1fr 60px;
+      grid-template-columns: 1fr 120px 120px 120px 1fr 30px;
       background-color: #f0f0f0;
       :nth-child(2n) {
         background-color: #e0e0e0;
@@ -141,10 +146,11 @@ const Container = styled.div`
       margin-right: 20px;
     }
     .flag {
+      margin: 5px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      border-radius: 10px;
+      justify-content: center;
+      border-radius: 5px;
       height: 60px;
       &:hover {
         cursor: pointer;
@@ -154,10 +160,10 @@ const Container = styled.div`
       font-size: 0.8rem;
     }
     .probability {
-      margin-right: 5px;
+      /* margin-right: 5px; */
     }
     .consequence {
-      margin-left: 5px;
+      /* margin-left: 5px; */
     }
     .high {
       background-color: rgba(250, 0, 0, 0.5);
@@ -169,13 +175,18 @@ const Container = styled.div`
       background-color: rgba(0, 125, 0, 0.5);
     }
     .owner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background-color: rgba(180, 180, 180, 0.5);
     }
     .addRisk {
       justify-content: flex-end;
-      padding: 20px;
+      padding: 10px;
+      img {
+        border-radius: 50%;
+        width: 30px;
+        &:hover {
+        cursor: pointer;
+      }
+      }
     }
     .even {
       background-color: #f0f0f0;
@@ -183,15 +194,16 @@ const Container = styled.div`
     .odd {
       background-color: #e0e0e0;
     }
+    .mitigation {
+      padding-left: 10px;
+    }
     .delete {
       margin: auto;
       border-radius: 50%;
-      width: 40px;
-      background-color: white;
-      padding: 10px;
-      /* width: 50px;
-      height: 50px; */
-
+      width: 25px;
+      &:hover {
+        cursor: pointer;
+      }
       img {
         width: 100%;
         height: auto;
