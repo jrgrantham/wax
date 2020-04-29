@@ -1,9 +1,9 @@
 export const riskData = {
-  company: "[company]",
-  nature: 'eg nature',
-  type: 'eg type',
-  project: "[project]",
-  application: 'optional',
+  company: "Wax-RCD",
+  nature: 'burn',
+  type: 'experiment',
+  project: "combustion",
+  application: '',
   riskRange: ["TBC", "Low", "Medium", "High"],
   options: {
     managerial: {

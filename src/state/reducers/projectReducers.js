@@ -3,47 +3,16 @@ import { riskData } from "../../riskManagement/dummyData";
 
 const initialState = {
   company: "",
-  nature: "burn",
-  type: "experiment",
   project: "",
-  application: "",
-  riskRange: ["TBC", "Low", "Medium", "High"],
-  options: {
-    managerial: {
-      display: true,
-      defaultOwner: "JG",
-      color: "red",
-    },
-    technical: {
-      display: true,
-      defaultOwner: "DJ",
-      color: "blue",
-    },
-    commercial: {
-      display: true,
-      defaultOwner: "CG",
-      color: "green",
-    },
-    legal: {
-      display: true,
-      defaultOwner: "",
-      color: "orange",
-    },
-    environmental: {
-      display: true,
-      defaultOwner: "",
-      color: "yellow",
-    },
-  },
+  riskRange: [],
   managerial: [],
   technical: [],
   commercial: [],
   legal: [],
-  environmental: [],
 };
 // to be used as initial state instead of riskData
 
-export function riskReducer(state = riskData, action) {
+export function projectReducer(state = riskData, action) {
   switch (action.type) {
     case actionTypes.UPDATE_PROBABILITY:
       console.log(
@@ -88,23 +57,11 @@ export function riskReducer(state = riskData, action) {
         }),
       };
     case actionTypes.DELETE_RISK:
-      console.log('test');
-      
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].filter(
           (entry) => entry.id !== action.payload.id
         ),
-      };
-    case actionTypes.SET_PROJECT_INFO:
-      console.log('yes');
-      return {
-        ...state,
-        company: action.payload.company,
-        nature: action.payload.nature,
-        type: action.payload.type,
-        project: action.payload.project,
-        application: action.payload.application,
       };
     default:
       return state;

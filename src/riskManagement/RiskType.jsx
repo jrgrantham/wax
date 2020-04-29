@@ -16,8 +16,7 @@ function RiskType(props) {
     return riskRange[value];
   }
 
-  console.log(props.projectStyling.risk1);
-
+  // console.log(props.projectStyling.risk1);
 
   return (
     <Container>

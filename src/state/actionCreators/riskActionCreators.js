@@ -6,8 +6,8 @@ export function updateProbability(type, id, value) {
     payload: {
       type,
       id,
-      value
-    }
+      value,
+    },
   };
 }
 
@@ -17,8 +17,8 @@ export function updateConsequence(type, id, value) {
     payload: {
       type,
       id,
-      value
-    }
+      value,
+    },
   };
 }
 
@@ -27,8 +27,15 @@ export function deleteRisk(type, id) {
     type: actionTypes.DELETE_RISK,
     payload: {
       type,
-      id
-    }
-  }
+      id,
+    },
+  };
 }
 
+export function setProjectInfo(info) {
+  console.log(info);
+  return {
+    type: actionTypes.SET_PROJECT_INFO,
+    payload: info,
+  };
+}

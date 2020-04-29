@@ -28,9 +28,9 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Route exact path='/' component={RiskTable} />
+        <Route exact path='/' component={ClientSettings} />
+        <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
-        <Route path='/settings' component={ClientSettings} />
       </div>
     </Provider>
   );
