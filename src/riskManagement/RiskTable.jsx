@@ -24,7 +24,7 @@ function RiskTable(props) {
         <h5>Owner</h5>
         <h5>Mitigation</h5>
       </div>
-      <RiskType
+      <RiskType 
         risks={props.projectRisks.managerial}
         type="Managerial"
         riskRange={props.projectRisks.riskRange}
