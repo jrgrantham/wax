@@ -1,5 +1,5 @@
-import * as actionTypes from "./actionTypes";
-import { riskData } from "../riskTable/dummyData";
+import * as actionTypes from "../actionTypes";
+import { riskData } from "../../riskManagement/dummyData";
 
 const initialState = {
   company: "",

@@ -5,7 +5,7 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-} from "../state/actionCreators";
+} from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
 import addIcon from "../images/addIcon.png";
 
@@ -15,6 +15,9 @@ function RiskType(props) {
   function riskValue(value) {
     return riskRange[value];
   }
+
+  console.log(props.projectStyling.risk1);
+
 
   return (
     <Container>
@@ -57,7 +60,7 @@ function RiskType(props) {
               <h6>{riskValue(risk.consequence)}</h6>
               {/* <p className="small">Consequence</p> */}
             </div>
-            <div className="owner flag">
+            <div className={`${risk.owner.toLowerCase()} owner flag`}>
               <h6>{risk.owner}</h6>
               {/* <p className="small">Responsible</p> */}
             </div>
@@ -136,6 +139,7 @@ const Container = styled.div`
       display: grid;
       grid-template-columns: 1fr 120px 120px 120px 1fr 30px;
       background-color: #f0f0f0;
+
       :nth-child(2n) {
         background-color: #e0e0e0;
       }
@@ -177,13 +181,17 @@ const Container = styled.div`
     .owner {
       background-color: rgba(180, 180, 180, 0.5);
     }
+    .tbc {
+      border: 1px solid black;
+      background-color: transparent;
+    }
     .addRisk {
       width: 100%;
       justify-content: flex-end;
       padding: 10px;
       img {
         border-radius: 50%;
-        width: 30px;
+        width: 25px;
         &:hover {
         cursor: pointer;
       }
@@ -200,6 +208,7 @@ const Container = styled.div`
     }
     .delete {
       margin: auto;
+      padding-left: 5px;
       border-radius: 50%;
       width: 25px;
       &:hover {

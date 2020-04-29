@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import RiskType from "./RiskType";
+import { Link } from "react-router-dom";
 
 function RiskTable(props) {
   // console.log(riskData);
@@ -13,11 +14,12 @@ function RiskTable(props) {
         <h4>
           Project {props.projectRisks.project} - {props.projectRisks.company}
         </h4>
+        <Link to='risk-document' >View as Document</Link>
         <h4>Risk Management Table</h4>
       </header>
       <div className='titles'>
         <h5>Risk</h5>
-        <h5>Liklihood</h5>
+        <h5>Likelihood</h5>
         <h5>Severity</h5>
         <h5>Owner</h5>
         <h5>Mitigation</h5>
@@ -63,11 +65,18 @@ const Container = styled.div`
   header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     margin: 20px 0;
 
     .description {
       text-align: left;
     }
+  }
+
+  a {
+    border: 1px solid #e0e0e0;
+    padding: 0.6rem 1.6rem;
+    border-radius: 5px;
   }
 `;
 
