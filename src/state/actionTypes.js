@@ -1,6 +1,7 @@
 
 // PROJECT ACTIONS
 export const SET_PROJECT_INFO = 'SET_PROJECT_INFO';
+export const SET_RISK_INFO = 'SET_RISK_INFO';
 export const SET_NATURE = 'SET_NATURE';
 export const SET_PROJECT_TYPE = 'SET_PROJECT_TYPE';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';

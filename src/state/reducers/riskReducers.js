@@ -20,7 +20,7 @@ const initialState = {
       color: "blue",
     },
     commercial: {
-      display: true,
+      display: false,
       defaultOwner: "CG",
       color: "green",
     },
@@ -97,7 +97,7 @@ export function riskReducer(state = riskData, action) {
         ),
       };
     case actionTypes.SET_PROJECT_INFO:
-      console.log('yes');
+      console.log('set project info');
       return {
         ...state,
         company: action.payload.company,
@@ -105,6 +105,12 @@ export function riskReducer(state = riskData, action) {
         type: action.payload.type,
         project: action.payload.project,
         application: action.payload.application,
+      };
+      case actionTypes.SET_RISK_INFO:
+      console.log('set risk info');
+      return {
+        ...state,
+
       };
     default:
       return state;

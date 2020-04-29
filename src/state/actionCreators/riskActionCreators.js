@@ -39,3 +39,11 @@ export function setProjectInfo(info) {
     payload: info,
   };
 }
+
+export function setRiskInfo(info) {
+  console.log(info);
+  return {
+    type: actionTypes.SET_RISK_INFO,
+    payload: info,
+  };
+}

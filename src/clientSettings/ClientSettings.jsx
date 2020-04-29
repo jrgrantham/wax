@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { setProjectInfo } from "../state/actionCreators/riskActionCreators";
 import ProjectSettings from "./ProjectSettings";
+import RiskSettings from "./RiskSettings";
+import RiskSettingsSingle from "./RiskSettingsSingle";
 
 function ClientSettings() {
   return (
@@ -14,6 +16,8 @@ function ClientSettings() {
       <Link to="risk-table">View Risk Table</Link>
       <Link to="risk-document">View Risk Document</Link>
       <ProjectSettings />
+      <RiskSettings />
+      <RiskSettingsSingle type={'Managerial'} />
     </Container>
   );
 }
