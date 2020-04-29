@@ -24,7 +24,7 @@ function RiskTable(props) {
         <h5>Owner</h5>
         <h5>Mitigation</h5>
       </div>
-      <RiskType
+      <RiskType 
         risks={props.projectRisks.managerial}
         type="Managerial"
         riskRange={props.projectRisks.riskRange}
@@ -74,6 +74,7 @@ const Container = styled.div`
   }
 
   a {
+    display: inline-block;
     border: 1px solid #e0e0e0;
     padding: 0.6rem 1.6rem;
     border-radius: 5px;
