@@ -40,10 +40,14 @@ export function setProjectInfo(info) {
   };
 }
 
-export function setRiskInfo(info) {
-  console.log(info);
+export function setRiskInfo(riskType, info) {
+  console.log(riskType, info);
+  
   return {
     type: actionTypes.SET_RISK_INFO,
-    payload: info,
+    payload: {
+      riskType,
+      info
+    },
   };
 }

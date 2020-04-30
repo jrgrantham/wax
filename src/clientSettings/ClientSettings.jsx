@@ -16,8 +16,11 @@ function ClientSettings() {
       <Link to="risk-table">View Risk Table</Link>
       <Link to="risk-document">View Risk Document</Link>
       <ProjectSettings />
-      <RiskSettings />
+      <RiskSettingsSingle type={'Commercial'} />
+      <RiskSettingsSingle type={'Technical'} />
       <RiskSettingsSingle type={'Managerial'} />
+      <RiskSettingsSingle type={'Legal'} />
+      <RiskSettingsSingle type={'Environmental'} />
     </Container>
   );
 }

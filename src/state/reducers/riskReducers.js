@@ -88,8 +88,8 @@ export function riskReducer(state = riskData, action) {
         }),
       };
     case actionTypes.DELETE_RISK:
-      console.log('test');
-      
+      console.log("test");
+
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].filter(
@@ -97,7 +97,7 @@ export function riskReducer(state = riskData, action) {
         ),
       };
     case actionTypes.SET_PROJECT_INFO:
-      console.log('set project info');
+      console.log("set project info");
       return {
         ...state,
         company: action.payload.company,
@@ -106,11 +106,14 @@ export function riskReducer(state = riskData, action) {
         project: action.payload.project,
         application: action.payload.application,
       };
-      case actionTypes.SET_RISK_INFO:
-      console.log('set risk info');
+    case actionTypes.SET_RISK_INFO:
+      console.log("set risk info reducer");
       return {
         ...state,
-
+        options: {
+          ...state.options,
+          [action.payload.riskType]: action.payload.info
+        }
       };
     default:
       return state;

@@ -43,8 +43,6 @@ function RiskSettingsSingle(props) {
     props.setRiskInfo(riskForm);
   }
 
-  console.log(props.projectRisks.options.commercial.display);
-
   return (
     <Container>
       <form className="riskForm" onSubmit={onFormSubmit}>
