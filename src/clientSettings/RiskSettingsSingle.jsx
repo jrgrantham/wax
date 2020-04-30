@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setRiskInfo } from "../state/actionCreators/riskActionCreators";
+import { setRiskOptions } from "../state/actionCreators/riskActionCreators";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();
@@ -25,7 +25,7 @@ function RiskSettings(props) {
 
   function onFormSubmit(event) {
     event.preventDefault();
-    props.setRiskInfo(type, riskForm);
+    props.setRiskOptions(type, riskForm);
   }
 
   return (
@@ -54,7 +54,7 @@ function RiskSettings(props) {
   );
 }
 
-export default connect((state) => state, { setRiskInfo })(RiskSettings);
+export default connect((state) => state, { setRiskOptions })(RiskSettings);
 
 const Container = styled.div`
   display: flex;

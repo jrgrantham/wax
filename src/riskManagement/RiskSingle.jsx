@@ -5,6 +5,7 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
+  updateRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
 import tick from "../images/tick.png";
@@ -34,6 +35,11 @@ function RiskSingle(props) {
       [event.target.name]: event.target.value,
       changes: true,
     });
+  }
+
+  function confirmChanges() {
+    props.updateRisk(type.toLowerCase(), risk.id, riskText);
+    setRiskText({...riskText, changes: false})
   }
 
   return (
@@ -89,7 +95,7 @@ function RiskSingle(props) {
         <h6>{risk.owner}</h6>
       </div> */}
       {riskText.changes ? (
-        <div className="icon" onClick={() => {}}>
+        <div className="icon" onClick={() => confirmChanges()}>
           <img src={tick} alt="delete" />
         </div>
       ) : (
@@ -108,6 +114,7 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
+  updateRisk,
 })(RiskSingle);
 
 const Container = styled.div`
@@ -116,7 +123,8 @@ const Container = styled.div`
   column-gap: 5px;
   margin: 10px 0;
 
-  textarea, input {
+  textarea,
+  input {
     border: none;
   }
 
