@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-} from "../state/actionCreators/riskActionCreators";
-import addIcon from "../images/addIcon.png";
+// import {
+//   updateProbability,
+//   updateConsequence,
+//   deleteRisk,
+// } from "../state/actionCreators/riskActionCreators";
 import RiskSingle from "./RiskSingle";
 
 function RiskType(props) {
@@ -24,8 +23,7 @@ function RiskType(props) {
         <div
           className={risks.length % 2 === 0 ? "addRisk even" : "addRisk odd"}
         >
-          {/* <img src={addIcon} alt="delete" /> */}
-          <div >
+          <div className="button">
             <p>Add new row</p>
           </div>
           <div>
@@ -38,15 +36,15 @@ function RiskType(props) {
 }
 
 export default connect((state) => state, {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
+  // updateProbability,
+  // updateConsequence,
+  // deleteRisk,
 })(RiskType);
 
 const Container = styled.div`
   display: flex;
   margin-bottom: 10px;
-  padding: 15px 0;
+  padding: 5px 0 10px 0;
   border-radius: 10px;
 
   .addRisk {
@@ -58,7 +56,12 @@ const Container = styled.div`
       /* border: 1px solid black; */
       border-radius: 5px;
       margin-left: 5px;
-      padding: 0.3rem 0.8rem
+      padding: 0.3rem 0.8rem;
+    }
+    .button {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 

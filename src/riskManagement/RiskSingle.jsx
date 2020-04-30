@@ -79,7 +79,7 @@ function RiskSingle(props) {
         value={riskText.mitigation}
       />
       <input
-        className={`${risk.owner.toLowerCase()} owner flag`}
+        className={`${risk.owner.toLowerCase()} owner`}
         type="text"
         onChange={onChange}
         name="owner"
