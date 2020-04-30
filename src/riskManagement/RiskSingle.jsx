@@ -12,7 +12,6 @@ import tick from "../images/tick.png";
 
 function RiskSingle(props) {
   const { type, risk } = props;
-
   const riskRange = props.projectRisks.riskRange;
 
   function riskValue(value) {
@@ -39,7 +38,27 @@ function RiskSingle(props) {
 
   function confirmChanges() {
     props.updateRisk(type.toLowerCase(), risk.id, riskText);
-    setRiskText({...riskText, changes: false})
+    setRiskText({ ...riskText, changes: false });
+  }
+
+  function confirmProbability() {
+    props.updateProbability(
+      type.toLowerCase(),
+      risk.id,
+      (risk.probability + 1) % riskRange.length
+    );
+  }
+
+  function confirmConsequence() {
+    props.updateConsequence(
+      type.toLowerCase(),
+      risk.id,
+      (risk.consequence + 1) % riskRange.length
+    );
+  }
+
+  function confirmDelete() {
+    props.deleteRisk(type.toLowerCase(), risk.id);
   }
 
   return (
@@ -51,13 +70,7 @@ function RiskSingle(props) {
         value={riskText.description}
       />
       <div
-        onClick={() =>
-          props.updateProbability(
-            type.toLowerCase(),
-            risk.id,
-            (risk.probability + 1) % riskRange.length
-          )
-        }
+        onClick={() => confirmProbability()}
         className={
           riskValue(risk.probability).toLowerCase() + " probability flag"
         }
@@ -65,13 +78,7 @@ function RiskSingle(props) {
         <h6>{riskValue(risk.probability)}</h6>
       </div>
       <div
-        onClick={() =>
-          props.updateConsequence(
-            type.toLowerCase(),
-            risk.id,
-            (risk.consequence + 1) % riskRange.length
-          )
-        }
+        onClick={() => confirmConsequence()}
         className={
           riskValue(risk.consequence).toLowerCase() + " consequence flag"
         }
@@ -99,10 +106,7 @@ function RiskSingle(props) {
           <img src={tick} alt="delete" />
         </div>
       ) : (
-        <div
-          className="icon"
-          onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}
-        >
+        <div className="icon" onClick={() => confirmDelete()}>
           <img src={removeIcon} alt="delete" />
         </div>
       )}
