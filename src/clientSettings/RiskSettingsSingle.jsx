@@ -33,7 +33,7 @@ function RiskSettings(props) {
       <form className="riskForm" onSubmit={onFormSubmit}>
         <label>{props.type}</label>
         <div className="include" onClick={() => toggleDisplay()}>
-          {riskForm.display ? "On" : "Off"}
+          {riskForm.display ? "Yes" : "No"}
         </div>
         <input
           type="text"
@@ -48,7 +48,7 @@ function RiskSettings(props) {
           placeholder="colour"
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit">Confirm</button>
       </form>
     </Container>
   );

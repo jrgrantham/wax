@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function RiskTable(props) {
   // console.log(riskData);
   // console.log(riskData.riskRange.length);
+  console.log(props.projectRisks.options.managerial.display);
 
   return (
     <Container>
@@ -14,36 +15,58 @@ function RiskTable(props) {
         <h4>
           Project {props.projectRisks.project} - {props.projectRisks.company}
         </h4>
-        <Link to='risk-document' >View as Document</Link>
+        <Link to="risk-document">View as Document</Link>
         <h4>Risk Management Table</h4>
       </header>
-      <div className='titles'>
+      <div className="titles">
         <h5>Risk</h5>
         <h5>Likelihood</h5>
         <h5>Severity</h5>
         <h5>Owner</h5>
         <h5>Mitigation</h5>
       </div>
-      <RiskType 
-        risks={props.projectRisks.managerial}
-        type="Managerial"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <RiskType
-        risks={props.projectRisks.technical}
-        type="Technical"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <RiskType
-        risks={props.projectRisks.commercial}
-        type="Commercial"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <RiskType
-        risks={props.projectRisks.legal}
-        type="Legal"
-        riskRange={props.projectRisks.riskRange}
-      />
+
+      {props.projectRisks.options.managerial.display ? (
+        <RiskType
+          risks={props.projectRisks.managerial}
+          type="Managerial"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.technical.display ? (
+        <RiskType
+          risks={props.projectRisks.technical}
+          type="Technical"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.commercial.display ? (
+        <RiskType
+          risks={props.projectRisks.commercial}
+          type="Commercial"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.legal.display ? (
+        <RiskType
+          risks={props.projectRisks.legal}
+          type="Legal"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.environmental.display ? (
+        <RiskType
+          risks={props.projectRisks.environmental}
+          type="Environmental"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+
     </Container>
   );
 }
