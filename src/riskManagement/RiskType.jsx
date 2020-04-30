@@ -2,9 +2,30 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import RiskSingle from "./RiskSingle";
+import { v4 as uuidv4 } from "uuid";
+import { addEmptyRow } from "../state/actionCreators/riskActionCreators";
 
 function RiskType(props) {
   const { type, risks } = props;
+
+  const defaultOwner =
+    props.projectRisks.options[type.toLowerCase()].defaultOwner;
+
+  const randomId = uuidv4();
+
+  const emtpyRow = {
+    id: randomId,
+    description: "enter risk description.",
+    probability: 0,
+    consequence: 0,
+    owner: defaultOwner,
+    mitigation: "enter risk mitigation.",
+  };
+
+  function addEmptyRow() {
+    console.log("add empty row");
+    props.addEmptyRow(type.toLowerCase(), emtpyRow)
+  }
 
   return (
     <Container>
@@ -18,7 +39,7 @@ function RiskType(props) {
         <div
           className={risks.length % 2 === 0 ? "addRisk even" : "addRisk odd"}
         >
-          <div className="button">
+          <div className="button" onClick={() => addEmptyRow()}>
             <p>Add new row</p>
           </div>
           <div className="button">
@@ -30,12 +51,11 @@ function RiskType(props) {
   );
 }
 
-export default connect((state) => state, {
-})(RiskType);
+export default connect((state) => state, { addEmptyRow })(RiskType);
 
 const Container = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 5px 0 10px 0;
   border-radius: 10px;
 

@@ -2,7 +2,7 @@ import * as actionTypes from "../actionTypes";
 
 export function updateRisk(type, id, data) {
   console.log(data);
-  
+
   return {
     type: actionTypes.UPDATE_RISK,
     payload: {
@@ -54,13 +54,22 @@ export function setProjectInfo(info) {
 }
 
 export function setRiskOptions(riskType, info) {
-  console.log(riskType, info);
-  
   return {
     type: actionTypes.SET_RISK_OPTIONS,
     payload: {
       riskType,
-      info
+      info,
+    },
+  };
+}
+
+export function addEmptyRow(type, data) {
+  console.log(data);
+  return {
+    type: actionTypes.ADD_EMPTY_ROW,
+    payload: {
+      data,
+      type
     },
   };
 }

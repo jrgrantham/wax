@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { setProjectInfo } from "../state/actionCreators/riskActionCreators";
 import ProjectSettings from "./ProjectSettings";
-import RiskSettings from "./RiskSettings";
 import RiskSettingsSingle from "./RiskSettingsSingle";
 
 function ClientSettings() {

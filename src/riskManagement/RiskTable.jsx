@@ -5,9 +5,6 @@ import RiskType from "./RiskType";
 import { Link } from "react-router-dom";
 
 function RiskTable(props) {
-  // console.log(riskData);
-  // console.log(riskData.riskRange.length);
-  console.log(props.projectRisks.options.managerial.display);
 
   return (
     <Container>
