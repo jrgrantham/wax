@@ -20,17 +20,17 @@ function RiskSettings(props) {
 
   function toggleDisplay() {
     const toggledDisplay = !riskForm.display;
-    setRiskForm({...riskForm, display: toggledDisplay})
+    setRiskForm({ ...riskForm, display: toggledDisplay });
+    submit();
   }
 
-  function onFormSubmit(event) {
-    event.preventDefault();
+  function submit() {
     props.setRiskOptions(type, riskForm);
   }
 
   return (
     <Container>
-      <form className="riskForm" onSubmit={onFormSubmit}>
+      <form className="riskForm" >
         <label>{props.type}</label>
         <div className="include" onClick={() => toggleDisplay()}>
           {riskForm.display ? "Yes" : "No"}
@@ -40,15 +40,15 @@ function RiskSettings(props) {
           onChange={onChange}
           name="defaultOwner"
           placeholder="default owner"
+          onBlur={() => submit()}
         />
         <input
           type="text"
           onChange={onChange}
           name="color"
           placeholder="colour"
+          onBlur={() => submit()}
         />
-
-        <button type="submit">Confirm</button>
       </form>
     </Container>
   );

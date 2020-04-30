@@ -28,10 +28,4 @@ export default connect((state) => state, { setProjectInfo })(ClientSettings);
 
 const Container = styled.div`
 
-  a {
-    display: inline-block;
-    border: 1px solid #e0e0e0;
-    padding: 0.6rem 1.6rem;
-    border-radius: 5px;
-  }
 `;

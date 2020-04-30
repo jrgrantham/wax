@@ -19,13 +19,13 @@ function TextType(props) {
       <h4>{type} Risks</h4>
       {risks.map((risk, index) => (
         <div key={index} className='risk'>
-          <h5 className='bold' >{risk.description}</h5>
+          <h6 className='bold' >{risk.description}</h6>
           <ul>
             <li>Likelihood: {riskValue(risk.probability)}</li>
             <li>Severity: {riskValue(risk.consequence)}</li>
             <li>Owner: {risk.owner}</li>
           </ul>
-          <h5 className='bold' >Mitigation</h5>
+          <h6 className='bold' >Mitigation</h6>
           <p>{risk.mitigation}</p>
         </div>
       ))}
@@ -45,24 +45,17 @@ const Container = styled.div`
   margin-bottom: 20px;
   text-align: left;
 
-  h5 {
-    margin: 5px 0;
-    font-size: 1rem;
+  h4 {
+    margin-bottom: 20px;
   }
-  h6 {
-    margin: 5px 0;
-    font-size: 1rem;
-  }
-  p {
 
-  }
   ul {
     list-style-type: square;
     list-style-position: inside;
   }
 
   .risk {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   .bold {
     

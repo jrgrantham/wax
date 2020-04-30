@@ -1,8 +1,8 @@
 export const riskData = {
-  company: "Wax-RCD",
-  nature: 'burn',
+  company: "Jones",
+  nature: 'Investigation',
   type: 'experiment',
-  project: "combustion",
+  project: "Reacher",
   application: '',
   riskRange: ["TBC", "Low", "Medium", "High"],
   options: {
@@ -56,7 +56,7 @@ export const riskData = {
     {
       id: 3,
       description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 3,
       consequence: 1,
       owner: "DJ",

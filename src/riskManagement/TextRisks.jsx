@@ -9,10 +9,12 @@ function RiskText(props) {
 
   return (
     <Container>
-      <h3>
-        Project {props.projectRisks.project} - {props.projectRisks.company}
-      </h3>
-      <h4>Risk Management Table</h4>
+      <header>
+        <h3>
+          Project {props.projectRisks.project} - {props.projectRisks.company}
+        </h3>
+        <h6>Risk Management Document</h6>
+      </header>
 
       {props.projectRisks.options.managerial.display ? (
         <TextType
@@ -63,9 +65,9 @@ const Container = styled.div`
   flex-direction: column;
   padding: 30px;
 
-  h4 {
-    margin-bottom: 20px;
-  }
+header {
+  margin-bottom: 20px
+}
 `;
 
 export default connect((state) => state, {})(RiskText);

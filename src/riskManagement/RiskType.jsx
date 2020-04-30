@@ -56,15 +56,20 @@ export default connect((state) => state, { addEmptyRow })(RiskType);
 const Container = styled.div`
   display: flex;
   margin-bottom: 15px;
-  padding: 5px 0 10px 0;
+  padding: 10px 0 10px 0;
   border-radius: 10px;
+  /* background-color: #f0f0f0; */
+  background-color: #f0f0f0;
+  /* :nth-child(2n) {
+    background-color: #e0e0e0;
+  } */
 
   .addRisk {
     display: flex;
     justify-content: flex-end;
     margin-right: 35px;
     p {
-      background-color: #a0d0a0;
+      background-color: rgba(0, 125, 0, 0.2);
       /* border: 1px solid black; */
       border-radius: 5px;
       margin-left: 5px;
@@ -86,14 +91,14 @@ const Container = styled.div`
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
-    padding: 20px;
+    padding: 10px;
     /* white-space: nowrap; */
     /* width: 200px; */
     /* border: 1px solid red; */
-  }
-  background-color: #f0f0f0;
-  :nth-child(2n) {
-    background-color: #e0e0e0;
+    /* border: 1px solid red; */
+    border-radius: 5px;
+    margin: 0 10px;
+    background-color: white;
   }
   .risks {
     width: 100%;
