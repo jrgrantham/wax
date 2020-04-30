@@ -194,7 +194,6 @@ select {
   color: black;
   border: 1px solid black;
   border-radius: 5px;
-  min-width: 200px;
   padding: 5px;
   box-shadow: none;
   -webkit-box-shadow: none;

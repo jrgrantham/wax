@@ -45,18 +45,19 @@ export default connect((state) => state, {
 
 const Container = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 15px 0;
   border-radius: 10px;
 
   .addRisk {
     display: flex;
     justify-content: flex-end;
-    margin-right: 55px;
+    margin-right: 35px;
     p {
-      border: 1px solid black;
+      background-color: #a0d0a0;
+      /* border: 1px solid black; */
       border-radius: 5px;
-      margin-left: 10px;
+      margin-left: 5px;
       padding: 0.3rem 0.8rem
     }
   }

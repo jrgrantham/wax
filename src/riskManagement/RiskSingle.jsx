@@ -7,6 +7,7 @@ import {
   deleteRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
+import tick from "../images/tick.png";
 
 function RiskSingle(props) {
   const { type, risk } = props;
@@ -20,13 +21,19 @@ function RiskSingle(props) {
   const initialRiskText = {
     description: risk.description,
     mitigation: risk.mitigation,
+    owner: risk.owner,
+    changes: false,
   };
 
   const [riskText, setRiskText] = useState(initialRiskText);
 
   function onChange(event) {
     console.log(event.target.name);
-    setRiskText({ ...riskText, [event.target.name]: event.target.value });
+    setRiskText({
+      ...riskText,
+      [event.target.name]: event.target.value,
+      changes: true,
+    });
   }
 
   return (
@@ -71,15 +78,28 @@ function RiskSingle(props) {
         name="mitigation"
         value={riskText.mitigation}
       />
-      <div className={`${risk.owner.toLowerCase()} owner flag`}>
+      <input
+        className={`${risk.owner.toLowerCase()} owner flag`}
+        type="text"
+        onChange={onChange}
+        name="owner"
+        value={riskText.owner}
+      />
+      {/* <div className={`${risk.owner.toLowerCase()} owner flag`}>
         <h6>{risk.owner}</h6>
-      </div>
-      <div
-        className="delete"
-        onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}
-      >
-        <img src={removeIcon} alt="delete" />
-      </div>
+      </div> */}
+      {riskText.changes ? (
+        <div className="icon" onClick={() => {}}>
+          <img src={tick} alt="delete" />
+        </div>
+      ) : (
+        <div
+          className="icon"
+          onClick={() => props.deleteRisk(type.toLowerCase(), risk.id)}
+        >
+          <img src={removeIcon} alt="delete" />
+        </div>
+      )}
     </Container>
   );
 }
@@ -92,9 +112,13 @@ export default connect((state) => state, {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 90px 90px 1fr 90px 50px;
+  grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
   column-gap: 5px;
-  margin: 5px 0;
+  margin: 10px 0;
+
+  textarea, input {
+    border: none;
+  }
 
   .risk {
     width: 100%;
@@ -139,6 +163,7 @@ const Container = styled.div`
     background-color: rgba(0, 125, 0, 0.5);
   }
   .owner {
+    text-align: center;
     background-color: rgba(180, 180, 180, 0.5);
   }
   .tbc {
@@ -166,11 +191,12 @@ const Container = styled.div`
   .mitigation {
     padding-left: 10px;
   }
-  .delete {
+  .icon {
     margin: auto;
-    padding-left: 5px;
+    padding-right: 5px;
     border-radius: 50%;
-    width: 25px;
+    width: 20px;
+    height: 20px;
     &:hover {
       cursor: pointer;
     }

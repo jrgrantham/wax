@@ -77,9 +77,9 @@ const Container = styled.div`
 
   .titles {
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 90px 50px;
+    grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
   column-gap: 5px;
-    margin: 20px 0 20px 66px;
+    margin: 20px 0 10px 66px;
     /* padding: 20px 0; */
     h6 {
       background-color: #e0e0e0;
@@ -97,7 +97,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin: 20px 0;
+    margin: 10px;
 
     .description {
       text-align: left;
