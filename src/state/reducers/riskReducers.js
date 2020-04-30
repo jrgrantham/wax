@@ -82,8 +82,6 @@ export function riskReducer(state = riskData, action) {
         }),
       };
     case actionTypes.DELETE_RISK:
-      console.log("test");
-
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].filter(
@@ -108,6 +106,12 @@ export function riskReducer(state = riskData, action) {
           ...state.options,
           [action.payload.riskType]: action.payload.info,
         },
+      };
+    case actionTypes.ADD_EMPTY_ROW:
+      console.log("set risk info reducer");
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].concat(action.payload.data),
       };
     default:
       return state;
