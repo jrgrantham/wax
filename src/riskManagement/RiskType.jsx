@@ -26,7 +26,7 @@ function RiskType(props) {
           <div className="button">
             <p>Add new row</p>
           </div>
-          <div>
+          <div className="button">
             <p>Add from template</p>
           </div>
         </div>

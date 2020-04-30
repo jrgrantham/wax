@@ -84,6 +84,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: flex-end;
     margin: 0 10px;
+    padding-top: 15px;
 
     .description {
       text-align: left;
@@ -117,7 +118,7 @@ const Container = styled.div`
   }
 
   .contents {
-    margin-top: 120px;
+    margin-top: 135px;
   }
 
   a {
