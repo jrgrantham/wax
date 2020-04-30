@@ -120,31 +120,6 @@ function ProjectSettings(props) {
 export default connect((state) => state, { setProjectInfo })(ProjectSettings);
 
 const Container = styled.div`
-  input,
-  select {
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-    min-width: 200px;
-    padding: 5px;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -webkit-touch-callout: none;
-    /* -webkit-user-select: none; */
-    /* -khtml-user-select: none; */
-    /* -moz-user-select: none; */
-    /* -ms-user-select: none; */
-    /* user-select: none; */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    ::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: inherit;
-      opacity: 1; /* Firefox */
-    }
-  }
 
   a {
     display: inline-block;

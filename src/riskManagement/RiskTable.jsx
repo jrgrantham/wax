@@ -19,11 +19,11 @@ function RiskTable(props) {
         <h4>Risk Management Table</h4>
       </header>
       <div className="titles">
-        <h5>Risk</h5>
-        <h5>Likelihood</h5>
-        <h5>Severity</h5>
-        <h5>Owner</h5>
-        <h5>Mitigation</h5>
+        <h6>Risk</h6>
+        <h6>Likelihood</h6>
+        <h6>Severity</h6>
+        <h6>Mitigation</h6>
+        <h6>Owner</h6>
       </div>
 
       {props.projectRisks.options.managerial.display ? (
@@ -65,8 +65,6 @@ function RiskTable(props) {
           riskRange={props.projectRisks.riskRange}
         />
       ) : null}
-
-
     </Container>
   );
 }
@@ -79,10 +77,20 @@ const Container = styled.div`
 
   .titles {
     display: grid;
-    grid-template-columns: 1fr 120px 120px 120px 1fr 30px;
+    grid-template-columns: 1fr 90px 90px 1fr 90px 50px;
+  column-gap: 5px;
     margin: 20px 0 20px 66px;
-    padding: 20px 0;
-    background-color: #e0e0e0;
+    /* padding: 20px 0; */
+    h6 {
+      background-color: #e0e0e0;
+      padding: 10px 0;
+    }
+    h6:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+    h6:last-child {
+      border-radius: 0 10px 10px 0;
+    }
   }
 
   header {
