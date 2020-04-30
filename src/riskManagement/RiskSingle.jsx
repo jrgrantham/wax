@@ -172,7 +172,7 @@ const Container = styled.div`
     textarea,
     input {
       border: none;
-      resize: vertical;
+      resize: none;
       overflow: auto;
     }
 
