@@ -102,7 +102,7 @@ const Container = styled.div`
     margin: 20px 0 10px 66px;
     /* padding: 20px 0; */
     h6 {
-      background-color: #e0e0e0;
+      background-color: #f5f5f5;
       padding: 10px 0;
       border-radius: 5px;
     }
