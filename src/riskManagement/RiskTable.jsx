@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import RiskType from "./RiskType";
 import { Link } from "react-router-dom";
+import menu from '../images/menu.png'
 
 function RiskTable(props) {
 
@@ -13,8 +14,11 @@ function RiskTable(props) {
           <h4>
             Project {props.projectRisks.project} - {props.projectRisks.company}
           </h4>
-          <Link to="risk-document">View as Document</Link>
-          <h4>Risk Management Table</h4>
+          {/* <Link to="risk-document">View as Document</Link> */}
+          <div className='right'>
+            <h4>Risk Management Table</h4>
+            {/* <img src={menu} alt="menu"/> */}
+          </div>
         </header>
         <div className="titles">
           <h6>Risk</h6>
@@ -73,7 +77,7 @@ function RiskTable(props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 30px;
+  margin: 0 20px;
   /* border: 1px solid red; */
 
   header {
@@ -88,10 +92,19 @@ const Container = styled.div`
     }
   }
 
+  .right {
+    display: flex;
+    img {
+      width: 30px;
+      margin-left: 10px;
+    }
+  }
+
+
   .fixed {
     position: fixed;
     background-color: white;
-    width: calc(100% - 60px);
+    width: calc(100% - 40px);
     z-index: 1;
   }
 
@@ -115,7 +128,7 @@ const Container = styled.div`
   }
 
   .contents {
-    margin-top: 135px;
+    margin-top: 125px;
   }
 
   a {

@@ -39,18 +39,18 @@ function ProjectSettings(props) {
     setProjectForm({ ...projectForm, [event.target.name]: event.target.value });
   }
 
-  function onFormSubmit(event) {
-    event.preventDefault()
+  function submit() {
     props.setProjectInfo(projectForm)
   }
 
   return (
     <Container>
-      <form className="projectForm" onSubmit={onFormSubmit}>
+      <form className="projectForm">
         {/* company name */}
         <input
           type="text"
           onChange={onChange}
+          onBlur={() => submit()}
           name="company"
           placeholder='change company name...'
         />
@@ -62,6 +62,7 @@ function ProjectSettings(props) {
           // value={projectDetails.nature}
           type="text"
           onChange={onChange}
+          onBlur={() => submit()}
           name="nature"
           // placeholder={props.projectRisks.nature}
         >
@@ -80,6 +81,7 @@ function ProjectSettings(props) {
         <select
           type="text"
           onChange={onChange}
+          onBlur={() => submit()}
           name="type"
         >
           {projectType.map((option, index) => {
@@ -97,6 +99,7 @@ function ProjectSettings(props) {
         <input
           type="text"
           onChange={onChange}
+          onBlur={() => submit()}
           name="project"
           placeholder='change project name...'
         />
@@ -106,12 +109,12 @@ function ProjectSettings(props) {
         <input
           type="text"
           onChange={onChange}
+          onBlur={() => submit()}
           name="application"
           placeholder="optional"
         />
         <label>IUK Application Number</label>
         <br />
-        <button type="submit">Submit</button>
       </form>
     </Container>
   );

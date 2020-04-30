@@ -71,11 +71,11 @@ function RiskSingle(props) {
     <Container>
       {checkDelete ? (
         <div className="checkDelete">
-          <div className="cancel button" onClick={() => toggleDelete()}>
-            <h6>Cancel</h6>
-          </div>
           <div className="delete button" onClick={() => confirmDelete()}>
             <h6>Delete</h6>
+          </div>
+          <div className="cancel button" onClick={() => toggleDelete()}>
+            <h6>Cancel</h6>
           </div>
         </div>
       ) : (
@@ -143,12 +143,15 @@ export default connect((state) => state, {
 const Container = styled.div`
   .checkDelete {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     .button {
       /* border: 1px solid red; */
       border-radius: 5px;
-      padding: 0.6rem 5rem;
-      margin: 10px;
+      padding: 0.6rem 2rem;
+      margin: 9px;
+      &:hover {
+        cursor: pointer;
+      }
     }
     .cancel {
       background-color: green;
@@ -164,11 +167,13 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
     column-gap: 5px;
-    margin: 10px 0;
+    margin-bottom: 10px;
 
     textarea,
     input {
       border: none;
+      resize: vertical;
+      overflow: auto;
     }
 
     .risk {
@@ -190,9 +195,22 @@ const Container = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 5px;
-      height: 50px;
+      min-height: 50px;
+      height: 100%;
       &:hover {
         cursor: pointer;
+      }
+      @media (max-width: 1700px) {
+        min-height: 70px
+      }
+      @media (max-width: 1300px) {
+        min-height: 90px
+      }
+      @media (max-width: 1100px) {
+        min-height: 110px
+      }
+      @media (max-width: 980) {
+        min-height: 200px
       }
     }
     .small {
@@ -205,17 +223,17 @@ const Container = styled.div`
       /* margin-left: 5px; */
     }
     .high {
-      background-color: rgba(250, 0, 0, 0.5);
+      background-color: rgba(250, 0, 0, 0.4);
     }
     .medium {
-      background-color: rgba(250, 125, 0, 0.5);
+      background-color: rgba(250, 125, 0, 0.2);
     }
     .low {
-      background-color: rgba(0, 125, 0, 0.5);
+      background-color: rgba(0, 125, 0, 0.1);
     }
     .owner {
       text-align: center;
-      background-color: rgba(180, 180, 180, 0.5);
+      background-color: rgba(180, 180, 180, 0.4);
     }
     .tbc {
       border: 1px solid black;
