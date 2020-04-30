@@ -1,11 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-// import {
-//   updateProbability,
-//   updateConsequence,
-//   deleteRisk,
-// } from "../state/actionCreators/riskActionCreators";
 import RiskSingle from "./RiskSingle";
 
 function RiskType(props) {
@@ -36,9 +31,6 @@ function RiskType(props) {
 }
 
 export default connect((state) => state, {
-  // updateProbability,
-  // updateConsequence,
-  // deleteRisk,
 })(RiskType);
 
 const Container = styled.div`
