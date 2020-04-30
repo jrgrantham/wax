@@ -9,30 +9,51 @@ function RiskText(props) {
 
   return (
     <Container>
-        <h3>
-          Project {props.projectRisks.project} - {props.projectRisks.company}
-        </h3>
-        <h4>Risk Management Table</h4>
-      <TextType
-        risks={props.projectRisks.managerial}
-        type="Managerial"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <TextType
-        risks={props.projectRisks.technical}
-        type="Technical"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <TextType
-        risks={props.projectRisks.commercial}
-        type="Commercial"
-        riskRange={props.projectRisks.riskRange}
-      />
-      <TextType
-        risks={props.projectRisks.legal}
-        type="Legal"
-        riskRange={props.projectRisks.riskRange}
-      />
+      <h3>
+        Project {props.projectRisks.project} - {props.projectRisks.company}
+      </h3>
+      <h4>Risk Management Table</h4>
+
+      {props.projectRisks.options.managerial.display ? (
+        <TextType
+          risks={props.projectRisks.managerial}
+          type="Managerial"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.technical.display ? (
+        <TextType
+          risks={props.projectRisks.technical}
+          type="Technical"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.commercial.display ? (
+        <TextType
+          risks={props.projectRisks.commercial}
+          type="Commercial"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.legal.display ? (
+        <TextType
+          risks={props.projectRisks.legal}
+          type="Legal"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
+      {props.projectRisks.options.environmental.display ? (
+        <TextType
+          risks={props.projectRisks.environmental}
+          type="Environmental"
+          riskRange={props.projectRisks.riskRange}
+        />
+      ) : null}
+
     </Container>
   );
 }
