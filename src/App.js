@@ -3,9 +3,9 @@ import "./App.css";
 
 import { Provider } from "react-redux";
 import { riskReducer, stylingReducer } from "./state/reducers";
-import { combineReducers, createStore, compose } from "redux";
+import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
-// import thunk from "redux-thunk";
+import thunk from "redux-thunk";
 
 import RiskTable from "./riskManagement/RiskTable";
 import RiskText from "./riskManagement/TextRisks";

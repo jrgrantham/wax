@@ -1,64 +1,65 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setRiskInfo } from "../state/actionCreators/riskActionCreators";
+import { setRiskOptions } from "../state/actionCreators/riskActionCreators";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();
 
   const riskDetails = {
-    display: props.projectRisks.options.managerial.display,
-    defaultOwner: props.projectRisks.options.managerial.defaultOwner,
-    color: props.projectRisks.options.managerial.color,
+    display: props.projectRisks.options[type].display,
+    defaultOwner: props.projectRisks.options[type].defaultOwner,
+    color: props.projectRisks.options[type].color,
   };
-
-  console.log(riskDetails);
 
   const [riskForm, setRiskForm] = useState(riskDetails);
 
   function onChange(event) {
-    console.log(event.target.name);
-    console.log(event.target.value);
-
     setRiskForm({ ...riskForm, [event.target.name]: event.target.value });
+  }
+
+  function toggleDisplay() {
+    const toggledDisplay = !riskForm.display;
+    setRiskForm({...riskForm, display: toggledDisplay})
   }
 
   function onFormSubmit(event) {
     event.preventDefault();
-    props.setRiskInfo(riskForm);
+    props.setRiskOptions(type, riskForm);
   }
 
   return (
     <Container>
       <form className="riskForm" onSubmit={onFormSubmit}>
-        <div className="type">
-          <label>{props.type}</label>
-          <div className="include">
-            {props.projectRisks.options[type].display ? "On" : "Off"}
-          </div>
-          <input
-            type="text"
-            onChange={onChange}
-            name="defaultOwner"
-            placeholder="default owner"
-          />
-          <input
-            type="text"
-            onChange={onChange}
-            name="color"
-            placeholder="colour"
-          />
+        <label>{props.type}</label>
+        <div className="include" onClick={() => toggleDisplay()}>
+          {riskForm.display ? "Yes" : "No"}
         </div>
+        <input
+          type="text"
+          onChange={onChange}
+          name="defaultOwner"
+          placeholder="default owner"
+        />
+        <input
+          type="text"
+          onChange={onChange}
+          name="color"
+          placeholder="colour"
+        />
 
-        <button type="submit">Submit</button>
+        <button type="submit">Confirm</button>
       </form>
     </Container>
   );
 }
 
-export default connect((state) => state, { setRiskInfo })(RiskSettings);
+export default connect((state) => state, { setRiskOptions })(RiskSettings);
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+
   input,
   select {
     color: black;
@@ -89,6 +90,13 @@ const Container = styled.div`
     /* display: flex; */
     /* flex-direction: column; */
     padding: 10px;
+  }
+
+  .include {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 0 10px;
   }
 
   .type {

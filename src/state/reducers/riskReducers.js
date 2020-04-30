@@ -45,18 +45,23 @@ const initialState = {
 
 export function riskReducer(state = riskData, action) {
   switch (action.type) {
+    case actionTypes.UPDATE_RISK:
+      console.log(action.payload.data);
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return {
+              ...entry,
+              description: action.payload.data.description,
+              owner: action.payload.data.owner,
+              mitigation: action.payload.data.mitigation,
+            };
+          }
+          return entry;
+        }),
+      };
     case actionTypes.UPDATE_PROBABILITY:
-      console.log(
-        // "reducer",
-        " risk type: ",
-        action.payload.type,
-        "\n",
-        "risk id:   ",
-        action.payload.id,
-        "\n",
-        "prob value:",
-        action.payload.value
-      );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -67,17 +72,6 @@ export function riskReducer(state = riskData, action) {
         }),
       };
     case actionTypes.UPDATE_CONSEQUENCE:
-      console.log(
-        // "reducer",
-        " risk type: ",
-        action.payload.type,
-        "\n",
-        "risk id:   ",
-        action.payload.id,
-        "\n",
-        "cons value:",
-        action.payload.value
-      );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -88,8 +82,8 @@ export function riskReducer(state = riskData, action) {
         }),
       };
     case actionTypes.DELETE_RISK:
-      console.log('test');
-      
+      console.log("test");
+
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].filter(
@@ -97,7 +91,7 @@ export function riskReducer(state = riskData, action) {
         ),
       };
     case actionTypes.SET_PROJECT_INFO:
-      console.log('set project info');
+      console.log("set project info");
       return {
         ...state,
         company: action.payload.company,
@@ -106,11 +100,14 @@ export function riskReducer(state = riskData, action) {
         project: action.payload.project,
         application: action.payload.application,
       };
-      case actionTypes.SET_RISK_INFO:
-      console.log('set risk info');
+    case actionTypes.SET_RISK_OPTIONS:
+      console.log("set risk info reducer");
       return {
         ...state,
-
+        options: {
+          ...state.options,
+          [action.payload.riskType]: action.payload.info,
+        },
       };
     default:
       return state;

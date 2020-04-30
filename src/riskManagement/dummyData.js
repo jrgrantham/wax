@@ -36,22 +36,22 @@ export const riskData = {
     {
       id: 1,
       description:
-        "first one.",
+        "first risk.",
       probability: 1,
       consequence: 2,
       owner: "TBC",
       mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "first mitigation.",
     },
     {
       id: 2,
       description:
-        "Lorem Ipsum has been the industry's standa.",
+        "second risk.",
       probability: 0,
       consequence: 0,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "second mitigation.",
     },
     {
       id: 3,
@@ -59,7 +59,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 3,
       consequence: 1,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -69,7 +69,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 2,
       consequence: 2,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -81,7 +81,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 2,
       consequence: 1,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -91,7 +91,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 3,
       consequence: 3,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -101,7 +101,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 1,
       consequence: 2,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -111,7 +111,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 3,
       consequence: 2,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -123,7 +123,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 2,
       consequence: 1,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -133,7 +133,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 3,
       consequence: 1,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
@@ -143,7 +143,7 @@ export const riskData = {
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
       probability: 2,
       consequence: 1,
-      owner: "Damien",
+      owner: "DJ",
       mitigation:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
