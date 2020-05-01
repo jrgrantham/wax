@@ -82,9 +82,10 @@ const Container = styled.div`
       width: 200px;
       .button {
         display: inline-block;
-        border: 1px solid black;
+        border: 1px solid lightgrey;
         border-radius: 5px;
         width: 50px;
+        background-color: white;
         /* padding: 5px; */
         /* margin: 0 10px; */
         p {
@@ -103,6 +104,7 @@ const Container = styled.div`
     width: 100%;
     max-width: 150px;
     font-size: 10px;
+      border: 1px solid lightgrey;
     /* border: 1px solid red; */
     margin: 5px;
   }
