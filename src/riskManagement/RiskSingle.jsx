@@ -50,21 +50,22 @@ function RiskSingle(props) {
     props.updateRisk(type, risk.id, event.target.name, event.target.value);
   }
 
-  // console.log(`${type}description${risk.id}`);
-  // console.log(`${type}mitigation${risk.id}`);
   const [height, setHeight] = useState(0);
   function getMaxHeight() {
-    const descHeight = document.getElementById(`${type}description${risk.id}`)
-      .scrollHeight;
-    const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
-      .scrollHeight;
-    console.log(Math.max(descHeight, mitiHeight));
-    setHeight(Math.max(descHeight, mitiHeight));
+    try {
+      const descHeight = document.getElementById(`${type}description${risk.id}`)
+        .scrollHeight;
+      const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
+        .scrollHeight;
+      setHeight(Math.max(descHeight, mitiHeight));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {
     getMaxHeight();
-  }, [sortByRisk()]);
+  }, [sortByRisk(), deleteRisk()]);
 
   return (
     <Container>
@@ -189,18 +190,6 @@ const Container = styled.div`
       &:hover {
         cursor: pointer;
       }
-      /* @media (max-width: 1700px) {
-        min-height: 70px;
-      }
-      @media (max-width: 1300px) {
-        min-height: 90px;
-      }
-      @media (max-width: 1100px) {
-        min-height: 110px;
-      }
-      @media (max-width: 980) {
-        min-height: 200px;
-      } */
     }
     .small {
       font-size: 0.8rem;
