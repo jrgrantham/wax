@@ -1,5 +1,5 @@
 import * as actionTypes from "../actionTypes";
-import { riskData } from "../../riskManagement/dummyData";
+import { riskData } from "../../data/dummyData";
 
 const initialState = {
   company: "",
@@ -116,8 +116,6 @@ export function riskReducer(state = riskData, action) {
         ),
       };
     case actionTypes.TOGGLE_RISK_DISPLAY:
-      console.log(action.payload);
-      
       return {
         ...state,
         options: {
@@ -128,6 +126,12 @@ export function riskReducer(state = riskData, action) {
           }
         },
       };
+      case actionTypes.SORT_BY_RISK:
+        console.log(action.payload);
+        return {
+          ...state,
+          [action.payload.type]: action.payload.data
+        }
     default:
       return state;
   }

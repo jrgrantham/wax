@@ -75,9 +75,19 @@ export function addEmptyRow(type, data) {
 }
 
 export function toggleRiskDisplay(type) {
-  console.log(type);
   return {
     type: actionTypes.TOGGLE_RISK_DISPLAY,
     payload: type,
+  }
+}
+
+export function sortByRisk(type, data) {
+  console.log(type);
+  return {
+    type: actionTypes.SORT_BY_RISK,
+    payload: {
+      type,
+      data
+    }
   }
 }
