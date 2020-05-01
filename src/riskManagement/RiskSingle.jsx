@@ -1,54 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import {
   updateProbability,
   updateConsequence,
   deleteRisk,
+  sortByRisk,
   updateRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
-import tick from "../images/tick.png";
 
 function RiskSingle(props) {
-  const { type, risk } = props;
+  const type = props.type.toLowerCase();
+  const risk = props.risk;
   const riskRange = props.projectRisks.riskRange;
 
   function riskValue(value) {
     return riskRange[value];
   }
 
-  const initialRiskText = {
-    description: risk.description,
-    mitigation: risk.mitigation,
-    owner: risk.owner,
-    changes: false,
-  };
-
-  const [riskText, setRiskText] = useState(initialRiskText);
   const [checkDelete, setCheckDelete] = useState(false);
 
   function toggleDelete() {
     setCheckDelete(!checkDelete);
   }
 
-  function onChange(event) {
-    console.log(event.target.name);
-    setRiskText({
-      ...riskText,
-      [event.target.name]: event.target.value,
-      changes: true,
-    });
-  }
-
-  function confirmChanges() {
-    props.updateRisk(type.toLowerCase(), risk.id, riskText);
-    setRiskText({ ...riskText, changes: false });
-  }
-
   function confirmProbability() {
     props.updateProbability(
-      type.toLowerCase(),
+      type,
       risk.id,
       (risk.probability + 1) % riskRange.length
     );
@@ -56,16 +35,36 @@ function RiskSingle(props) {
 
   function confirmConsequence() {
     props.updateConsequence(
-      type.toLowerCase(),
+      type,
       risk.id,
       (risk.consequence + 1) % riskRange.length
     );
   }
 
   function confirmDelete() {
-    props.deleteRisk(type.toLowerCase(), risk.id);
+    props.deleteRisk(type, risk.id);
     setCheckDelete(false);
   }
+
+  function updateText(event) {
+    props.updateRisk(type, risk.id, event.target.name, event.target.value);
+  }
+
+  // console.log(`${type}description${risk.id}`);
+  // console.log(`${type}mitigation${risk.id}`);
+  const [height, setHeight] = useState(0);
+  function getMaxHeight() {
+    const descHeight = document.getElementById(`${type}description${risk.id}`)
+      .scrollHeight;
+    const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
+      .scrollHeight;
+    console.log(Math.max(descHeight, mitiHeight));
+    setHeight(Math.max(descHeight, mitiHeight));
+  }
+
+  useEffect(() => {
+    getMaxHeight();
+  }, [sortByRisk()]);
 
   return (
     <Container>
@@ -81,11 +80,12 @@ function RiskSingle(props) {
       ) : (
         <div className="risk">
           <textarea
+            style={{ height: height }}
+            id={`${type}description${risk.id}`}
             type="text"
-            onChange={onChange}
+            onChange={updateText}
             name="description"
-            value={riskText.description}
-            onBlur={() => confirmChanges()}
+            value={risk.description}
           />
           <div
             onClick={() => confirmProbability()}
@@ -104,19 +104,18 @@ function RiskSingle(props) {
             <h6>{riskValue(risk.consequence)}</h6>
           </div>
           <textarea
+            id={`${type}mitigation${risk.id}`}
             type="text"
-            onChange={onChange}
+            onChange={updateText}
             name="mitigation"
-            value={riskText.mitigation}
-            onBlur={() => confirmChanges()}
+            value={risk.mitigation}
           />
           <input
             className={`${risk.owner.toLowerCase()} owner`}
             type="text"
-            onChange={onChange}
+            onChange={updateText}
             name="owner"
-            value={riskText.owner}
-            onBlur={() => confirmChanges()}
+            value={risk.owner}
           />
 
           <div className="icon" onClick={() => toggleDelete()}>
@@ -132,6 +131,7 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
+  sortByRisk,
   updateRisk,
 })(RiskSingle);
 
@@ -189,7 +189,7 @@ const Container = styled.div`
       &:hover {
         cursor: pointer;
       }
-      @media (max-width: 1700px) {
+      /* @media (max-width: 1700px) {
         min-height: 70px;
       }
       @media (max-width: 1300px) {
@@ -200,7 +200,7 @@ const Container = styled.div`
       }
       @media (max-width: 980) {
         min-height: 200px;
-      }
+      } */
     }
     .small {
       font-size: 0.8rem;

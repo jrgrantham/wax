@@ -1,13 +1,12 @@
 import * as actionTypes from "../actionTypes";
 
-export function updateRisk(type, id, data) {
-  console.log(data);
-
+export function updateRisk(type, id, field, data) {
   return {
     type: actionTypes.UPDATE_RISK,
     payload: {
       type,
       id,
+      field,
       data,
     },
   };
@@ -82,7 +81,6 @@ export function toggleRiskDisplay(type) {
 }
 
 export function sortByRisk(type, data) {
-  console.log(type);
   return {
     type: actionTypes.SORT_BY_RISK,
     payload: {

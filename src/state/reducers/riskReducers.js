@@ -53,9 +53,7 @@ export function riskReducer(state = riskData, action) {
           if (entry.id === action.payload.id) {
             return {
               ...entry,
-              description: action.payload.data.description,
-              owner: action.payload.data.owner,
-              mitigation: action.payload.data.mitigation,
+              [action.payload.field]: action.payload.data,
             };
           }
           return entry;
@@ -122,16 +120,17 @@ export function riskReducer(state = riskData, action) {
           ...state.options,
           [action.payload]: {
             ...state.options[action.payload],
-            display: !state.options[action.payload].display
-          }
+            display: !state.options[action.payload].display,
+          },
         },
       };
-      case actionTypes.SORT_BY_RISK:
-        console.log(action.payload);
-        return {
-          ...state,
-          [action.payload.type]: action.payload.data
-        }
+    case actionTypes.SORT_BY_RISK:
+      console.log(action.payload.type);
+      console.log(action.payload.data);
+      return {
+        ...state,
+        [action.payload.type]: action.payload.data,
+      };
     default:
       return state;
   }

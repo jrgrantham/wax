@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import RiskSingle from "./RiskSingle";
 import { v4 as uuidv4 } from "uuid";
-import { addEmptyRow, sortByRisk } from "../state/actionCreators/riskActionCreators";
+import {
+  addEmptyRow,
+  sortByRisk,
+} from "../state/actionCreators/riskActionCreators";
 
 function RiskType(props) {
   const { type, risks } = props;
@@ -28,19 +31,20 @@ function RiskType(props) {
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type.toLowerCase()].map(entry => {
-      const value = entry.probability * entry.consequence;
-      console.log(type, entry, value);
-      return {...entry, risk: value}
-    })
-    return calculatedRisks
+    const calculatedRisks = props.projectRisks[type.toLowerCase()].map(
+      (entry) => {
+        const value = entry.probability * entry.consequence;
+        return { ...entry, risk: value };
+      }
+    );
+    return calculatedRisks;
   }
 
   function sortRisks() {
     const sortedRisks = calculateRisk().sort(function (a, b) {
-      return b.risk - a.risk
-    })
-    props.sortByRisk(type.toLowerCase(), sortedRisks)
+      return b.risk - a.risk;
+    });
+    props.sortByRisk(type.toLowerCase(), sortedRisks);
   }
 
   return (
@@ -54,7 +58,7 @@ function RiskType(props) {
         ))}
         <div className="buttons">
           <div className="button" onClick={() => sortRisks()}>
-            <p>Sort</p>
+            <p>Sort and update</p>
           </div>
           <div className="addRisk">
             <div className="button middle" onClick={() => addEmptyRow()}>
@@ -70,7 +74,10 @@ function RiskType(props) {
   );
 }
 
-export default connect((state) => state, { addEmptyRow, sortByRisk })(RiskType);
+export default connect((state) => state, {
+  addEmptyRow,
+  sortByRisk
+})(RiskType);
 
 const Container = styled.div`
   display: flex;
@@ -83,7 +90,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     .addRisk {
-      margin-right: 35px;
+      margin-right: 25px;
       display: flex;
     }
     .button {
