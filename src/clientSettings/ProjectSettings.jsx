@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectInfo } from "../state/actionCreators/riskActionCreators";
+import { globalSettings } from "../riskManagement/globalSettings";
 
 function ProjectSettings(props) {
   const projectDetails = {
@@ -13,51 +14,33 @@ function ProjectSettings(props) {
   };
 
   const [projectForm, setProjectForm] = useState(projectDetails);
-
-  // console.log(props.projectRisks.company);
-
-  const nature = [
-    "select nature...",
-    "nature 1",
-    "nature 2",
-    "nature 3",
-    "nature 4",
-    "nature 5",
-    "nature 6",
-  ];
-
-  const projectType = [
-    "select project type...",
-    "projectType 1",
-    "projectType 2",
-    "projectType 3",
-    "projectType 4",
-    "projectType 5",
-  ];
+  const nature = globalSettings.project.nature;
+  const projectType = globalSettings.project.type;
 
   function onChange(event) {
     setProjectForm({ ...projectForm, [event.target.name]: event.target.value });
   }
 
   function submit() {
-    props.setProjectInfo(projectForm)
+    props.setProjectInfo(projectForm);
   }
 
   return (
     <Container>
       <form className="projectForm">
+        <h5>Project Settings</h5>
         {/* company name */}
+        <label>Company Name: {props.projectRisks.company}</label>
         <input
           type="text"
           onChange={onChange}
           onBlur={() => submit()}
           name="company"
-          placeholder='change company name...'
+          placeholder="change company name..."
         />
-        <label>{props.projectRisks.company}</label>
-        <br />
 
         {/* nature */}
+        <label>Project Nature: {props.projectRisks.nature}</label>
         <select
           // value={projectDetails.nature}
           type="text"
@@ -74,10 +57,9 @@ function ProjectSettings(props) {
             );
           })}
         </select>
-        <label>{props.projectRisks.nature}</label>
-        <br />
 
         {/* type */}
+        <label>Project Type: {props.projectRisks.type}</label>
         <select
           type="text"
           onChange={onChange}
@@ -92,20 +74,18 @@ function ProjectSettings(props) {
             );
           })}
         </select>
-        <label>{props.projectRisks.type}</label>
-        <br />
 
         {/* project */}
+        <label>Project Name: {props.projectRisks.project}</label>
         <input
           type="text"
           onChange={onChange}
           onBlur={() => submit()}
           name="project"
-          placeholder='change project name...'
+          placeholder="change project name..."
         />
-        <label>{props.projectRisks.project}</label>
-        <br />
 
+        <label>IUK Application Number: {props.projectRisks.application}</label>
         <input
           type="text"
           onChange={onChange}
@@ -113,7 +93,6 @@ function ProjectSettings(props) {
           name="application"
           placeholder="optional"
         />
-        <label>IUK Application Number</label>
         <br />
       </form>
     </Container>
@@ -123,17 +102,37 @@ function ProjectSettings(props) {
 export default connect((state) => state, { setProjectInfo })(ProjectSettings);
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid black; */
+  padding: 20px;
 
-  a {
-    display: inline-block;
-    border: 1px solid #e0e0e0;
-    padding: 0.6rem 1.6rem;
-    border-radius: 5px;
+  h5 {
+    margin: 10px;
+  }
+
+  label {
+    margin: 5px;
   }
 
   .projectForm {
-    /* display: flex; */
-    /* flex-direction: column; */
+    /* border: 1px solid red; */
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
+    background-color: #f0f0f0;
+
+    input,
+    select {
+      width: 100%;
+      max-width: 150px;
+      font-size: 10px;
+      border: 1px solid lightgrey;
+      margin-bottom: 10px;
+    }
   }
 `;

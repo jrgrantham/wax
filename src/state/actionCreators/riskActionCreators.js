@@ -69,7 +69,15 @@ export function addEmptyRow(type, data) {
     type: actionTypes.ADD_EMPTY_ROW,
     payload: {
       data,
-      type
+      type,
     },
   };
+}
+
+export function toggleRiskDisplay(type) {
+  console.log(type);
+  return {
+    type: actionTypes.TOGGLE_RISK_DISPLAY,
+    payload: type,
+  }
 }

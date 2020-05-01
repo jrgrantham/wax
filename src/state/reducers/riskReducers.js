@@ -111,7 +111,22 @@ export function riskReducer(state = riskData, action) {
       console.log("set risk info reducer");
       return {
         ...state,
-        [action.payload.type]: state[action.payload.type].concat(action.payload.data),
+        [action.payload.type]: state[action.payload.type].concat(
+          action.payload.data
+        ),
+      };
+    case actionTypes.TOGGLE_RISK_DISPLAY:
+      console.log(action.payload);
+      
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          [action.payload]: {
+            ...state.options[action.payload],
+            display: !state.options[action.payload].display
+          }
+        },
       };
     default:
       return state;
