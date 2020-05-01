@@ -1,33 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
   updateRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
+import tick from "../images/tick.png";
 
 function RiskSingle(props) {
-  const type = props.type.toLowerCase();
-  const risk = props.risk;
+  const { type, risk } = props;
   const riskRange = props.projectRisks.riskRange;
 
   function riskValue(value) {
     return riskRange[value];
   }
 
+  const initialRiskText = {
+    description: risk.description,
+    mitigation: risk.mitigation,
+    owner: risk.owner,
+    changes: false,
+  };
+
+  const [riskText, setRiskText] = useState(initialRiskText);
   const [checkDelete, setCheckDelete] = useState(false);
 
   function toggleDelete() {
-    setCheckDelete(!checkDelete);
+    setCheckDelete(!checkDelete)
+  }
+
+  function onChange(event) {
+    console.log(event.target.name);
+    setRiskText({
+      ...riskText,
+      [event.target.name]: event.target.value,
+      changes: true,
+    });
+  }
+
+  function confirmChanges() {
+    props.updateRisk(type.toLowerCase(), risk.id, riskText);
+    setRiskText({ ...riskText, changes: false });
   }
 
   function confirmProbability() {
     props.updateProbability(
-      type,
+      type.toLowerCase(),
       risk.id,
       (risk.probability + 1) % riskRange.length
     );
@@ -35,37 +56,16 @@ function RiskSingle(props) {
 
   function confirmConsequence() {
     props.updateConsequence(
-      type,
+      type.toLowerCase(),
       risk.id,
       (risk.consequence + 1) % riskRange.length
     );
   }
 
   function confirmDelete() {
-    props.deleteRisk(type, risk.id);
-    setCheckDelete(false);
+    props.deleteRisk(type.toLowerCase(), risk.id);
+    setCheckDelete(false)
   }
-
-  function updateText(event) {
-    props.updateRisk(type, risk.id, event.target.name, event.target.value);
-  }
-
-  const [height, setHeight] = useState(0);
-  function getMaxHeight() {
-    try {
-      const descHeight = document.getElementById(`${type}description${risk.id}`)
-        .scrollHeight;
-      const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
-        .scrollHeight;
-      setHeight(Math.max(descHeight, mitiHeight));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getMaxHeight();
-  }, [sortByRisk(), deleteRisk()]);
 
   return (
     <Container>
@@ -81,12 +81,10 @@ function RiskSingle(props) {
       ) : (
         <div className="risk">
           <textarea
-            style={{ height: height }}
-            id={`${type}description${risk.id}`}
             type="text"
-            onChange={updateText}
+            onChange={onChange}
             name="description"
-            value={risk.description}
+            value={riskText.description}
           />
           <div
             onClick={() => confirmProbability()}
@@ -105,23 +103,30 @@ function RiskSingle(props) {
             <h6>{riskValue(risk.consequence)}</h6>
           </div>
           <textarea
-            id={`${type}mitigation${risk.id}`}
             type="text"
-            onChange={updateText}
+            onChange={onChange}
             name="mitigation"
-            value={risk.mitigation}
+            value={riskText.mitigation}
           />
           <input
             className={`${risk.owner.toLowerCase()} owner`}
             type="text"
-            onChange={updateText}
+            onChange={onChange}
             name="owner"
-            value={risk.owner}
+            value={riskText.owner}
           />
-
-          <div className="icon" onClick={() => toggleDelete()}>
-            <img src={removeIcon} alt="delete" />
-          </div>
+          {/* <div className={`${risk.owner.toLowerCase()} owner flag`}>
+          <h6>{risk.owner}</h6>
+        </div> */}
+          {riskText.changes ? (
+            <div className="icon" onClick={() => confirmChanges()}>
+              <img src={tick} alt="delete" />
+            </div>
+          ) : (
+            <div className="icon" onClick={() => toggleDelete()}>
+              <img src={removeIcon} alt="delete" />
+            </div>
+          )}
         </div>
       )}
     </Container>
@@ -132,7 +137,6 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
   updateRisk,
 })(RiskSingle);
 
@@ -161,18 +165,24 @@ const Container = styled.div`
 
   .risk {
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
+    grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
     column-gap: 5px;
     margin-bottom: 10px;
-    &:hover > .icon {
-      opacity: 1;
-    }
 
     textarea,
     input {
       border: none;
       resize: none;
       overflow: auto;
+    }
+
+    .risk {
+      width: 100%;
+      padding: 10px;
+      align-items: center;
+
+      :nth-child(2n) {
+      }
     }
     .description {
       justify-content: flex-start;
@@ -189,6 +199,18 @@ const Container = styled.div`
       height: 100%;
       &:hover {
         cursor: pointer;
+      }
+      @media (max-width: 1700px) {
+        min-height: 70px
+      }
+      @media (max-width: 1300px) {
+        min-height: 90px
+      }
+      @media (max-width: 1100px) {
+        min-height: 110px
+      }
+      @media (max-width: 980) {
+        min-height: 200px
       }
     }
     .small {
@@ -239,7 +261,6 @@ const Container = styled.div`
       padding-left: 10px;
     }
     .icon {
-      opacity: 0;
       margin: auto;
       padding-right: 5px;
       border-radius: 50%;

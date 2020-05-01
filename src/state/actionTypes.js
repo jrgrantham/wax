@@ -15,6 +15,8 @@ export const UPDATE_RISK = 'UPDATE_RISK';
 export const DELETE_RISK = 'DELETE_RISK';
 export const ADD_EMPTY_ROW = 'ADD_EMPTY_ROW';
 export const ADD_TEMPLATE_ROW = 'ADD_TEMPLATE_ROW';
+export const SORT_BY_RISK = 'SORT_BY_RISK';
+
 
 // STYLING ACTIONS
 export const SET_BACKGROUND_COLOR = 'SET_BACKGROUND_COLOR';

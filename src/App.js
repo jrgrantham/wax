@@ -31,6 +31,7 @@ function App() {
         <Route exact path='/' component={ClientSettings} />
         <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
+        <Route path='/risk-templates' component={RiskText} />
       </div>
     </Provider>
   );
