@@ -106,7 +106,7 @@ const Container = styled.div`
     }
     .titles {
       display: grid;
-      grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
+      grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
       column-gap: 5px;
       margin: 20px 0 10px 66px;
       /* padding: 20px 0; */

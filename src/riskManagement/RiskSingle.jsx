@@ -29,7 +29,7 @@ function RiskSingle(props) {
   const [checkDelete, setCheckDelete] = useState(false);
 
   function toggleDelete() {
-    setCheckDelete(!checkDelete)
+    setCheckDelete(!checkDelete);
   }
 
   function onChange(event) {
@@ -64,7 +64,7 @@ function RiskSingle(props) {
 
   function confirmDelete() {
     props.deleteRisk(type.toLowerCase(), risk.id);
-    setCheckDelete(false)
+    setCheckDelete(false);
   }
 
   return (
@@ -85,6 +85,7 @@ function RiskSingle(props) {
             onChange={onChange}
             name="description"
             value={riskText.description}
+            onBlur={() => confirmChanges()}
           />
           <div
             onClick={() => confirmProbability()}
@@ -107,6 +108,7 @@ function RiskSingle(props) {
             onChange={onChange}
             name="mitigation"
             value={riskText.mitigation}
+            onBlur={() => confirmChanges()}
           />
           <input
             className={`${risk.owner.toLowerCase()} owner`}
@@ -114,19 +116,12 @@ function RiskSingle(props) {
             onChange={onChange}
             name="owner"
             value={riskText.owner}
+            onBlur={() => confirmChanges()}
           />
-          {/* <div className={`${risk.owner.toLowerCase()} owner flag`}>
-          <h6>{risk.owner}</h6>
-        </div> */}
-          {riskText.changes ? (
-            <div className="icon" onClick={() => confirmChanges()}>
-              <img src={tick} alt="delete" />
-            </div>
-          ) : (
-            <div className="icon" onClick={() => toggleDelete()}>
-              <img src={removeIcon} alt="delete" />
-            </div>
-          )}
+
+          <div className="icon" onClick={() => toggleDelete()}>
+            <img src={removeIcon} alt="delete" />
+          </div>
         </div>
       )}
     </Container>
@@ -165,24 +160,18 @@ const Container = styled.div`
 
   .risk {
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 75px 30px;
+    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
     column-gap: 5px;
     margin-bottom: 10px;
+    &:hover > .icon {
+      opacity: 1;
+    }
 
     textarea,
     input {
       border: none;
       resize: none;
       overflow: auto;
-    }
-
-    .risk {
-      width: 100%;
-      padding: 10px;
-      align-items: center;
-
-      :nth-child(2n) {
-      }
     }
     .description {
       justify-content: flex-start;
@@ -201,16 +190,16 @@ const Container = styled.div`
         cursor: pointer;
       }
       @media (max-width: 1700px) {
-        min-height: 70px
+        min-height: 70px;
       }
       @media (max-width: 1300px) {
-        min-height: 90px
+        min-height: 90px;
       }
       @media (max-width: 1100px) {
-        min-height: 110px
+        min-height: 110px;
       }
       @media (max-width: 980) {
-        min-height: 200px
+        min-height: 200px;
       }
     }
     .small {
@@ -261,6 +250,7 @@ const Container = styled.div`
       padding-left: 10px;
     }
     .icon {
+      opacity: 0;
       margin: auto;
       padding-right: 5px;
       border-radius: 50%;
