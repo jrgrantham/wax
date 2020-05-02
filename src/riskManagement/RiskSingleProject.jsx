@@ -8,7 +8,7 @@ import {
   updateRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
-import { Container } from "./riskSinlgeStyle";
+import { Container } from "./riskSingleStyle";
 
 function RiskSingle(props) {
   const type = props.type.toLowerCase();

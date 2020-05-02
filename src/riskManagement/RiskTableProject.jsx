@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import RiskType from "./RiskTypeProject";
+import { Container } from "./riskTableStyling";
 
 function RiskTable(props) {
   return (
@@ -70,65 +70,5 @@ function RiskTable(props) {
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 20px;
-
-  /* border: 1px solid red; */
-
-  .right {
-    display: flex;
-    img {
-      width: 30px;
-      margin-left: 10px;
-    }
-  }
-
-  .fixed {
-    position: fixed;
-    background-color: white;
-    width: calc(100% - 40px);
-    max-width: 1500px;
-    z-index: 1;
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin: 0 10px;
-      padding-top: 15px;
-
-      .description {
-        text-align: left;
-      }
-    }
-    .titles {
-      display: grid;
-      grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
-      column-gap: 5px;
-      margin: 20px 0 10px 66px;
-      /* padding: 20px 0; */
-      h6 {
-        background-color: #f5f5f5;
-        padding: 10px 0;
-        border-radius: 5px;
-      }
-    }
-  }
-  .contents {
-    margin-top: 125px;
-    width: 100%;
-    max-width: 1500px;
-  }
-
-  a {
-    display: inline-block;
-    border: 1px solid #e0e0e0;
-    padding: 0.6rem 1.6rem;
-    border-radius: 5px;
-  }
-`;
 
 export default connect((state) => state, {})(RiskTable);

@@ -8,7 +8,7 @@ import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
 import RiskTableProject from "./riskManagement/RiskTableProject";
-import RiskText from "./riskManagement/TextRisks";
+import RiskText from "./riskManagement/TextRisksDocument";
 import ClientSettings from "./clientSettings/ClientSettings";
 import RiskTableTemplate from "./riskManagement/RiskTableTemplate";
 
