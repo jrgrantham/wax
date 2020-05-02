@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import {
   updateProbability,
   updateConsequence,
@@ -9,6 +8,7 @@ import {
   updateRisk,
 } from "../state/actionCreators/riskActionCreators";
 import removeIcon from "../images/removeIcon.png";
+import { Container } from "./riskSinlgeStyle";
 
 function RiskSingle(props) {
   const type = props.type.toLowerCase();
@@ -50,7 +50,7 @@ function RiskSingle(props) {
     props.updateRisk(type, risk.id, event.target.name, event.target.value);
   }
 
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(50);
   function getMaxHeight() {
     try {
       const descHeight = document.getElementById(`${type}description${risk.id}`)
@@ -70,7 +70,7 @@ function RiskSingle(props) {
   return (
     <Container>
       {checkDelete ? (
-        <div className="checkDelete">
+        <div className="checkDelete" style={{ height: height }}>
           <div className="delete button" onClick={() => confirmDelete()}>
             <h6>Delete</h6>
           </div>
@@ -135,123 +135,3 @@ export default connect((state) => state, {
   sortByRisk,
   updateRisk,
 })(RiskSingle);
-
-const Container = styled.div`
-  .checkDelete {
-    display: flex;
-    justify-content: flex-end;
-    .button {
-      /* border: 1px solid red; */
-      border-radius: 5px;
-      padding: 0.6rem 2rem;
-      margin: 9px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .cancel {
-      background-color: green;
-      color: white;
-    }
-    .delete {
-      background-color: red;
-      color: white;
-    }
-  }
-
-  .risk {
-    display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
-    column-gap: 5px;
-    margin-bottom: 10px;
-    &:hover > .icon {
-      opacity: 1;
-    }
-
-    textarea,
-    input {
-      border: none;
-      resize: none;
-      overflow: auto;
-    }
-    .description {
-      justify-content: flex-start;
-      align-items: center;
-      margin-right: 20px;
-    }
-    .flag {
-      /* margin: 5px; */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 5px;
-      min-height: 50px;
-      height: 100%;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .small {
-      font-size: 0.8rem;
-    }
-    .probability {
-      /* margin-right: 5px; */
-    }
-    .consequence {
-      /* margin-left: 5px; */
-    }
-    .high {
-      background-color: rgba(250, 0, 0, 0.4);
-    }
-    .medium {
-      background-color: rgba(250, 125, 0, 0.2);
-    }
-    .low {
-      background-color: rgba(0, 125, 0, 0.1);
-    }
-    .owner {
-      text-align: center;
-      background-color: rgba(180, 180, 180, 0.4);
-    }
-    .tbc {
-      border: 1px solid black;
-      background-color: transparent;
-    }
-    .addRisk {
-      width: 100%;
-      justify-content: flex-end;
-      padding: 10px;
-      img {
-        border-radius: 50%;
-        width: 25px;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-    .even {
-      background-color: #f0f0f0;
-    }
-    .odd {
-      background-color: #e0e0e0;
-    }
-    .mitigation {
-      padding-left: 10px;
-    }
-    .icon {
-      opacity: 0;
-      margin: auto;
-      padding-right: 5px;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      &:hover {
-        cursor: pointer;
-      }
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
-`;

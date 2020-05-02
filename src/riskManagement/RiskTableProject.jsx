@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import RiskType from "./RiskType";
+import RiskType from "./RiskTypeProject";
 
 function RiskTable(props) {
   return (

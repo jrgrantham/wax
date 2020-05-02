@@ -7,7 +7,7 @@ import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTable from "./riskManagement/RiskTable";
+import RiskTable from "./riskManagement/RiskTableProject";
 import RiskText from "./riskManagement/TextRisks";
 import ClientSettings from "./clientSettings/ClientSettings";
 
