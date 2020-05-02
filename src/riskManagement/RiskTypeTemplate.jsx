@@ -1,9 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import RiskSingle from "./RiskSingle";
+import RiskSingle from "./RiskSingleProject";
 import { v4 as uuidv4 } from "uuid";
-import { addEmptyRow } from "../state/actionCreators/riskActionCreators";
+import {
+  addEmptyRow,
+  sortByRisk,
+} from "../state/actionCreators/riskActionCreators";
 
 function RiskType(props) {
   const { type, risks } = props;
@@ -24,7 +27,24 @@ function RiskType(props) {
 
   function addEmptyRow() {
     console.log("add empty row");
-    props.addEmptyRow(type.toLowerCase(), emtpyRow)
+    props.addEmptyRow(type.toLowerCase(), emtpyRow);
+  }
+
+  function calculateRisk() {
+    const calculatedRisks = props.projectRisks[type.toLowerCase()].map(
+      (entry) => {
+        const value = entry.probability * entry.consequence;
+        return { ...entry, risk: value };
+      }
+    );
+    return calculatedRisks;
+  }
+
+  function sortRisks() {
+    const sortedRisks = calculateRisk().sort(function (a, b) {
+      return b.risk - a.risk;
+    });
+    props.sortByRisk(type.toLowerCase(), sortedRisks);
   }
 
   return (
@@ -36,14 +56,17 @@ function RiskType(props) {
         {risks.map((risk, index) => (
           <RiskSingle risk={risk} type={type} key={index} />
         ))}
-        <div
-          className={risks.length % 2 === 0 ? "addRisk even" : "addRisk odd"}
-        >
-          <div className="button" onClick={() => addEmptyRow()}>
-            <p>Add new row</p>
+        <div className="buttons">
+          <div className="button" onClick={() => sortRisks()}>
+            <p>Sort and update</p>
           </div>
-          <div className="button">
-            <p>Add from template</p>
+          <div className="addRisk">
+            <div className="button middle" onClick={() => addEmptyRow()}>
+              <p>Add new row</p>
+            </div>
+            <div className="button">
+              <p>Add from template</p>
+            </div>
           </div>
         </div>
       </div>
@@ -51,7 +74,10 @@ function RiskType(props) {
   );
 }
 
-export default connect((state) => state, { addEmptyRow })(RiskType);
+export default connect((state) => state, {
+  addEmptyRow,
+  sortByRisk
+})(RiskType);
 
 const Container = styled.div`
   display: flex;
@@ -60,21 +86,26 @@ const Container = styled.div`
   border-radius: 10px;
   background-color: #f0f0f0;
 
-  .addRisk {
+  .buttons {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 35px;
-    p {
+    justify-content: space-between;
+    .addRisk {
+      margin-right: 25px;
+      display: flex;
+    }
+    .button {
       background-color: rgba(0, 125, 0, 0.2);
       /* border: 1px solid black; */
       border-radius: 5px;
-      margin-left: 5px;
       padding: 0.3rem 0.8rem;
-    }
-    .button {
+      display: flex;
+      justify-content: flex-end;
       &:hover {
         cursor: pointer;
       }
+    }
+    .middle {
+      margin: 0 10px;
     }
   }
 

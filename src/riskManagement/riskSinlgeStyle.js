@@ -31,12 +31,18 @@ export const Container = styled.div`
     &:hover > .icon {
       opacity: 1;
     }
-
     textarea,
     input {
       border: none;
       resize: none;
+      padding: 10px 5px;
       overflow: auto;
+      /* Hide scrollbar for IE and Edge */
+      -ms-overflow-style: none;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
     .description {
       justify-content: flex-start;
@@ -54,9 +60,6 @@ export const Container = styled.div`
       &:hover {
         cursor: pointer;
       }
-    }
-    .small {
-      font-size: 0.8rem;
     }
     .probability {
       /* margin-right: 5px; */

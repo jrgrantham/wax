@@ -7,9 +7,10 @@ import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTable from "./riskManagement/RiskTableProject";
+import RiskTableProject from "./riskManagement/RiskTableProject";
 import RiskText from "./riskManagement/TextRisks";
 import ClientSettings from "./clientSettings/ClientSettings";
+import RiskTableTemplate from "./riskManagement/RiskTableTemplate";
 
 const monsterReducer = combineReducers({
   projectRisks: riskReducer,
@@ -29,9 +30,9 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Route exact path='/' component={ClientSettings} />
-        <Route path='/risk-table' component={RiskTable} />
+        <Route path='/risk-table' component={RiskTableProject} />
         <Route path='/risk-document' component={RiskText} />
-        <Route path='/risk-templates' component={RiskText} />
+        <Route path='/risk-templates' component={RiskTableTemplate} />
       </div>
     </Provider>
   );
