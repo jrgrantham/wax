@@ -3,12 +3,13 @@ export const Container = styled.div`
   .checkDelete {
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 10px;
     .button {
       /* border: 1px solid red; */
       height: 40px;
       border-radius: 5px;
       padding: 0.6rem 2rem;
-      margin: auto 20px;
+      margin: auto 25px auto 0px;
       &:hover {
         cursor: pointer;
       }

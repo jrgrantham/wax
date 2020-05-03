@@ -7,7 +7,7 @@ import {
   deleteRisk,
   sortByRisk,
   updateRisk,
-} from "../state/actionCreators/riskActionCreators";
+} from "../state/actionCreators/projectActionCreators";
 import removeIcon from "../images/removeIcon.png";
 import { Container } from "./riskSingleStyle";
 
@@ -72,7 +72,7 @@ function RiskSingle(props) {
 
   useEffect(() => {
     getMaxHeight();
-  }, [sortByRisk(), deleteRisk()]);
+  }, [props.projectRisks]);
 
   return (
     <Container>

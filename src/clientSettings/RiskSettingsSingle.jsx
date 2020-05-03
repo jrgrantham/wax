@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {
   setRiskOptions,
   toggleRiskDisplay,
-} from "../state/actionCreators/riskActionCreators";
+} from "../state/actionCreators/projectActionCreators";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();

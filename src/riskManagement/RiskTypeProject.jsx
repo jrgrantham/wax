@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 import RiskSingle from "./RiskSingleProject";
 import { v4 as uuidv4 } from "uuid";
 import {
-  addEmptyRow,
+  addToProject,
   sortByRisk,
-} from "../state/actionCreators/riskActionCreators";
+} from "../state/actionCreators/projectActionCreators";
 import { Container } from "./riskTypeStyling";
 
-function RiskType(props) {
+function RiskTypeProject(props) {
   const { type, risks } = props;
 
   const defaultOwner =
@@ -26,9 +26,9 @@ function RiskType(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addEmptyRow() {
+  function addToProject() {
     console.log("add empty row");
-    props.addEmptyRow(type.toLowerCase(), emtpyRow);
+    props.addToProject(type.toLowerCase(), emtpyRow);
   }
 
   function calculateRisk() {
@@ -62,7 +62,7 @@ function RiskType(props) {
             <p>Sort and update</p>
           </div>
           <div className="addRisk">
-            <div className="button middle" onClick={() => addEmptyRow()}>
+            <div className="button middle" onClick={() => addToProject()}>
               <p>Add new row</p>
             </div>
             <Link to='/risk-templates'>
@@ -78,8 +78,8 @@ function RiskType(props) {
 }
 
 export default connect((state) => state, {
-  addEmptyRow,
+  addToProject,
   sortByRisk
-})(RiskType);
+})(RiskTypeProject);
 
 

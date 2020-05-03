@@ -1,21 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import RiskType from "./RiskTypeProject";
+import RiskType from "./RiskTypeTemplate";
 import { Container } from "./riskTableStyling";
+import { Link } from "react-router-dom";
 
-function RiskTable(props) {
+function TemplateTable(props) {
+
   return (
     <Container>
       <div className="fixed">
         <header>
-          <h4>
-            Project {props.projectRisks.project} - {props.projectRisks.company}
-          </h4>
-          {/* <Link to="risk-document">View as Document</Link> */}
-          <div className="right">
-            <h4>Risk Management Table</h4>
-            {/* <img src={menu} alt="menu"/> */}
-          </div>
+          <h4>Template Risks</h4>
+          <Link to="risk-table">
+            <h4>Return to Project</h4>
+          </Link>
         </header>
         <div className="titles">
           <h6>Risk</h6>
@@ -29,41 +27,41 @@ function RiskTable(props) {
       <div className="contents">
         {props.projectRisks.options.managerial.display ? (
           <RiskType
-            risks={props.projectRisks.managerial}
+            risks={props.adminSettings.riskTemplate.managerial}
             type="Managerial"
-            riskRange={props.projectRisks.riskRange}
+            riskRange={props.adminSettings.riskTemplate.riskRange}
           />
         ) : null}
 
         {props.projectRisks.options.technical.display ? (
           <RiskType
-            risks={props.projectRisks.technical}
+            risks={props.adminSettings.riskTemplate.technical}
             type="Technical"
-            riskRange={props.projectRisks.riskRange}
+            riskRange={props.adminSettings.riskTemplate.riskRange}
           />
         ) : null}
 
         {props.projectRisks.options.commercial.display ? (
           <RiskType
-            risks={props.projectRisks.commercial}
+            risks={props.adminSettings.riskTemplate.commercial}
             type="Commercial"
-            riskRange={props.projectRisks.riskRange}
+            riskRange={props.adminSettings.riskTemplate.riskRange}
           />
         ) : null}
 
         {props.projectRisks.options.legal.display ? (
           <RiskType
-            risks={props.projectRisks.legal}
+            risks={props.adminSettings.riskTemplate.legal}
             type="Legal"
-            riskRange={props.projectRisks.riskRange}
+            riskRange={props.adminSettings.riskTemplate.riskRange}
           />
         ) : null}
 
         {props.projectRisks.options.environmental.display ? (
           <RiskType
-            risks={props.projectRisks.environmental}
+            risks={props.adminSettings.riskTemplate.environmental}
             type="Environmental"
-            riskRange={props.projectRisks.riskRange}
+            riskRange={props.adminSettings.riskTemplate.riskRange}
           />
         ) : null}
       </div>
@@ -71,4 +69,4 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, {})(TemplateTable);
