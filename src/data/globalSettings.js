@@ -19,6 +19,13 @@ export const globalSettings = {
       "projectType 5",
     ],
   },
+  display: {
+    managerial: false,
+    technical: false,
+    commercial: false,
+    legal: false,
+    environmental: false,
+  },
   riskTemplate: {
     managerial: [
       {
