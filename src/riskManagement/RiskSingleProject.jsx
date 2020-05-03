@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Swipeable } from "react-swipeable";
 import {
   updateProbability,
   updateConsequence,
@@ -63,6 +64,12 @@ function RiskSingle(props) {
     }
   }
 
+  function swipe(event) {
+    if (event.dir === "Left") {
+      toggleDelete();
+    }
+  }
+
   useEffect(() => {
     getMaxHeight();
   }, [sortByRisk(), deleteRisk()]);
@@ -79,7 +86,13 @@ function RiskSingle(props) {
           </div>
         </div>
       ) : (
-        <div className="risk" style={{ height: height }}>
+        <Swipeable
+          className="risk"
+          style={{ height: height }}
+          onSwiped={(event) => {
+            swipe(event);
+          }}
+        >
           <textarea
             id={`${type}description${risk.id}`}
             type="text"
@@ -121,7 +134,7 @@ function RiskSingle(props) {
           <div className="icon" onClick={() => toggleDelete()}>
             <img src={removeIcon} alt="delete" />
           </div>
-        </div>
+        </Swipeable>
       )}
     </Container>
   );
