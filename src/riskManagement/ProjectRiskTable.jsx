@@ -1,16 +1,21 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import RiskSingle from "./RiskSingleProject";
+import RiskType from "./Options";
 import { v4 as uuidv4 } from "uuid";
+import Header from "./ProjectHeader";
+import RiskSingle from "./ProjectRisk";
+import styled from "styled-components";
 import {
   addToProject,
   sortByRisk,
 } from "../state/actionCreators/projectActionCreators";
-import { Container } from "./riskTypeStyling";
+import Options from "./Options";
 
-function RiskTypeProject(props) {
-  const { type, risks } = props;
+function RiskTable(props) {
+  const risks = props.projectRisks.managerial;
+  const type = "Managerial";
+  const riskRange = props.projectRisks.riskRange;
 
   const defaultOwner =
     props.projectRisks.options[type.toLowerCase()].defaultOwner;
@@ -50,36 +55,30 @@ function RiskTypeProject(props) {
 
   return (
     <Container>
-      <div className="type">
-        <h5>{type}</h5>
-      </div>
+      <Header />
       <div className="risks">
         {risks.map((risk, index) => (
           <RiskSingle risk={risk} type={type} key={index} />
         ))}
-        <div className="buttons">
-          <div className="button" onClick={() => sortRisks()}>
-            <p>Sort and update</p>
-          </div>
-          <div className="addRisk">
-            <div className="button middle" onClick={() => addToProject()}>
-              <p>Add new row</p>
-            </div>
-            <Link to='/risk-templates'>
-              <div className="button">
-                <p>Add from template</p>
-              </div>
-            </Link>
-          </div>
-        </div>
       </div>
+      <Options />
     </Container>
   );
 }
 
-export default connect((state) => state, {
-  addToProject,
-  sortByRisk
-})(RiskTypeProject);
+export default connect((state) => state, {})(RiskTable);
 
-
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+  /* border: 1px solid black; */
+  .risks {
+    background-color: #e5e5e5;
+    width: 100%;
+    margin-top: 177px;
+    padding-bottom: 15px;
+    border-radius: 0 0 0 20px;
+  }
+`;
