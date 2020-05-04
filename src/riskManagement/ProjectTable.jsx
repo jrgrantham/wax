@@ -15,7 +15,7 @@ function RiskTable(props) {
   const [showMenu, setShowMenu] = useState(false);
 
   function location(event) {
-    if (event.target.id === "menu") {
+    if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
     }
     setShowMenu(false);
@@ -47,7 +47,7 @@ const Container = styled.div`
   margin: 0 20px;
   min-height: 100vh;
   background-color: white;
-  padding: 10px 0 50px 0;
+  padding: 0px 0 50px 0;
   /* border: 1px solid black; */
   .risks {
     background-color: #e5e5e5;

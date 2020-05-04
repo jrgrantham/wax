@@ -7,7 +7,7 @@ import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTableProject from "./riskManagement/ProjectTable";
+import RiskTable from "./riskManagement/ProjectTable";
 import RiskText from "./riskManagement/ProjectDocument";
 import ClientSettings from "./clientSettings/ClientSettings";
 import Login from './views/Login'
@@ -32,9 +32,9 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Route path='/project-settings' component={ClientSettings} />
-        <Route path='/risk-table' component={RiskTableProject} />
+        <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
-        <Route exact path='/' component={Login} />
+        <Route exact path='/login' component={Login} />
       </div>
       <Footer />
     </Provider>
