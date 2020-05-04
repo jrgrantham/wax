@@ -88,3 +88,10 @@ export function sortByRisk(type, data) {
     }
   }
 }
+
+export function setSelected(type) {
+  return {
+    type: actionTypes.SET_SELECTED,
+    payload: type
+  }
+}

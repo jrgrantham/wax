@@ -13,8 +13,9 @@ import {
 import Options from "./Options";
 
 function RiskTable(props) {
-  const risks = props.projectRisks.managerial;
-  const type = "Managerial";
+  const selected = props.projectRisks.selected;
+  const risks = props.projectRisks[selected.toLowerCase()];
+  const type = props.projectRisks.selected.toLowerCase();
   const riskRange = props.projectRisks.riskRange;
 
   const defaultOwner =
@@ -77,6 +78,7 @@ const Container = styled.div`
   .risks {
     background-color: #e5e5e5;
     width: 100%;
+    max-width: 1500px;
     margin-top: 177px;
     padding-bottom: 15px;
     border-radius: 0 0 0 20px;

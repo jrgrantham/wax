@@ -1,9 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import menu from '../images/menu.png'
+import menu from "../images/menu.png";
+import { setSelected } from "../state/actionCreators/projectActionCreators";
 
 function RiskTable(props) {
+  function setSelected(type) {
+    props.setSelected(type);
+  }
+
   return (
     <Container>
       <header>
@@ -13,22 +18,39 @@ function RiskTable(props) {
             Project {props.projectRisks.project} - {props.projectRisks.company}
           </p>
         </div>
-        <div className="image"><img src={menu} alt="menu"/></div>
+        <div className="image">
+          <img src={menu} alt="menu" />
+        </div>
       </header>
       <div className="types">
-        <Type background={props.projectRisks.options.managerial.color}>
+        <Type
+          background={props.projectRisks.options.managerial.color}
+          onClick={() => setSelected("managerial")}
+        >
           <h6>Managerial</h6>
         </Type>
-        <Type background={props.projectRisks.options.commercial.color}>
+        <Type
+          background={props.projectRisks.options.commercial.color}
+          onClick={() => setSelected("commercial")}
+        >
           <h6>Commercial</h6>
         </Type>
-        <Type background={props.projectRisks.options.technical.color}>
+        <Type
+          background={props.projectRisks.options.technical.color}
+          onClick={() => setSelected("technical")}
+        >
           <h6>Technical</h6>
         </Type>
-        <Type background={props.projectRisks.options.environmental.color}>
+        <Type
+          background={props.projectRisks.options.environmental.color}
+          onClick={() => setSelected("environmental")}
+        >
           <h6>Environmental</h6>
         </Type>
-        <Type background={props.projectRisks.options.legal.color}>
+        <Type
+          background={props.projectRisks.options.legal.color}
+          onClick={() => setSelected("legal")}
+        >
           <h6>Legal</h6>
         </Type>
       </div>
@@ -43,7 +65,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, {setSelected})(RiskTable);
 
 const Container = styled.div`
   display: flex;
@@ -101,4 +123,7 @@ const Type = styled.div`
   border-radius: 20px 20px 0px 0px;
   background-color: ${(props) => props.background};
   padding: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

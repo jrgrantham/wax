@@ -5,7 +5,7 @@ export const riskData = {
   project: "Reacher",
   application: '',
   riskRange: ["TBC", "Low", "Medium", "High"],
-  selected: 'Managerial',
+  selected: 'Commercial',
   options: {
     managerial: {
       display: true,

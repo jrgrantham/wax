@@ -2,6 +2,7 @@
 export const SET_PROJECT_INFO = "SET_PROJECT_INFO";
 export const SET_RISK_OPTIONS = "SET_RISK_OPTIONS";
 export const TOGGLE_RISK_DISPLAY = "TOGGLE_RISK_DISPLAY";
+export const SET_SELECTED = "SET_SELECTED";
 
 // export const SET_NATURE = 'SET_NATURE';
 // export const SET_PROJECT_TYPE = 'SET_PROJECT_TYPE';

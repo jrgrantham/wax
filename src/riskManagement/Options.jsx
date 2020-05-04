@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -7,15 +7,16 @@ import {
   sortByRisk,
 } from "../state/actionCreators/projectActionCreators";
 import styled from "styled-components";
+import addIcon from "../images/addIcon.png";
 
 function Options(props) {
   const type = props.projectRisks.selected.toLowerCase();
-
   const defaultOwner =
     props.projectRisks.options[type.toLowerCase()].defaultOwner;
 
-  const randomId = uuidv4();
+  const [addRow, setAddRow] = useState(false);
 
+  const randomId = uuidv4();
   const emtpyRow = {
     id: randomId,
     description: "enter risk description.",
@@ -24,9 +25,9 @@ function Options(props) {
     owner: defaultOwner,
     mitigation: "enter risk mitigation.",
   };
-
   function addToProject() {
     console.log("add empty row");
+    setAddRow(false);
     props.addToProject(type.toLowerCase(), emtpyRow);
   }
 
@@ -51,19 +52,29 @@ function Options(props) {
     <Container>
       <div className="left"></div>
       <div className="white">
-      <div className="right">
-        <div className="button" onClick={() => sortRisks()}>
-          <p>Sort and update</p>
+        <div className="right">
+          {!addRow ? (
+            <>
+              <div className="button" onClick={() => sortRisks()}>
+                <p>Sort and update</p>
+              </div>
+              <div className="image" onClick={() => setAddRow(!addRow)}>
+                <img src={addIcon} alt="add" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="button middle" onClick={() => addToProject()}>
+                <p>Add new row</p>
+              </div>
+              <Link to="/risk-templates">
+                <div className="button">
+                  <p>Add from template</p>
+                </div>
+              </Link>
+            </>
+          )}
         </div>
-        <div className="button middle" onClick={() => addToProject()}>
-          <p>Add new row</p>
-        </div>
-        <Link to="/risk-templates">
-          <div className="button">
-            <p>Add from template</p>
-          </div>
-        </Link>
-      </div>
       </div>
     </Container>
   );
@@ -77,16 +88,12 @@ export default connect((state) => state, {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  /* margin-top: -5px; */
-  /* margin-bottom: 0px; */
-  /* padding: 0px 0 10px 0; */
   width: 100%;
+  max-width: 1500px;
   border-radius: 0px 0px 20px 0px;
   background-color: #e5e5e5;
-  /* border: 1px solid black; */
   .left {
     background-color: white;
-    /* border: 1px solid black; */
     border-radius: 0px 20px 0px 0px;
     flex-grow: 1;
   }
@@ -94,19 +101,27 @@ const Container = styled.div`
     background-color: white;
   }
   .right {
-    /* border: 1px solid black; */
+    margin-top: -10px;
     display: flex;
-    /* margin-right: 25px; */
-    padding: 0 25px 15px 25px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px 10px 25px;
     background-color: #e5e5e5;
     border-radius: 0px 0px 20px 20px;
+  }
+  .image {
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
   .button {
     background-color: rgba(0, 125, 0, 1);
     border-radius: 5px;
     padding: 0.3rem 0.8rem;
-    display: flex;
-    justify-content: flex-end;
     &:hover {
       cursor: pointer;
     }

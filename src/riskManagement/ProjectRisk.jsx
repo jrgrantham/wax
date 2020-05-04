@@ -12,7 +12,7 @@ import {
 import removeIcon from "../images/removeIcon.png";
 
 function RiskSingle(props) {
-  const type = props.type.toLowerCase();
+  const type = props.projectRisks.selected.toLowerCase();
   const risk = props.risk;
   const riskRange = props.projectRisks.riskRange;
 

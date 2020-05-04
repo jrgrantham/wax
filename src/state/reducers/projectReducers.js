@@ -128,6 +128,11 @@ export function projectReducer(state = riskData, action) {
         ...state,
         [action.payload.type]: action.payload.data,
       };
+    case actionTypes.SET_SELECTED:
+      return {
+        ...state,
+        selected: action.payload,
+      };
     default:
       return state;
   }
