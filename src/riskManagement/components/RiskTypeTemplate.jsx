@@ -1,22 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import RiskType from "./Options";
+import RiskSingle from "./RiskSingleTemplate";
 import { v4 as uuidv4 } from "uuid";
-import Header from "./ProjectHeader";
-import RiskSingle from "./ProjectRisk";
-import styled from "styled-components";
 import {
   addToProject,
   sortByRisk,
-} from "../state/actionCreators/projectActionCreators";
-import Options from "./Options";
+} from "../../state/actionCreators/projectActionCreators";
+import { Container } from "./riskTypeStyling";
 
-function RiskTable(props) {
-  const selected = props.projectRisks.selected;
-  const risks = props.projectRisks[selected.toLowerCase()];
-  const type = props.projectRisks.selected.toLowerCase();
-  const riskRange = props.projectRisks.riskRange;
+function RiskType(props) {
+  const { type, risks } = props;
 
   const defaultOwner =
     props.projectRisks.options[type.toLowerCase()].defaultOwner;
@@ -56,31 +50,39 @@ function RiskTable(props) {
 
   return (
     <Container>
-      <Header />
+      <div className="type">
+        <h5>{type}</h5>
+      </div>
       <div className="risks">
         {risks.map((risk, index) => (
           <RiskSingle risk={risk} type={type} key={index} />
         ))}
+        <div className="buttons">
+          {props.adminSettings.admin ? (
+            <div className="button" onClick={() => sortRisks()}>
+              <p>Sort and update</p>
+            </div>
+          ) : (
+            <div />
+          )}
+          <div className="addRisk">
+            {props.adminSettings.admin ? (
+              <div className="button middle" onClick={() => addToProject()}>
+                <p>Add new row</p>
+              </div>
+            ) : (
+              <div />
+            )}
+            <Link to="/risk-templates">
+              <div className="button">
+                <p>Add all to Project</p>
+              </div>
+            </Link>
+          </div>
+        </div>
       </div>
-      <Options />
     </Container>
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 20px;
-  /* border: 1px solid black; */
-  .risks {
-    background-color: #e5e5e5;
-    width: 100%;
-    max-width: 1500px;
-    margin-top: 177px;
-    padding-bottom: 15px;
-    border-radius: 0 0 0 20px;
-  }
-`;
+export default connect((state) => state, {})(RiskType);

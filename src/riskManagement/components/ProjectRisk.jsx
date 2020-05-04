@@ -8,8 +8,8 @@ import {
   deleteRisk,
   sortByRisk,
   updateRisk,
-} from "../state/actionCreators/projectActionCreators";
-import removeIcon from "../images/removeIcon.png";
+} from "../../state/actionCreators/projectActionCreators";
+import removeIcon from "../../images/removeIcon.png";
 
 function RiskSingle(props) {
   const type = props.projectRisks.selected.toLowerCase();

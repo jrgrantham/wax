@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import menu from "../images/menu.png";
-import { setSelected } from "../state/actionCreators/projectActionCreators";
+import menu from "../../images/menu.png";
+import { setSelected } from "../../state/actionCreators/projectActionCreators";
 
 function RiskTable(props) {
   function setSelected(type) {
@@ -41,18 +41,22 @@ function RiskTable(props) {
         >
           <h6>Technical</h6>
         </Type>
-        <Type
-          background={props.projectRisks.options.environmental.color}
-          onClick={() => setSelected("environmental")}
-        >
-          <h6>Environmental</h6>
-        </Type>
-        <Type
-          background={props.projectRisks.options.legal.color}
-          onClick={() => setSelected("legal")}
-        >
-          <h6>Legal</h6>
-        </Type>
+        {props.projectRisks.options.environmental.display ? (
+          <Type
+            background={props.projectRisks.options.environmental.color}
+            onClick={() => setSelected("environmental")}
+          >
+            <h6>Environmental</h6>
+          </Type>
+        ) : null}
+        {props.projectRisks.options.legal.display ? (
+          <Type
+            background={props.projectRisks.options.legal.color}
+            onClick={() => setSelected("legal")}
+          >
+            <h6>Legal</h6>
+          </Type>
+        ) : null}
       </div>
       <div className="titles">
         <h6>Description</h6>
@@ -65,7 +69,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {setSelected})(RiskTable);
+export default connect((state) => state, { setSelected })(RiskTable);
 
 const Container = styled.div`
   display: flex;

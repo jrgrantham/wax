@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
   sortByRisk,
-} from "../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/projectActionCreators";
 import styled from "styled-components";
-import addIcon from "../images/addIcon.png";
+import addIcon from "../../images/addIcon.png";
 
 function Options(props) {
   const type = props.projectRisks.selected.toLowerCase();
@@ -53,7 +53,19 @@ function Options(props) {
       <div className="left"></div>
       <div className="white">
         <div className="right">
-          {!addRow ? (
+          {addRow ? (
+            <>
+              <div className="button middle" onClick={() => addToProject()}>
+                <p>Add new row</p>
+              </div>
+              <div
+                className="button"
+                onClick={() => props.setShowTemplate(true)}
+              >
+                <p>Add from template</p>
+              </div>
+            </>
+          ) : (
             <>
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
@@ -61,17 +73,6 @@ function Options(props) {
               <div className="image" onClick={() => setAddRow(!addRow)}>
                 <img src={addIcon} alt="add" />
               </div>
-            </>
-          ) : (
-            <>
-              <div className="button middle" onClick={() => addToProject()}>
-                <p>Add new row</p>
-              </div>
-              <Link to="/risk-templates">
-                <div className="button">
-                  <p>Add from template</p>
-                </div>
-              </Link>
             </>
           )}
         </div>

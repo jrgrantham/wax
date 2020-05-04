@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import removeIcon from "../images/removeIcon.png";
-import addIcon from "../images/addIcon.png";
+import removeIcon from "../../images/removeIcon.png";
+import addIcon from "../../images/addIcon.png";
 import { Container } from "./riskSingleStyle";
 import {
   addToProject
-} from "../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/projectActionCreators";
 
 function RiskSingle(props) {
   const type = props.type.toLowerCase();
