@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -26,7 +25,6 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
   function addToProject() {
-    console.log("add empty row");
     setAddRow(false);
     props.addToProject(type.toLowerCase(), emtpyRow);
   }

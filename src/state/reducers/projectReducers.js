@@ -46,7 +46,6 @@ import { riskData } from "../../data/dummyData";
 export function projectReducer(state = riskData, action) {
   switch (action.type) {
     case actionTypes.UPDATE_RISK:
-      console.log(action.payload.data);
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -87,7 +86,6 @@ export function projectReducer(state = riskData, action) {
         ),
       };
     case actionTypes.SET_PROJECT_INFO:
-      console.log("set project info");
       return {
         ...state,
         company: action.payload.company,
@@ -97,7 +95,6 @@ export function projectReducer(state = riskData, action) {
         application: action.payload.application,
       };
     case actionTypes.SET_RISK_OPTIONS:
-      console.log("set risk info reducer");
       return {
         ...state,
         options: {

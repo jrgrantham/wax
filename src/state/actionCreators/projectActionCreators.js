@@ -45,7 +45,6 @@ export function deleteRisk(type, id) {
 }
 
 export function setProjectInfo(info) {
-  console.log(info);
   return {
     type: actionTypes.SET_PROJECT_INFO,
     payload: info,

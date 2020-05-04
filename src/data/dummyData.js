@@ -4,6 +4,9 @@ export const riskData = {
   type: 'experiment',
   project: "Reacher",
   application: '',
+  ai: true,
+  dlt: true,
+  man: true,
   riskRange: ["TBC", "Low", "Medium", "High"],
   selected: 'Commercial',
   options: {
