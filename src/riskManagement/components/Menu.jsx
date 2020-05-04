@@ -18,7 +18,10 @@ export default function Menu(props) {
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>
       </div>
-      <h6>Log Out</h6>
+      <div>
+        <h6>Change Password</h6>
+        <h6>Log Out</h6>
+      </div>
     </Container>
   );
 }
@@ -32,7 +35,7 @@ const Container = styled.div`
   transition: right 0.3s;
   top: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 30px;
+  padding: 30px 30px 20px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -50,7 +53,7 @@ const Container = styled.div`
     border: 1px solid white;
     border-radius: 10px;
     margin-bottom: 10px;
-    padding: 15px;
+    padding: 15px 30px;
     width: 100%;
     color: white;
     &:hover {
