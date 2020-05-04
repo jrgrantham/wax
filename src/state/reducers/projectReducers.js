@@ -1,31 +1,65 @@
 import * as actionTypes from "../actionTypes";
-import { riskData } from "../../riskManagement/dummyData";
+import { riskData } from "../../data/dummyData";
 
-const initialState = {
-  company: "",
-  project: "",
-  riskRange: [],
-  managerial: [],
-  technical: [],
-  commercial: [],
-  legal: [],
-};
+// const initialState = {
+//   company: "",
+//   nature: "burn",
+//   type: "experiment",
+//   project: "",
+//   application: "",
+//   riskRange: ["TBC", "Low", "Medium", "High"],
+//   options: {
+//     managerial: {
+//       display: true,
+//       defaultOwner: "JG",
+//       color: "red",
+//     },
+//     technical: {
+//       display: true,
+//       defaultOwner: "DJ",
+//       color: "blue",
+//     },
+//     commercial: {
+//       display: false,
+//       defaultOwner: "CG",
+//       color: "green",
+//     },
+//     legal: {
+//       display: true,
+//       defaultOwner: "",
+//       color: "orange",
+//     },
+//     environmental: {
+//       display: true,
+//       defaultOwner: "",
+//       color: "yellow",
+//     },
+//   },
+//   managerial: [],
+//   technical: [],
+//   commercial: [],
+//   legal: [],
+//   environmental: [],
+// };
 // to be used as initial state instead of riskData
 
 export function projectReducer(state = riskData, action) {
   switch (action.type) {
+    case actionTypes.UPDATE_RISK:
+      console.log(action.payload.data);
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return {
+              ...entry,
+              [action.payload.field]: action.payload.data,
+            };
+          }
+          return entry;
+        }),
+      };
     case actionTypes.UPDATE_PROBABILITY:
-      console.log(
-        // "reducer",
-        " risk type: ",
-        action.payload.type,
-        "\n",
-        "risk id:   ",
-        action.payload.id,
-        "\n",
-        "prob value:",
-        action.payload.value
-      );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -36,17 +70,6 @@ export function projectReducer(state = riskData, action) {
         }),
       };
     case actionTypes.UPDATE_CONSEQUENCE:
-      console.log(
-        // "reducer",
-        " risk type: ",
-        action.payload.type,
-        "\n",
-        "risk id:   ",
-        action.payload.id,
-        "\n",
-        "cons value:",
-        action.payload.value
-      );
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -62,6 +85,53 @@ export function projectReducer(state = riskData, action) {
         [action.payload.type]: state[action.payload.type].filter(
           (entry) => entry.id !== action.payload.id
         ),
+      };
+    case actionTypes.SET_PROJECT_INFO:
+      console.log("set project info");
+      return {
+        ...state,
+        company: action.payload.company,
+        nature: action.payload.nature,
+        type: action.payload.type,
+        project: action.payload.project,
+        application: action.payload.application,
+      };
+    case actionTypes.SET_RISK_OPTIONS:
+      console.log("set risk info reducer");
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          [action.payload.riskType]: action.payload.info,
+        },
+      };
+    case actionTypes.ADD_TO_PROJECT:
+      return {
+        ...state,
+        [action.payload.type]: state[action.payload.type].concat(
+          action.payload.data
+        ),
+      };
+    case actionTypes.TOGGLE_RISK_DISPLAY:
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          [action.payload]: {
+            ...state.options[action.payload],
+            display: !state.options[action.payload].display,
+          },
+        },
+      };
+    case actionTypes.SORT_BY_RISK:
+      return {
+        ...state,
+        [action.payload.type]: action.payload.data,
+      };
+    case actionTypes.SET_SELECTED:
+      return {
+        ...state,
+        selected: action.payload,
       };
     default:
       return state;

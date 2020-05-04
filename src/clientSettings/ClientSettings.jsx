@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../state/actionCreators/riskActionCreators";
+import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
 import ProjectSettings from "./ProjectSettings";
 import RiskSettings from "./RiskSettings";
 import Header from "./Header";

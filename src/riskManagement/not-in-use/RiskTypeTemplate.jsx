@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import RiskSingle from "./RiskSingleProject";
+import RiskSingle from "./RiskSingleTemplate";
 import { v4 as uuidv4 } from "uuid";
 import {
-  addEmptyRow,
+  addToProject,
   sortByRisk,
-} from "../state/actionCreators/riskActionCreators";
+} from "../../state/actionCreators/projectActionCreators";
 import { Container } from "./riskTypeStyling";
 
 function RiskType(props) {
@@ -26,9 +26,9 @@ function RiskType(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addEmptyRow() {
+  function addToProject() {
     console.log("add empty row");
-    props.addEmptyRow(type.toLowerCase(), emtpyRow);
+    props.addToProject(type.toLowerCase(), emtpyRow);
   }
 
   function calculateRisk() {
@@ -58,16 +58,24 @@ function RiskType(props) {
           <RiskSingle risk={risk} type={type} key={index} />
         ))}
         <div className="buttons">
-          <div className="button" onClick={() => sortRisks()}>
-            <p>Sort and update</p>
-          </div>
-          <div className="addRisk">
-            <div className="button middle" onClick={() => addEmptyRow()}>
-              <p>Add new row</p>
+          {props.adminSettings.admin ? (
+            <div className="button" onClick={() => sortRisks()}>
+              <p>Sort and update</p>
             </div>
-            <Link to='/risk-templates'>
+          ) : (
+            <div />
+          )}
+          <div className="addRisk">
+            {props.adminSettings.admin ? (
+              <div className="button middle" onClick={() => addToProject()}>
+                <p>Add new row</p>
+              </div>
+            ) : (
+              <div />
+            )}
+            <Link to="/risk-templates">
               <div className="button">
-                <p>Add from template</p>
+                <p>Add all to Project</p>
               </div>
             </Link>
           </div>
@@ -77,7 +85,4 @@ function RiskType(props) {
   );
 }
 
-export default connect((state) => state, {
-  addEmptyRow,
-  sortByRisk
-})(RiskType);
+export default connect((state) => state, {})(RiskType);

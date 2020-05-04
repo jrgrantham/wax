@@ -1,4 +1,5 @@
-import { riskReducer } from "./riskReducers";
+import { projectReducer } from "./projectReducers";
 import { stylingReducer } from "./stylingReducers";
+import { settingsReducer } from "./settingsReducers";
 
-export { riskReducer, stylingReducer };
+export { projectReducer, stylingReducer, settingsReducer };

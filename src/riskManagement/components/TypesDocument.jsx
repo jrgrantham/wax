@@ -5,7 +5,7 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-} from "../state/actionCreators/riskActionCreators";
+} from "../../state/actionCreators/projectActionCreators";
 
 function TextType(props) {
   const { type, risks, riskRange } = props;

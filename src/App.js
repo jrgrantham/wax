@@ -2,18 +2,20 @@ import React from "react";
 import "./App.css";
 
 import { Provider } from "react-redux";
-import { riskReducer, stylingReducer } from "./state/reducers";
+import { projectReducer, stylingReducer, settingsReducer } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTableProject from "./riskManagement/RiskTableProject";
-import RiskText from "./riskManagement/TextRisksDocument";
+import RiskTable from "./riskManagement/ProjectTable";
+import RiskText from "./riskManagement/ProjectDocument";
 import ClientSettings from "./clientSettings/ClientSettings";
-import RiskTableTemplate from "./riskManagement/RiskTableTemplate";
+import Login from './views/Login'
+import Footer from "./Footer";
 
 const monsterReducer = combineReducers({
-  projectRisks: riskReducer,
+  adminSettings: settingsReducer,
+  projectRisks: projectReducer,
   projectStyling: stylingReducer,
 });
 
@@ -29,11 +31,12 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Route exact path='/' component={ClientSettings} />
-        <Route path='/risk-table' component={RiskTableProject} />
+        <Route path='/project-settings' component={ClientSettings} />
+        <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
-        <Route path='/risk-templates' component={RiskTableTemplate} />
+        <Route exact path='/login' component={Login} />
       </div>
+      <Footer />
     </Provider>
   );
 }

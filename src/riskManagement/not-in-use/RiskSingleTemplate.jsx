@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Swipeable } from "react-swipeable";
-import {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  sortByRisk,
-  updateRisk,
-} from "../state/actionCreators/riskActionCreators";
-import removeIcon from "../images/removeIcon.png";
+import { v4 as uuidv4 } from "uuid";
+
+import removeIcon from "../../images/removeIcon.png";
+import addIcon from "../../images/addIcon.png";
 import { Container } from "./riskSingleStyle";
+import {
+  addToProject
+} from "../../state/actionCreators/projectActionCreators";
 
 function RiskSingle(props) {
   const type = props.type.toLowerCase();
   const risk = props.risk;
-  const riskRange = props.projectRisks.riskRange;
+  const riskRange = props.adminSettings.riskTemplate.riskRange;
 
   function riskValue(value) {
     return riskRange[value];
@@ -64,15 +62,21 @@ function RiskSingle(props) {
     }
   }
 
-  function swipe(event) {
-    if (event.dir === "Left") {
-      toggleDelete();
-    }
+  function addToProject() {
+    const riskClone = {
+      id: uuidv4(),
+      description: risk.description,
+      probability: risk.probability,
+      consequence: risk.consequence,
+      owner: props.projectRisks.options[type].defaultOwner,
+      mitigation: risk.mitigation,
+    };
+    props.addToProject(type, riskClone)
   }
 
   useEffect(() => {
     getMaxHeight();
-  }, [sortByRisk(), deleteRisk()]);
+  }, []);
 
   return (
     <Container>
@@ -86,13 +90,7 @@ function RiskSingle(props) {
           </div>
         </div>
       ) : (
-        <Swipeable
-          className="risk"
-          style={{ height: height }}
-          onSwiped={(event) => {
-            swipe(event);
-          }}
-        >
+        <div className="risk" style={{ height: height }}>
           <textarea
             id={`${type}description${risk.id}`}
             type="text"
@@ -130,20 +128,19 @@ function RiskSingle(props) {
             name="owner"
             value={risk.owner}
           />
-
-          <div className="icon" onClick={() => toggleDelete()}>
+          {props.adminSettings.admin ? (
+            <div className="icon" onClick={() => toggleDelete()}>
             <img src={removeIcon} alt="delete" />
           </div>
-        </Swipeable>
+          ) : (
+            <div className="icon" onClick={() => addToProject()}>
+              <img src={addIcon} alt="add" />
+            </div>
+          )}
+        </div>
       )}
     </Container>
   );
 }
 
-export default connect((state) => state, {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  sortByRisk,
-  updateRisk,
-})(RiskSingle);
+export default connect((state) => state, {addToProject})(RiskSingle);

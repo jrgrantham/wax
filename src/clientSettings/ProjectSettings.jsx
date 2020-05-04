@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../state/actionCreators/riskActionCreators";
+import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
 import { globalSettings } from "../data/globalSettings";
 
 function ProjectSettings(props) {
