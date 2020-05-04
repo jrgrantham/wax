@@ -9,10 +9,25 @@ function RiskTable(props) {
   const risks = props.adminSettings.riskTemplate[selected.toLowerCase()];
   const type = props.projectRisks.selected.toLowerCase();
 
+  function check(targetId) {
+    if (targetId === "templateContainer") {
+      props.setShowTemplate(false);
+      console.log('triggered');
+    }
+    return
+  }
+
   return (
-    <Container onClick={() => props.setShowTemplate(false)}>
+    <Container
+      id="templateContainer"
+      onClick={(event) => check(event.target.id)}
+    >
       <div className="templateContents">
         <h5>{props.projectRisks.selected} Risks</h5>
+        <div className="title">
+          <h6>Description</h6>
+          <h6>Mitigation</h6>
+        </div>
         <div className="templateRisks">
           {risks.map((risk, index) => (
             <TemplateRisk risk={risk} type={type} key={index} />
@@ -36,7 +51,6 @@ const Container = styled.div`
     margin: 20px;
   }
 
-  /* border: 1px solid black; */
   .templateContents {
     background-color: white;
     margin: 10vh auto;
@@ -47,6 +61,14 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
+  }
+  .title {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    column-gap: 5px;
+    padding: 5px 5px 5px 15px;
+    text-align: left
   }
   .templateRisks {
     background-color: #e5e5e5;

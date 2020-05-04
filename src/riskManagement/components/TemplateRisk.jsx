@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
@@ -28,39 +28,11 @@ function TemplateRisk(props) {
     props.addToProject(type, riskClone)
   }
 
-  const [height, setHeight] = useState(50);
-  function getMaxHeight() {
-    try {
-      const descHeight = document.getElementById(`${type}description${risk.id}`)
-        .scrollHeight;
-      const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
-        .scrollHeight;
-      setHeight(Math.max(descHeight, mitiHeight));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getMaxHeight();
-  }, [props.projectRisks]);
-
   return (
     <Container>
       <div className="templateRisk">
-        <textarea
-          id={`${type}description${risk.id}`}
-          type="text"
-          name="description"
-          value={risk.description}
-        />
-        <textarea
-          id={`${type}mitigation${risk.id}`}
-          type="text"
-          name="mitigation"
-          value={risk.mitigation}
-          style={{ minHeight: height }}
-        />
+        <p>{risk.description}</p>
+        <p>{risk.mitigation}</p>
         <div className="icon" onClick={() => addToProject()}>
           <img src={addIcon} alt="delete" />
         </div>
@@ -87,28 +59,20 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1fr 40px;
     column-gap: 5px;
     padding: 5px 5px 5px 15px;
-    /* transition: background-color 0.3s; */
     &:hover {
-      background-color: #c5c5c5;
+      background-color: blueviolet;
     }
-    textarea,
-    input {
+    p {
+      background-color: white;
+      border-radius: 5px;
       border: none;
       resize: none;
       padding: 10px 5px;
-      overflow: auto;
-      /* Hide scrollbar for IE and Edge */
-      -ms-overflow-style: none;
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      ::-webkit-scrollbar {
-        display: none;
-      }
     }
 
     .icon {
       display: flex;
       align-items: center;
-      opacity: 1;
       margin: auto;
       padding-right: 5px;
       width: 40px;

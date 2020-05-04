@@ -1,21 +1,33 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Header from "./components/ProjectHeader";
 import ProjectRisk from "./components/ProjectRisk";
 import styled from "styled-components";
 import Options from "./components/ProjectOptions";
 import TemplateTable from "./TemplateTable";
+import Menu from "./components/Menu";
 
 function RiskTable(props) {
   const selected = props.projectRisks.selected;
   const risks = props.projectRisks[selected.toLowerCase()];
 
-  const [showTemplate, setShowTemplate] = useState(false)
+  const [showTemplate, setShowTemplate] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  function location(event) {
+    if (event.target.id === "menu") {
+      return;
+    }
+    setShowMenu(false);
+  }
 
   return (
-    <Container>
-      {!showTemplate ? <TemplateTable setShowTemplate={setShowTemplate} /> : null}
-      <Header />
+    <Container onClick={(event) => location(event)}>
+      <Menu showMenu={showMenu} />
+      {showTemplate ? (
+        <TemplateTable setShowTemplate={setShowTemplate} />
+      ) : null}
+      <Header setShowMenu={setShowMenu} />
       <div className="risks">
         {risks.map((risk, index) => (
           <ProjectRisk risk={risk} key={index} />
@@ -35,6 +47,7 @@ const Container = styled.div`
   margin: 0 20px;
   min-height: 100vh;
   background-color: white;
+  padding: 10px 0 50px 0;
   /* border: 1px solid black; */
   .risks {
     background-color: #e5e5e5;

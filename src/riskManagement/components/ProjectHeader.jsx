@@ -9,6 +9,13 @@ function RiskTable(props) {
     props.setSelected(type);
   }
 
+  function showMenu(e) {
+    e.stopPropagation();
+    props.setShowMenu(true)
+    console.log('clicked');
+    
+  }
+
   return (
     <Container>
       <header>
@@ -18,7 +25,7 @@ function RiskTable(props) {
             Project {props.projectRisks.project} - {props.projectRisks.company}
           </p>
         </div>
-        <div className="image">
+        <div className="image" onClick={(e) => showMenu(e)}>
           <img src={menu} alt="menu" />
         </div>
       </header>
@@ -92,6 +99,9 @@ const Container = styled.div`
     .image {
       width: 30px;
       margin-right: 10px;
+      &:hover {
+        cursor: pointer;
+      }
       img {
         max-width: 100%;
         height: auto;
