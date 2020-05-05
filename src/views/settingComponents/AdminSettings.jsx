@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import RiskSettingsSingle from "./RiskSettingsSingle";
 
-export default function RiskSettings() {
+export default function AdminSettings() {
   return (
     <Container>
       <div className="content">
-        <h5>Risk Settings</h5>
+        <h5>Admin Settings</h5>
         <RiskSettingsSingle type={"Commercial"} />
         <RiskSettingsSingle type={"Technical"} />
         <RiskSettingsSingle type={"Managerial"} />
@@ -21,7 +21,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 20px 0 20px;
+  padding: 20px;
   /* border: 1px solid black; */
 
   H5 {

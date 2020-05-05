@@ -53,6 +53,9 @@ function Options(props) {
         <div className="right">
           {addRow ? (
             <>
+              <div className="button" onClick={() => setAddRow(false)}>
+                <p>Cancel</p>
+              </div>
               <div className="button middle" onClick={() => addToProject()}>
                 <p>Add new row</p>
               </div>
@@ -68,7 +71,7 @@ function Options(props) {
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
               </div>
-              <div className="image" onClick={() => setAddRow(!addRow)}>
+              <div className="image" onClick={() => setAddRow(true)}>
                 <img src={addIcon} alt="add" />
               </div>
             </>

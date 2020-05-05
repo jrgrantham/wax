@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-
-import TemplateRisk from "./components/TemplateRisk";
+import removeIcon from "../images/removeIcon.png";
+import TemplateRisk from "./TemplateRisk";
 
 function RiskTable(props) {
   const type = props.projectRisks.selected.toLowerCase();
-  const templateRisks =
-    props.adminSettings.riskTemplate[type];
+  const templateRisks = props.adminSettings.riskTemplate[type];
   const usedRisks = props.projectRisks[type];
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
@@ -16,18 +15,18 @@ function RiskTable(props) {
 
   // this is all risks
   const combinedRisks = [aiRisks, dltRisks, manRisks];
-  
+
   let test = 4;
   function useRelevantRisks() {
     if (props.projectRisks.ai) {
       // console.log('ai');
       // console.log(aiRisks);
-      test = test + 1
-      combinedRisks.concat(aiRisks)
+      test = test + 1;
+      combinedRisks.concat(aiRisks);
     }
-    return combinedRisks
+    return combinedRisks;
   }
-  useRelevantRisks()
+  useRelevantRisks();
   console.log(test);
 
   // funtion to merge relevant arrays and remove duplicates
@@ -35,13 +34,13 @@ function RiskTable(props) {
     // create single array
     let relevantRisks = [];
     if (props.projectRisks.ai) {
-      relevantRisks = relevantRisks.concat(aiRisks)
+      relevantRisks = relevantRisks.concat(aiRisks);
     }
     if (props.projectRisks.dlt) {
-      relevantRisks = relevantRisks.concat(dltRisks)
+      relevantRisks = relevantRisks.concat(dltRisks);
     }
     if (props.projectRisks.man) {
-      relevantRisks = relevantRisks.concat(manRisks)
+      relevantRisks = relevantRisks.concat(manRisks);
     }
 
     const unique = relevantRisks.reduce((newArray, item) => {
@@ -63,7 +62,7 @@ function RiskTable(props) {
     (risk) => !filterDescriptions.includes(risk.description)
   );
 
-  function check(targetId) {
+  function checkId(targetId) {
     if (targetId === "templateContainer") {
       props.setShowTemplate(false);
     }
@@ -73,10 +72,13 @@ function RiskTable(props) {
   return (
     <Container
       id="templateContainer"
-      onClick={(event) => check(event.target.id)}
+      onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
         <h5>{props.projectRisks.selected} Risks</h5>
+        <div className="close" onClick={() => props.setShowTemplate(false)} >
+          <img src={removeIcon} alt="" />
+        </div>
         <div className="title">
           <h6>Description</h6>
           <h6>Mitigation</h6>
@@ -103,7 +105,6 @@ const Container = styled.div`
   h5 {
     margin: 20px;
   }
-
   .templateContents {
     background-color: white;
     margin: 10vh auto;
@@ -115,6 +116,19 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    .close {
+      position: absolute;
+      right: calc(10vw + 15px);
+      top: calc(10vh + 15px);
+      width: 30px;
+      border-radius: 50%;
+      &:hover {
+        cursor: pointer;
+      }
+      img {
+        width: 100%;
+      }
+    }
   }
   .title {
     width: 100%;

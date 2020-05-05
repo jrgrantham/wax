@@ -3,9 +3,10 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
-import ProjectSettings from "./ProjectSettings";
-import RiskSettings from "./RiskSettings";
-import Header from "./Header";
+import ProjectSettings from "./settingComponents/ProjectSettings";
+import RiskSettings from "./settingComponents/RiskSettings";
+import Header from "./settingComponents/SettingsHeader";
+import AdminSettings from "./settingComponents/AdminSettings";
 
 function ClientSettings() {
   return (
@@ -14,6 +15,7 @@ function ClientSettings() {
         <Header />
         <ProjectSettings />
         <RiskSettings />
+        <AdminSettings />
       </div>
     </Container>
   );

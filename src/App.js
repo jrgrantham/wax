@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 
 import RiskTable from "./riskManagement/ProjectTable";
 import RiskText from "./riskManagement/ProjectDocument";
-import ClientSettings from "./clientSettings/ClientSettings";
+import Settings from "./views/Settings";
 import Login from './views/Login'
 import Footer from "./Footer";
 
@@ -31,7 +31,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Route path='/project-settings' component={ClientSettings} />
+        <Route path='/project-settings' component={Settings} />
         <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
         <Route exact path='/login' component={Login} />

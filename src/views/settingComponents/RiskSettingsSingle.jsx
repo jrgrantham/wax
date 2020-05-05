@@ -5,8 +5,8 @@ import {
   setRiskOptions,
   toggleRiskDisplay,
   setRiskColor,
-} from "../state/actionCreators/projectActionCreators";
-import Slider from "../images/Slider";
+} from "../../state/actionCreators/projectActionCreators";
+import Slider from "../../images/Slider";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();

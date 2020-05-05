@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import Header from "./components/ProjectHeader";
-import ProjectRisk from "./components/ProjectRisk";
+import Header from "./projectComponents/ProjectHeader";
+import ProjectRisk from "./projectComponents/ProjectRisk";
 import styled from "styled-components";
-import Options from "./components/ProjectOptions";
-import TemplateTable from "./TemplateTable";
-import Menu from "./components/Menu";
+import Options from "./projectComponents/ProjectOptions";
+import TemplateTable from "./templateComponents/TemplateTable";
+import Menu from "./projectComponents/Menu";
 
 function RiskTable(props) {
   const selected = props.projectRisks.selected;
@@ -24,7 +24,7 @@ function RiskTable(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <Menu showMenu={showMenu} />
-      {!showTemplate ? (
+      {showTemplate ? (
         <TemplateTable setShowTemplate={setShowTemplate} />
       ) : null}
       <Header setShowMenu={setShowMenu} />
