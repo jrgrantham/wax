@@ -1,6 +1,6 @@
 export const globalSettings = {
   admin: false,
-  selectedProjectId: 'string',
+  selectedProjectId: "string",
   project: {
     nature: [
       "select nature...",
@@ -20,14 +20,18 @@ export const globalSettings = {
       "projectType 5",
     ],
   },
-  // what's this for? 
-  display: {
-    managerial: false,
-    technical: false,
-    commercial: false,
-    legal: false,
-    environmental: false,
-  },
+  riskColors: [
+    "#FF9AA2",
+    "#FFB7B2",
+    "#FFDAC1",
+    "#E2F0CB",
+    "#B5EAD7",
+    "#C7CEEA",
+    "#DEE2D9",
+    "#FCF1D8",
+    "#F2CBBB",
+    "#96B6C5",
+  ],
   riskTemplate: {
     riskRange: ["TBC", "Low", "Medium", "High"],
     managerial: [

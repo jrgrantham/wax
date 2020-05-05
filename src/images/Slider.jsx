@@ -34,6 +34,10 @@ export default connect((state) => state, { toggleRiskDisplay })(
 );
 
 const Container = styled.div`
+  /* display: flex;
+  border: 1px solid red;
+  min-width: 50px; */
+
   .switch {
     position: relative;
     display: inline-block;

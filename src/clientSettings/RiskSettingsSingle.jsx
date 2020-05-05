@@ -4,19 +4,20 @@ import styled from "styled-components";
 import {
   setRiskOptions,
   toggleRiskDisplay,
+  setRiskColor,
 } from "../state/actionCreators/projectActionCreators";
 import Slider from "../images/Slider";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();
+  const colors = props.adminSettings.riskColors;
 
-  const riskDetails = {
+  const newRiskDetails = {
     display: props.projectRisks.options[type].display,
     defaultOwner: props.projectRisks.options[type].defaultOwner,
     color: props.projectRisks.options[type].color,
   };
-
-  const [riskForm, setRiskForm] = useState(riskDetails);
+  const [riskForm, setRiskForm] = useState(newRiskDetails);
 
   function onChange(event) {
     setRiskForm({ ...riskForm, [event.target.name]: event.target.value });
@@ -26,55 +27,51 @@ function RiskSettings(props) {
     props.setRiskOptions(type, riskForm);
   }
 
+  function setColor(color) {
+    props.setRiskColor(type, color)
+  }
+
   return (
     <Container>
       <form>
-        <Slider
-          display={props.projectRisks.options[type].display}
-          toggle={props.toggleRiskDisplay}
-          type={type}
-        />
-        <label>{props.type}</label>
-        {/* <div className="button" onClick={() => props.toggleRiskDisplay(type)}> */}
-        {/* <p>{props.projectRisks.options[type].display ? "Yes" : "No"}</p> */}
-        {/* </div> */}
-        {props.projectRisks.options[type].display ? (
-          <>
-            <input
-              type="text"
-              onChange={onChange}
-              name="defaultOwner"
-              placeholder={props.projectRisks.options[type].defaultOwner}
-              onBlur={() => submit()}
-            />
-            <div className="colors">
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-              <div className="color">
-                <div className="circle"></div>
-              </div>
-            </div>
-          </>
-        ) : null}
+        <Slider type={type} />
+        <label className="type">{props.type}</label>
+        <div
+          className="hide"
+          style={
+            props.projectRisks.options[type].display
+              ? { opacity: 1 }
+              : { opacity: 0 }
+          }
+        >
+          <input
+            className='owner'
+            type="text"
+            onChange={onChange}
+            name="defaultOwner"
+            placeholder={props.projectRisks.options[type].defaultOwner}
+            onBlur={() => submit()}
+          />
+          <div className="colors">
+            {colors.map((color, index) => {
+              return (
+                <div className="color" key={index}>
+                  <div
+                    className="circle"
+                    onClick={() => setColor(color)}
+                    style={{ backgroundColor: color }}
+                  ></div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </form>
     </Container>
   );
 }
 
-export default connect((state) => state, { setRiskOptions, toggleRiskDisplay })(
+export default connect((state) => state, { setRiskOptions, toggleRiskDisplay, setRiskColor })(
   RiskSettings
 );
 
@@ -82,24 +79,36 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px;
+  /* border: 1px solid red; */
 
   form {
-    display: grid;
-    grid-template-columns: 55px 120px 60px 200px;
-    grid-template-rows: 42px;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     /* max-width: 300px; */
-    label {
+    .hide {
+      display: flex;
+      align-items: center;
+      transition: opacity 0.4s;
+    }
+    .type {
+      /* margin-left: 10px; */
       text-align: left;
-      width: 120px;
+      /* border: 1px solid red; */
+      min-width: 120px;
+      margin: 5px;
+    }
+    .owner {
+      margin-right: 20px;
     }
     input {
       font-size: 14px;
       text-align: center;
       border: 1px solid lightgrey;
-      width: 100%;
+      width: 50px;
+
       /* border: 1px solid red; */
     }
     .colors {
@@ -108,6 +117,7 @@ const Container = styled.div`
       justify-content: space-evenly;
       align-items: center;
       .color {
+        margin: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -117,7 +127,7 @@ const Container = styled.div`
         .circle {
           padding: 5px;
           background-color: red;
-          border: 3px solid black;
+          /* border: 3px solid black; */
           border-radius: 50%;
           height: 20px;
           width: 20px;
@@ -125,23 +135,6 @@ const Container = styled.div`
             cursor: pointer;
           }
         }
-      }
-    }
-
-    .button {
-      display: inline-block;
-      border: 1px solid lightgrey;
-      border-radius: 5px;
-      width: 50px;
-      background-color: white;
-      /* padding: 5px; */
-      /* margin: 0 10px; */
-      p {
-        text-align: center;
-        font-size: 14px;
-      }
-      &:hover {
-        cursor: pointer;
       }
     }
   }

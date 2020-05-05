@@ -75,7 +75,7 @@ export function toggleRiskDisplay(type) {
   return {
     type: actionTypes.TOGGLE_RISK_DISPLAY,
     payload: type,
-  }
+  };
 }
 
 export function sortByRisk(type, data) {
@@ -83,14 +83,21 @@ export function sortByRisk(type, data) {
     type: actionTypes.SORT_BY_RISK,
     payload: {
       type,
-      data
-    }
-  }
+      data,
+    },
+  };
 }
 
 export function setSelected(type) {
   return {
     type: actionTypes.SET_SELECTED,
-    payload: type
-  }
+    payload: type,
+  };
+}
+
+export function setRiskColor(type, color) {
+  return {
+    type: actionTypes.SET_RISK_COLOR,
+    payload: { type, color },
+  };
 }
