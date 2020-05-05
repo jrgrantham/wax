@@ -5,25 +5,46 @@ import styled from "styled-components";
 import TemplateRisk from "./components/TemplateRisk";
 
 function RiskTable(props) {
-  const selected = props.projectRisks.selected;
-  const templateRisks =
-    props.adminSettings.riskTemplate[selected.toLowerCase()];
   const type = props.projectRisks.selected.toLowerCase();
-  const usedRisks = props.projectRisks[selected.toLowerCase()];
+  const templateRisks =
+    props.adminSettings.riskTemplate[type];
+  const usedRisks = props.projectRisks[type];
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
   const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
   const manRisks = templateRisks.filter((risk) => risk.man === true);
-  const combinedRisks = [aiRisks, dltRisks, manRisks];
 
-  // merge arrays and remove duplicates
-  function mergedRisks(arrays) {
+  // this is all risks
+  const combinedRisks = [aiRisks, dltRisks, manRisks];
+  
+  let test = 4;
+  function useRelevantRisks() {
+    if (props.projectRisks.ai) {
+      // console.log('ai');
+      // console.log(aiRisks);
+      test = test + 1
+      combinedRisks.concat(aiRisks)
+    }
+    return combinedRisks
+  }
+  useRelevantRisks()
+  console.log(test);
+
+  // funtion to merge relevant arrays and remove duplicates
+  function mergedRisks() {
     // create single array
-    let combined = [];
-    arrays.forEach((array) => {
-      combined = [...combined, ...array];
-    });
-    const unique = combined.reduce((newArray, item) => {
+    let relevantRisks = [];
+    if (props.projectRisks.ai) {
+      relevantRisks = relevantRisks.concat(aiRisks)
+    }
+    if (props.projectRisks.dlt) {
+      relevantRisks = relevantRisks.concat(dltRisks)
+    }
+    if (props.projectRisks.man) {
+      relevantRisks = relevantRisks.concat(manRisks)
+    }
+
+    const unique = relevantRisks.reduce((newArray, item) => {
       if (newArray.includes(item)) {
         return newArray;
       } else {
@@ -33,9 +54,11 @@ function RiskTable(props) {
     return unique;
   }
 
+  // create an array of current descriptions to filter by
   const filterDescriptions = usedRisks.map((risk) => {
     return risk.description;
   });
+  // remove the entries that are already used
   const remainingRisks = mergedRisks(combinedRisks).filter(
     (risk) => !filterDescriptions.includes(risk.description)
   );

@@ -24,7 +24,7 @@ function RiskTable(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <Menu showMenu={showMenu} />
-      {showTemplate ? (
+      {!showTemplate ? (
         <TemplateTable setShowTemplate={setShowTemplate} />
       ) : null}
       <Header setShowMenu={setShowMenu} />
