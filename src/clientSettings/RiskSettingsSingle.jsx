@@ -11,6 +11,7 @@ import Slider from "../images/Slider";
 function RiskSettings(props) {
   const type = props.type.toLowerCase();
   const colors = props.adminSettings.riskColors;
+  const currentColor = props.projectRisks.options[type].color;
 
   const newRiskDetails = {
     display: props.projectRisks.options[type].display,
@@ -28,8 +29,10 @@ function RiskSettings(props) {
   }
 
   function setColor(color) {
-    props.setRiskColor(type, color)
+    props.setRiskColor(type, color);
   }
+
+  console.log(currentColor);
 
   return (
     <Container>
@@ -45,7 +48,7 @@ function RiskSettings(props) {
           }
         >
           <input
-            className='owner'
+            className="owner"
             type="text"
             onChange={onChange}
             name="defaultOwner"
@@ -59,7 +62,16 @@ function RiskSettings(props) {
                   <div
                     className="circle"
                     onClick={() => setColor(color)}
-                    style={{ backgroundColor: color }}
+                    style={
+                      color == currentColor
+                        ? {
+                            backgroundColor: color,
+                            width: "25px",
+                            height: "25px",
+                            border: '1px solid black',
+                          }
+                        : { backgroundColor: color }
+                    }
                   ></div>
                 </div>
               );
@@ -71,9 +83,11 @@ function RiskSettings(props) {
   );
 }
 
-export default connect((state) => state, { setRiskOptions, toggleRiskDisplay, setRiskColor })(
-  RiskSettings
-);
+export default connect((state) => state, {
+  setRiskOptions,
+  toggleRiskDisplay,
+  setRiskColor,
+})(RiskSettings);
 
 const Container = styled.div`
   display: flex;
@@ -121,9 +135,6 @@ const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        /* border: 1px solid red; */
-        height: 100%;
-        width: 100%;
         .circle {
           padding: 5px;
           background-color: red;

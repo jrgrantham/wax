@@ -1,82 +1,78 @@
 export const riskData = {
   company: "Jones",
-  nature: 'nature 3',
-  type: 'projectType 4',
+  nature: "nature 3",
+  type: "projectType 4",
   project: "Reacher",
-  application: '',
+  application: "",
   ai: true, // admin
   dlt: true, // admin
   man: true, // admin
-  flavour: '', // admin
+  flavour: "", // admin
   riskRange: ["TBC", "Low", "Medium", "High"], // admin
-  selected: 'Commercial',
-  appendixRef: '', // admin
+  selected: "Commercial",
+  appendixRef: "", // admin
   useTemplate: true, // admin
   maxRisks: 4,
   options: {
     managerial: {
       display: true, // admin
       displayChangeable: false,
-      defaultOwner: 'JG',
-      color: 'red',
-      maxLength: '', // admin
+      defaultOwner: "JG",
+      color: "#E2F0CB",
+      maxLength: "", // admin
       maxRisks: 3, // admin
     },
     technical: {
       display: true, // admin
       displayChangeable: false,
-      defaultOwner: 'DJ',
-      color: 'yellow',
-      maxLength: '', // admin
+      defaultOwner: "DJ",
+      color: "#B5EAD7",
+      maxLength: "", // admin
       maxRisks: 3, // admin
     },
     commercial: {
       display: true, // admin
       displayChangeable: false,
-      defaultOwner: 'CG',
-      color: 'green',
-      maxLength: '', // admin
+      defaultOwner: "CG",
+      color: "#C7CEEA",
+      maxLength: "", // admin
       maxRisks: 3, // admin
     },
     legal: {
       display: false,
       displayChangeable: true,
-      defaultOwner: '',
-      color: 'orange',
-      maxLength: '', // admin
+      defaultOwner: "",
+      color: "#DEE2D9",
+      maxLength: "", // admin
       maxRisks: 3, // admin
     },
     environmental: {
       display: true,
       displayChangeable: true,
-      defaultOwner: '',
-      color: 'yellow',
-      maxLength: '', // admin
+      defaultOwner: "",
+      color: "#FCF1D8",
+      maxLength: "", // admin
       maxRisks: 3, // admin
     },
   },
   managerial: [
     {
       id: 1,
-      description:
-        "first risk.",
+      description: "first risk.",
       probability: 1,
       consequence: 2,
       risk: 0, // auto
       owner: "TBC",
-      mitigation:
-        "first mitigation.",
+      mitigation: "first mitigation.",
     },
     {
       id: 2,
-      description:
-        "second risk.",
+      description: "second risk.",
       probability: 0,
       consequence: 0,
       risk: 0, // auto
       owner: "DJ",
-      mitigation:
-        "second mitigation.",
+      mitigation: "second mitigation.",
     },
     {
       id: 3,
