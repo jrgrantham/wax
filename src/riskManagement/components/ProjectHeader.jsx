@@ -11,9 +11,7 @@ function RiskTable(props) {
 
   function showMenu(e) {
     e.stopPropagation();
-    props.setShowMenu(true)
-    console.log('clicked');
-    
+    props.setShowMenu(true);
   }
 
   return (

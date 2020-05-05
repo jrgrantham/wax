@@ -4,8 +4,6 @@ import styled from "styled-components";
 import TextType from "./components/TypesDocument";
 
 function RiskText(props) {
-  // console.log(riskData);
-  // console.log(riskData.riskRange.length);
 
   return (
     <Container>

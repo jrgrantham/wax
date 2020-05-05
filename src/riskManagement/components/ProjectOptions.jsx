@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -26,7 +25,6 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
   function addToProject() {
-    console.log("add empty row");
     setAddRow(false);
     props.addToProject(type.toLowerCase(), emtpyRow);
   }
@@ -120,7 +118,7 @@ const Container = styled.div`
     }
   }
   .button {
-    background-color: rgba(0, 125, 0, 1);
+    background-color: #c5c5c5;
     border-radius: 5px;
     padding: 0.3rem 0.8rem;
     &:hover {

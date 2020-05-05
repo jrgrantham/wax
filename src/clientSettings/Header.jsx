@@ -17,14 +17,16 @@ export default function Header() {
 }
 
 const Container = styled.div`
+  max-width: 600px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 10px;
+  margin: auto;
+  /* border: 1px solid red; */
 
   a {
     display: inline-block;
-    /* border: 1px solid red; */
     padding: 0.3rem 0.8rem;
     border-radius: 5px;
     margin: 10px 0px 10px 10px;

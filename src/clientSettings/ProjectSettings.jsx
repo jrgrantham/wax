@@ -29,71 +29,81 @@ function ProjectSettings(props) {
     <Container>
       <form className="projectForm">
         <h5>Project Settings</h5>
+
         {/* company name */}
-        <label>Company Name: {props.projectRisks.company}</label>
-        <input
-          type="text"
-          onChange={onChange}
-          onBlur={() => submit()}
-          name="company"
-          placeholder="change company name..."
-        />
+        <div className="info">
+          <label>Company Name:</label>
+          <input
+            type="text"
+            onChange={onChange}
+            onBlur={() => submit()}
+            name="company"
+            placeholder={props.projectRisks.company}
+          />
+        </div>
 
         {/* nature */}
-        <label>Project Nature: {props.projectRisks.nature}</label>
-        <select
-          // value={projectDetails.nature}
-          type="text"
-          onChange={onChange}
-          onBlur={() => submit()}
-          name="nature"
-          // placeholder={props.projectRisks.nature}
-        >
-          {nature.map((option, index) => {
-            return (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            );
-          })}
-        </select>
+        <div className="info">
+          <label>Project Nature:</label>
+          <select
+            type="text"
+            onChange={onChange}
+            onBlur={() => submit()}
+            name="nature"
+            defaultValue={props.projectRisks.nature}
+          >
+            {nature.map((option, index) => {
+              return (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              );
+            })}
+          </select>
+        </div>
 
         {/* type */}
-        <label>Project Type: {props.projectRisks.type}</label>
-        <select
-          type="text"
-          onChange={onChange}
-          onBlur={() => submit()}
-          name="type"
-        >
-          {projectType.map((option, index) => {
-            return (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            );
-          })}
-        </select>
+        <div className="info">
+          <label>Project Type:</label>
+          <select
+            type="text"
+            onChange={onChange}
+            onBlur={() => submit()}
+            name="type"
+            defaultValue={props.projectRisks.type}
+          >
+            {projectType.map((option, index) => {
+              return (
+                <option key={index} value={option} >
+                  {option}
+                </option>
+              );
+            })}
+          </select>
+        </div>
 
         {/* project */}
-        <label>Project Name: {props.projectRisks.project}</label>
-        <input
-          type="text"
-          onChange={onChange}
-          onBlur={() => submit()}
-          name="project"
-          placeholder="change project name..."
-        />
+        <div className="info">
+          <label>Project Name: </label>
+          <input
+            type="text"
+            onChange={onChange}
+            onBlur={() => submit()}
+            name="project"
+            placeholder={props.projectRisks.project}
+          />
+        </div>
 
-        <label>IUK Application Number: {props.projectRisks.application}</label>
-        <input
-          type="text"
-          onChange={onChange}
-          onBlur={() => submit()}
-          name="application"
-          placeholder="optional"
-        />
-        <br />
+        <div className="info">
+          <label>IUK Application Number: </label>
+          <input
+            type="text"
+            onChange={onChange}
+            onBlur={() => submit()}
+            name="application"
+            placeholder={props.projectRisks.application}
+          />
+        </div>
       </form>
     </Container>
   );
@@ -108,31 +118,40 @@ const Container = styled.div`
   padding: 20px;
 
   h5 {
-    margin: 10px;
+    margin-bottom: 30px;
   }
 
   label {
     margin: 5px;
+    width: 250px;
+    /* border: 1px solid red; */
+    text-align: left;
   }
 
   .projectForm {
     /* border: 1px solid red; */
     border-radius: 10px;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 40px;
     background-color: #f0f0f0;
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin: 5px;
+    }
 
     input,
     select {
       width: 100%;
-      max-width: 150px;
-      font-size: 10px;
+      max-width: 300px;
+      font-size: 14px;
       border: 1px solid lightgrey;
-      margin-bottom: 10px;
     }
   }
 `;
