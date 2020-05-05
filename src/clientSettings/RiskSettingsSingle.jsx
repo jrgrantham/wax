@@ -32,8 +32,6 @@ function RiskSettings(props) {
     props.setRiskColor(type, color);
   }
 
-  console.log(currentColor);
-
   return (
     <Container>
       <form>
