@@ -1,7 +1,7 @@
 export const riskData = {
   company: "Jones",
-  nature: 'Investigation',
-  type: 'experiment',
+  nature: 'Choice 3',
+  type: 'Choice 4',
   project: "Reacher",
   application: '',
   ai: true,

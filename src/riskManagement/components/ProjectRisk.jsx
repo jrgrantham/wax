@@ -185,7 +185,7 @@ export const Container = styled.div`
     padding: 5px 0px 5px 25px;
     /* transition: background-color 0.3s; */
     &:hover {
-      background-color: #c5c5c5;
+      background-color: lightblue;
     }
     &:hover > .icon {
       opacity: 1;

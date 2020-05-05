@@ -20,6 +20,7 @@ export const globalSettings = {
       "projectType 5",
     ],
   },
+  // what's this for? 
   display: {
     managerial: false,
     technical: false,

@@ -21,11 +21,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 20px 0 20px;
+  padding: 20px 20px 0 20px;
   /* border: 1px solid black; */
 
   H5 {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   .content {
@@ -34,8 +34,8 @@ const Container = styled.div`
     /* border: 1px solid black; */
     border-radius: 10px;
     width: 100%;
-    max-width: 400px;
-    padding: 30px;
+    max-width: 600px;
+    padding: 40px;
     background-color: #f0f0f0;
   }
 `;
