@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import TextType from "./riskManagement/components/TypesDocument";
+import TextType from "./templateComponents/DocumentRisks";
 
 function RiskText(props) {
 

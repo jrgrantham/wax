@@ -8,14 +8,16 @@ import RiskSettings from "./settingComponents/RiskSettings";
 import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
 
-function ClientSettings() {
+function ClientSettings(props) {
+  console.log(props.projectRisks.admin);
+  
   return (
     <Container>
       <div className="contents">
         <Header />
         <ProjectSettings />
         <RiskSettings />
-        <AdminSettings />
+        {props.projectRisks.admin ? <AdminSettings /> : null}
       </div>
     </Container>
   );

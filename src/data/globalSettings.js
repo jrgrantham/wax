@@ -1,5 +1,4 @@
 export const globalSettings = {
-  admin: false,
   selectedProjectId: "string",
   project: {
     nature: [
@@ -20,6 +19,15 @@ export const globalSettings = {
       "projectType 5",
     ],
   },
+  flavour: [
+    "select flavour...",
+    "flavour 1",
+    "flavour 2",
+    "flavour 3",
+    "flavour 4",
+    "flavour 5",
+    "flavour 6",
+  ],
   riskColors: [
     "#FF9AA2",
     "#FFB7B2",

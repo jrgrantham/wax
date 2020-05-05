@@ -9,6 +9,7 @@ import Menu from "./projectComponents/Menu";
 
 function RiskTable(props) {
   const selected = props.projectRisks.selected;
+  
   const risks = props.projectRisks[selected.toLowerCase()];
 
   const [showTemplate, setShowTemplate] = useState(false);
@@ -53,7 +54,7 @@ const Container = styled.div`
     background-color: #e5e5e5;
     width: 100%;
     max-width: 1500px;
-    margin-top: 176px;
+    margin-top: 186px;
     padding-bottom: 15px;
     border-radius: 0 0 0 20px;
   }

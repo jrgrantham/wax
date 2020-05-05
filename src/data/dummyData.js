@@ -1,4 +1,6 @@
 export const riskData = {
+  admin: true,
+  projectId: '',
   company: "Jones",
   nature: "nature 3",
   type: "projectType 4",
@@ -7,12 +9,13 @@ export const riskData = {
   ai: true, // admin
   dlt: true, // admin
   man: true, // admin
-  flavour: "", // admin
+  flavour: "flavour 3", // admin
   riskRange: ["TBC", "Low", "Medium", "High"], // admin
-  selected: "Commercial",
-  appendixRef: "", // admin
-  useTemplate: true, // admin
-  maxRisks: 4,
+  selected: "Commercial", // project risk
+  appendixRef: "reference", // admin
+  useTemplate: false, // admin
+  exportSpreadsheet: false,
+  maxCharacters: 350,
   options: {
     managerial: {
       display: true, // admin
@@ -20,7 +23,7 @@ export const riskData = {
       defaultOwner: "JG",
       color: "#E2F0CB",
       maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxRisks: 1, // admin
     },
     technical: {
       display: true, // admin
@@ -28,7 +31,7 @@ export const riskData = {
       defaultOwner: "DJ",
       color: "#B5EAD7",
       maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxRisks: 2, // admin
     },
     commercial: {
       display: true, // admin
@@ -44,7 +47,7 @@ export const riskData = {
       defaultOwner: "",
       color: "#DEE2D9",
       maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxRisks: 4, // admin
     },
     environmental: {
       display: true,
@@ -52,7 +55,7 @@ export const riskData = {
       defaultOwner: "",
       color: "#FCF1D8",
       maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxRisks: 5, // admin
     },
   },
   managerial: [

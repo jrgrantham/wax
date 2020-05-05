@@ -11,7 +11,8 @@ import addIcon from "../../images/addIcon.png";
 function Options(props) {
   const type = props.projectRisks.selected.toLowerCase();
   const defaultOwner =
-    props.projectRisks.options[type.toLowerCase()].defaultOwner;
+    props.projectRisks.options[type].defaultOwner;
+  const maxRisks = props.projectRisks.options[type].maxRisks
 
   const [addRow, setAddRow] = useState(false);
 
@@ -26,11 +27,11 @@ function Options(props) {
   };
   function addToProject() {
     setAddRow(false);
-    props.addToProject(type.toLowerCase(), emtpyRow);
+    props.addToProject(type, emtpyRow);
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type.toLowerCase()].map(
+    const calculatedRisks = props.projectRisks[type].map(
       (entry) => {
         const value = entry.probability * entry.consequence;
         return { ...entry, risk: value };
@@ -68,6 +69,7 @@ function Options(props) {
             </>
           ) : (
             <>
+            <p className="maxRisks">Maximum Risks: {maxRisks} </p>
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
               </div>

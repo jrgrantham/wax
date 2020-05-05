@@ -28,7 +28,7 @@ function ProjectSettings(props) {
   return (
     <Container>
       <form className="projectForm">
-        <h5>Project Settings</h5>
+        <h5>Project</h5>
 
         {/* company name */}
         <div className="info">

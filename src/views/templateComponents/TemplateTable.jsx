@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import removeIcon from "../images/removeIcon.png";
+import removeIcon from "../../images/removeIcon.png";
 import TemplateRisk from "./TemplateRisk";
 
 function RiskTable(props) {

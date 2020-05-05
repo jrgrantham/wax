@@ -6,7 +6,7 @@ export default function RiskSettings() {
   return (
     <Container>
       <div className="content">
-        <h5>Risk Settings</h5>
+        <h5>Risks</h5>
         <RiskSettingsSingle type={"Commercial"} />
         <RiskSettingsSingle type={"Technical"} />
         <RiskSettingsSingle type={"Managerial"} />

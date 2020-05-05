@@ -7,8 +7,8 @@ import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTable from "./riskManagement/ProjectTable";
-import RiskText from "./riskManagement/ProjectDocument";
+import RiskTable from "./views/ProjectTable";
+import RiskText from "./views/ProjectDocument";
 import Settings from "./views/Settings";
 import Login from './views/Login'
 import Footer from "./Footer";
