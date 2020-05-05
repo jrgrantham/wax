@@ -5,6 +5,7 @@ import {
   setRiskOptions,
   toggleRiskDisplay,
 } from "../state/actionCreators/projectActionCreators";
+import Slider from "../images/Slider";
 
 function RiskSettings(props) {
   const type = props.type.toLowerCase();
@@ -28,10 +29,15 @@ function RiskSettings(props) {
   return (
     <Container>
       <form>
+        <Slider
+          display={props.projectRisks.options[type].display}
+          toggle={props.toggleRiskDisplay}
+          type={type}
+        />
         <label>{props.type}</label>
-        <div className="button" onClick={() => props.toggleRiskDisplay(type)}>
-          <p>{props.projectRisks.options[type].display ? "Yes" : "No"}</p>
-        </div>
+        {/* <div className="button" onClick={() => props.toggleRiskDisplay(type)}> */}
+        {/* <p>{props.projectRisks.options[type].display ? "Yes" : "No"}</p> */}
+        {/* </div> */}
         {props.projectRisks.options[type].display ? (
           <>
             <input
@@ -79,7 +85,7 @@ const Container = styled.div`
 
   form {
     display: grid;
-    grid-template-columns: 150px 1fr 1fr 3fr;
+    grid-template-columns: 55px 120px 60px 200px;
     grid-template-rows: 42px;
     justify-content: center;
     align-items: center;
@@ -99,7 +105,7 @@ const Container = styled.div`
     .colors {
       height: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       align-items: center;
       .color {
         display: flex;
@@ -111,10 +117,13 @@ const Container = styled.div`
         .circle {
           padding: 5px;
           background-color: red;
-        border: 3px solid black;
+          border: 3px solid black;
           border-radius: 50%;
           height: 20px;
           width: 20px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }

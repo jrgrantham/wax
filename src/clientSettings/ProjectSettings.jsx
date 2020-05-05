@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
-// import { globalSettings } from "../data/globalSettings";
+import { globalSettings } from "../data/globalSettings";
 
 function ProjectSettings(props) {
   const projectDetails = {
@@ -14,8 +14,8 @@ function ProjectSettings(props) {
   };
 
   const [projectForm, setProjectForm] = useState(projectDetails);
-  // const nature = globalSettings.project.nature;
-  // const projectType = globalSettings.project.type;
+  const nature = globalSettings.project.nature;
+  const projectType = globalSettings.project.type;
 
   function onChange(event) {
     setProjectForm({ ...projectForm, [event.target.name]: event.target.value });
@@ -46,27 +46,19 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Project Nature:</label>
           <select
-            // value={projectDetails.nature}
             type="text"
             onChange={onChange}
             onBlur={() => submit()}
             name="nature"
-            // placeholder={props.projectRisks.nature}
+            defaultValue={props.projectRisks.nature}
           >
-            {/* {nature.map((option, index) => {
+            {nature.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
                 </option>
               );
-            })} */}
-            <option value="" selected disabled>
-              {props.projectRisks.nature}
-            </option>
-            <option value="Choice 1">Choice 1</option>
-            <option value="Choice 2">Choice 2</option>
-            <option value="Choice 3">Choice 3</option>
-            <option value="Choice 4">Choice 4</option>
+            })}
           </select>
         </div>
 
@@ -78,21 +70,15 @@ function ProjectSettings(props) {
             onChange={onChange}
             onBlur={() => submit()}
             name="type"
+            defaultValue={props.projectRisks.type}
           >
-            {/* {projectType.map((option, index) => {
+            {projectType.map((option, index) => {
               return (
                 <option key={index} value={option} >
                   {option}
                 </option>
               );
-            })} */}
-            <option value="" selected disabled>
-              {props.projectRisks.type}
-            </option>
-            <option value="Choice 1">Choice 1</option>
-            <option value="Choice 2">Choice 2</option>
-            <option value="Choice 3">Choice 3</option>
-            <option value="Choice 4">Choice 4</option>
+            })}
           </select>
         </div>
 

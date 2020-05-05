@@ -11,27 +11,26 @@ function RiskTable(props) {
   const type = props.projectRisks.selected.toLowerCase();
   const usedRisks = props.projectRisks[selected.toLowerCase()];
 
-
-  const aiRisks = templateRisks.filter(risk => risk.ai === true);
-  const dltRisks = templateRisks.filter(risk => risk.dlt === true);
-  const manRisks = templateRisks.filter(risk => risk.man === true);
+  const aiRisks = templateRisks.filter((risk) => risk.ai === true);
+  const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
+  const manRisks = templateRisks.filter((risk) => risk.man === true);
   const combinedRisks = [aiRisks, dltRisks, manRisks];
 
   // merge arrays and remove duplicates
   function mergedRisks(arrays) {
     // create single array
-    let combined = []
-    arrays.forEach(array => {
-      combined = [...combined, ...array]
-    })
+    let combined = [];
+    arrays.forEach((array) => {
+      combined = [...combined, ...array];
+    });
     const unique = combined.reduce((newArray, item) => {
       if (newArray.includes(item)) {
-        return newArray
+        return newArray;
       } else {
-        return [...newArray, item]
+        return [...newArray, item];
       }
-    }, [])
-    return unique
+    }, []);
+    return unique;
   }
 
   const filterDescriptions = usedRisks.map((risk) => {
@@ -107,5 +106,12 @@ const Container = styled.div`
     padding: 5px 0px;
     width: 100%;
     max-width: 1500px;
+    overflow: auto;
+    /* Hide scrollbar for IE and Edge */
+    -ms-overflow-style: none;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
