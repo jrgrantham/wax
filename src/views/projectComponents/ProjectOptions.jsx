@@ -10,9 +10,15 @@ import addIcon from "../../images/addIcon.png";
 
 function Options(props) {
   const type = props.projectRisks.selected.toLowerCase();
-  const defaultOwner =
-    props.projectRisks.options[type].defaultOwner;
-  const maxRisks = props.projectRisks.options[type].maxRisks
+  const { defaultOwner, maxRisks } = props.projectRisks.options[type];
+  const usedRisks = props.projectRisks[type].length;
+  const notRiskLimit = (usedRisks < maxRisks)
+
+  function checkMax() {
+    if (notRiskLimit) {
+      setAddRow(true)
+    }
+  }
 
   const [addRow, setAddRow] = useState(false);
 
@@ -25,18 +31,17 @@ function Options(props) {
     owner: defaultOwner,
     mitigation: "enter risk mitigation.",
   };
+
   function addToProject() {
     setAddRow(false);
     props.addToProject(type, emtpyRow);
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type].map(
-      (entry) => {
-        const value = entry.probability * entry.consequence;
-        return { ...entry, risk: value };
-      }
-    );
+    const calculatedRisks = props.projectRisks[type].map((entry) => {
+      const value = entry.probability * entry.consequence;
+      return { ...entry, risk: value };
+    });
     return calculatedRisks;
   }
 
@@ -62,18 +67,21 @@ function Options(props) {
               </div>
               <div
                 className="button"
-                onClick={() => props.setShowTemplate(true)}
+                onClick={() => {
+                  setAddRow(false)
+                  props.setShowTemplate(true)
+                }}
               >
                 <p>Add from template</p>
               </div>
             </>
           ) : (
             <>
-            <p className="maxRisks">Maximum Risks: {maxRisks} </p>
+              <p className="maxRisks">Maximum Risks: {maxRisks} </p>
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
               </div>
-              <div className="image" onClick={() => setAddRow(true)}>
+              <div className="image" onClick={() => checkMax()}>
                 <img src={addIcon} alt="add" />
               </div>
             </>
@@ -117,6 +125,11 @@ const Container = styled.div`
     margin-left: 10px;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    &:hover {
+      cursor: pointer;
+    }
     img {
       width: 100%;
       height: auto;

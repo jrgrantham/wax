@@ -147,28 +147,28 @@ export const riskData = {
     },
   ],
   commercial: [
-    {
-      id: 9,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 2,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "DJ",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      id: 10,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 3,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "DJ",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
+    // {
+    //   id: 9,
+    //   description:
+    //     "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    //   probability: 2,
+    //   consequence: 1,
+    //   risk: 0, // auto
+    //   owner: "DJ",
+    //   mitigation:
+    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    // },
+    // {
+    //   id: 10,
+    //   description:
+    //     "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    //   probability: 3,
+    //   consequence: 1,
+    //   risk: 0, // auto
+    //   owner: "DJ",
+    //   mitigation:
+    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    // },
     {
       id: 11,
       description:

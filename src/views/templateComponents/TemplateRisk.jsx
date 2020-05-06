@@ -15,17 +15,22 @@ import addIcon from "../../images/addIcon.png";
 function TemplateRisk(props) {
   const type = props.projectRisks.selected.toLowerCase();
   const risk = props.risk;
+  const maxRisks = props.projectRisks.options[type].maxRisks;
+  const usedRisks = props.projectRisks[type].length;
+  const notRiskLimit = usedRisks < maxRisks;
 
   function addToProject() {
-    const riskClone = {
-      id: uuidv4(),
-      description: risk.description,
-      probability: risk.probability,
-      consequence: risk.consequence,
-      owner: props.projectRisks.options[type].defaultOwner,
-      mitigation: risk.mitigation,
-    };
-    props.addToProject(type, riskClone)
+    if (notRiskLimit) {
+      const riskClone = {
+        id: uuidv4(),
+        description: risk.description,
+        probability: risk.probability,
+        consequence: risk.consequence,
+        owner: props.projectRisks.options[type].defaultOwner,
+        mitigation: risk.mitigation,
+      };
+      props.addToProject(type, riskClone);
+    }
   }
 
   return (
@@ -47,7 +52,7 @@ export default connect((state) => state, {
   deleteRisk,
   sortByRisk,
   updateRisk,
-  addToProject
+  addToProject,
 })(TemplateRisk);
 
 export const Container = styled.div`
