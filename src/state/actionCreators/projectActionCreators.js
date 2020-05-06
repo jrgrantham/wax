@@ -101,3 +101,17 @@ export function setRiskColor(type, color) {
     payload: { type, color },
   };
 }
+
+export function toggleProjectBoolean(key) {
+  return {
+    type: actionTypes.TOGGLE_PROJECT_BOOLEAN,
+    payload: key,
+  }
+}
+
+export function setProjectAdmin(data) {
+  return {
+    type: actionTypes.SET_PROJECT_ADMIN,
+    payload: data,
+  }
+}

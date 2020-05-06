@@ -1,21 +1,25 @@
 export const riskData = {
+  // project info reducer
   admin: true,
+
   projectId: '',
   company: "Jones",
   nature: "nature 3",
   type: "projectType 4",
   project: "Reacher",
   application: "",
-  ai: true, // admin
-  dlt: true, // admin
-  man: true, // admin
-  flavour: "flavour 3", // admin
-  riskRange: ["TBC", "Low", "Medium", "High"], // admin
   selected: "Commercial", // project risk
-  appendixRef: "reference", // admin
+
+  ai: true, // admin
+  dlt: false, // admin
+  man: true, // admin
   useTemplate: false, // admin
-  exportSpreadsheet: false,
-  maxCharacters: 350,
+  exportSpreadsheet: false, // admin
+  flavour: "flavour 3", // admin
+  appendixRef: "reference", // admin
+  maxCharacters: 350, // admin
+  riskRange: ["TBC", "Low", "Medium", "High"], // admin
+
   options: {
     managerial: {
       display: true, // admin
@@ -58,6 +62,7 @@ export const riskData = {
       maxRisks: 5, // admin
     },
   },
+
   managerial: [
     {
       id: 1,

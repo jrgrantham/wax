@@ -1,30 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import MaxRisks from "./MaxRisks";
+import {
+  toggleProjectBoolean,
+  setProjectAdmin,
+} from "../../state/actionCreators/projectActionCreators";
 
 function ProjectSettings(props) {
   const flavours = props.adminSettings.flavour;
-  const {
-    flavour,
-    appendixRef,
-    useTemplate,
-    exportSpreadsheet,
-    maxCharacters,
-  } = props.projectRisks;
+  const { flavour, appendixRef, maxCharacters } = props.projectRisks;
   const numbers = [100, 500, 1000, 2000];
 
   function toggle(event) {
-    console.log(event.target.id);
+    props.toggleProjectBoolean(event.target.id);
   }
 
-  // on chage make the changes in redux
   function onChange(event) {
-    // [event.target.name]: event.target.value,
+    setAdmin({
+      ...admin,
+      [event.target.name]: event.target.value,
+    });
   }
   function submit() {
-    // send admin settings;
+    props.setProjectAdmin(admin);
   }
+
+  const initialState = {
+    flavour,
+    appendixRef,
+    maxCharacters,
+  };
+  const [admin, setAdmin] = useState(initialState);
 
   return (
     <Container>
@@ -35,13 +42,37 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Project Type</label>
           <div className="buttons">
-            <p id="ai" onClick={(e) => toggle(e)}>
+            <p
+              id="ai"
+              style={
+                props.projectRisks.ai
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
               AI
             </p>
-            <p id="dlt" onClick={(e) => toggle(e)}>
+            <p
+              id="dlt"
+              style={
+                props.projectRisks.dlt
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
               DLT
             </p>
-            <p id="man" onClick={(e) => toggle(e)}>
+            <p
+              id="man"
+              style={
+                props.projectRisks.man
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
               MAN
             </p>
           </div>
@@ -55,7 +86,7 @@ function ProjectSettings(props) {
             onChange={onChange}
             onBlur={() => submit()}
             name="flavour"
-            defaultValue={flavour}
+            defaultValue={admin.flavour}
           >
             {flavours.map((option, index) => {
               return (
@@ -75,39 +106,20 @@ function ProjectSettings(props) {
             onChange={onChange}
             onBlur={() => submit()}
             name="appendixRef"
-            placeholder={appendixRef}
+            placeholder={admin.appendixRef}
           />
         </div>
 
-        {/* useTemplate */}
-        <div className="info">
-          <label>Use Template Risks</label>
-          <div className="buttons">
-            <p id="useTemplate" onClick={(e) => toggle(e)}>
-              {useTemplate ? "Yes" : "No"}
-            </p>
-          </div>
-        </div>
-
-        {/* export */}
-        <div className="info">
-          <label>Export to spreadsheet</label>
-          <div className="buttons">
-            <p id="export" onClick={(e) => toggle(e)}>
-              {exportSpreadsheet ? "Yes" : "No"}
-            </p>
-          </div>
-        </div>
-
-        {/* export */}
+        {/* maxCharacters */}
         <div className="info">
           <label>Maximum Characters</label>
           <div className="width">
             <select
               type="number"
               onChange={onChange}
+              onBlur={submit}
               name="maxCharacters"
-              defaultValue={maxCharacters}
+              defaultValue={admin.maxCharacters}
             >
               {numbers.map((number, index) => {
                 return (
@@ -120,8 +132,44 @@ function ProjectSettings(props) {
           </div>
         </div>
 
+        {/* useTemplate */}
+        <div className="info">
+          <label>Use Template Risks</label>
+          <div className="buttons">
+            <p
+              id="useTemplate"
+              style={
+                props.projectRisks.useTemplate
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
+              {props.projectRisks.useTemplate ? "Yes" : "No"}
+            </p>
+          </div>
+        </div>
+
+        {/* exportSpreadsheet */}
+        <div className="info">
+          <label>Export to spreadsheet</label>
+          <div className="buttons">
+            <p
+              id="exportSpreadsheet"
+              style={
+                props.projectRisks.exportSpreadsheet
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
+              {props.projectRisks.exportSpreadsheet ? "Yes" : "No"}
+            </p>
+          </div>
+        </div>
+
         {/* project */}
-        <div className="maxRisks">
+        {/* <div className="maxRisks">
           <h6>Maximum number of Risks</h6>
           <div className="values">
             <MaxRisks type="Managerial" />
@@ -130,13 +178,16 @@ function ProjectSettings(props) {
             <MaxRisks type="Legal" />
             <MaxRisks type="Environmental" />
           </div>
-        </div>
+        </div> */}
       </form>
     </Container>
   );
 }
 
-export default connect((state) => state, {})(ProjectSettings);
+export default connect((state) => state, {
+  toggleProjectBoolean,
+  setProjectAdmin,
+})(ProjectSettings);
 
 const Container = styled.div`
   display: flex;
@@ -149,10 +200,20 @@ const Container = styled.div`
   }
 
   p {
+    &:hover {
+      cursor: pointer;
+    }
   }
   label {
     margin: 5px;
     text-align: left;
+  }
+  input,
+  select {
+    width: 90px;
+    /* max-width: 100px; */
+    font-size: 14px;
+    border: 1px solid lightgrey;
   }
 
   .projectForm {
@@ -195,6 +256,16 @@ const Container = styled.div`
       padding: 2px;
     }
   }
+  .width {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    width: 100%;
+    /* border: 1px solid red; */
+    select {
+      width: 90px;
+    }
+  }
   .maxRisks {
     /* border: 1px solid red; */
     display: flex;
@@ -209,7 +280,6 @@ const Container = styled.div`
       width: 100%;
       margin-top: 10px;
     }
-
     h6 {
       margin: 5px;
     }

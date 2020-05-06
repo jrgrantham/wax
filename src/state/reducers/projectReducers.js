@@ -131,18 +131,27 @@ export function projectReducer(state = riskData, action) {
         selected: action.payload,
       };
     case actionTypes.SET_RISK_COLOR:
-      console.log(action.payload.type);
-      console.log(action.payload.color);
-      
       return {
         ...state,
         options: {
           ...state.options,
           [action.payload.type]: {
             ...state.options[action.payload.type],
-            color: action.payload.color
-          }
-        }
+            color: action.payload.color,
+          },
+        },
+      };
+    case actionTypes.TOGGLE_PROJECT_BOOLEAN:
+      return {
+        ...state,
+        [action.payload]: !state[action.payload],
+      };
+    case actionTypes.SET_PROJECT_ADMIN:
+      return {
+        ...state,
+        flavour: action.payload.flavour,
+        appendixRef: action.payload.appendixRef,
+        maxCharacters: action.payload.maxCharacters,
       };
     default:
       return state;

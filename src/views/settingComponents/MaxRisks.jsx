@@ -45,12 +45,6 @@ const Container = styled.div`
   justify-content: space-between;
   margin: 5px 0;
   width: 100%;
-  .width {
-    display: flex;
-    justify-content: space-between;
-    max-width: 300px;
-    width: 100%;
-  }
   input,
   select {
     width: 90px;

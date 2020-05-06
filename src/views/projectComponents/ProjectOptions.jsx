@@ -146,4 +146,7 @@ const Container = styled.div`
   .middle {
     margin: 0 10px;
   }
+  .maxRisks {
+    margin-right: 10px;
+  }
 `;

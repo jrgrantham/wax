@@ -9,7 +9,6 @@ import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
 
 function ClientSettings(props) {
-  console.log(props.projectRisks.admin);
   
   return (
     <Container>
