@@ -5,10 +5,11 @@ import { setProjectInfo } from "../../state/actionCreators/projectActionCreators
 import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {
-  const { company, nature, type, project, application } = props.projectRisks;
+  const { company, project, application } = props.projectRisks;
 
-  const natureOptions = projectOptions.nature;
-  const projectTypes = projectOptions.type;
+  const {nature, type} = projectOptions;
+  console.log(type);
+  
 
   function onChange(event) {
     const key = event.target.name;
@@ -43,7 +44,7 @@ function ProjectSettings(props) {
             name="nature"
             defaultValue={nature}
           >
-            {natureOptions.map((option, index) => {
+            {nature.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
@@ -63,7 +64,7 @@ function ProjectSettings(props) {
             name="type"
             defaultValue={type}
           >
-            {projectTypes.map((option, index) => {
+            {type.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}

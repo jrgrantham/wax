@@ -5,9 +5,10 @@ import {
   toggleProjectBoolean,
   setProjectAdmin,
 } from "../../state/actionCreators/projectActionCreators";
+import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {
-  const flavours = props.templates.flavour;
+  const flavours = projectOptions.flavour;
   const { flavour, appendixRef, maxCharacters } = props.projectRisks;
   const numbers = [100, 500, 1000, 2000];
 

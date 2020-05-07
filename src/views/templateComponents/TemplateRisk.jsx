@@ -8,6 +8,7 @@ import {
   deleteTemplateRisk,
   replaceTemplateRisks,
   updateTemplateRisk,
+  toggleTemplateTypes,
 } from "../../state/actionCreators/templateActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 
@@ -25,16 +26,16 @@ function RiskSingle(props) {
     setCheckDelete(!checkDelete);
   }
 
-  // above here is checked
-
   function confirmProbability() {
-    console.log('hi');
+    console.log("hi");
     props.updateTemplateProbability(
       type,
       template.id,
       (template.probability + 1) % riskRange.length
     );
   }
+
+  // above here is checked
 
   function confirmConsequence() {
     props.updateTemplateConsequence(
@@ -50,16 +51,27 @@ function RiskSingle(props) {
   }
 
   function updateText(event) {
-    props.updateTemplateRisk(type, template.id, event.target.name, event.target.value);
+    props.updateTemplateRisk(
+      type,
+      template.id,
+      event.target.name,
+      event.target.value
+    );
+  }
+
+  function toggleType(projectType, id) {
+    props.toggleTemplateTypes(type, projectType, id);
   }
 
   const [height, setHeight] = useState(50);
   function getMaxHeight() {
     try {
-      const descHeight = document.getElementById(`${type}description${template.id}`)
-        .scrollHeight;
-      const mitiHeight = document.getElementById(`${type}mitigation${template.id}`)
-        .scrollHeight;
+      const descHeight = document.getElementById(
+        `${type}description${template.id}`
+      ).scrollHeight;
+      const mitiHeight = document.getElementById(
+        `${type}mitigation${template.id}`
+      ).scrollHeight;
       setHeight(Math.max(descHeight, mitiHeight));
     } catch (err) {
       console.log(err);
@@ -104,7 +116,8 @@ function RiskSingle(props) {
           <div
             onClick={() => confirmProbability()}
             className={
-              riskValue(template.probability).toLowerCase() + " probability flag"
+              riskValue(template.probability).toLowerCase() +
+              " probability flag"
             }
           >
             <h6>{riskValue(template.probability)}</h6>
@@ -112,7 +125,8 @@ function RiskSingle(props) {
           <div
             onClick={() => confirmConsequence()}
             className={
-              riskValue(template.consequence).toLowerCase() + " consequence flag"
+              riskValue(template.consequence).toLowerCase() +
+              " consequence flag"
             }
           >
             <h6>{riskValue(template.consequence)}</h6>
@@ -125,29 +139,24 @@ function RiskSingle(props) {
             value={template.mitigation}
             style={{ minHeight: height }}
           />
+
           <div
-            onClick={() => confirmProbability()}
-            className={
-              riskValue(template.probability).toLowerCase() + " probability flag"
-            }
+            onClick={() => toggleType("ai", template.id)}
+            className="flag tbc"
           >
-            <h6>{riskValue(template.probability)}</h6>
+            <h6>{template.ai ? "Yes" : "No"}</h6>
           </div>
           <div
-            onClick={() => confirmProbability()}
-            className={
-              riskValue(template.probability).toLowerCase() + " probability flag"
-            }
+            onClick={() => toggleType("dlt", template.id)}
+            className="flag tbc"
           >
-            <h6>{riskValue(template.probability)}</h6>
+            <h6>{template.dlt ? "Yes" : "No"}</h6>
           </div>
           <div
-            onClick={() => confirmProbability()}
-            className={
-              riskValue(template.probability).toLowerCase() + " probability flag"
-            }
+            onClick={() => toggleType("man", template.id)}
+            className="flag tbc"
           >
-            <h6>{riskValue(template.probability)}</h6>
+            <h6>{template.man ? "Yes" : "No"}</h6>
           </div>
 
           <div className="icon" onClick={() => toggleDelete()}>
@@ -165,6 +174,7 @@ export default connect((state) => state, {
   deleteTemplateRisk,
   replaceTemplateRisks,
   updateTemplateRisk,
+  toggleTemplateTypes,
 })(RiskSingle);
 
 export const Container = styled.div`

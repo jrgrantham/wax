@@ -22,9 +22,6 @@ function TemplateHeader(props) {
       <header>
         <div className="left">
           <h4>Risk Templates - Admin</h4>
-          <p>
-            Project {props.projectRisks.project} - {props.projectRisks.company}
-          </p>
         </div>
         <div className="image" onClick={(e) => showMenu(e)}>
           <img src={menu} alt="menu" />

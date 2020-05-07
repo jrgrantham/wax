@@ -9,8 +9,9 @@ import Menu from "./Menu";
 
 function RiskTable(props) {
   const selected = props.projectRisks.selected;
-  
   const risks = props.projectRisks[selected.toLowerCase()];
+  // const maxRisks = props.projectRisks.options[selected].maxRisks;
+  // const usedRisks = props.projectRisks[selected].length;
 
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -21,6 +22,13 @@ function RiskTable(props) {
     }
     setShowMenu(false);
   }
+
+  // function closeWindow() {
+  //   if (usedRisks === maxRisks) {
+  //     setShowTemplate(false);
+  //   }
+  // }
+  // closeWindow()
 
   return (
     <Container onClick={(event) => location(event)}>

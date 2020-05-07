@@ -7,11 +7,13 @@ import {
   setRiskColor,
 } from "../../state/actionCreators/projectActionCreators";
 import Slider from "../../images/Slider";
+import { projectOptions} from '../../data/globalSettings'
 
 function RiskSettings(props) {
   const admin = props.projectRisks.admin;
   const type = props.type.toLowerCase();
-  const colors = props.templates.riskColors;
+  const colors = projectOptions.riskColors;
+  
   const currentColor = props.projectRisks.options[type].color;
   const currentMax = props.projectRisks.options[type].maxRisks;
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

@@ -60,10 +60,18 @@ export function templateReducer(state = templates, action) {
         ...state,
         [action.payload.type]: action.payload.data,
       };
-    case actionTypes.UPDATE_TEMPLATE_TYPES:
+    case actionTypes.TOGGLE_TEMPLATE_TYPES:
       return {
         ...state,
-        [action.payload.type]: action.payload.data,
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return {
+              ...entry,
+              [action.payload.projectType]: !entry[action.payload.projectType],
+            };
+          }
+          return entry;
+        }),
       };
     default:
       return state;

@@ -76,7 +76,7 @@ function RiskTable(props) {
         </div>
         <div className="templateRisks">
           {remainingRisks.map((risk, index) => (
-            <TemplateRisk risk={risk} type={type} key={index} setShowTemplate={props.setShowTemplate} />
+            <TemplateRisk risk={risk} type={type} key={index} />
           ))}
         </div>
       </div>

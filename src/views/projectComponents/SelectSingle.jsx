@@ -33,13 +33,6 @@ function TemplateRisk(props) {
     }
   }
 
-  function closeWindow() {
-    if (usedRisks === maxRisks) {
-      props.setShowTemplate(false);
-    }
-  }
-  closeWindow()
-
   return (
     <Container>
       <div className="templateRisk">
