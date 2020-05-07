@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectInfo } from "../../state/actionCreators/projectActionCreators";
 import { globalSettings } from "../../data/globalSettings";
 
 function ProjectSettings(props) {
-  const {company, nature, type, project, application} = props.projectRisks
-  
+  const { company, nature, type, project, application } = props.projectRisks;
+
   const natureOptions = globalSettings.project.nature;
   const projectTypes = globalSettings.project.type;
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
-    props.setProjectInfo({key, value})
+    props.setProjectInfo({ key, value });
   }
 
   return (
@@ -65,7 +65,7 @@ function ProjectSettings(props) {
           >
             {projectTypes.map((option, index) => {
               return (
-                <option key={index} value={option} >
+                <option key={index} value={option}>
                   {option}
                 </option>
               );

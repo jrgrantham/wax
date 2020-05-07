@@ -89,7 +89,6 @@ function RiskSingle(props) {
       ) : (
         <Swipeable
           className="risk"
-          
           onSwiped={(event) => {
             swipe(event);
           }}
@@ -154,7 +153,6 @@ export default connect((state) => state, {
 })(RiskSingle);
 
 export const Container = styled.div`
-
   width: 100%;
   /* border: 1px solid red; */
   .checkDelete {
