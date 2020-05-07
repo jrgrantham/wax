@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import {
@@ -11,7 +11,7 @@ import Slider from "../../images/Slider";
 function RiskSettings(props) {
   const admin = props.projectRisks.admin;
   const type = props.type.toLowerCase();
-  const colors = props.adminSettings.riskColors;
+  const colors = props.templates.riskColors;
   const currentColor = props.projectRisks.options[type].color;
   const currentMax = props.projectRisks.options[type].maxRisks;
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -62,7 +62,7 @@ function RiskSettings(props) {
                     className="circle"
                     onClick={() => setColor(color)}
                     style={
-                      color == currentColor
+                      color === currentColor
                         ? {
                             backgroundColor: color,
                             width: "25px",

@@ -7,7 +7,7 @@ import {
 } from "../../state/actionCreators/projectActionCreators";
 
 function ProjectSettings(props) {
-  const flavours = props.adminSettings.flavour;
+  const flavours = props.templates.flavour;
   const { flavour, appendixRef, maxCharacters } = props.projectRisks;
   const numbers = [100, 500, 1000, 2000];
 

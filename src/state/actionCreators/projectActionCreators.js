@@ -118,10 +118,3 @@ export function replaceRisks(type, data) {
     },
   };
 }
-
-// export function replaceRisks(type, data) {
-//   return {
-//     type: actionTypes.REPLACE_RISKS,
-//     payload: data,
-//   };
-// }

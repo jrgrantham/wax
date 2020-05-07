@@ -6,7 +6,7 @@ import TemplateRisk from "./SelectSingle";
 
 function RiskTable(props) {
   const type = props.projectRisks.selected.toLowerCase();
-  const templateRisks = props.adminSettings.riskTemplate[type];
+  const templateRisks = props.templates.riskTemplate[type];
   const usedRisks = props.projectRisks[type];
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
