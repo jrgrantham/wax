@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectInfo } from "../../state/actionCreators/projectActionCreators";
-import { globalSettings } from "../../data/globalSettings";
+import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {
   const { company, nature, type, project, application } = props.projectRisks;
 
-  const natureOptions = globalSettings.project.nature;
-  const projectTypes = globalSettings.project.type;
+  const natureOptions = projectOptions.nature;
+  const projectTypes = projectOptions.type;
 
   function onChange(event) {
     const key = event.target.name;

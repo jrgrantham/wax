@@ -1,7 +1,7 @@
-import { globalSettings } from "../../data/globalSettings";
+import { templates } from "../../data/globalSettings";
 import * as actionTypes from "../actionTypes";
 
-export function templateReducer(state = globalSettings, action) {
+export function templateReducer(state = templates, action) {
   switch (action.type) {
     case actionTypes.UPDATE_TEMPLATE_RISK:
       return {

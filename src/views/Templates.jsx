@@ -8,7 +8,7 @@ import Menu from "./Menu";
 
 function Templates(props) {
   const selected = props.projectRisks.selected;
-  const templates = props.templates.riskTemplate[selected.toLowerCase()];
+  const templates = props.templates[selected.toLowerCase()];
 
   const [showMenu, setShowMenu] = useState(false);
   function location(event) {
