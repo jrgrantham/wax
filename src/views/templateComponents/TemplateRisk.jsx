@@ -143,18 +143,21 @@ function RiskSingle(props) {
           <div
             onClick={() => toggleType("ai", template.id)}
             className="flag tbc"
+            style={ template.ai ? { backgroundColor: 'lightyellow'} : null}
           >
             <h6>{template.ai ? "Yes" : "No"}</h6>
           </div>
           <div
             onClick={() => toggleType("dlt", template.id)}
             className="flag tbc"
+            style={ template.dlt ? { backgroundColor: 'lightyellow'} : null}
           >
             <h6>{template.dlt ? "Yes" : "No"}</h6>
           </div>
           <div
             onClick={() => toggleType("man", template.id)}
             className="flag tbc"
+            style={ template.man ? { backgroundColor: 'lightyellow'} : null}
           >
             <h6>{template.man ? "Yes" : "No"}</h6>
           </div>

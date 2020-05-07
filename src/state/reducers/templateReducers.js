@@ -55,7 +55,7 @@ export function templateReducer(state = templates, action) {
           action.payload.data
         ),
       };
-    case actionTypes.REPLACE_RISKS:
+    case actionTypes.REPLACE_TEMPLATE_RISKS:
       return {
         ...state,
         [action.payload.type]: action.payload.data,

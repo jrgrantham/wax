@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
-  addToProject,
-  replaceRisks,
-} from "../../state/actionCreators/projectActionCreators";
+  addToTemplate,
+  replaceTemplateRisks,
+} from "../../state/actionCreators/templateActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
 
@@ -20,12 +20,12 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addToProject() {
-    props.addToProject(type, emtpyRow);
+  function addToTemplate() {
+    props.addToTemplate(type, emtpyRow);
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type].map((entry) => {
+    const calculatedRisks = props.templates[type].map((entry) => {
       const value = entry.probability * entry.consequence;
       return { ...entry, risk: value };
     });
@@ -36,7 +36,7 @@ function Options(props) {
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.replaceRisks(type.toLowerCase(), sortedRisks);
+    props.replaceTemplateRisks(type.toLowerCase(), sortedRisks);
   }
 
   return (
@@ -48,7 +48,7 @@ function Options(props) {
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
               </div>
-              <div className="image" onClick={() => addToProject()}>
+              <div className="image" onClick={() => addToTemplate()}>
                 <img src={addIcon} alt="add" />
               </div>
             </>
@@ -59,8 +59,8 @@ function Options(props) {
 }
 
 export default connect((state) => state, {
-  addToProject,
-  replaceRisks,
+  addToTemplate,
+  replaceTemplateRisks,
 })(Options);
 
 const Container = styled.div`
