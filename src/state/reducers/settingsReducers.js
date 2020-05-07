@@ -124,7 +124,7 @@ export function settingsReducer(state = globalSettings, action) {
   //         },
   //       },
   //     };
-  //   case actionTypes.SORT_BY_RISK:
+  //   case actionTypes.REPLACE_RISKS:
   //     return {
   //       ...state,
   //       [action.payload.type]: action.payload.data,

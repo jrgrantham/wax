@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
-import TemplateRisk from "./TemplateRisk";
+import TemplateRisk from "./SelectSingle";
 
 function RiskTable(props) {
   const type = props.projectRisks.selected.toLowerCase();
@@ -12,22 +12,6 @@ function RiskTable(props) {
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
   const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
   const manRisks = templateRisks.filter((risk) => risk.man === true);
-
-  // this is all risks
-  const combinedRisks = [aiRisks, dltRisks, manRisks];
-
-  let test = 4;
-  function useRelevantRisks() {
-    if (props.projectRisks.ai) {
-      // console.log('ai');
-      // console.log(aiRisks);
-      test = test + 1;
-      combinedRisks.concat(aiRisks);
-    }
-    return combinedRisks;
-  }
-  useRelevantRisks();
-  console.log(test);
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
@@ -58,7 +42,7 @@ function RiskTable(props) {
     return risk.description;
   });
   // remove the entries that are already used
-  const remainingRisks = mergedRisks(combinedRisks).filter(
+  const remainingRisks = mergedRisks().filter(
     (risk) => !filterDescriptions.includes(risk.description)
   );
 
@@ -68,6 +52,13 @@ function RiskTable(props) {
     }
     return;
   }
+
+  // function closeTemplate() {
+  //   if (props.projectRisks.options[type].maxRisks === props.projectRisks[type].length() ) {
+  //     props.setShowTemplate(false);
+  //   } 
+  // }
+  // closeTemplate()
 
   return (
     <Container
@@ -85,7 +76,7 @@ function RiskTable(props) {
         </div>
         <div className="templateRisks">
           {remainingRisks.map((risk, index) => (
-            <TemplateRisk risk={risk} type={type} key={index} />
+            <TemplateRisk risk={risk} type={type} key={index} setShowTemplate={props.setShowTemplate} />
           ))}
         </div>
       </div>

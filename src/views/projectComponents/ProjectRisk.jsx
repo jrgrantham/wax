@@ -6,7 +6,7 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
+  replaceRisks,
   updateRisk,
 } from "../../state/actionCreators/projectActionCreators";
 import removeIcon from "../../images/removeIcon.png";
@@ -15,6 +15,7 @@ function RiskSingle(props) {
   const type = props.projectRisks.selected.toLowerCase();
   const risk = props.risk;
   const riskRange = props.projectRisks.riskRange;
+  const maxLength = props.projectRisks.options[type].maxLength;
 
   function riskValue(value) {
     return riskRange[value];
@@ -99,6 +100,7 @@ function RiskSingle(props) {
             onChange={updateText}
             name="description"
             value={risk.description}
+            maxLength={maxLength}
           />
           <div
             onClick={() => confirmProbability()}
@@ -123,6 +125,7 @@ function RiskSingle(props) {
             name="mitigation"
             value={risk.mitigation}
             style={{ minHeight: height }}
+            maxLength={maxLength}
           />
           <input
             className={`${risk.owner.toLowerCase()} owner`}
@@ -146,7 +149,7 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
+  replaceRisks,
   updateRisk,
 })(RiskSingle);
 

@@ -6,7 +6,7 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
+  replaceRisks,
   addToProject,
   updateRisk,
 } from "../../state/actionCreators/projectActionCreators";
@@ -33,6 +33,13 @@ function TemplateRisk(props) {
     }
   }
 
+  function closeWindow() {
+    if (usedRisks === maxRisks) {
+      props.setShowTemplate(false);
+    }
+  }
+  closeWindow()
+
   return (
     <Container>
       <div className="templateRisk">
@@ -50,7 +57,7 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  sortByRisk,
+  replaceRisks,
   updateRisk,
   addToProject,
 })(TemplateRisk);

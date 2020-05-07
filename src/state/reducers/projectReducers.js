@@ -88,18 +88,17 @@ export function projectReducer(state = riskData, action) {
     case actionTypes.SET_PROJECT_INFO:
       return {
         ...state,
-        company: action.payload.company,
-        nature: action.payload.nature,
-        type: action.payload.type,
-        project: action.payload.project,
-        application: action.payload.application,
+        [action.payload.key]: action.payload.value,
       };
     case actionTypes.SET_RISK_OPTIONS:
       return {
         ...state,
         options: {
           ...state.options,
-          [action.payload.riskType]: action.payload.info,
+          [action.payload.riskType]: {
+            ...state.options[action.payload.riskType],
+            [action.payload.key]: action.payload.value
+          }
         },
       };
     case actionTypes.ADD_TO_PROJECT:
@@ -120,7 +119,7 @@ export function projectReducer(state = riskData, action) {
           },
         },
       };
-    case actionTypes.SORT_BY_RISK:
+    case actionTypes.REPLACE_RISKS:
       return {
         ...state,
         [action.payload.type]: action.payload.data,
@@ -149,9 +148,7 @@ export function projectReducer(state = riskData, action) {
     case actionTypes.SET_PROJECT_ADMIN:
       return {
         ...state,
-        flavour: action.payload.flavour,
-        appendixRef: action.payload.appendixRef,
-        maxCharacters: action.payload.maxCharacters,
+        [action.payload.key]: action.payload.value,
       };
     default:
       return state;

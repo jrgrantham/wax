@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import MaxRisks from "./MaxRisks";
 import {
   toggleProjectBoolean,
   setProjectAdmin,
@@ -17,21 +16,10 @@ function ProjectSettings(props) {
   }
 
   function onChange(event) {
-    setAdmin({
-      ...admin,
-      [event.target.name]: event.target.value,
-    });
+    const key = event.target.name;
+    const value = event.target.value;
+    props.setProjectAdmin({key, value});
   }
-  function submit() {
-    props.setProjectAdmin(admin);
-  }
-
-  const initialState = {
-    flavour,
-    appendixRef,
-    maxCharacters,
-  };
-  const [admin, setAdmin] = useState(initialState);
 
   return (
     <Container>
@@ -84,14 +72,13 @@ function ProjectSettings(props) {
           <select
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
             name="flavour"
-            defaultValue={admin.flavour}
+            defaultValue={flavour}
           >
-            {flavours.map((option, index) => {
+            {flavours.map((flavour, index) => {
               return (
-                <option key={index} value={option}>
-                  {option}
+                <option key={index} value={flavour}>
+                  {flavour}
                 </option>
               );
             })}
@@ -104,9 +91,8 @@ function ProjectSettings(props) {
           <input
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
             name="appendixRef"
-            placeholder={admin.appendixRef}
+            value={appendixRef}
           />
         </div>
 
@@ -117,9 +103,9 @@ function ProjectSettings(props) {
             <select
               type="number"
               onChange={onChange}
-              onBlur={submit}
+              // onBlur={{}}
               name="maxCharacters"
-              defaultValue={admin.maxCharacters}
+              defaultValue={maxCharacters}
             >
               {numbers.map((number, index) => {
                 return (
@@ -168,17 +154,6 @@ function ProjectSettings(props) {
           </div>
         </div>
 
-        {/* project */}
-        {/* <div className="maxRisks">
-          <h6>Maximum number of Risks</h6>
-          <div className="values">
-            <MaxRisks type="Managerial" />
-            <MaxRisks type="Technical" />
-            <MaxRisks type="Commercial" />
-            <MaxRisks type="Legal" />
-            <MaxRisks type="Environmental" />
-          </div>
-        </div> */}
       </form>
     </Container>
   );

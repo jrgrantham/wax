@@ -4,7 +4,7 @@ import Header from "./projectComponents/ProjectHeader";
 import ProjectRisk from "./projectComponents/ProjectRisk";
 import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
-import TemplateTable from "./templateComponents/TemplateTable";
+import SelectTemplate from "./templateComponents/SelectTemplate";
 import Menu from "./projectComponents/Menu";
 
 function RiskTable(props) {
@@ -26,7 +26,7 @@ function RiskTable(props) {
     <Container onClick={(event) => location(event)}>
       <Menu showMenu={showMenu} />
       {showTemplate ? (
-        <TemplateTable setShowTemplate={setShowTemplate} />
+        <SelectTemplate setShowTemplate={setShowTemplate} />
       ) : null}
       <Header setShowMenu={setShowMenu} />
       <div className="risks">

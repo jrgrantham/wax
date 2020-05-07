@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
-  sortByRisk,
+  replaceRisks,
 } from "../../state/actionCreators/projectActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
@@ -49,7 +49,7 @@ function Options(props) {
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.sortByRisk(type.toLowerCase(), sortedRisks);
+    props.replaceRisks(type.toLowerCase(), sortedRisks);
   }
 
   return (
@@ -94,7 +94,7 @@ function Options(props) {
 
 export default connect((state) => state, {
   addToProject,
-  sortByRisk,
+  replaceRisks,
 })(Options);
 
 const Container = styled.div`

@@ -8,7 +8,7 @@ export const riskData = {
   type: "projectType 4",
   project: "Reacher",
   application: "",
-  selected: "Commercial", // project risk
+  selected: "commercial", // project risk
 
   ai: true, // admin
   dlt: false, // admin
@@ -26,7 +26,7 @@ export const riskData = {
       displayChangeable: false,
       defaultOwner: "JG",
       color: "#E2F0CB",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 1, // admin
     },
     technical: {
@@ -34,7 +34,7 @@ export const riskData = {
       displayChangeable: false,
       defaultOwner: "DJ",
       color: "#B5EAD7",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 2, // admin
     },
     commercial: {
@@ -42,7 +42,7 @@ export const riskData = {
       displayChangeable: false,
       defaultOwner: "CG",
       color: "#C7CEEA",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 3, // admin
     },
     legal: {
@@ -50,7 +50,7 @@ export const riskData = {
       displayChangeable: true,
       defaultOwner: "",
       color: "#DEE2D9",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 4, // admin
     },
     environmental: {
@@ -58,7 +58,7 @@ export const riskData = {
       displayChangeable: true,
       defaultOwner: "",
       color: "#FCF1D8",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 5, // admin
     },
   },
