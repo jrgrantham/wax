@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import Header from "./components/ProjectHeader";
-import ProjectRisk from "./components/ProjectRisk";
+import Header from "./templateComponents/TemplateHeader";
+import TemplateRisk from "./templateComponents/TemplateRisk";
 import styled from "styled-components";
-import Options from "./components/ProjectOptions";
-import TemplateTable from "./TemplateTable";
-import Menu from "./components/Menu";
+import Options from "./templateComponents/TemplateOptions";
+import Menu from "./Menu";
 
-function RiskTable(props) {
+function Templates(props) {
   const selected = props.projectRisks.selected;
-  const risks = props.projectRisks[selected.toLowerCase()];
+  const templates = props.templates[selected.toLowerCase()];
 
-  const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-
   function location(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
@@ -24,21 +21,18 @@ function RiskTable(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <Menu showMenu={showMenu} />
-      {showTemplate ? (
-        <TemplateTable setShowTemplate={setShowTemplate} />
-      ) : null}
       <Header setShowMenu={setShowMenu} />
       <div className="risks">
-        {risks.map((risk, index) => (
-          <ProjectRisk risk={risk} key={index} />
+        {templates.map((template, index) => (
+          <TemplateRisk template={template} key={index} />
         ))}
       </div>
-      <Options setShowTemplate={setShowTemplate} />
+      <Options />
     </Container>
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, {})(Templates);
 
 const Container = styled.div`
   display: flex;
@@ -53,7 +47,7 @@ const Container = styled.div`
     background-color: #e5e5e5;
     width: 100%;
     max-width: 1500px;
-    margin-top: 176px;
+    margin-top: 169px;
     padding-bottom: 15px;
     border-radius: 0 0 0 20px;
   }

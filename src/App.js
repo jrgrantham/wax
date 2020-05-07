@@ -2,21 +2,22 @@ import React from "react";
 import "./App.css";
 
 import { Provider } from "react-redux";
-import { projectReducer, stylingReducer, settingsReducer } from "./state/reducers";
+import { projectReducer, stylingReducer, templateReducer } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import RiskTable from "./riskManagement/ProjectTable";
-import RiskText from "./riskManagement/ProjectDocument";
-import ClientSettings from "./clientSettings/ClientSettings";
+import RiskTable from "./views/ProjectTable";
+import RiskText from "./views/ProjectDocument";
+import Settings from "./views/Settings";
 import Login from './views/Login'
 import Footer from "./Footer";
+import Templates from "./views/Templates";
 
 const monsterReducer = combineReducers({
-  adminSettings: settingsReducer,
+  templates: templateReducer,
   projectRisks: projectReducer,
-  projectStyling: stylingReducer,
+  // projectStyling: stylingReducer,
 });
 
 const store = createStore(
@@ -31,10 +32,11 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Route path='/project-settings' component={ClientSettings} />
+        <Route path='/project-settings' component={Settings} />
         <Route path='/risk-table' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
         <Route exact path='/login' component={Login} />
+        <Route path='/templates' component={Templates} />
       </div>
       <Footer />
     </Provider>

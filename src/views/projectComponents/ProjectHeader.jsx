@@ -14,8 +14,11 @@ function RiskTable(props) {
     props.setShowMenu(true);
   }
 
+  const selected = props.projectRisks.selected.toLowerCase();
+  const color = props.projectRisks.options[selected].color;
+
   return (
-    <Container>
+    <Container color={color}>
       <header>
         <div className="left">
           <h4>Risk Management Table</h4>
@@ -63,6 +66,7 @@ function RiskTable(props) {
           </Type>
         ) : null}
       </div>
+      <div className="banner"></div>
       <div className="titles">
         <h6>Description</h6>
         <h6>Likelihood</h6>
@@ -112,6 +116,11 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     /* border: 1px solid red; */
+  }
+  .banner {
+    background-color: ${props => props.color};
+    height: 10px;
+    width: 100%;
   }
   .titles {
     width: 100%;

@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default function Menu(props) {
+function Menu(props) {
   return (
     <Container
       id="menu"
@@ -18,6 +19,13 @@ export default function Menu(props) {
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>
       </div>
+        <div className="menu">
+        {props.projectRisks.admin ? (
+          <Link to="templates">
+            <h6>Edit Templates</h6>
+          </Link>
+        ) : null}
+        </div>
       <div>
         <h6>Change Password</h6>
         <h6>Log Out</h6>
@@ -25,6 +33,8 @@ export default function Menu(props) {
     </Container>
   );
 }
+
+export default connect((state) => state, {})(Menu);
 
 const Container = styled.div`
   height: 100%;
@@ -43,9 +53,8 @@ const Container = styled.div`
   .menu {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
-    height: 300px;
   }
 
   h6 {

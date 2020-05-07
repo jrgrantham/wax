@@ -1,34 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
-import { globalSettings } from "../data/globalSettings";
+import { setProjectInfo } from "../../state/actionCreators/projectActionCreators";
+import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {
-  const projectDetails = {
-    company: props.projectRisks.company,
-    nature: props.projectRisks.nature,
-    type: props.projectRisks.type,
-    project: props.projectRisks.project,
-    application: props.projectRisks.application,
-  };
+  const { company, project, application } = props.projectRisks;
 
-  const [projectForm, setProjectForm] = useState(projectDetails);
-  const nature = globalSettings.project.nature;
-  const projectType = globalSettings.project.type;
+  const {nature, type} = projectOptions;
+  console.log(type);
+  
 
   function onChange(event) {
-    setProjectForm({ ...projectForm, [event.target.name]: event.target.value });
-  }
-
-  function submit() {
-    props.setProjectInfo(projectForm);
+    const key = event.target.name;
+    const value = event.target.value;
+    props.setProjectInfo({ key, value });
   }
 
   return (
     <Container>
       <form className="projectForm">
-        <h5>Project Settings</h5>
+        <h5>Project</h5>
 
         {/* company name */}
         <div className="info">
@@ -36,9 +28,9 @@ function ProjectSettings(props) {
           <input
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
+            // onBlur={() => submit()}
             name="company"
-            placeholder={props.projectRisks.company}
+            value={company}
           />
         </div>
 
@@ -48,9 +40,9 @@ function ProjectSettings(props) {
           <select
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
+            // onBlur={() => submit()}
             name="nature"
-            defaultValue={props.projectRisks.nature}
+            defaultValue={nature}
           >
             {nature.map((option, index) => {
               return (
@@ -68,13 +60,13 @@ function ProjectSettings(props) {
           <select
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
+            // onBlur={() => submit()}
             name="type"
-            defaultValue={props.projectRisks.type}
+            defaultValue={type}
           >
-            {projectType.map((option, index) => {
+            {type.map((option, index) => {
               return (
-                <option key={index} value={option} >
+                <option key={index} value={option}>
                   {option}
                 </option>
               );
@@ -88,9 +80,9 @@ function ProjectSettings(props) {
           <input
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
+            // onBlur={() => submit()}
             name="project"
-            placeholder={props.projectRisks.project}
+            value={project}
           />
         </div>
 
@@ -99,9 +91,9 @@ function ProjectSettings(props) {
           <input
             type="text"
             onChange={onChange}
-            onBlur={() => submit()}
+            // onBlur={() => submit()}
             name="application"
-            placeholder={props.projectRisks.application}
+            value={application}
           />
         </div>
       </form>

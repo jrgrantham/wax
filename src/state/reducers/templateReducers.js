@@ -1,9 +1,9 @@
+import { templates } from "../../data/globalSettings";
 import * as actionTypes from "../actionTypes";
-import { riskData } from "../../data/dummyData";
 
-export function projectReducer(state = riskData, action) {
+export function templateReducer(state = templates, action) {
   switch (action.type) {
-    case actionTypes.UPDATE_RISK:
+    case actionTypes.UPDATE_TEMPLATE_RISK:
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -16,7 +16,7 @@ export function projectReducer(state = riskData, action) {
           return entry;
         }),
       };
-    case actionTypes.UPDATE_PROBABILITY:
+    case actionTypes.UPDATE_TEMPLATE_PROBABILITY:
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -26,7 +26,7 @@ export function projectReducer(state = riskData, action) {
           return entry;
         }),
       };
-    case actionTypes.UPDATE_CONSEQUENCE:
+    case actionTypes.UPDATE_TEMPLATE_CONSEQUENCE:
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].map((entry) => {
@@ -36,7 +36,7 @@ export function projectReducer(state = riskData, action) {
           return entry;
         }),
       };
-    case actionTypes.DELETE_RISK:
+    case actionTypes.DELETE_TEMPLATE_RISK:
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].filter(
@@ -48,65 +48,30 @@ export function projectReducer(state = riskData, action) {
         ...state,
         [action.payload.key]: action.payload.value,
       };
-    case actionTypes.SET_RISK_OPTIONS:
-      return {
-        ...state,
-        options: {
-          ...state.options,
-          [action.payload.riskType]: {
-            ...state.options[action.payload.riskType],
-            [action.payload.key]: action.payload.value
-          }
-        },
-      };
-    case actionTypes.ADD_TO_PROJECT:
+    case actionTypes.ADD_TO_TEMPLATE:
       return {
         ...state,
         [action.payload.type]: state[action.payload.type].concat(
           action.payload.data
         ),
       };
-    case actionTypes.TOGGLE_RISK_DISPLAY:
-      return {
-        ...state,
-        options: {
-          ...state.options,
-          [action.payload]: {
-            ...state.options[action.payload],
-            display: !state.options[action.payload].display,
-          },
-        },
-      };
-    case actionTypes.REPLACE_RISKS:
+    case actionTypes.REPLACE_TEMPLATE_RISKS:
       return {
         ...state,
         [action.payload.type]: action.payload.data,
       };
-    case actionTypes.SET_SELECTED:
+    case actionTypes.TOGGLE_TEMPLATE_TYPES:
       return {
         ...state,
-        selected: action.payload,
-      };
-    case actionTypes.SET_RISK_COLOR:
-      return {
-        ...state,
-        options: {
-          ...state.options,
-          [action.payload.type]: {
-            ...state.options[action.payload.type],
-            color: action.payload.color,
-          },
-        },
-      };
-    case actionTypes.TOGGLE_PROJECT_BOOLEAN:
-      return {
-        ...state,
-        [action.payload]: !state[action.payload],
-      };
-    case actionTypes.SET_PROJECT_ADMIN:
-      return {
-        ...state,
-        [action.payload.key]: action.payload.value,
+        [action.payload.type]: state[action.payload.type].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return {
+              ...entry,
+              [action.payload.projectType]: !entry[action.payload.projectType],
+            };
+          }
+          return entry;
+        }),
       };
     default:
       return state;

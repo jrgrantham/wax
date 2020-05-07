@@ -3,17 +3,18 @@ import { connect } from "react-redux";
 import { Swipeable } from "react-swipeable";
 import styled from "styled-components";
 import {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  sortByRisk,
-  updateRisk,
-} from "../../state/actionCreators/projectActionCreators";
+  updateTemplateProbability,
+  updateTemplateConsequence,
+  deleteTemplateRisk,
+  replaceTemplateRisks,
+  updateTemplateRisk,
+  toggleTemplateTypes,
+} from "../../state/actionCreators/templateActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 
 function RiskSingle(props) {
   const type = props.projectRisks.selected.toLowerCase();
-  const risk = props.risk;
+  const template = props.template;
   const riskRange = props.projectRisks.riskRange;
 
   function riskValue(value) {
@@ -21,43 +22,56 @@ function RiskSingle(props) {
   }
 
   const [checkDelete, setCheckDelete] = useState(false);
-
   function toggleDelete() {
     setCheckDelete(!checkDelete);
   }
 
   function confirmProbability() {
-    props.updateProbability(
+    console.log("hi");
+    props.updateTemplateProbability(
       type,
-      risk.id,
-      (risk.probability + 1) % riskRange.length
+      template.id,
+      (template.probability + 1) % riskRange.length
     );
   }
 
+  // above here is checked
+
   function confirmConsequence() {
-    props.updateConsequence(
+    props.updateTemplateConsequence(
       type,
-      risk.id,
-      (risk.consequence + 1) % riskRange.length
+      template.id,
+      (template.consequence + 1) % riskRange.length
     );
   }
 
   function confirmDelete() {
-    props.deleteRisk(type, risk.id);
+    props.deleteTemplateRisk(type, template.id);
     setCheckDelete(false);
   }
 
   function updateText(event) {
-    props.updateRisk(type, risk.id, event.target.name, event.target.value);
+    props.updateTemplateRisk(
+      type,
+      template.id,
+      event.target.name,
+      event.target.value
+    );
+  }
+
+  function toggleType(projectType, id) {
+    props.toggleTemplateTypes(type, projectType, id);
   }
 
   const [height, setHeight] = useState(50);
   function getMaxHeight() {
     try {
-      const descHeight = document.getElementById(`${type}description${risk.id}`)
-        .scrollHeight;
-      const mitiHeight = document.getElementById(`${type}mitigation${risk.id}`)
-        .scrollHeight;
+      const descHeight = document.getElementById(
+        `${type}description${template.id}`
+      ).scrollHeight;
+      const mitiHeight = document.getElementById(
+        `${type}mitigation${template.id}`
+      ).scrollHeight;
       setHeight(Math.max(descHeight, mitiHeight));
     } catch (err) {
       console.log(err);
@@ -88,50 +102,65 @@ function RiskSingle(props) {
       ) : (
         <Swipeable
           className="risk"
-          
           onSwiped={(event) => {
             swipe(event);
           }}
         >
           <textarea
-            id={`${type}description${risk.id}`}
+            id={`${type}description${template.id}`}
             type="text"
             onChange={updateText}
             name="description"
-            value={risk.description}
+            value={template.description}
           />
           <div
             onClick={() => confirmProbability()}
             className={
-              riskValue(risk.probability).toLowerCase() + " probability flag"
+              riskValue(template.probability).toLowerCase() +
+              " probability flag"
             }
           >
-            <h6>{riskValue(risk.probability)}</h6>
+            <h6>{riskValue(template.probability)}</h6>
           </div>
           <div
             onClick={() => confirmConsequence()}
             className={
-              riskValue(risk.consequence).toLowerCase() + " consequence flag"
+              riskValue(template.consequence).toLowerCase() +
+              " consequence flag"
             }
           >
-            <h6>{riskValue(risk.consequence)}</h6>
+            <h6>{riskValue(template.consequence)}</h6>
           </div>
           <textarea
-            id={`${type}mitigation${risk.id}`}
+            id={`${type}mitigation${template.id}`}
             type="text"
             onChange={updateText}
             name="mitigation"
-            value={risk.mitigation}
+            value={template.mitigation}
             style={{ minHeight: height }}
           />
-          <input
-            className={`${risk.owner.toLowerCase()} owner`}
-            type="text"
-            onChange={updateText}
-            name="owner"
-            value={risk.owner}
-            style={{ minHeight: height }}
-          />
+
+          <div
+            onClick={() => toggleType("ai", template.id)}
+            className="flag tbc"
+            style={ template.ai ? { backgroundColor: 'lightyellow'} : null}
+          >
+            <h6>{template.ai ? "Yes" : "No"}</h6>
+          </div>
+          <div
+            onClick={() => toggleType("dlt", template.id)}
+            className="flag tbc"
+            style={ template.dlt ? { backgroundColor: 'lightyellow'} : null}
+          >
+            <h6>{template.dlt ? "Yes" : "No"}</h6>
+          </div>
+          <div
+            onClick={() => toggleType("man", template.id)}
+            className="flag tbc"
+            style={ template.man ? { backgroundColor: 'lightyellow'} : null}
+          >
+            <h6>{template.man ? "Yes" : "No"}</h6>
+          </div>
 
           <div className="icon" onClick={() => toggleDelete()}>
             <img src={removeIcon} alt="delete" />
@@ -143,15 +172,15 @@ function RiskSingle(props) {
 }
 
 export default connect((state) => state, {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  sortByRisk,
-  updateRisk,
+  updateTemplateProbability,
+  updateTemplateConsequence,
+  deleteTemplateRisk,
+  replaceTemplateRisks,
+  updateTemplateRisk,
+  toggleTemplateTypes,
 })(RiskSingle);
 
 export const Container = styled.div`
-
   width: 100%;
   /* border: 1px solid red; */
   .checkDelete {
@@ -180,7 +209,7 @@ export const Container = styled.div`
 
   .risk {
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
+    grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px 20px;
     column-gap: 5px;
     padding: 5px 0px 5px 25px;
     /* transition: background-color 0.3s; */

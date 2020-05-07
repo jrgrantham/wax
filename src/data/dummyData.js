@@ -1,41 +1,48 @@
 export const riskData = {
+  // project info reducer
+  admin: true,
+
+  projectId: '',
   company: "Jones",
   nature: "nature 3",
   type: "projectType 4",
   project: "Reacher",
   application: "",
+  selected: "commercial", // project risk
+
   ai: true, // admin
-  dlt: true, // admin
+  dlt: false, // admin
   man: true, // admin
-  flavour: "", // admin
+  useTemplate: false, // admin
+  exportSpreadsheet: false, // admin
+  flavour: "flavour 3", // admin
+  appendixRef: "reference", // admin
+  maxCharacters: 350, // admin
   riskRange: ["TBC", "Low", "Medium", "High"], // admin
-  selected: "Commercial",
-  appendixRef: "", // admin
-  useTemplate: true, // admin
-  maxRisks: 4,
+
   options: {
     managerial: {
       display: true, // admin
       displayChangeable: false,
       defaultOwner: "JG",
       color: "#E2F0CB",
-      maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxLength: 100, // admin
+      maxRisks: 1, // admin
     },
     technical: {
       display: true, // admin
       displayChangeable: false,
       defaultOwner: "DJ",
       color: "#B5EAD7",
-      maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxLength: 100, // admin
+      maxRisks: 2, // admin
     },
     commercial: {
       display: true, // admin
       displayChangeable: false,
       defaultOwner: "CG",
       color: "#C7CEEA",
-      maxLength: "", // admin
+      maxLength: 100, // admin
       maxRisks: 3, // admin
     },
     legal: {
@@ -43,18 +50,19 @@ export const riskData = {
       displayChangeable: true,
       defaultOwner: "",
       color: "#DEE2D9",
-      maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxLength: 100, // admin
+      maxRisks: 4, // admin
     },
     environmental: {
       display: true,
       displayChangeable: true,
       defaultOwner: "",
       color: "#FCF1D8",
-      maxLength: "", // admin
-      maxRisks: 3, // admin
+      maxLength: 100, // admin
+      maxRisks: 5, // admin
     },
   },
+
   managerial: [
     {
       id: 1,
@@ -144,28 +152,28 @@ export const riskData = {
     },
   ],
   commercial: [
-    {
-      id: 9,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 2,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "DJ",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      id: 10,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 3,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "DJ",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
+    // {
+    //   id: 9,
+    //   description:
+    //     "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    //   probability: 2,
+    //   consequence: 1,
+    //   risk: 0, // auto
+    //   owner: "DJ",
+    //   mitigation:
+    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    // },
+    // {
+    //   id: 10,
+    //   description:
+    //     "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    //   probability: 3,
+    //   consequence: 1,
+    //   risk: 0, // auto
+    //   owner: "DJ",
+    //   mitigation:
+    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    // },
     {
       id: 11,
       description:

@@ -51,12 +51,13 @@ export function setProjectInfo(info) {
   };
 }
 
-export function setRiskOptions(riskType, info) {
+export function setRiskOptions(riskType, key, value) {
   return {
     type: actionTypes.SET_RISK_OPTIONS,
     payload: {
       riskType,
-      info,
+      key,
+      value,
     },
   };
 }
@@ -78,16 +79,6 @@ export function toggleRiskDisplay(type) {
   };
 }
 
-export function sortByRisk(type, data) {
-  return {
-    type: actionTypes.SORT_BY_RISK,
-    payload: {
-      type,
-      data,
-    },
-  };
-}
-
 export function setSelected(type) {
   return {
     type: actionTypes.SET_SELECTED,
@@ -99,5 +90,31 @@ export function setRiskColor(type, color) {
   return {
     type: actionTypes.SET_RISK_COLOR,
     payload: { type, color },
+  };
+}
+
+export function toggleProjectBoolean(key) {
+  return {
+    type: actionTypes.TOGGLE_PROJECT_BOOLEAN,
+    payload: key,
+  };
+}
+
+export function setProjectAdmin(data) {  
+  console.log(data);
+  
+  return {
+    type: actionTypes.SET_PROJECT_ADMIN,
+    payload: data,
+  };
+}
+
+export function replaceRisks(type, data) {
+  return {
+    type: actionTypes.REPLACE_RISKS,
+    payload: {
+      type,
+      data,
+    },
   };
 }

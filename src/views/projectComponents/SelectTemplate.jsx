@@ -1,29 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-
-import TemplateRisk from "./components/TemplateRisk";
+import removeIcon from "../../images/removeIcon.png";
+import TemplateRisk from "./SelectSingle";
 
 function RiskTable(props) {
-  const selected = props.projectRisks.selected;
-  const templateRisks =
-    props.adminSettings.riskTemplate[selected.toLowerCase()];
   const type = props.projectRisks.selected.toLowerCase();
-  const usedRisks = props.projectRisks[selected.toLowerCase()];
+  const templateRisks = props.templates[type];
+  const usedRisks = props.projectRisks[type];
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
   const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
   const manRisks = templateRisks.filter((risk) => risk.man === true);
-  const combinedRisks = [aiRisks, dltRisks, manRisks];
 
-  // merge arrays and remove duplicates
-  function mergedRisks(arrays) {
+  // funtion to merge relevant arrays and remove duplicates
+  function mergedRisks() {
     // create single array
-    let combined = [];
-    arrays.forEach((array) => {
-      combined = [...combined, ...array];
-    });
-    const unique = combined.reduce((newArray, item) => {
+    let relevantRisks = [];
+    if (props.projectRisks.ai) {
+      relevantRisks = relevantRisks.concat(aiRisks);
+    }
+    if (props.projectRisks.dlt) {
+      relevantRisks = relevantRisks.concat(dltRisks);
+    }
+    if (props.projectRisks.man) {
+      relevantRisks = relevantRisks.concat(manRisks);
+    }
+
+    const unique = relevantRisks.reduce((newArray, item) => {
       if (newArray.includes(item)) {
         return newArray;
       } else {
@@ -33,27 +37,39 @@ function RiskTable(props) {
     return unique;
   }
 
+  // create an array of current descriptions to filter by
   const filterDescriptions = usedRisks.map((risk) => {
     return risk.description;
   });
-  const remainingRisks = mergedRisks(combinedRisks).filter(
+  // remove the entries that are already used
+  const remainingRisks = mergedRisks().filter(
     (risk) => !filterDescriptions.includes(risk.description)
   );
 
-  function check(targetId) {
+  function checkId(targetId) {
     if (targetId === "templateContainer") {
       props.setShowTemplate(false);
     }
     return;
   }
 
+  // function closeTemplate() {
+  //   if (props.projectRisks.options[type].maxRisks === props.projectRisks[type].length() ) {
+  //     props.setShowTemplate(false);
+  //   } 
+  // }
+  // closeTemplate()
+
   return (
     <Container
       id="templateContainer"
-      onClick={(event) => check(event.target.id)}
+      onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
         <h5>{props.projectRisks.selected} Risks</h5>
+        <div className="close" onClick={() => props.setShowTemplate(false)} >
+          <img src={removeIcon} alt="" />
+        </div>
         <div className="title">
           <h6>Description</h6>
           <h6>Mitigation</h6>
@@ -80,7 +96,6 @@ const Container = styled.div`
   h5 {
     margin: 20px;
   }
-
   .templateContents {
     background-color: white;
     margin: 10vh auto;
@@ -92,6 +107,19 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    .close {
+      position: absolute;
+      right: calc(10vw + 15px);
+      top: calc(10vh + 15px);
+      width: 30px;
+      border-radius: 50%;
+      &:hover {
+        cursor: pointer;
+      }
+      img {
+        width: 100%;
+      }
+    }
   }
   .title {
     width: 100%;

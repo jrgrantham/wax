@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
-  addToProject,
-  sortByRisk,
-} from "../../state/actionCreators/projectActionCreators";
+  addToTemplate,
+  replaceTemplateRisks,
+} from "../../state/actionCreators/templateActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
 
 function Options(props) {
   const type = props.projectRisks.selected.toLowerCase();
-  const defaultOwner =
-    props.projectRisks.options[type.toLowerCase()].defaultOwner;
-
-  const [addRow, setAddRow] = useState(false);
 
   const randomId = uuidv4();
   const emtpyRow = {
@@ -21,21 +17,18 @@ function Options(props) {
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
-    owner: defaultOwner,
     mitigation: "enter risk mitigation.",
   };
-  function addToProject() {
-    setAddRow(false);
-    props.addToProject(type.toLowerCase(), emtpyRow);
+
+  function addToTemplate() {
+    props.addToTemplate(type, emtpyRow);
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type.toLowerCase()].map(
-      (entry) => {
-        const value = entry.probability * entry.consequence;
-        return { ...entry, risk: value };
-      }
-    );
+    const calculatedRisks = props.templates[type].map((entry) => {
+      const value = entry.probability * entry.consequence;
+      return { ...entry, risk: value };
+    });
     return calculatedRisks;
   }
 
@@ -43,7 +36,7 @@ function Options(props) {
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.sortByRisk(type.toLowerCase(), sortedRisks);
+    props.replaceTemplateRisks(type.toLowerCase(), sortedRisks);
   }
 
   return (
@@ -51,28 +44,14 @@ function Options(props) {
       <div className="left"></div>
       <div className="white">
         <div className="right">
-          {addRow ? (
-            <>
-              <div className="button middle" onClick={() => addToProject()}>
-                <p>Add new row</p>
-              </div>
-              <div
-                className="button"
-                onClick={() => props.setShowTemplate(true)}
-              >
-                <p>Add from template</p>
-              </div>
-            </>
-          ) : (
             <>
               <div className="button" onClick={() => sortRisks()}>
                 <p>Sort and update</p>
               </div>
-              <div className="image" onClick={() => setAddRow(!addRow)}>
+              <div className="image" onClick={() => addToTemplate()}>
                 <img src={addIcon} alt="add" />
               </div>
             </>
-          )}
         </div>
       </div>
     </Container>
@@ -80,8 +59,8 @@ function Options(props) {
 }
 
 export default connect((state) => state, {
-  addToProject,
-  sortByRisk,
+  addToTemplate,
+  replaceTemplateRisks,
 })(Options);
 
 const Container = styled.div`
@@ -112,6 +91,11 @@ const Container = styled.div`
     margin-left: 10px;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    &:hover {
+      cursor: pointer;
+    }
     img {
       width: 100%;
       height: auto;
@@ -127,5 +111,8 @@ const Container = styled.div`
   }
   .middle {
     margin: 0 10px;
+  }
+  .maxRisks {
+    margin-right: 10px;
   }
 `;

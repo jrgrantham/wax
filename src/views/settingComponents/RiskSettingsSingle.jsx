@@ -1,35 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import {
   setRiskOptions,
-  toggleRiskDisplay,
+  replaceRisks,
   setRiskColor,
-} from "../state/actionCreators/projectActionCreators";
-import Slider from "../images/Slider";
+} from "../../state/actionCreators/projectActionCreators";
+import Slider from "../../images/Slider";
+import { projectOptions} from '../../data/globalSettings'
 
 function RiskSettings(props) {
+  const admin = props.projectRisks.admin;
   const type = props.type.toLowerCase();
-  const colors = props.adminSettings.riskColors;
+  const colors = projectOptions.riskColors;
+  
   const currentColor = props.projectRisks.options[type].color;
-
-  const newRiskDetails = {
-    display: props.projectRisks.options[type].display,
-    defaultOwner: props.projectRisks.options[type].defaultOwner,
-    color: props.projectRisks.options[type].color,
-  };
-  const [riskForm, setRiskForm] = useState(newRiskDetails);
+  const currentMax = props.projectRisks.options[type].maxRisks;
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   function onChange(event) {
-    setRiskForm({ ...riskForm, [event.target.name]: event.target.value });
-  }
-
-  function submit() {
-    props.setRiskOptions(type, riskForm);
+    props.setRiskOptions(type, event.target.name, event.target.value);
   }
 
   function setColor(color) {
     props.setRiskColor(type, color);
+  }
+
+  function changeMax(event) {
+    const value = parseInt(event.target.value);
+    props.setRiskOptions(type, event.target.name, value);
+    const allrisks = props.projectRisks[type];
+    const newRisks = allrisks.slice(0, value);
+    console.log(newRisks);
+    props.replaceRisks(type, newRisks);
+    console.log(props.projectRisks[type]);
   }
 
   return (
@@ -50,8 +54,7 @@ function RiskSettings(props) {
             type="text"
             onChange={onChange}
             name="defaultOwner"
-            placeholder={props.projectRisks.options[type].defaultOwner}
-            onBlur={() => submit()}
+            value={props.projectRisks.options[type].defaultOwner}
           />
           <div className="colors">
             {colors.map((color, index) => {
@@ -61,12 +64,12 @@ function RiskSettings(props) {
                     className="circle"
                     onClick={() => setColor(color)}
                     style={
-                      color == currentColor
+                      color === currentColor
                         ? {
                             backgroundColor: color,
                             width: "25px",
                             height: "25px",
-                            border: '1px solid black',
+                            border: "1px solid black",
                           }
                         : { backgroundColor: color }
                     }
@@ -75,6 +78,24 @@ function RiskSettings(props) {
               );
             })}
           </div>
+          {admin ? (
+            <div className="width">
+              <select
+                type="number"
+                onChange={changeMax}
+                name="maxRisks"
+                defaultValue={currentMax}
+              >
+                {numbers.map((number, index) => {
+                  return (
+                    <option key={index} value={number}>
+                      {number}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
         </div>
       </form>
     </Container>
@@ -83,7 +104,7 @@ function RiskSettings(props) {
 
 export default connect((state) => state, {
   setRiskOptions,
-  toggleRiskDisplay,
+  replaceRisks,
   setRiskColor,
 })(RiskSettings);
 
@@ -109,17 +130,19 @@ const Container = styled.div`
       /* margin-left: 10px; */
       text-align: left;
       /* border: 1px solid red; */
-      min-width: 120px;
+      min-width: 100px;
       margin: 5px;
     }
     .owner {
       margin-right: 20px;
     }
-    input {
+    input,
+    select {
       font-size: 14px;
       text-align: center;
       border: 1px solid lightgrey;
       width: 50px;
+      margin-left: 10px;
 
       /* border: 1px solid red; */
     }
