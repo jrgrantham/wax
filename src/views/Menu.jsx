@@ -18,12 +18,14 @@ function Menu(props) {
         </Link>
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>
+      </div>
+        <div className="menu">
         {props.projectRisks.admin ? (
           <Link to="templates">
             <h6>Edit Templates</h6>
           </Link>
         ) : null}
-      </div>
+        </div>
       <div>
         <h6>Change Password</h6>
         <h6>Log Out</h6>
