@@ -10,7 +10,7 @@ export default function Login(props) {
         </h4>
         <input type="text" placeholder='email address' />
         <input type="password"  placeholder='password' />
-        <button onClick={() => props.history.push('/risk-table')}>Login</button>
+        <button onClick={() => props.history.push('/')}>Login</button>
         <p>
           send me my password
         </p>

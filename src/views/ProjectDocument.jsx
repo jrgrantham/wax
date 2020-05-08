@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TextType from "./projectComponents/DocumentRisks";
 
 function RiskText(props) {
-
   return (
     <Container>
       <div className="contents">
+        <Link to="/">back to Risk Table</Link>
         <header>
           <h3>
             Project {props.projectRisks.project} - {props.projectRisks.company}
@@ -67,6 +68,15 @@ const Container = styled.div`
     padding: 30px;
     max-width: 900px;
     background-color: white;
+  }
+
+  a {
+    display: inline-block;
+    color: lightgray;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0.6rem 1.6rem;
+    margin-bottom: 20px;
   }
 
   header {
