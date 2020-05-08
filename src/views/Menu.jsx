@@ -19,13 +19,16 @@ function Menu(props) {
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>
       </div>
-        <div className="menu">
         {props.projectRisks.admin ? (
-          <Link to="templates">
-            <h6>Edit Templates</h6>
+        <div className="menu">
+            <Link to="templates">
+              <h6>Templates</h6>
+            </Link>
+            <Link to="templates">
+            <h6>Projects</h6>
           </Link>
-        ) : null}
         </div>
+        ) : null}
       <div>
         <h6>Change Password</h6>
         <h6>Log Out</h6>

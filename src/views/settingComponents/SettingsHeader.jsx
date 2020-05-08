@@ -9,8 +9,8 @@ export default function Header() {
         <h4>Main Settings</h4>
       </header>
       <div className="links">
-        <Link to="risk-table">View Risk Table</Link>
-        <Link to="risk-document">View Risk Document</Link>
+        <Link to="/">View Risk Table</Link>
+        {/* <Link to="risk-document">View Risk Document</Link> */}
       </div>
     </Container>
   );

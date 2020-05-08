@@ -33,7 +33,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Route path='/project-settings' component={Settings} />
-        <Route path='/risk-table' component={RiskTable} />
+        <Route path='/' component={RiskTable} />
         <Route path='/risk-document' component={RiskText} />
         <Route exact path='/login' component={Login} />
         <Route path='/templates' component={Templates} />
