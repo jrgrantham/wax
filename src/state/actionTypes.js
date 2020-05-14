@@ -36,3 +36,6 @@ export const TOGGLE_TEMPLATE_TYPES = "TOGGLE_TEMPLATE_TYPES";
 // export const SET_LOW_COLOR = "SET_LOW_COLOR";
 // export const SET_TBC_COLOR = "SET_TBC_COLOR";
 // export const SET_OWNER_COLOR = "SET_OWNER_COLOR";
+
+// CLIENT ACTIONS
+export const ADD_NEW_CLIENT = "ADD_NEW_CLIENT";

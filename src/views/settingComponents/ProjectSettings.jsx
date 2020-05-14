@@ -7,9 +7,8 @@ import { projectOptions } from "../../data/globalSettings";
 function ProjectSettings(props) {
   const { company, project, application } = props.projectRisks;
 
-  const {nature, type} = projectOptions;
+  const { nature, type } = projectOptions;
   console.log(type);
-  
 
   function onChange(event) {
     const key = event.target.name;
@@ -26,6 +25,7 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Company Name:</label>
           <input
+            spellCheck="true"
             type="text"
             onChange={onChange}
             // onBlur={() => submit()}
@@ -78,6 +78,7 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Project Name: </label>
           <input
+            spellCheck="true"
             type="text"
             onChange={onChange}
             // onBlur={() => submit()}
