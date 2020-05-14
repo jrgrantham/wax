@@ -1,5 +1,5 @@
 import { projectReducer } from "./projectReducers";
-import { stylingReducer } from "./stylingReducers";
+import { clientReducer } from "./clientReducers";
 import { templateReducer } from "./templateReducers";
 
-export { projectReducer, stylingReducer, templateReducer };
+export { projectReducer, clientReducer, templateReducer };

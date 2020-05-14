@@ -1,19 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import url from "../helpers/url";
 
 export default function Login(props) {
+  const loginApi = url() + "api/auth/login";
+  console.log(loginApi);
+
+  const blankForm = {
+    email: "",
+    password: ""
+  }
+  const [loginForm, setLoginForm] = useState(blankForm);
+
+  function onChange(e) {
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+  }
+  function submit() {
+    axios
+      .post(loginApi, loginForm)
+      .then((response) => {
+        setLoginForm(blankForm);
+        localStorage.setItem('token', response.data.token)
+        console.log(response.data);
+        
+        props.history.push('/')
+      })
+      .catch(error => {
+        console.log(error);
+        setLoginForm(blankForm);
+      })
+      .finally(() => {}) // add code in the block if required
+  }
+
+  console.log(loginForm);
+
   return (
     <Container>
       <div className="contents">
-        <h4>
-          Risk Assessments R Us
-        </h4>
-        <input type="text" placeholder='email address' />
-        <input type="password"  placeholder='password' />
-        <button onClick={() => props.history.push('/')}>Login</button>
-        <p>
-          send me my password
-        </p>
+        <h4>Risk Assessments R Us</h4>
+        <input
+          type="text"
+          name="email"
+          placeholder="email address"
+          value={loginForm.email}
+          onChange={onChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          value={loginForm.password}
+          onChange={onChange}
+        />
+        <button onClick={submit}>Login</button>
+        <p>send me my password</p>
       </div>
     </Container>
   );
@@ -26,7 +67,7 @@ const Container = styled.div`
   background-color: #f0f0f0;
   height: 100vh;
   h4 {
-    margin-bottom: 20px
+    margin-bottom: 20px;
   }
   p {
     font-size: 0.8rem;
@@ -55,6 +96,5 @@ const Container = styled.div`
     align-items: center;
     height: 250px;
     /* border: 1px solid red */
-    
   }
 `;

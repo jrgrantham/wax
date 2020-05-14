@@ -19,14 +19,14 @@ function TemplateHeader(props) {
 
   return (
     <Container color={color}>
-      <header>
+      {/* <header>
         <div className="left">
           <h4>Risk Templates - Admin</h4>
         </div>
         <div className="image" onClick={(e) => showMenu(e)}>
           <img src={menu} alt="menu" />
         </div>
-      </header>
+      </header> */}
       <div className="types">
         <Type
           background={props.projectRisks.options.managerial.color}
@@ -81,9 +81,10 @@ const Container = styled.div`
   align-items: center;
   /* border: 1px solid black; */
   position: fixed;
+  margin-top: 110px;
   background-color: white;
   width: calc(100% - 40px);
-  max-width: 1500px;
+  max-width: 1460px;
   z-index: 1;
 
   header {
