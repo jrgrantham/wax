@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/projectActionCreators";
+import { setSelected } from "../../state/actionCreators/userActionCreators";
 
 function TemplateHeader(props) {
   function setSelected(type) {

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   toggleProjectBoolean,
   setProjectAdmin,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {

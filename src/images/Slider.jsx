@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import {
   toggleRiskDisplay,
-} from "../state/actionCreators/projectActionCreators";
+} from "../state/actionCreators/userActionCreators";
 
 function Slider(props) {
   const type = props.type

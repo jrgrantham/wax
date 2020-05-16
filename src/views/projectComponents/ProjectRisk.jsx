@@ -8,14 +8,15 @@ import {
   deleteRisk,
   replaceRisks,
   updateRisk,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 
 function RiskSingle(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+  const type = props.user.selected.toLowerCase();
   const risk = props.risk;
-  const riskRange = props.projectRisks.riskRange;
-  const maxLength = props.projectRisks.options[type].maxLength;
+  const riskRange = ["TBC", "Low", "Medium", "High"];
+  const maxSelected = type.slice(0, 3) + "MaxLength";
+  const maxLength = props.user[maxSelected];
 
   function riskValue(value) {
     return riskRange[value];

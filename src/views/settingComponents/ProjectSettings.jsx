@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../../state/actionCreators/projectActionCreators";
+import { setProjectInfo } from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/globalSettings";
 
 function ProjectSettings(props) {

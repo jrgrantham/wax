@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import {
   setRiskOptions,
-  replaceRisks,
   setRiskColor,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/userActionCreators";
+import {
+  replaceRisks,
+} from "../../state/actionCreators/riskActionCreators";
 import Slider from "../../images/Slider";
 import { projectOptions} from '../../data/globalSettings'
 

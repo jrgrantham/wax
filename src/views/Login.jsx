@@ -5,8 +5,6 @@ import url from "../helpers/url";
 
 export default function Login(props) {
   const loginApi = url() + "api/auth/login";
-  console.log(loginApi);
-
   const blankForm = {
     email: "",
     password: ""
@@ -22,8 +20,6 @@ export default function Login(props) {
       .then((response) => {
         setLoginForm(blankForm);
         localStorage.setItem('token', response.data.token)
-        console.log(response.data);
-        
         props.history.push('/')
       })
       .catch(error => {
@@ -32,8 +28,6 @@ export default function Login(props) {
       })
       .finally(() => {}) // add code in the block if required
   }
-
-  console.log(loginForm);
 
   return (
     <Container>

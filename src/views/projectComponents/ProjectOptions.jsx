@@ -4,14 +4,17 @@ import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
   replaceRisks,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/riskActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
 
 function Options(props) {
-  const type = props.projectRisks.selected.toLowerCase();
-  const { defaultOwner, maxRisks } = props.projectRisks.options[type];
-  const usedRisks = props.projectRisks[type].length;
+  const type = props.user.selected.toLowerCase();
+  const defaultOwner = props.user[type.slice(0, 3) + 'DefaultOwner']
+  const maxRisks = props.user[type.slice(0, 3) + 'MaxRisks']
+  const usedRisks = props.risks.entries.filter(risk => 
+    risk.type === type
+  ).length
   const notRiskLimit = (usedRisks < maxRisks)
 
   function checkMax() {

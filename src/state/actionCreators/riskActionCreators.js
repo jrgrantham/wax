@@ -109,12 +109,9 @@ export function setProjectAdmin(data) {
   };
 }
 
-export function replaceRisks(type, data) {
+export function replaceRisks(data) {
   return {
     type: actionTypes.REPLACE_RISKS,
-    payload: {
-      type,
-      data,
-    },
+    payload: data
   };
 }

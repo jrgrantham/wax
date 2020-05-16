@@ -1,15 +1,15 @@
-export const riskData = {
+export const user = {
   // project info reducer
-  projectId: '',
-  
-  email: '',
+  projectId: "",
+
+  email: "",
   admin: true,
   company: "Jones",
   nature: "nature 3",
   type: "projectType 4",
   project: "Reacher",
   application: "",
-  selected: "commercial", // project risk
+  selected: "managerial", // project risk
 
   ai: true, // admin
   dlt: false, // admin
@@ -21,119 +21,108 @@ export const riskData = {
   maxCharacters: 350, // admin
   riskRange: ["TBC", "Low", "Medium", "High"], // admin
 
-  options: {
-    managerial: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "JG",
-      color: "#E2F0CB",
-      maxLength: 100, // admin
-      maxRisks: 1, // admin
-    },
-    technical: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "DJ",
-      color: "#B5EAD7",
-      maxLength: 100, // admin
-      maxRisks: 2, // admin
-    },
-    commercial: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "CG",
-      color: "#C7CEEA",
-      maxLength: 100, // admin
-      maxRisks: 3, // admin
-    },
-    legal: {
-      display: false,
-      displayChangeable: true,
-      defaultOwner: "",
-      color: "#DEE2D9",
-      maxLength: 100, // admin
-      maxRisks: 4, // admin
-    },
-    environmental: {
-      display: true,
-      displayChangeable: true,
-      defaultOwner: "",
-      color: "#FCF1D8",
-      maxLength: 100, // admin
-      maxRisks: 5, // admin
-    },
-  },
+  manDisplay: true, // admin
+  manDisplayChangeable: false,
+  manDefaultOwner: "JG",
+  manColor: "orange",
+  manMaxLength: 100, // admin
+  manMaxRisks: 1, // admin
 
-  managerial: [
-    {
-      id: 1,
-      description: "first risk.",
-      probability: 1,
-      consequence: 2,
-      risk: 0, // auto
-      owner: "TBC",
-      mitigation: "first mitigation.",
-    },
-  ],
-  technical: [
-    {
-      id: 5,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 2,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "DJ",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ],
-  commercial: [
-    {
-      id: 12,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 3,
-      consequence: 3,
-      risk: 0, // auto
-      owner: "Damien",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ],
-  legal: [
-    {
-      id: 13,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 3,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "Damien",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ],
-  environmental: [
-    {
-      id: 17,
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      probability: 3,
-      consequence: 1,
-      risk: 0, // auto
-      owner: "Damien",
-      mitigation:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ],
+  tecDisplay: true, // admin
+  tecDisplayChangeable: false,
+  tecDefaultOwner: "JG",
+  tecColor: "red",
+  tecMaxLength: 100, // admin
+  tecMaxRisks: 1, // admin
+
+  comDisplay: true, // admin
+  comDisplayChangeable: false,
+  comDefaultOwner: "JG",
+  comColor: "green",
+  comMaxLength: 100, // admin
+  comMaxRisks: 1, // admin
+
+  legDisplay: true, // admin
+  legDisplayChangeable: false,
+  legDefaultOwner: "JG",
+  legColor: "blue",
+  legMaxLength: 100, // admin
+  legMaxRisks: 1, // admin
+
+  envDisplay: true, // admin
+  envDisplayChangeable: false,
+  envDefaultOwner: "JG",
+  envColor: "yellow",
+  envMaxLength: 100, // admin
+  envMaxRisks: 1, // admin
 };
+
+export const risks = {entries: [
+  {
+    id: 1,
+    type: "commercial",
+    description: "first risk.",
+    probability: 1,
+    consequence: 2,
+    risk: 0, // auto
+    owner: "TBC",
+    mitigation: "first mitigation.",
+  },
+  {
+    id: 2,
+    type: "commercial",
+    description:
+      "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    probability: 2,
+    consequence: 1,
+    risk: 0, // auto
+    owner: "DJ",
+    mitigation:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: 3,
+    type: "managerial",
+    description:
+      "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    probability: 3,
+    consequence: 3,
+    risk: 0, // auto
+    owner: "Damien",
+    mitigation:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: 4,
+    type: "managerial",
+    description:
+      "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    probability: 3,
+    consequence: 1,
+    risk: 0, // auto
+    owner: "Damien",
+    mitigation:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: 5,
+    type: "managerial",
+    description:
+      "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    probability: 3,
+    consequence: 1,
+    risk: 0, // auto
+    owner: "Damien",
+    mitigation:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+]};
 
 export const newClient = {
   // project info reducer
   admin: false,
 
-  projectId: '',
+  projectId: "",
   company: "",
   nature: "",
   type: "",
@@ -151,53 +140,38 @@ export const newClient = {
   maxCharacters: 350, // admin
   riskRange: ["TBC", "Low", "Medium", "High"], // admin
 
-  options: {
-    managerial: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "",
-      color: "#E2F0CB",
-      maxLength: 100, // admin
-      maxRisks: 1, // admin
-    },
-    technical: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "",
-      color: "#B5EAD7",
-      maxLength: 100, // admin
-      maxRisks: 2, // admin
-    },
-    commercial: {
-      display: true, // admin
-      displayChangeable: false,
-      defaultOwner: "",
-      color: "#C7CEEA",
-      maxLength: 100, // admin
-      maxRisks: 3, // admin
-    },
-    legal: {
-      display: true,
-      displayChangeable: true,
-      defaultOwner: "",
-      color: "#DEE2D9",
-      maxLength: 100, // admin
-      maxRisks: 4, // admin
-    },
-    environmental: {
-      display: true,
-      displayChangeable: true,
-      defaultOwner: "",
-      color: "#FCF1D8",
-      maxLength: 100, // admin
-      maxRisks: 5, // admin
-    },
-  },
+  manDisplay: true, // admin
+  manDisplayChangeable: false,
+  manDefaultOwner: "JG",
+  manColor: "#E2F0CB",
+  manMaxLength: 100, // admin
+  manMaxRisks: 1, // admin
 
-  managerial: [],
-  technical: [],
-  commercial: [],
-  legal: [],
-  environmental: [],
+  tecDisplay: true, // admin
+  tecDisplayChangeable: false,
+  tecDefaultOwner: "JG",
+  tecColor: "#E2F0CB",
+  tecMaxLength: 100, // admin
+  tecMaxRisks: 1, // admin
+
+  comDisplay: true, // admin
+  comDisplayChangeable: false,
+  comDefaultOwner: "JG",
+  comColor: "#E2F0CB",
+  comMaxLength: 100, // admin
+  comMaxRisks: 1, // admin
+
+  legDisplay: true, // admin
+  legDisplayChangeable: false,
+  legDefaultOwner: "JG",
+  legColor: "#E2F0CB",
+  legMaxLength: 100, // admin
+  legMaxRisks: 1, // admin
+
+  envDisplay: true, // admin
+  envDisplayChangeable: false,
+  envDefaultOwner: "JG",
+  envColor: "#E2F0CB",
+  envMaxLength: 100, // admin
+  envMaxRisks: 1, // admin
 };
-

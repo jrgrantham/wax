@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 
 import { Provider } from "react-redux";
-import { projectReducer, clientReducer, templateReducer } from "./state/reducers";
+import { userReducer, clientReducer, templateReducer, riskReducer } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route } from "react-router-dom";
 import thunk from "redux-thunk";
@@ -18,8 +18,9 @@ import AdminDashboard from "./views/AdminDashboard";
 
 const monsterReducer = combineReducers({
   templates: templateReducer,
-  projectRisks: projectReducer,
+  risks: riskReducer,
   clients: clientReducer,
+  user: userReducer
 });
 
 const store = createStore(

@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
+import { setProjectInfo } from "../state/actionCreators/userActionCreators";
 import ProjectSettings from "./settingComponents/ProjectSettings";
 import RiskSettings from "./settingComponents/RiskSettings";
 import Header from "./settingComponents/SettingsHeader";

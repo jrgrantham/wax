@@ -9,7 +9,7 @@ import {
   replaceRisks,
   addToProject,
   updateRisk,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/riskActionCreators";
 import addIcon from "../../images/addIcon.png";
 
 function TemplateRisk(props) {

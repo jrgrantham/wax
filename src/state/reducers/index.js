@@ -1,5 +1,6 @@
-import { projectReducer } from "./projectReducers";
+import { userReducer } from "./userReducers";
 import { clientReducer } from "./clientReducers";
 import { templateReducer } from "./templateReducers";
+import { riskReducer } from "./riskReducers";
 
-export { projectReducer, clientReducer, templateReducer };
+export { userReducer, clientReducer, templateReducer, riskReducer };

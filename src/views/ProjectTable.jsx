@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./projectComponents/ProjectHeader";
 import ProjectRisk from "./projectComponents/ProjectRisk";
@@ -6,12 +6,38 @@ import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
 import SelectTemplate from "./projectComponents/SelectTemplate";
 import Menu from "./Menu";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+import { replaceRisks } from "../state/actionCreators/riskActionCreators";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
+console.log(token);
 
 function RiskTable(props) {
-  const selected = props.projectRisks.selected;
-  const risks = props.projectRisks[selected.toLowerCase()];
-  // const maxRisks = props.projectRisks.options[selected].maxRisks;
-  // const usedRisks = props.projectRisks[selected].length;
+  function getRisks() {
+    axiosWithAuth(token)
+      .get(riskApi)
+      .then((res) => {
+        console.log(res.data);
+        props.replaceRisks(res.data)
+      })
+      .catch((error) => {
+        console.log(error.message);
+        props.history.push("/login");
+      });
+  }
+
+  useEffect(() => {
+    getRisks();
+  }, []);
+
+  const type = props.user.selected.toLowerCase();
+  console.log(type);
+  console.log(props.risks);
+
+  const risks = props.risks.entries.filter((risk) => risk.type === type);
+  console.log(risks);
 
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -47,7 +73,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, { replaceRisks })(RiskTable);
 
 const Container = styled.div`
   display: flex;
