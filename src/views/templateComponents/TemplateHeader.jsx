@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/userActionCreators";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 
 function TemplateHeader(props) {
   function setSelected(type) {
-    props.setSelected(type);
+    props.setProjectValue(type);
   }
 
   function showMenu(e) {
@@ -73,7 +73,7 @@ function TemplateHeader(props) {
   );
 }
 
-export default connect((state) => state, { setSelected })(TemplateHeader);
+export default connect((state) => state, { setProjectValue })(TemplateHeader);
 
 const Container = styled.div`
   display: flex;

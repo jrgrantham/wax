@@ -5,54 +5,65 @@ import styled from "styled-components";
 import TextType from "./projectComponents/DocumentRisks";
 
 function RiskText(props) {
+  const managerial = props.risks.entries.filter(
+    (risk) => risk.type === "managerial"
+  );
+  const commercial = props.risks.entries.filter(
+    (risk) => risk.type === "commercial"
+  );
+  const legal = props.risks.entries.filter((risk) => risk.type === "legal");
+  const environmental = props.risks.entries.filter(
+    (risk) => risk.type === "environmental"
+  );
+  const technical = props.risks.entries.filter(
+    (risk) => risk.type === "technical"
+  );
+
+  console.log(managerial, commercial, legal, technical, environmental);
+
   return (
     <Container>
       <div className="contents">
         <Link to="/">back to Risk Table</Link>
         <header>
           <h3>
-            Project {props.projectRisks.project} - {props.projectRisks.company}
+            Project {props.user.project} - {props.user.company}
           </h3>
           <h6>Risk Management Document</h6>
         </header>
 
-        {props.projectRisks.options.managerial.display ? (
+        {props.user.manDisplay ? (
           <TextType
-            risks={props.projectRisks.managerial}
+            docRisks={managerial}
             type="Managerial"
-            riskRange={props.projectRisks.riskRange}
           />
         ) : null}
 
-        {props.projectRisks.options.technical.display ? (
+        {props.user.tecDisplay ? (
           <TextType
-            risks={props.projectRisks.technical}
+            docRisks={technical}
             type="Technical"
-            riskRange={props.projectRisks.riskRange}
           />
         ) : null}
 
-        {props.projectRisks.options.commercial.display ? (
+        {props.user.comDisplay ? (
           <TextType
-            risks={props.projectRisks.commercial}
+            docRisks={commercial}
             type="Commercial"
-            riskRange={props.projectRisks.riskRange}
           />
         ) : null}
 
-        {props.projectRisks.options.legal.display ? (
+        {props.user.legDisplay ? (
           <TextType
-            risks={props.projectRisks.legal}
+            docRisks={legal}
             type="Legal"
-            riskRange={props.projectRisks.riskRange}
           />
         ) : null}
 
-        {props.projectRisks.options.environmental.display ? (
+        {props.user.envDisplay ? (
           <TextType
-            risks={props.projectRisks.environmental}
+            docRisks={environmental}
             type="Environmental"
-            riskRange={props.projectRisks.riskRange}
           />
         ) : null}
       </div>
@@ -66,6 +77,7 @@ const Container = styled.div`
   background-color: #f0f0f0;
   .contents {
     padding: 30px;
+    width: 100%;
     max-width: 900px;
     background-color: white;
   }

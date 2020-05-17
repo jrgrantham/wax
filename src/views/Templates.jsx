@@ -7,8 +7,11 @@ import Options from "./templateComponents/TemplateOptions";
 import Menu from "./Menu";
 
 function Templates(props) {
-  const selected = props.projectRisks.selected;
-  const templates = props.templates[selected.toLowerCase()];
+  const selected = props.user.selected;
+  const templates = props.templates;
+
+  console.log(templates);
+  
 
   const [showMenu, setShowMenu] = useState(false);
   function location(event) {

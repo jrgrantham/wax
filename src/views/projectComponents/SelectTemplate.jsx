@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 import TemplateRisk from "./SelectSingle";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
 
-function RiskTable(props) {
-  const type = props.projectRisks.selected.toLowerCase();
-  const templateRisks = props.templates[type];
-  const usedRisks = props.projectRisks[type];
+const templateApi = `${url()}api/users/templates`;
+const token = localStorage.getItem("token");
+
+function Templates(props) {
+  function getTemplates() {
+    axiosWithAuth(token)
+      .get(templateApi)
+      .then(res => {
+        console.log(res.data.length);
+        
+      })
+      .catch(error => {
+        console.log(error.message);
+        props.setShowTemplate(false)
+      })
+  }
+
+  useEffect(() => {
+    if (props.user.useTemplates) {
+      getTemplates()
+    }
+  })
+
+  const type = props.user.selected.toLowerCase();
+  const templateRisks = props.templates.entries;
+  const usedRisks = props.risks.entries;
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === true);
   const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
@@ -15,15 +39,15 @@ function RiskTable(props) {
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
-    // create single array
+    // create single array of required types
     let relevantRisks = [];
-    if (props.projectRisks.ai) {
+    if (props.user.ai) {
       relevantRisks = relevantRisks.concat(aiRisks);
     }
-    if (props.projectRisks.dlt) {
+    if (props.user.dlt) {
       relevantRisks = relevantRisks.concat(dltRisks);
     }
-    if (props.projectRisks.man) {
+    if (props.user.man) {
       relevantRisks = relevantRisks.concat(manRisks);
     }
 
@@ -54,7 +78,7 @@ function RiskTable(props) {
   }
 
   // function closeTemplate() {
-  //   if (props.projectRisks.options[type].maxRisks === props.projectRisks[type].length() ) {
+  //   if (props.user.options[type].maxRisks === props.user[type].length() ) {
   //     props.setShowTemplate(false);
   //   } 
   // }
@@ -66,7 +90,7 @@ function RiskTable(props) {
       onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
-        <h5>{props.projectRisks.selected} Risks</h5>
+        <h5>{props.user.selected} Risks</h5>
         <div className="close" onClick={() => props.setShowTemplate(false)} >
           <img src={removeIcon} alt="" />
         </div>
@@ -84,7 +108,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, {})(Templates);
 
 const Container = styled.div`
   position: fixed;

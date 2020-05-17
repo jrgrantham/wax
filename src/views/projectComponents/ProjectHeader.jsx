@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/userActionCreators";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 
 function RiskTable(props) {
-  function setSelected(type) {
-    props.setSelected(type);
+  function setSelected(value) {
+    props.setProjectValue('selected', value);
   }
 
   function showMenu(e) {
@@ -14,7 +14,7 @@ function RiskTable(props) {
     props.setShowMenu(true);
   }
 
-  const selectedColor = props.user.selected.toLowerCase().slice(0, 3) + 'Color';
+  const selectedColor = props.user.selected.toLowerCase().slice(0, 3) + "Color";
   const color = props.user[selectedColor];
 
   return (
@@ -78,7 +78,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, { setSelected })(RiskTable);
+export default connect((state) => state, { setProjectValue })(RiskTable);
 
 const Container = styled.div`
   display: flex;
@@ -118,7 +118,7 @@ const Container = styled.div`
     /* border: 1px solid red; */
   }
   .banner {
-    background-color: ${props => props.color};
+    background-color: ${(props) => props.color};
     height: 10px;
     width: 100%;
   }

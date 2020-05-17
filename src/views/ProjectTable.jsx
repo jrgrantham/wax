@@ -12,14 +12,12 @@ import { replaceRisks } from "../state/actionCreators/riskActionCreators";
 
 const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
-console.log(token);
 
 function RiskTable(props) {
   function getRisks() {
     axiosWithAuth(token)
       .get(riskApi)
       .then((res) => {
-        console.log(res.data);
         props.replaceRisks(res.data)
       })
       .catch((error) => {
@@ -33,11 +31,8 @@ function RiskTable(props) {
   }, []);
 
   const type = props.user.selected.toLowerCase();
-  console.log(type);
-  console.log(props.risks);
 
   const risks = props.risks.entries.filter((risk) => risk.type === type);
-  console.log(risks);
 
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);

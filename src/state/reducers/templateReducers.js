@@ -1,4 +1,4 @@
-import { templates } from "../../data/globalSettings";
+import { templates } from "../../data/projectOptions";
 import * as actionTypes from "../actionTypes";
 
 export function templateReducer(state = templates, action) {
@@ -43,11 +43,11 @@ export function templateReducer(state = templates, action) {
           (entry) => entry.id !== action.payload.id
         ),
       };
-    case actionTypes.SET_PROJECT_INFO:
-      return {
-        ...state,
-        [action.payload.key]: action.payload.value,
-      };
+    // case actionTypes.SET_PROJECT_INFO:
+    //   return {
+    //     ...state,
+    //     [action.payload.key]: action.payload.value,
+    //   };
     case actionTypes.ADD_TO_TEMPLATE:
       return {
         ...state,
