@@ -2,18 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import {
-  addToProject,
-} from "../../state/actionCreators/riskActionCreators";
+// import { addToProject } from "../../state/actionCreators/riskActionCreators";
 import addIcon from "../../images/addIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+import {
+  replaceRisks,
+} from "../../state/actionCreators/riskActionCreators";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
 
 function SelectTemplateRisk(props) {
   const type = props.user.selected.toLowerCase();
   const risk = props.risk;
-  const maxRisks = props.user[type.slice(0,3) + 'MaxRisks'];
-  const riskCount = props.risks.entries.filter(
-    (risk) => risk.type === type
-  ).length;
+  const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  const riskCount = props.risks.entries.filter((risk) => risk.type === type)
+    .length;
   const riskLimit = riskCount < maxRisks;
 
   function addRisk() {
@@ -24,10 +29,20 @@ function SelectTemplateRisk(props) {
         description: risk.description,
         probability: risk.probability,
         consequence: risk.consequence,
-        owner: props.user[type.slice(0,3) + 'DefaultOwner'],
+        owner: props.user[type.slice(0, 3) + "DefaultOwner"],
         mitigation: risk.mitigation,
       };
-      props.addToProject(riskClone);
+      // props.addToProject(riskClone);
+      axiosWithAuth(token)
+        .post(riskApi, riskClone)
+        .then((res) => {
+          console.log(res.data);
+          props.replaceRisks(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          // props.history.push("/login");
+        });
     }
   }
 
@@ -45,7 +60,8 @@ function SelectTemplateRisk(props) {
 }
 
 export default connect((state) => state, {
-  addToProject,
+  replaceRisks,
+  // addToProject,
 })(SelectTemplateRisk);
 
 export const Container = styled.div`

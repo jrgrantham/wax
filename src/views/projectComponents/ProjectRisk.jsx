@@ -10,6 +10,28 @@ import {
 } from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 import { projectOptions } from '../../data/projectOptions';
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
+
+function removeRisk(id) {
+  console.log(id);
+  const riskId = {id}
+  console.log(riskId);
+  
+  axiosWithAuth(token)
+    .delete(riskApi, {data: riskId})
+    .then((res) => {
+      console.log(res.data);
+      // props.setUser(res.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      // props.history.push("/login");
+    });
+}
 
 function RiskSingle(props) {
   const type = props.user.selected.toLowerCase();
@@ -45,6 +67,7 @@ function RiskSingle(props) {
   }
 
   function confirmDelete() {
+    removeRisk(risk.id)
     props.deleteRisk(type, risk.id);
     setCheckDelete(false);
   }

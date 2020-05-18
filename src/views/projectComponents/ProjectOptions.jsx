@@ -7,20 +7,38 @@ import {
 } from "../../state/actionCreators/riskActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+import { useEffect } from "react";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
 
 function Options(props) {
   const type = props.user.selected.toLowerCase();
-  const defaultOwner = props.user[type.slice(0, 3) + 'DefaultOwner']
-  const maxRisks = props.user[type.slice(0, 3) + 'MaxRisks']
-  const usedRisks = props.risks.entries.filter(risk => 
-    risk.type === type
-  ).length
-  const riskLimit = (usedRisks < maxRisks)
-  
+  const defaultOwner = props.user[type.slice(0, 3) + "DefaultOwner"];
+  const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
+    .length;
+  const riskLimit = usedRisks < maxRisks;
+
   function checkMax() {
     if (riskLimit) {
-      setAddRow(true)
+      setAddRow(true);
     }
+  }
+
+  function addToProject() {
+    axiosWithAuth(token)
+      .post(riskApi, emtpyRow)
+      .then((res) => {
+        console.log(res.data);
+        props.replaceRisks(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // props.history.push("/login");
+      });
   }
 
   const [addRow, setAddRow] = useState(false);
@@ -36,11 +54,6 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addToProject() {
-    // setAddRow(false);
-    props.addToProject(emtpyRow);
-  }
-
   function calculateRisk() {
     const calculatedRisks = props.risks.entries.map((entry) => {
       const value = entry.probability * entry.consequence;
@@ -50,12 +63,17 @@ function Options(props) {
   }
 
   function sortRisks() {
+    console.log('ran');
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    
     props.replaceRisks(sortedRisks);
   }
+
+  // useEffect(() => {
+  //   sortRisks();
+  //   return () => {};
+  // }, []);
 
   return (
     <Container>
@@ -73,8 +91,8 @@ function Options(props) {
               <div
                 className="button"
                 onClick={() => {
-                  setAddRow(false)
-                  props.setShowTemplate(true)
+                  setAddRow(false);
+                  props.setShowTemplate(true);
                 }}
               >
                 <p>Add from template</p>

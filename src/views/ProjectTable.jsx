@@ -17,6 +17,15 @@ const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
+
+  function sortRisks(array) {
+    console.log("ran");
+    const sortedRisks = array.sort(function (a, b) {
+      return b.risk - a.risk;
+    });
+    return sortedRisks;
+  }
+
   function getData() {
     axiosWithAuth(token)
       .get(userApi)
@@ -32,7 +41,7 @@ function RiskTable(props) {
       .get(riskApi)
       .then((res) => {
         // console.log(res.data);
-        props.replaceRisks(res.data);
+        props.replaceRisks(sortRisks(res.data));
       })
       .catch((error) => {
         console.log(error.message);
@@ -46,13 +55,6 @@ function RiskTable(props) {
   //     (console.log("unmounted")) // send state here
   //   }
   // }, []);
-
-  useEffect(() => {
-    getData();
-    return () => {
-      (console.log("unmounted risks")) // send state here
-    }
-  }, [])
 
   const type = props.user.selected.toLowerCase();
   const risks = props.risks.entries.filter((risk) => risk.type === type);
@@ -72,6 +74,13 @@ function RiskTable(props) {
   //   }
   // }
   // closeWindow()
+
+  useEffect(() => {
+    getData();
+    return () => {
+      console.log("unmounted risks"); // send state here
+    };
+  }, []);
 
   return (
     <Container onClick={(event) => location(event)}>
