@@ -22,27 +22,19 @@ function removeRisk(id) {
     .delete(riskApi, { data: riskId })
     .then((res) => {
       console.log(res.data);
-      // props.setUser(res.data);
     })
     .catch((error) => {
       console.log(error.message);
-      // props.history.push("/login");
     });
 }
 
-
 function RiskSingle(props) {
-  
   function sendChanges() {
-    console.log('sent');
     axiosWithAuth(token)
       .put(riskApi, risk)
-      .then(res => {
-        console.log(res.data);
-      })
+      .then(() => {})  // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error.message);
-        // props.history.push("/login");
       });
   }
 
@@ -103,7 +95,7 @@ function RiskSingle(props) {
   }
   useEffect(() => {
     getMaxHeight();
-    sendChanges()
+    sendChanges();
     return () => {
       // sendChanges(risk);
     };
