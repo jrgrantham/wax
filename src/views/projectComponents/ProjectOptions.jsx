@@ -50,6 +50,7 @@ function Options(props) {
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
+    risk: 0,
     owner: defaultOwner,
     mitigation: "enter risk mitigation.",
   };

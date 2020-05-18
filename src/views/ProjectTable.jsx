@@ -19,7 +19,6 @@ const token = localStorage.getItem("token");
 function RiskTable(props) {
 
   function sortRisks(array) {
-    console.log("ran");
     const sortedRisks = array.sort(function (a, b) {
       return b.risk - a.risk;
     });
