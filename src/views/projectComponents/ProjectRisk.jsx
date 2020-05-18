@@ -9,7 +9,7 @@ import {
   updateRisk,
 } from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
-import { projectOptions } from '../../data/projectOptions';
+import { projectOptions } from "../../data/projectOptions";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
 
@@ -17,12 +17,9 @@ const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
 
 function removeRisk(id) {
-  console.log(id);
-  const riskId = {id}
-  console.log(riskId);
-  
+  const riskId = { id };
   axiosWithAuth(token)
-    .delete(riskApi, {data: riskId})
+    .delete(riskApi, { data: riskId })
     .then((res) => {
       console.log(res.data);
       // props.setUser(res.data);
@@ -33,7 +30,22 @@ function removeRisk(id) {
     });
 }
 
+
 function RiskSingle(props) {
+  
+  function sendChanges() {
+    console.log('sent');
+    axiosWithAuth(token)
+      .put(riskApi, risk)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // props.history.push("/login");
+      });
+  }
+
   const type = props.user.selected.toLowerCase();
   const risk = props.risk;
   const riskRange = projectOptions.riskRange;
@@ -44,32 +56,33 @@ function RiskSingle(props) {
     return riskRange[value];
   }
 
+  // show confirm delete option and delete functionality
   const [checkDelete, setCheckDelete] = useState(false);
-
   function toggleDelete() {
     setCheckDelete(!checkDelete);
   }
+  function confirmDelete() {
+    removeRisk(risk.id);
+    props.deleteRisk(type, risk.id); // send back from server, remove this
+    setCheckDelete(false);
+  }
+  function swipe(event) {
+    if (event.dir === "Left") {
+      toggleDelete();
+    }
+  }
 
   function confirmProbability() {
-    props.updateProbability(
-      type,
-      risk.id,
-      (risk.probability + 1) % riskRange.length
-    );
+    const probability = (risk.probability + 1) % riskRange.length;
+    const calculatedRisk = probability * risk.consequence;
+    props.updateProbability(type, risk.id, probability);
+    props.updateRisk(risk.id, "risk", calculatedRisk);
   }
-
-  function confirmConsequence() {
-    props.updateConsequence(
-      type,
-      risk.id,
-      (risk.consequence + 1) % riskRange.length
-    );
-  }
-
-  function confirmDelete() {
-    removeRisk(risk.id)
-    props.deleteRisk(type, risk.id);
-    setCheckDelete(false);
+  function confirmConsequence(risk) {
+    const consequence = (risk.consequence + 1) % riskRange.length;
+    const calculatedRisk = consequence * risk.probability;
+    props.updateConsequence(type, risk.id, consequence); // remove type
+    props.updateRisk(risk.id, "risk", calculatedRisk);
   }
 
   function updateText(event) {
@@ -88,16 +101,13 @@ function RiskSingle(props) {
       console.log(err);
     }
   }
-
-  function swipe(event) {
-    if (event.dir === "Left") {
-      toggleDelete();
-    }
-  }
-
   useEffect(() => {
     getMaxHeight();
-  }, [props.projectRisks]);
+    sendChanges()
+    return () => {
+      // sendChanges(risk);
+    };
+  }, [props.risks, confirmConsequence, confirmProbability]);
 
   return (
     <Container>
@@ -121,12 +131,14 @@ function RiskSingle(props) {
             id={`${type}description${risk.id}`}
             type="text"
             onChange={updateText}
+            onBlur={sendChanges}
             name="description"
             value={risk.description}
             maxLength={maxLength}
           />
           <div
             onClick={() => confirmProbability()}
+            onBlur={sendChanges}
             className={
               riskValue(risk.probability).toLowerCase() + " probability flag"
             }
@@ -134,7 +146,7 @@ function RiskSingle(props) {
             <h6>{riskValue(risk.probability)}</h6>
           </div>
           <div
-            onClick={() => confirmConsequence()}
+            onClick={() => confirmConsequence(risk)}
             className={
               riskValue(risk.consequence).toLowerCase() + " consequence flag"
             }
@@ -145,6 +157,7 @@ function RiskSingle(props) {
             id={`${type}mitigation${risk.id}`}
             type="text"
             onChange={updateText}
+            onBlur={sendChanges}
             name="mitigation"
             value={risk.mitigation}
             style={{ minHeight: height }}
@@ -154,6 +167,7 @@ function RiskSingle(props) {
             className={`${risk.owner.toLowerCase()} owner`}
             type="text"
             onChange={updateText}
+            onBlur={sendChanges}
             name="owner"
             value={risk.owner}
             style={{ minHeight: height }}
