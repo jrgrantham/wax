@@ -1,9 +1,9 @@
-import { templates } from "../../data/projectOptions";
 import * as actionTypes from "../actionTypes";
+import { risks } from "../../data/dummyData";
 
-export function templateReducer(state = templates, action) {
+export function riskReducer(state = risks, action) {
   switch (action.type) {
-    case actionTypes.UPDATE_TEMPLATE_RISK:
+    case actionTypes.UPDATE_RISK:
       return {
         entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
@@ -15,7 +15,7 @@ export function templateReducer(state = templates, action) {
           return entry;
         }),
       };
-    case actionTypes.UPDATE_TEMPLATE_PROBABILITY:
+    case actionTypes.UPDATE_PROBABILITY:
       return {
         entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
@@ -24,7 +24,7 @@ export function templateReducer(state = templates, action) {
           return entry;
         }),
       };
-    case actionTypes.UPDATE_TEMPLATE_CONSEQUENCE:
+    case actionTypes.UPDATE_CONSEQUENCE:
       return {
         entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
@@ -33,35 +33,21 @@ export function templateReducer(state = templates, action) {
           return entry;
         }),
       };
-    case actionTypes.DELETE_TEMPLATE_RISK:
+    case actionTypes.DELETE_RISK:
       return {
         entries: state.entries.filter(
           (entry) => entry.id !== action.payload.id
         ),
       };
-    case actionTypes.ADD_TO_TEMPLATE:
-      console.log(action.payload);
-      
+    case actionTypes.ADD_TO_PROJECT:
       return {
         entries: state.entries.concat(
           action.payload
         ),
       };
-    case actionTypes.REPLACE_TEMPLATE_RISKS:
+    case actionTypes.REPLACE_RISKS:
       return {
         entries: action.payload,
-      };
-    case actionTypes.TOGGLE_TEMPLATE_TYPES:
-      return {
-        entries: state.entries.map((entry) => {
-          if (entry.id === action.payload.id) {
-            return {
-              ...entry,
-              [action.payload.projectType]: !entry[action.payload.projectType],
-            };
-          }
-          return entry;
-        }),
       };
     default:
       return state;

@@ -1,39 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {
-  setRiskOptions,
-  replaceRisks,
-  setRiskColor,
-} from "../../state/actionCreators/projectActionCreators";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
+import { replaceRisks } from "../../state/actionCreators/riskActionCreators";
 import Slider from "../../images/Slider";
-import { projectOptions} from '../../data/globalSettings'
+import { projectOptions } from "../../data/projectOptions";
 
 function RiskSettings(props) {
-  const admin = props.projectRisks.admin;
+  const admin = props.user.admin;
   const type = props.type.toLowerCase();
-  const colors = projectOptions.riskColors;
-  
-  const currentColor = props.projectRisks.options[type].color;
-  const currentMax = props.projectRisks.options[type].maxRisks;
+  const colors = projectOptions.riskColorOptions;
+
+  const currentColor = props.user[type.slice(0, 3) + "Color"];
+  const currentMax = props.user[type.slice(0, 3) + "MaxRisks"];
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   function onChange(event) {
-    props.setRiskOptions(type, event.target.name, event.target.value);
+    props.setProjectValue(event.target.name, event.target.value);
   }
 
-  function setColor(color) {
-    props.setRiskColor(type, color);
+  function setColor(value) {
+    props.setProjectValue(type.slice(0, 3) + "Color", value);
   }
 
   function changeMax(event) {
     const value = parseInt(event.target.value);
-    props.setRiskOptions(type, event.target.name, value);
-    const allrisks = props.projectRisks[type];
-    const newRisks = allrisks.slice(0, value);
-    console.log(newRisks);
-    props.replaceRisks(type, newRisks);
-    console.log(props.projectRisks[type]);
+    props.setProjectValue(event.target.name, value);
+    // const allrisks = props.risks;
+    // const newRisks = allrisks.slice(0, value);
+    // console.log(newRisks);
+    // props.replaceRisks(type, newRisks);
+    // console.log(props.user[type]);
   }
 
   return (
@@ -44,7 +41,7 @@ function RiskSettings(props) {
         <div
           className="hide"
           style={
-            props.projectRisks.options[type].display
+            props.user[type.slice(0, 3) + "Display"]
               ? { opacity: 1 }
               : { opacity: 0 }
           }
@@ -53,8 +50,8 @@ function RiskSettings(props) {
             className="owner"
             type="text"
             onChange={onChange}
-            name="defaultOwner"
-            value={props.projectRisks.options[type].defaultOwner}
+            name={type.slice(0, 3) + "DefaultOwner"}
+            value={props.user[type.slice(0, 3) + "DefaultOwner"]}
           />
           <div className="colors">
             {colors.map((color, index) => {
@@ -83,7 +80,7 @@ function RiskSettings(props) {
               <select
                 type="number"
                 onChange={changeMax}
-                name="maxRisks"
+                name={type.slice(0, 3) + "MaxRisks"}
                 defaultValue={currentMax}
               >
                 {numbers.map((number, index) => {
@@ -103,9 +100,8 @@ function RiskSettings(props) {
 }
 
 export default connect((state) => state, {
-  setRiskOptions,
   replaceRisks,
-  setRiskColor,
+  setProjectValue,
 })(RiskSettings);
 
 const Container = styled.div`

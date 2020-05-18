@@ -2,17 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import {
-  toggleRiskDisplay,
-} from "../state/actionCreators/projectActionCreators";
+  toggleProjectBoolean,
+} from "../state/actionCreators/userActionCreators";
 
 function Slider(props) {
   const type = props.type
-  const isChecked = props.projectRisks.options[type].display;
-  const changeable = props.projectRisks.options[type].displayChangeable;
-  
+  const isChecked = props.user[type.slice(0, 3) + 'Display'];
+  const changeable = props.user[type.slice(0, 3) + 'DisplayChangeable'];
+
   function toggleDisplay() {
     if (changeable) {
-      props.toggleRiskDisplay(props.type)
+      const key = props.type.slice(0, 3) + "Display";
+      props.toggleProjectBoolean(key)
     }
   }
   
@@ -29,7 +30,7 @@ function Slider(props) {
     </Container>
   );
 }
-export default connect((state) => state, { toggleRiskDisplay })(
+export default connect((state) => state, { toggleProjectBoolean })(
   Slider
 );
 

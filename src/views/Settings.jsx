@@ -1,14 +1,19 @@
 
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../state/actionCreators/projectActionCreators";
 import ProjectSettings from "./settingComponents/ProjectSettings";
 import RiskSettings from "./settingComponents/RiskSettings";
 import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
 
 function ClientSettings(props) {
+
+  useEffect(() => {
+    return () => {
+      (console.log("unmounted settings")) // send state here
+    }
+  }, [])
   
   return (
     <Container>
@@ -16,13 +21,13 @@ function ClientSettings(props) {
         <Header />
         <ProjectSettings />
         <RiskSettings />
-        {props.projectRisks.admin ? <AdminSettings /> : null}
+        {props.user.admin ? <AdminSettings /> : null}
       </div>
     </Container>
   );
 }
 
-export default connect((state) => state, { setProjectInfo })(ClientSettings);
+export default connect((state) => state, { })(ClientSettings);
 
 const Container = styled.div`
   display: flex;

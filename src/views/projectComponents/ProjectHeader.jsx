@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/projectActionCreators";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 
 function RiskTable(props) {
-  function setSelected(type) {
-    props.setSelected(type);
+  function setSelected(value) {
+    props.setProjectValue('selected', value);
   }
 
   function showMenu(e) {
@@ -14,8 +14,8 @@ function RiskTable(props) {
     props.setShowMenu(true);
   }
 
-  const selected = props.projectRisks.selected.toLowerCase();
-  const color = props.projectRisks.options[selected].color;
+  const selectedColor = props.user.selected.toLowerCase().slice(0, 3) + "Color";
+  const color = props.user[selectedColor];
 
   return (
     <Container color={color}>
@@ -23,7 +23,7 @@ function RiskTable(props) {
         <div className="left">
           <h4>Risk Management Table</h4>
           <p>
-            Project {props.projectRisks.project} - {props.projectRisks.company}
+            Project {props.user.project} - {props.user.company}
           </p>
         </div>
         <div className="image" onClick={(e) => showMenu(e)}>
@@ -32,34 +32,34 @@ function RiskTable(props) {
       </header>
       <div className="types">
         <Type
-          background={props.projectRisks.options.managerial.color}
+          background={props.user.manColor}
           onClick={() => setSelected("managerial")}
         >
           <h6>Managerial</h6>
         </Type>
         <Type
-          background={props.projectRisks.options.commercial.color}
+          background={props.user.comColor}
           onClick={() => setSelected("commercial")}
         >
           <h6>Commercial</h6>
         </Type>
         <Type
-          background={props.projectRisks.options.technical.color}
+          background={props.user.tecColor}
           onClick={() => setSelected("technical")}
         >
           <h6>Technical</h6>
         </Type>
-        {props.projectRisks.options.environmental.display ? (
+        {props.user.envDisplay ? (
           <Type
-            background={props.projectRisks.options.environmental.color}
+            background={props.user.envColor}
             onClick={() => setSelected("environmental")}
           >
             <h6>Environmental</h6>
           </Type>
         ) : null}
-        {props.projectRisks.options.legal.display ? (
+        {props.user.legDisplay ? (
           <Type
-            background={props.projectRisks.options.legal.color}
+            background={props.user.legColor}
             onClick={() => setSelected("legal")}
           >
             <h6>Legal</h6>
@@ -78,7 +78,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, { setSelected })(RiskTable);
+export default connect((state) => state, { setProjectValue })(RiskTable);
 
 const Container = styled.div`
   display: flex;
@@ -118,7 +118,7 @@ const Container = styled.div`
     /* border: 1px solid red; */
   }
   .banner {
-    background-color: ${props => props.color};
+    background-color: ${(props) => props.color};
     height: 10px;
     width: 100%;
   }

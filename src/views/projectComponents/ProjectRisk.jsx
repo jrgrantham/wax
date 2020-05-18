@@ -6,16 +6,39 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  replaceRisks,
   updateRisk,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
+import { projectOptions } from '../../data/projectOptions';
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
+
+function removeRisk(id) {
+  console.log(id);
+  const riskId = {id}
+  console.log(riskId);
+  
+  axiosWithAuth(token)
+    .delete(riskApi, {data: riskId})
+    .then((res) => {
+      console.log(res.data);
+      // props.setUser(res.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      // props.history.push("/login");
+    });
+}
 
 function RiskSingle(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+  const type = props.user.selected.toLowerCase();
   const risk = props.risk;
-  const riskRange = props.projectRisks.riskRange;
-  const maxLength = props.projectRisks.options[type].maxLength;
+  const riskRange = projectOptions.riskRange;
+  const maxSelected = type.slice(0, 3) + "MaxLength";
+  const maxLength = props.user[maxSelected];
 
   function riskValue(value) {
     return riskRange[value];
@@ -44,12 +67,13 @@ function RiskSingle(props) {
   }
 
   function confirmDelete() {
+    removeRisk(risk.id)
     props.deleteRisk(type, risk.id);
     setCheckDelete(false);
   }
 
   function updateText(event) {
-    props.updateRisk(type, risk.id, event.target.name, event.target.value);
+    props.updateRisk(risk.id, event.target.name, event.target.value);
   }
 
   const [height, setHeight] = useState(50);
@@ -148,7 +172,6 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  replaceRisks,
   updateRisk,
 })(RiskSingle);
 

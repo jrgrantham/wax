@@ -1,24 +1,27 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-} from "../../state/actionCreators/projectActionCreators";
+import { projectOptions } from '../../data/projectOptions';
 
 function TextType(props) {
-  const { type, risks, riskRange } = props;
+  const { type, docRisks } = props;
+
+  const riskRange = projectOptions.riskRange
 
   function riskValue(value) {
     return riskRange[value];
   }
 
+  console.log(riskRange);
+  
+  
+
   return (
     <Container>
       <h4>{type} Risks</h4>
-      {risks.map((risk, index) => (
+      {docRisks.map((risk, index) => (
         <div key={index} className='risk'>
+          {console.log(riskValue(risk.probability))}
           <h6 className='bold' >{risk.description}</h6>
           <ul>
             <li>Likelihood: {riskValue(risk.probability)}</li>
@@ -34,9 +37,6 @@ function TextType(props) {
 }
 
 export default connect((state) => state, {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
 })(TextType);
 
 const Container = styled.div`

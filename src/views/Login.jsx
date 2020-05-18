@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import url from "../helpers/url";
+import { connect } from "react-redux";
+import { setUser } from "../state/actionCreators/userActionCreators";
 
-export default function Login(props) {
+function Login(props) {
   const loginApi = url() + "api/auth/login";
-  console.log(loginApi);
-
   const blankForm = {
     email: "",
-    password: ""
-  }
+    password: "",
+  };
   const [loginForm, setLoginForm] = useState(blankForm);
 
   function onChange(e) {
@@ -21,19 +21,16 @@ export default function Login(props) {
       .post(loginApi, loginForm)
       .then((response) => {
         setLoginForm(blankForm);
-        localStorage.setItem('token', response.data.token)
-        console.log(response.data);
-        
-        props.history.push('/')
+        localStorage.setItem("token", response.data.token);
+        props.setUser(response.data.settings);
+        props.history.push("/");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setLoginForm(blankForm);
       })
-      .finally(() => {}) // add code in the block if required
+      .finally(() => {}); // add code in the block if required
   }
-
-  console.log(loginForm);
 
   return (
     <Container>
@@ -59,6 +56,8 @@ export default function Login(props) {
     </Container>
   );
 }
+
+export default connect((state) => state, { setUser })(Login);
 
 const Container = styled.div`
   display: flex;

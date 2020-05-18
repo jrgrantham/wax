@@ -9,11 +9,12 @@ import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
 
 function Options(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+  const type = props.user.selected.toLowerCase();
 
   const randomId = uuidv4();
   const emtpyRow = {
     id: randomId,
+    type,
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
@@ -21,7 +22,7 @@ function Options(props) {
   };
 
   function addToTemplate() {
-    props.addToTemplate(type, emtpyRow);
+    props.addToTemplate(emtpyRow);
   }
 
   function calculateRisk() {

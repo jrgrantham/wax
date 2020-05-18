@@ -1,29 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 import TemplateRisk from "./SelectSingle";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+import { replaceTemplateRisks } from "../../state/actionCreators/templateActionCreators";
 
-function RiskTable(props) {
-  const type = props.projectRisks.selected.toLowerCase();
-  const templateRisks = props.templates[type];
-  const usedRisks = props.projectRisks[type];
+const templateApi = `${url()}api/users/templates`;
+const token = localStorage.getItem("token");
 
-  const aiRisks = templateRisks.filter((risk) => risk.ai === true);
-  const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
-  const manRisks = templateRisks.filter((risk) => risk.man === true);
+function Templates(props) {
+  function getTemplates() {
+    if (props.user.useTemplates) {
+      axiosWithAuth(token)
+        .get(templateApi)
+        .then((res) => {
+          props.replaceTemplateRisks(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+  }
+
+  const type = props.user.selected;
+  const templateRisks = props.templates.entries.filter(
+    (risk) => risk.type === type
+  );
+  const currentRisks = props.risks.entries;
+
+  const aiRisks = templateRisks.filter((risk) => risk.ai === 1);
+  const dltRisks = templateRisks.filter((risk) => risk.dlt === 1);
+  const manRisks = templateRisks.filter((risk) => risk.man === 1);
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
-    // create single array
+    // create single array of required types
     let relevantRisks = [];
-    if (props.projectRisks.ai) {
+    if (props.user.ai) {
       relevantRisks = relevantRisks.concat(aiRisks);
     }
-    if (props.projectRisks.dlt) {
+    if (props.user.dlt) {
       relevantRisks = relevantRisks.concat(dltRisks);
     }
-    if (props.projectRisks.man) {
+    if (props.user.man) {
       relevantRisks = relevantRisks.concat(manRisks);
     }
 
@@ -38,7 +59,7 @@ function RiskTable(props) {
   }
 
   // create an array of current descriptions to filter by
-  const filterDescriptions = usedRisks.map((risk) => {
+  const filterDescriptions = currentRisks.map((risk) => {
     return risk.description;
   });
   // remove the entries that are already used
@@ -54,11 +75,15 @@ function RiskTable(props) {
   }
 
   // function closeTemplate() {
-  //   if (props.projectRisks.options[type].maxRisks === props.projectRisks[type].length() ) {
+  //   if (props.user.options[type].maxRisks === props.user[type].length() ) {
   //     props.setShowTemplate(false);
-  //   } 
+  //   }
   // }
   // closeTemplate()
+
+  useEffect(() => {
+    getTemplates();
+  }, []);
 
   return (
     <Container
@@ -66,8 +91,8 @@ function RiskTable(props) {
       onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
-        <h5>{props.projectRisks.selected} Risks</h5>
-        <div className="close" onClick={() => props.setShowTemplate(false)} >
+        <h5>{props.user.selected} Risks</h5>
+        <div className="close" onClick={() => props.setShowTemplate(false)}>
           <img src={removeIcon} alt="" />
         </div>
         <div className="title">
@@ -76,7 +101,7 @@ function RiskTable(props) {
         </div>
         <div className="templateRisks">
           {remainingRisks.map((risk, index) => (
-            <TemplateRisk risk={risk} type={type} key={index} />
+            <TemplateRisk risk={risk} key={index} />
           ))}
         </div>
       </div>
@@ -84,7 +109,7 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, { replaceTemplateRisks })(Templates);
 
 const Container = styled.div`
   position: fixed;

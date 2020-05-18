@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import {
   toggleProjectBoolean,
-  setProjectAdmin,
-} from "../../state/actionCreators/projectActionCreators";
-import { projectOptions } from "../../data/globalSettings";
+  setProjectValue,
+} from "../../state/actionCreators/userActionCreators";
+import { projectOptions } from "../../data/projectOptions";
 
 function ProjectSettings(props) {
-  const flavours = projectOptions.flavour;
-  const { flavour, appendixRef, maxCharacters } = props.projectRisks;
+  const flavours = projectOptions.flavourOptions;
+  const flavour = props.user.flavour;
+  const appendixRef = props.user.appendixRef;
+  const maxCharacters = props.user.maxCharacters;
   const numbers = [100, 500, 1000, 2000];
 
   function toggle(event) {
@@ -19,7 +21,7 @@ function ProjectSettings(props) {
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
-    props.setProjectAdmin({key, value});
+    props.setProjectValue({key, value});
   }
 
   return (
@@ -34,7 +36,7 @@ function ProjectSettings(props) {
             <p
               id="ai"
               style={
-                props.projectRisks.ai
+                props.user.ai
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
@@ -45,7 +47,7 @@ function ProjectSettings(props) {
             <p
               id="dlt"
               style={
-                props.projectRisks.dlt
+                props.user.dlt
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
@@ -56,7 +58,7 @@ function ProjectSettings(props) {
             <p
               id="man"
               style={
-                props.projectRisks.man
+                props.user.man
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
@@ -126,13 +128,13 @@ function ProjectSettings(props) {
             <p
               id="useTemplate"
               style={
-                props.projectRisks.useTemplate
+                props.user.useTemplate
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
             >
-              {props.projectRisks.useTemplate ? "Yes" : "No"}
+              {props.user.useTemplate ? "Yes" : "No"}
             </p>
           </div>
         </div>
@@ -144,13 +146,13 @@ function ProjectSettings(props) {
             <p
               id="exportSpreadsheet"
               style={
-                props.projectRisks.exportSpreadsheet
+                props.user.exportSpreadsheet
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
             >
-              {props.projectRisks.exportSpreadsheet ? "Yes" : "No"}
+              {props.user.exportSpreadsheet ? "Yes" : "No"}
             </p>
           </div>
         </div>
@@ -162,7 +164,7 @@ function ProjectSettings(props) {
 
 export default connect((state) => state, {
   toggleProjectBoolean,
-  setProjectAdmin,
+  setProjectValue,
 })(ProjectSettings);
 
 const Container = styled.div`

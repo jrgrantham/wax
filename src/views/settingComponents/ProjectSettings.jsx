@@ -1,19 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectInfo } from "../../state/actionCreators/projectActionCreators";
-import { projectOptions } from "../../data/globalSettings";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
+import { projectOptions } from "../../data/projectOptions";
 
 function ProjectSettings(props) {
-  const { company, project, application } = props.projectRisks;
-
-  const { nature, type } = projectOptions;
-  console.log(type);
+  const {company, project, application, nature, type} = props.user;
+  const { natureOptions, typeOptions } = projectOptions;
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
-    props.setProjectInfo({ key, value });
+    props.setProjectValue( key, value );
   }
 
   return (
@@ -44,7 +42,7 @@ function ProjectSettings(props) {
             name="nature"
             defaultValue={nature}
           >
-            {nature.map((option, index) => {
+            {natureOptions.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
@@ -64,7 +62,7 @@ function ProjectSettings(props) {
             name="type"
             defaultValue={type}
           >
-            {type.map((option, index) => {
+            {typeOptions.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
@@ -102,7 +100,7 @@ function ProjectSettings(props) {
   );
 }
 
-export default connect((state) => state, { setProjectInfo })(ProjectSettings);
+export default connect((state) => state, { setProjectValue })(ProjectSettings);
 
 const Container = styled.div`
   display: flex;

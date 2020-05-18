@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./projectComponents/ProjectHeader";
 import ProjectRisk from "./projectComponents/ProjectRisk";
@@ -6,13 +6,58 @@ import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
 import SelectTemplate from "./projectComponents/SelectTemplate";
 import Menu from "./Menu";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+import { replaceRisks } from "../state/actionCreators/riskActionCreators";
+import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import { setUser } from "../state/actionCreators/userActionCreators";
+
+const userApi = `${url()}api/users/user`;
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-  const selected = props.projectRisks.selected;
-  const risks = props.projectRisks[selected.toLowerCase()];
-  // const maxRisks = props.projectRisks.options[selected].maxRisks;
-  // const usedRisks = props.projectRisks[selected].length;
 
+  function sortRisks(array) {
+    console.log("ran");
+    const sortedRisks = array.sort(function (a, b) {
+      return b.risk - a.risk;
+    });
+    return sortedRisks;
+  }
+
+  function getData() {
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        // console.log(res.data);
+        props.setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        props.history.push("/login");
+      });
+    axiosWithAuth(token)
+      .get(riskApi)
+      .then((res) => {
+        // console.log(res.data);
+        props.replaceRisks(sortRisks(res.data));
+      })
+      .catch((error) => {
+        console.log(error.message);
+        props.history.push("/login");
+      });
+  }
+
+  // useEffect(() => {
+  //   getData();
+  //   return function cleanup() {
+  //     (console.log("unmounted")) // send state here
+  //   }
+  // }, []);
+
+  const type = props.user.selected.toLowerCase();
+  const risks = props.risks.entries.filter((risk) => risk.type === type);
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -29,6 +74,13 @@ function RiskTable(props) {
   //   }
   // }
   // closeWindow()
+
+  useEffect(() => {
+    getData();
+    return () => {
+      console.log("unmounted risks"); // send state here
+    };
+  }, []);
 
   return (
     <Container onClick={(event) => location(event)}>
@@ -47,7 +99,11 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, {})(RiskTable);
+export default connect((state) => state, {
+  replaceRisks,
+  setUser,
+  replaceTemplateRisks,
+})(RiskTable);
 
 const Container = styled.div`
   display: flex;

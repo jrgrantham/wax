@@ -4,20 +4,41 @@ import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
   replaceRisks,
-} from "../../state/actionCreators/projectActionCreators";
+} from "../../state/actionCreators/riskActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+import { useEffect } from "react";
+
+const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
 
 function Options(props) {
-  const type = props.projectRisks.selected.toLowerCase();
-  const { defaultOwner, maxRisks } = props.projectRisks.options[type];
-  const usedRisks = props.projectRisks[type].length;
-  const notRiskLimit = (usedRisks < maxRisks)
+  const type = props.user.selected.toLowerCase();
+  const defaultOwner = props.user[type.slice(0, 3) + "DefaultOwner"];
+  const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
+    .length;
+  const riskLimit = usedRisks < maxRisks;
 
   function checkMax() {
-    if (notRiskLimit) {
-      setAddRow(true)
+    if (riskLimit) {
+      setAddRow(true);
     }
+  }
+
+  function addToProject() {
+    axiosWithAuth(token)
+      .post(riskApi, emtpyRow)
+      .then((res) => {
+        console.log(res.data);
+        props.replaceRisks(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // props.history.push("/login");
+      });
   }
 
   const [addRow, setAddRow] = useState(false);
@@ -25,6 +46,7 @@ function Options(props) {
   const randomId = uuidv4();
   const emtpyRow = {
     id: randomId,
+    type,
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
@@ -32,13 +54,8 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addToProject() {
-    setAddRow(false);
-    props.addToProject(type, emtpyRow);
-  }
-
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type].map((entry) => {
+    const calculatedRisks = props.risks.entries.map((entry) => {
       const value = entry.probability * entry.consequence;
       return { ...entry, risk: value };
     });
@@ -46,11 +63,17 @@ function Options(props) {
   }
 
   function sortRisks() {
+    console.log('ran');
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.replaceRisks(type.toLowerCase(), sortedRisks);
+    props.replaceRisks(sortedRisks);
   }
+
+  // useEffect(() => {
+  //   sortRisks();
+  //   return () => {};
+  // }, []);
 
   return (
     <Container>
@@ -68,8 +91,8 @@ function Options(props) {
               <div
                 className="button"
                 onClick={() => {
-                  setAddRow(false)
-                  props.setShowTemplate(true)
+                  setAddRow(false);
+                  props.setShowTemplate(true);
                 }}
               >
                 <p>Add from template</p>

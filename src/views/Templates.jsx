@@ -1,14 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./templateComponents/TemplateHeader";
 import TemplateRisk from "./templateComponents/TemplateRisk";
 import styled from "styled-components";
 import Options from "./templateComponents/TemplateOptions";
 import Menu from "./Menu";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import { projectOptions } from "../data/projectOptions";
+
+const templateApi = `${url()}api/users/templates`;
+const token = localStorage.getItem("token");
 
 function Templates(props) {
-  const selected = props.projectRisks.selected;
-  const templates = props.templates[selected.toLowerCase()];
+  function getTemplates() {
+    if (props.user.admin) {
+      console.log("reaerfarf");
+      axiosWithAuth(token)
+        .get(templateApi)
+        .then((res) => {
+          props.replaceTemplateRisks(res.data);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+  }
+
+  useEffect(() => {
+    getTemplates();
+    return () => {
+      // send data back
+    };
+  }, []);
+
+  const templates = props.templates.entries.filter(
+    (risk) => risk.type === props.user.selected
+  );
 
   const [showMenu, setShowMenu] = useState(false);
   function location(event) {
@@ -32,7 +62,7 @@ function Templates(props) {
   );
 }
 
-export default connect((state) => state, {})(Templates);
+export default connect((state) => state, { replaceTemplateRisks })(Templates);
 
 const Container = styled.div`
   display: flex;

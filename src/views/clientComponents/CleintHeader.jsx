@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 // import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/projectActionCreators";
+import {  } from "../../state/actionCreators/userActionCreators";
 import addIcon from '../../images/addIcon.png'
 
 function ClientHeader(props) {
@@ -32,7 +32,7 @@ function ClientHeader(props) {
   );
 }
 
-export default connect((state) => state, { setSelected })(ClientHeader);
+export default connect((state) => state, { })(ClientHeader);
 
 const Container = styled.div`
   display: flex;

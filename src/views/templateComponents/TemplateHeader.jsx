@@ -1,21 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import menu from "../../images/menu.png";
-import { setSelected } from "../../state/actionCreators/projectActionCreators";
+// import menu from "../../images/menu.png";
+import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 
 function TemplateHeader(props) {
+
+
+
   function setSelected(type) {
-    props.setSelected(type);
+    props.setProjectValue('selected', type);
   }
 
-  function showMenu(e) {
-    e.stopPropagation();
-    props.setShowMenu(true);
-  }
+  // function showMenu(e) {
+  //   e.stopPropagation();
+  //   props.setShowMenu(true);
+  // }
 
-  const selected = props.projectRisks.selected.toLowerCase();
-  const color = props.projectRisks.options[selected].color;
+  const selected = props.user.selected.toLowerCase();
+  const color = props.user[selected.slice(0, 3) + "Color"];
 
   return (
     <Container color={color}>
@@ -29,31 +32,31 @@ function TemplateHeader(props) {
       </header> */}
       <div className="types">
         <Type
-          background={props.projectRisks.options.managerial.color}
+          background={props.user.manColor}
           onClick={() => setSelected("managerial")}
         >
           <h6>Managerial</h6>
         </Type>
         <Type
-          background={props.projectRisks.options.commercial.color}
+          background={props.user.comColor}
           onClick={() => setSelected("commercial")}
         >
           <h6>Commercial</h6>
         </Type>
         <Type
-          background={props.projectRisks.options.technical.color}
+          background={props.user.tecColor}
           onClick={() => setSelected("technical")}
         >
           <h6>Technical</h6>
         </Type>
           <Type
-            background={props.projectRisks.options.environmental.color}
+            background={props.user.envColor}
             onClick={() => setSelected("environmental")}
           >
             <h6>Environmental</h6>
           </Type>
           <Type
-            background={props.projectRisks.options.legal.color}
+            background={props.user.legColor}
             onClick={() => setSelected("legal")}
           >
             <h6>Legal</h6>
@@ -73,7 +76,7 @@ function TemplateHeader(props) {
   );
 }
 
-export default connect((state) => state, { setSelected })(TemplateHeader);
+export default connect((state) => state, { setProjectValue })(TemplateHeader);
 
 const Container = styled.div`
   display: flex;

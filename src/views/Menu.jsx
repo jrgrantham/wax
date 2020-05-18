@@ -19,7 +19,7 @@ function Menu(props) {
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>
       </div>
-      {props.projectRisks.admin ? (
+      {props.user.admin ? (
         <div className="menu">
           <Link to="admin">
             <h6>Admin</h6>
