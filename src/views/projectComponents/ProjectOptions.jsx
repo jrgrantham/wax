@@ -15,10 +15,10 @@ function Options(props) {
   const usedRisks = props.risks.entries.filter(risk => 
     risk.type === type
   ).length
-  const notRiskLimit = (usedRisks < maxRisks)
-
+  const riskLimit = (usedRisks < maxRisks)
+  
   function checkMax() {
-    if (notRiskLimit) {
+    if (riskLimit) {
       setAddRow(true)
     }
   }
@@ -28,6 +28,7 @@ function Options(props) {
   const randomId = uuidv4();
   const emtpyRow = {
     id: randomId,
+    type,
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
@@ -36,12 +37,12 @@ function Options(props) {
   };
 
   function addToProject() {
-    setAddRow(false);
-    props.addToProject(type, emtpyRow);
+    // setAddRow(false);
+    props.addToProject(emtpyRow);
   }
 
   function calculateRisk() {
-    const calculatedRisks = props.projectRisks[type].map((entry) => {
+    const calculatedRisks = props.risks.entries.map((entry) => {
       const value = entry.probability * entry.consequence;
       return { ...entry, risk: value };
     });
@@ -52,7 +53,8 @@ function Options(props) {
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.replaceRisks(type.toLowerCase(), sortedRisks);
+    
+    props.replaceRisks(sortedRisks);
   }
 
   return (

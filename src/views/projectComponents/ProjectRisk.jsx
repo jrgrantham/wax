@@ -9,11 +9,12 @@ import {
   updateRisk,
 } from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
+import { projectOptions } from '../../data/projectOptions';
 
 function RiskSingle(props) {
   const type = props.user.selected.toLowerCase();
   const risk = props.risk;
-  const riskRange = ["TBC", "Low", "Medium", "High"];
+  const riskRange = projectOptions.riskRange;
   const maxSelected = type.slice(0, 3) + "MaxLength";
   const maxLength = props.user[maxSelected];
 

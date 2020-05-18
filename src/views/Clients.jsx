@@ -49,7 +49,7 @@ const Container = styled.div`
   /* min-height: 100vh; */
   background-color: #e5e5e5;
   padding: 0px 0 20px 0;
-    border-radius: 10px;
+  border-radius: 10px;
 
   .banner {
     width: calc(100% - 40px);
@@ -71,9 +71,9 @@ const Container = styled.div`
     border: 1px solid lightgray;
     border-radius: 10px;
     padding: 5px 0px 5px 15px;
-      &:hover {
-        cursor: pointer;
-      }
+    &:hover {
+      cursor: pointer;
+    }
     .image {
       width: 40px;
       margin: 0px 10px 0px 10px;
@@ -97,6 +97,5 @@ const Container = styled.div`
     padding: 0px 15px 15px 15px;
     /* border-radius: 20px; */
     /* border: 1px solid red; */
-
   }
 `;

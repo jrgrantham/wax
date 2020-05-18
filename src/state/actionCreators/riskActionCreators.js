@@ -44,8 +44,6 @@ export function deleteRisk(type, id) {
 }
 
 export function addToProject(data) {
-  console.log(data);
-  
   return {
     type: actionTypes.ADD_TO_PROJECT,
     payload: data

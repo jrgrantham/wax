@@ -12,11 +12,16 @@ function TextType(props) {
     return riskRange[value];
   }
 
+  console.log(riskRange);
+  
+  
+
   return (
     <Container>
       <h4>{type} Risks</h4>
       {docRisks.map((risk, index) => (
         <div key={index} className='risk'>
+          {console.log(riskValue(risk.probability))}
           <h6 className='bold' >{risk.description}</h6>
           <ul>
             <li>Likelihood: {riskValue(risk.probability)}</li>

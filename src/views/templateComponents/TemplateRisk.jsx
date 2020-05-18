@@ -11,11 +11,12 @@ import {
   toggleTemplateTypes,
 } from "../../state/actionCreators/templateActionCreators";
 import removeIcon from "../../images/removeIcon.png";
+import { projectOptions } from "../../data/projectOptions";
 
-function RiskSingle(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+function TemplateSingle(props) {
+  const type = props.user.selected.toLowerCase();
   const template = props.template;
-  const riskRange = props.projectRisks.riskRange;
+  const riskRange = projectOptions.riskRange;
 
   function riskValue(value) {
     return riskRange[value];
@@ -29,7 +30,6 @@ function RiskSingle(props) {
   function confirmProbability() {
     console.log("hi");
     props.updateTemplateProbability(
-      type,
       template.id,
       (template.probability + 1) % riskRange.length
     );
@@ -39,20 +39,18 @@ function RiskSingle(props) {
 
   function confirmConsequence() {
     props.updateTemplateConsequence(
-      type,
       template.id,
       (template.consequence + 1) % riskRange.length
     );
   }
 
   function confirmDelete() {
-    props.deleteTemplateRisk(type, template.id);
+    props.deleteTemplateRisk(template.id);
     setCheckDelete(false);
   }
 
   function updateText(event) {
     props.updateTemplateRisk(
-      type,
       template.id,
       event.target.name,
       event.target.value
@@ -60,7 +58,7 @@ function RiskSingle(props) {
   }
 
   function toggleType(projectType, id) {
-    props.toggleTemplateTypes(type, projectType, id);
+    props.toggleTemplateTypes(projectType, id);
   }
 
   const [height, setHeight] = useState(50);
@@ -178,7 +176,7 @@ export default connect((state) => state, {
   replaceTemplateRisks,
   updateTemplateRisk,
   toggleTemplateTypes,
-})(RiskSingle);
+})(TemplateSingle);
 
 export const Container = styled.div`
   width: 100%;

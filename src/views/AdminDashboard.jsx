@@ -4,7 +4,7 @@ import Templates from "./Templates";
 import styled from "styled-components";
 
 export default function AdminDashboard() {
-  const [displayClients, setDisplayClients] = useState(true);
+  const [displayClients, setDisplayClients] = useState(false);
   return (
     <Container>
       <header>

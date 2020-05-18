@@ -5,8 +5,7 @@ export function templateReducer(state = templates, action) {
   switch (action.type) {
     case actionTypes.UPDATE_TEMPLATE_RISK:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].map((entry) => {
+        entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
             return {
               ...entry,
@@ -18,8 +17,7 @@ export function templateReducer(state = templates, action) {
       };
     case actionTypes.UPDATE_TEMPLATE_PROBABILITY:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].map((entry) => {
+        entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
             return { ...entry, probability: action.payload.value };
           }
@@ -28,8 +26,7 @@ export function templateReducer(state = templates, action) {
       };
     case actionTypes.UPDATE_TEMPLATE_CONSEQUENCE:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].map((entry) => {
+        entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
             return { ...entry, consequence: action.payload.value };
           }
@@ -38,16 +35,16 @@ export function templateReducer(state = templates, action) {
       };
     case actionTypes.DELETE_TEMPLATE_RISK:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].filter(
+        entries: state.entries.filter(
           (entry) => entry.id !== action.payload.id
         ),
       };
     case actionTypes.ADD_TO_TEMPLATE:
+      console.log(action.payload);
+      
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].concat(
-          action.payload.data
+        entries: state.entries.concat(
+          action.payload
         ),
       };
     case actionTypes.REPLACE_TEMPLATE_RISKS:
@@ -56,8 +53,7 @@ export function templateReducer(state = templates, action) {
       };
     case actionTypes.TOGGLE_TEMPLATE_TYPES:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].map((entry) => {
+        entries: state.entries.map((entry) => {
           if (entry.id === action.payload.id) {
             return {
               ...entry,
