@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import ProjectSettings from "./settingComponents/ProjectSettings";
@@ -8,6 +8,12 @@ import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
 
 function ClientSettings(props) {
+
+  useEffect(() => {
+    return () => {
+      (console.log("unmounted settings")) // send state here
+    }
+  }, [])
   
   return (
     <Container>

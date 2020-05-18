@@ -19,14 +19,14 @@ import AdminDashboard from "./views/AdminDashboard";
 const monsterReducer = combineReducers({
   templates: templateReducer,
   risks: riskReducer,
-  clients: clientReducer,
+  // clients: clientReducer,
   user: userReducer
 });
 
 const store = createStore(
   monsterReducer,
   compose(
-    // applyMiddleware(thunk),
+    applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

@@ -6,7 +6,6 @@ import {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  replaceRisks,
   updateRisk,
 } from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
@@ -50,7 +49,7 @@ function RiskSingle(props) {
   }
 
   function updateText(event) {
-    props.updateRisk(type, risk.id, event.target.name, event.target.value);
+    props.updateRisk(risk.id, event.target.name, event.target.value);
   }
 
   const [height, setHeight] = useState(50);
@@ -149,7 +148,6 @@ export default connect((state) => state, {
   updateProbability,
   updateConsequence,
   deleteRisk,
-  replaceRisks,
   updateRisk,
 })(RiskSingle);
 

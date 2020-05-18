@@ -5,37 +5,34 @@ import removeIcon from "../../images/removeIcon.png";
 import TemplateRisk from "./SelectSingle";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
+import { replaceTemplateRisks } from "../../state/actionCreators/templateActionCreators";
 
 const templateApi = `${url()}api/users/templates`;
 const token = localStorage.getItem("token");
 
 function Templates(props) {
   function getTemplates() {
-    axiosWithAuth(token)
-      .get(templateApi)
-      .then(res => {
-        console.log(res.data.length);
-        
-      })
-      .catch(error => {
-        console.log(error.message);
-        props.setShowTemplate(false)
-      })
+    if (props.user.useTemplates) {
+      axiosWithAuth(token)
+        .get(templateApi)
+        .then((res) => {
+          props.replaceTemplateRisks(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   }
 
-  useEffect(() => {
-    if (props.user.useTemplates) {
-      getTemplates()
-    }
-  })
+  const type = props.user.selected;
+  const templateRisks = props.templates.entries.filter(
+    (risk) => risk.type === type
+  );
+  const currentRisks = props.risks.entries;
 
-  const type = props.user.selected.toLowerCase();
-  const templateRisks = props.templates.entries;
-  const usedRisks = props.risks.entries;
-
-  const aiRisks = templateRisks.filter((risk) => risk.ai === true);
-  const dltRisks = templateRisks.filter((risk) => risk.dlt === true);
-  const manRisks = templateRisks.filter((risk) => risk.man === true);
+  const aiRisks = templateRisks.filter((risk) => risk.ai === 1);
+  const dltRisks = templateRisks.filter((risk) => risk.dlt === 1);
+  const manRisks = templateRisks.filter((risk) => risk.man === 1);
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
@@ -62,7 +59,7 @@ function Templates(props) {
   }
 
   // create an array of current descriptions to filter by
-  const filterDescriptions = usedRisks.map((risk) => {
+  const filterDescriptions = currentRisks.map((risk) => {
     return risk.description;
   });
   // remove the entries that are already used
@@ -80,9 +77,13 @@ function Templates(props) {
   // function closeTemplate() {
   //   if (props.user.options[type].maxRisks === props.user[type].length() ) {
   //     props.setShowTemplate(false);
-  //   } 
+  //   }
   // }
   // closeTemplate()
+
+  useEffect(() => {
+    getTemplates();
+  }, []);
 
   return (
     <Container
@@ -91,7 +92,7 @@ function Templates(props) {
     >
       <div className="templateContents">
         <h5>{props.user.selected} Risks</h5>
-        <div className="close" onClick={() => props.setShowTemplate(false)} >
+        <div className="close" onClick={() => props.setShowTemplate(false)}>
           <img src={removeIcon} alt="" />
         </div>
         <div className="title">
@@ -100,7 +101,7 @@ function Templates(props) {
         </div>
         <div className="templateRisks">
           {remainingRisks.map((risk, index) => (
-            <TemplateRisk risk={risk} type={type} key={index} />
+            <TemplateRisk risk={risk} key={index} />
           ))}
         </div>
       </div>
@@ -108,7 +109,7 @@ function Templates(props) {
   );
 }
 
-export default connect((state) => state, {})(Templates);
+export default connect((state) => state, { replaceTemplateRisks })(Templates);
 
 const Container = styled.div`
   position: fixed;

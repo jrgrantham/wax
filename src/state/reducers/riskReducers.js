@@ -41,9 +41,8 @@ export function riskReducer(state = risks, action) {
       };
     case actionTypes.ADD_TO_PROJECT:
       return {
-        ...state,
-        [action.payload.type]: state[action.payload.type].concat(
-          action.payload.data
+        entries: state.entries.concat(
+          action.payload
         ),
       };
     case actionTypes.REPLACE_RISKS:

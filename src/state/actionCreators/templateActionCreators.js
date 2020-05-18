@@ -54,13 +54,10 @@ export function addToTemplate(type, data) {
   };
 }
 
-export function replaceTemplateRisks(type, data) {
+export function replaceTemplateRisks(data) {
   return {
     type: actionTypes.REPLACE_TEMPLATE_RISKS,
-    payload: {
-      type,
-      data,
-    },
+    payload: data,
   };
 }
 

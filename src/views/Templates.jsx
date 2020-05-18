@@ -7,7 +7,6 @@ import Options from "./templateComponents/TemplateOptions";
 import Menu from "./Menu";
 
 function Templates(props) {
-  const selected = props.user.selected;
   const templates = props.templates;
 
   console.log(templates);

@@ -3,9 +3,9 @@ import { user } from "../../data/dummyData";
 
 export function userReducer(state = user, action) {
   switch (action.type) {
+    case actionTypes.SET_USER:
+      return action.payload;
     case actionTypes.TOGGLE_PROJECT_BOOLEAN:
-      console.log(action.payload);
-
       return {
         ...state,
         [action.payload]: !state[action.payload],

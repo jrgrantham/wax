@@ -1,10 +1,9 @@
 import * as actionTypes from "../actionTypes";
 
-export function updateRisk(type, id, field, data) {
+export function updateRisk(id, field, data) {
   return {
     type: actionTypes.UPDATE_RISK,
     payload: {
-      type,
       id,
       field,
       data,
@@ -44,13 +43,12 @@ export function deleteRisk(type, id) {
   };
 }
 
-export function addToProject(type, data) {
+export function addToProject(data) {
+  console.log(data);
+  
   return {
     type: actionTypes.ADD_TO_PROJECT,
-    payload: {
-      data,
-      type,
-    },
+    payload: data
   };
 }
 

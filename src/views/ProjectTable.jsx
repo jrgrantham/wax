@@ -9,16 +9,30 @@ import Menu from "./Menu";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
 import { replaceRisks } from "../state/actionCreators/riskActionCreators";
+import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import { setUser } from "../state/actionCreators/userActionCreators";
 
+const userApi = `${url()}api/users/user`;
 const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-  function getRisks() {
+  function getData() {
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        // console.log(res.data);
+        props.setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        props.history.push("/login");
+      });
     axiosWithAuth(token)
       .get(riskApi)
       .then((res) => {
-        props.replaceRisks(res.data)
+        // console.log(res.data);
+        props.replaceRisks(res.data);
       })
       .catch((error) => {
         console.log(error.message);
@@ -26,14 +40,22 @@ function RiskTable(props) {
       });
   }
 
+  // useEffect(() => {
+  //   getData();
+  //   return function cleanup() {
+  //     (console.log("unmounted")) // send state here
+  //   }
+  // }, []);
+
   useEffect(() => {
-    getRisks();
-  }, []);
+    getData();
+    return () => {
+      (console.log("unmounted risks")) // send state here
+    }
+  }, [])
 
   const type = props.user.selected.toLowerCase();
-
   const risks = props.risks.entries.filter((risk) => risk.type === type);
-
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -68,7 +90,11 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, { replaceRisks })(RiskTable);
+export default connect((state) => state, {
+  replaceRisks,
+  setUser,
+  replaceTemplateRisks,
+})(RiskTable);
 
 const Container = styled.div`
   display: flex;

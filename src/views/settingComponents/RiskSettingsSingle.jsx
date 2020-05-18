@@ -23,8 +23,6 @@ function RiskSettings(props) {
     props.setProjectValue(type.slice(0, 3) + "Color", value);
   }
 
-  console.log(props.risks);
-
   function changeMax(event) {
     const value = parseInt(event.target.value);
     props.setProjectValue(event.target.name, value);

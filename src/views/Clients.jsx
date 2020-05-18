@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import Header from "./clientComponents/CleintHeader";
+// import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
 import styled from "styled-components";
-import Options from "./clientComponents/TemplateOptions";
+// import Options from "./clientComponents/TemplateOptions";
 import addIcon from "../images/addIcon.png";
-import Menu from "./Menu";
+// import Menu from "./Menu";
 
 function Clients(props) {
   // const selected = props.projectRisks.selected;

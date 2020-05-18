@@ -3,33 +3,31 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  replaceRisks,
   addToProject,
-  updateRisk,
 } from "../../state/actionCreators/riskActionCreators";
 import addIcon from "../../images/addIcon.png";
 
-function TemplateRisk(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+function SelectTemplateRisk(props) {
+  const type = props.user.selected.toLowerCase();
   const risk = props.risk;
-  const maxRisks = props.projectRisks.options[type].maxRisks;
-  const usedRisks = props.projectRisks[type].length;
-  const notRiskLimit = usedRisks < maxRisks;
+  const maxRisks = props.user[type.slice(0,3) + 'MaxRisks'];
+  const riskCount = props.risks.entries.filter(
+    (risk) => risk.type === type
+  ).length;
+  const riskLimit = riskCount < maxRisks;
 
-  function addToProject() {
-    if (notRiskLimit) {
+  function addRisk() {
+    if (riskLimit) {
       const riskClone = {
         id: uuidv4(),
+        type,
         description: risk.description,
         probability: risk.probability,
         consequence: risk.consequence,
-        owner: props.projectRisks.options[type].defaultOwner,
+        owner: props.user[type.slice(0,3) + 'DefaultOwner'],
         mitigation: risk.mitigation,
       };
-      props.addToProject(type, riskClone);
+      props.addToProject(riskClone);
     }
   }
 
@@ -38,7 +36,7 @@ function TemplateRisk(props) {
       <div className="templateRisk">
         <p>{risk.description}</p>
         <p>{risk.mitigation}</p>
-        <div className="icon" onClick={() => addToProject()}>
+        <div className="icon" onClick={() => addRisk()}>
           <img src={addIcon} alt="delete" />
         </div>
       </div>
@@ -47,13 +45,8 @@ function TemplateRisk(props) {
 }
 
 export default connect((state) => state, {
-  updateProbability,
-  updateConsequence,
-  deleteRisk,
-  replaceRisks,
-  updateRisk,
   addToProject,
-})(TemplateRisk);
+})(SelectTemplateRisk);
 
 export const Container = styled.div`
   width: 100%;

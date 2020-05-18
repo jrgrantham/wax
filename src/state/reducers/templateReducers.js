@@ -43,11 +43,6 @@ export function templateReducer(state = templates, action) {
           (entry) => entry.id !== action.payload.id
         ),
       };
-    // case actionTypes.SET_PROJECT_INFO:
-    //   return {
-    //     ...state,
-    //     [action.payload.key]: action.payload.value,
-    //   };
     case actionTypes.ADD_TO_TEMPLATE:
       return {
         ...state,
@@ -57,8 +52,7 @@ export function templateReducer(state = templates, action) {
       };
     case actionTypes.REPLACE_TEMPLATE_RISKS:
       return {
-        ...state,
-        [action.payload.type]: action.payload.data,
+        entries: action.payload,
       };
     case actionTypes.TOGGLE_TEMPLATE_TYPES:
       return {
