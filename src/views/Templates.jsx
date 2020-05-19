@@ -7,16 +7,28 @@ import Options from "./templateComponents/TemplateOptions";
 import Menu from "./Menu";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
+import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
-import { projectOptions } from "../data/projectOptions";
 
 const templateApi = `${url()}api/users/templates`;
+const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
 function Templates(props) {
+
   function getTemplates() {
+    axiosWithAuth(token)
+    .get(userApi)
+    .then((res) => {
+      // console.log(res.data);
+      props.setUser(res.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      // window.location.replace(`${url()}login`)
+      props.history.push("/login");
+    });
     if (props.user.admin) {
-      console.log("reaerfarf");
       axiosWithAuth(token)
         .get(templateApi)
         .then((res) => {
@@ -62,7 +74,8 @@ function Templates(props) {
   );
 }
 
-export default connect((state) => state, { replaceTemplateRisks })(Templates);
+export default connect((state) => state, { replaceTemplateRisks, setUser })(Templates); //remove withRouter and the parens
+// export default withRouter (connect((state) => state, { replaceTemplateRisks, setUser })(Templates)); //remove withRouter and the parens
 
 const Container = styled.div`
   display: flex;

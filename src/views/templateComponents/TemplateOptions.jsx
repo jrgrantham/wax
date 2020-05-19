@@ -7,6 +7,11 @@ import {
 } from "../../state/actionCreators/templateActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const templateApi = `${url()}api/users/templates`;
+const token = localStorage.getItem("token");
 
 function Options(props) {
   const type = props.user.selected.toLowerCase();
@@ -21,9 +26,22 @@ function Options(props) {
     mitigation: "enter risk mitigation.",
   };
 
-  function addToTemplate() {
-    props.addToTemplate(emtpyRow);
+  function sendTemplate() {
+    axiosWithAuth(token)
+      .post(templateApi, emtpyRow)
+      .then((res) => {
+        console.log(res.data);
+        props.replaceTemplateRisks(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // props.history.push("/login");
+      });
   }
+
+  // function addToTemplate() {
+  //   props.addToTemplate(emtpyRow);
+  // }
 
   function calculateRisk() {
     const calculatedRisks = props.templates[type].map((entry) => {
@@ -45,14 +63,14 @@ function Options(props) {
       <div className="left"></div>
       <div className="white">
         <div className="right">
-            <>
-              <div className="button" onClick={() => sortRisks()}>
-                <p>Sort and update</p>
-              </div>
-              <div className="image" onClick={() => addToTemplate()}>
-                <img src={addIcon} alt="add" />
-              </div>
-            </>
+          <>
+            <div className="button" onClick={() => sortRisks()}>
+              <p>Sort and update</p>
+            </div>
+            <div className="image" onClick={() => sendTemplate()}>
+              <img src={addIcon} alt="add" />
+            </div>
+          </>
         </div>
       </div>
     </Container>

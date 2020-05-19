@@ -9,7 +9,6 @@ import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
-import { useEffect } from "react";
 
 const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
@@ -29,16 +28,18 @@ function Options(props) {
   }
 
   function addToProject() {
-    axiosWithAuth(token)
-      .post(riskApi, emtpyRow)
-      .then((res) => {
-        console.log(res.data);
-        props.replaceRisks(res.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        // props.history.push("/login");
-      });
+    if (riskLimit) {
+      axiosWithAuth(token)
+        .post(riskApi, emtpyRow)
+        .then((res) => {
+          console.log(res.data);
+          props.replaceRisks(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          // props.history.push("/login");
+        });
+    }
   }
 
   const [addRow, setAddRow] = useState(false);

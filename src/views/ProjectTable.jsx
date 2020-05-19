@@ -13,11 +13,11 @@ import { replaceTemplateRisks } from "../state/actionCreators/templateActionCrea
 import { setUser } from "../state/actionCreators/userActionCreators";
 
 const userApi = `${url()}api/users/user`;
+const templateApi = `${url()}api/users/templates`;
 const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-
   function sortRisks(array) {
     const sortedRisks = array.sort(function (a, b) {
       return b.risk - a.risk;
@@ -46,6 +46,16 @@ function RiskTable(props) {
         console.log(error.message);
         props.history.push("/login");
       });
+        if (props.user.useTemplates) {
+          axiosWithAuth(token)
+            .get(templateApi)
+            .then((res) => {
+              props.replaceTemplateRisks(res.data);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
   }
 
   // useEffect(() => {
@@ -60,21 +70,24 @@ function RiskTable(props) {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  function location(event) {
+  // console.log(risks);
+  
+  // const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  // const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
+  //   .length;
+  // const riskLimit = usedRisks < maxRisks;
+
+  function checkTarget(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
     }
     setShowMenu(false);
   }
 
-  // function closeWindow() {
-  //   if (usedRisks === maxRisks) {
-  //     setShowTemplate(false);
-  //   }
-  // }
-  // closeWindow()
-
   useEffect(() => {
+    // if (riskLimit) {
+    //   setShowTemplate(false);
+    // }
     getData();
     return () => {
       console.log("unmounted risks"); // send state here
@@ -82,7 +95,7 @@ function RiskTable(props) {
   }, []);
 
   return (
-    <Container onClick={(event) => location(event)}>
+    <Container onClick={(event) => checkTarget(event)}>
       <Menu showMenu={showMenu} />
       {showTemplate ? (
         <SelectTemplate setShowTemplate={setShowTemplate} />

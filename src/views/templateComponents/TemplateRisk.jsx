@@ -12,11 +12,39 @@ import {
 } from "../../state/actionCreators/templateActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 import { projectOptions } from "../../data/projectOptions";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const templateApi = `${url()}api/users/templates`;
+const token = localStorage.getItem("token");
+
+function removeTemplate(id) {
+  const riskId = { id };
+  axiosWithAuth(token)
+    .delete(templateApi, { data: riskId })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
 
 function TemplateSingle(props) {
   const type = props.user.selected.toLowerCase();
   const template = props.template;
   const riskRange = projectOptions.riskRange;
+
+  function sendChanges() {
+    console.log('sent');
+    
+    axiosWithAuth(token)
+      .put(templateApi, template)
+      .then(() => {}) // no action when changes are sent, only when requested
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   function riskValue(value) {
     return riskRange[value];
@@ -47,6 +75,7 @@ function TemplateSingle(props) {
   function confirmDelete() {
     props.deleteTemplateRisk(template.id);
     setCheckDelete(false);
+    removeTemplate(template.id);
   }
 
   function updateText(event) {
@@ -84,7 +113,13 @@ function TemplateSingle(props) {
 
   useEffect(() => {
     getMaxHeight();
-  }, [props.projectRisks]);
+    sendChanges();
+  }, [
+    props.replaceTemplateRisks,
+    confirmConsequence,
+    confirmProbability,
+    toggleType,
+  ]);
 
   return (
     <Container>
@@ -108,6 +143,7 @@ function TemplateSingle(props) {
             id={`${type}description${template.id}`}
             type="text"
             onChange={updateText}
+            onBlur={sendChanges}
             name="description"
             value={template.description}
           />
@@ -133,6 +169,7 @@ function TemplateSingle(props) {
             id={`${type}mitigation${template.id}`}
             type="text"
             onChange={updateText}
+            onBlur={sendChanges}
             name="mitigation"
             value={template.mitigation}
             style={{ minHeight: height }}
@@ -141,21 +178,21 @@ function TemplateSingle(props) {
           <div
             onClick={() => toggleType("ai", template.id)}
             className="flag tbc"
-            style={ template.ai ? { backgroundColor: 'lightyellow'} : null}
+            style={template.ai ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.ai ? "Yes" : "No"}</h6>
           </div>
           <div
             onClick={() => toggleType("dlt", template.id)}
             className="flag tbc"
-            style={ template.dlt ? { backgroundColor: 'lightyellow'} : null}
+            style={template.dlt ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.dlt ? "Yes" : "No"}</h6>
           </div>
           <div
             onClick={() => toggleType("man", template.id)}
             className="flag tbc"
-            style={ template.man ? { backgroundColor: 'lightyellow'} : null}
+            style={template.man ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.man ? "Yes" : "No"}</h6>
           </div>

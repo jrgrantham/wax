@@ -23,7 +23,12 @@ function Login(props) {
         setLoginForm(blankForm);
         localStorage.setItem("token", response.data.token);
         props.setUser(response.data.settings);
-        props.history.push("/");
+        console.log(response.data.admin);
+        if (response.data.admin) {
+          props.history.push("/admin");
+        } else {
+          props.history.push("/");
+        }
       })
       .catch((error) => {
         console.log(error);

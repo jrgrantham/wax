@@ -1,10 +1,52 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Clients from "./Clients";
 import Templates from "./Templates";
 import styled from "styled-components";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+import { setUser } from "../state/actionCreators/userActionCreators";
+import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import { useEffect } from "react";
 
-export default function AdminDashboard() {
-  const [displayClients, setDisplayClients] = useState(false);
+const templateApi = `${url()}api/users/templates`;
+const userApi = `${url()}api/users/user`;
+const token = localStorage.getItem("token");
+
+function AdminDashboard(props) {
+  const [displayClients, setDisplayClients] = useState(true);
+
+  function getData() {
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        // console.log(res.data);
+        props.setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // window.location.replace(`${url()}login`)
+        props.history.push("/login");
+      });
+    if (props.user.admin) {
+      console.log("reaerfarf");
+      axiosWithAuth(token)
+        .get(templateApi)
+        .then((res) => {
+          props.replaceTemplateRisks(res.data);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+  }
+
+  useEffect(() => {
+    getData();
+    return () => {};
+  }, []);
+
   return (
     <Container>
       <header>
@@ -35,10 +77,14 @@ export default function AdminDashboard() {
   );
 }
 
+export default connect((state) => state, { replaceTemplateRisks, setUser })(
+  AdminDashboard
+);
+
 const Container = styled.div`
   background-color: white;
-    max-width: 1500px;
-    margin: auto;
+  max-width: 1500px;
+  margin: auto;
   /* z-index: 2; */
 
   header {
