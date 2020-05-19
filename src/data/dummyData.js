@@ -2,7 +2,7 @@ export const user = {
   projectId: "",
 
   email: "",
-  admin: true,
+  admin: false,
   company: "Jones",
   nature: "nature 3",
   type: "projectType 4",
@@ -15,42 +15,42 @@ export const user = {
   man: true, // admin
   useTemplates: true, // admin
   exportSpreadsheet: false, // admin
-  flavour: "flavour 3", // admin
-  appendixRef: "reference", // admin
+  flavour: "", // admin
+  appendixRef: "", // admin
   maxCharacters: 350, // admin
 
   manDisplay: true, // admin
   manDisplayChangeable: false,
   manDefaultOwner: "JG",
-  manColor: "orange",
+  manColor: "#e5e5e5",
   manMaxLength: 100, // admin
   manMaxRisks: 5, // admin
 
   tecDisplay: true, // admin
   tecDisplayChangeable: false,
   tecDefaultOwner: "JG",
-  tecColor: "red",
+  tecColor: "#e5e5e5",
   tecMaxLength: 100, // admin
   tecMaxRisks: 5, // admin
 
   comDisplay: true, // admin
   comDisplayChangeable: false,
   comDefaultOwner: "JG",
-  comColor: "green",
+  comColor: "#e5e5e5",
   comMaxLength: 100, // admin
   comMaxRisks: 5, // admin
 
   legDisplay: true, // admin
   legDisplayChangeable: true,
   legDefaultOwner: "JG",
-  legColor: "blue",
+  legColor: "#e5e5e5",
   legMaxLength: 100, // admin
   legMaxRisks: 5, // admin
 
   envDisplay: true, // admin
   envDisplayChangeable: true,
   envDefaultOwner: "JG",
-  envColor: "yellow",
+  envColor: "#e5e5e5",
   envMaxLength: 100, // admin
   envMaxRisks: 5, // admin
 };

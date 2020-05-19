@@ -9,7 +9,7 @@ import {
   riskReducer,
 } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import thunk from "redux-thunk";
 
 import RiskTable from "./views/ProjectTable";
@@ -45,7 +45,7 @@ function App() {
         <Route path="/risk-document" component={RiskText} />
         <Route path="/login" component={Login} />
         {/* <Route path="/templates" component={Templates} /> */}
-        <Route path="/clients" component={Clients} />
+        {/* <Route path="/clients" component={Clients} /> */}
         <Route path="/admin" component={AdminDashboard} />
       </div>
       <Footer />
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter (App);

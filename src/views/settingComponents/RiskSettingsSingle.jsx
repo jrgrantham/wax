@@ -5,32 +5,48 @@ import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 import { replaceRisks } from "../../state/actionCreators/riskActionCreators";
 import Slider from "../../images/Slider";
 import { projectOptions } from "../../data/projectOptions";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const riskApi = `${url()}api/users/user`;
+const token = localStorage.getItem("token");
 
 function RiskSettings(props) {
   const admin = props.user.admin;
   const type = props.type.toLowerCase();
   const colors = projectOptions.riskColorOptions;
-
   const currentColor = props.user[type.slice(0, 3) + "Color"];
   const currentMax = props.user[type.slice(0, 3) + "MaxRisks"];
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+  function sendChanges(key, value) {
+    axiosWithAuth(token)
+    .put(riskApi, { key, value })
+    .then(() => {}) // no action when changes are sent, only when requested
+    .catch((error) => {
+      console.log(error.message);
+    });
+  }
+
   function onChange(event) {
-    props.setProjectValue(event.target.name, event.target.value);
+    const key = event.target.name
+    const value = event.target.value
+    props.setProjectValue(key, value);
+    sendChanges(key, value)
   }
 
   function setColor(value) {
-    props.setProjectValue(type.slice(0, 3) + "Color", value);
+    const key = type.slice(0, 3) + "Color";
+    props.setProjectValue(key, value);  // change state
+    sendChanges(key, value)  // send to server
   }
 
   function changeMax(event) {
+    const key = event.target.name
     const value = parseInt(event.target.value);
-    props.setProjectValue(event.target.name, value);
-    // const allrisks = props.risks;
-    // const newRisks = allrisks.slice(0, value);
-    // console.log(newRisks);
-    // props.replaceRisks(type, newRisks);
-    // console.log(props.user[type]);
+    props.setProjectValue(key, value);
+    
+    sendChanges(key, value)
   }
 
   return (
@@ -59,6 +75,7 @@ function RiskSettings(props) {
                 <div className="color" key={index}>
                   <div
                     className="circle"
+                    name={`${type.slice(0, 3)}Color`}
                     onClick={() => setColor(color)}
                     style={
                       color === currentColor
@@ -81,7 +98,7 @@ function RiskSettings(props) {
                 type="number"
                 onChange={changeMax}
                 name={type.slice(0, 3) + "MaxRisks"}
-                defaultValue={currentMax}
+                value={currentMax}
               >
                 {numbers.map((number, index) => {
                   return (

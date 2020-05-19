@@ -6,6 +6,12 @@ import {
   setProjectValue,
 } from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/projectOptions";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const riskApi = `${url()}api/users/user`;
+const token = localStorage.getItem("token");
+
 
 function ProjectSettings(props) {
   const flavours = projectOptions.flavourOptions;
@@ -14,14 +20,27 @@ function ProjectSettings(props) {
   const maxCharacters = props.user.maxCharacters;
   const numbers = [100, 500, 1000, 2000];
 
+  function sendChanges(key, value) {
+    axiosWithAuth(token)
+      .put(riskApi, { key, value })
+      .then(() => {}) // no action when changes are sent, only when requested
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
   function toggle(event) {
-    props.toggleProjectBoolean(event.target.id);
+    const key = event.target.id;
+    const value = props.user[key];
+    props.toggleProjectBoolean(key);
+    sendChanges(key, !value)
   }
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
-    props.setProjectValue({key, value});
+    props.setProjectValue(key, value);
+    sendChanges(key, value)
   }
 
   return (
@@ -76,7 +95,7 @@ function ProjectSettings(props) {
             type="text"
             onChange={onChange}
             name="flavour"
-            defaultValue={flavour}
+            value={flavour}
           >
             {flavours.map((flavour, index) => {
               return (
@@ -108,7 +127,7 @@ function ProjectSettings(props) {
               onChange={onChange}
               // onBlur={{}}
               name="maxCharacters"
-              defaultValue={maxCharacters}
+              value={maxCharacters}
             >
               {numbers.map((number, index) => {
                 return (
@@ -126,15 +145,15 @@ function ProjectSettings(props) {
           <label>Use Template Risks</label>
           <div className="buttons">
             <p
-              id="useTemplate"
+              id="useTemplates"
               style={
-                props.user.useTemplate
+                props.user.useTemplates
                   ? { backgroundColor: "green" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
             >
-              {props.user.useTemplate ? "Yes" : "No"}
+              {props.user.useTemplates ? "Yes" : "No"}
             </p>
           </div>
         </div>

@@ -3,15 +3,31 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/projectOptions";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const riskApi = `${url()}api/users/user`;
+const token = localStorage.getItem("token");
 
 function ProjectSettings(props) {
-  const {company, project, application, nature, type} = props.user;
+  const { company, project, application, nature, type } = props.user;
   const { natureOptions, typeOptions } = projectOptions;
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
-    props.setProjectValue( key, value );
+    props.setProjectValue(key, value);
+  }
+
+  function sendChanges(event) {
+    const key = event.target.name;
+    const value = event.target.value;
+    axiosWithAuth(token)
+      .put(riskApi, { key, value })
+      .then(() => {}) // no action when changes are sent, only when requested
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   return (
@@ -26,7 +42,7 @@ function ProjectSettings(props) {
             spellCheck="true"
             type="text"
             onChange={onChange}
-            // onBlur={() => submit()}
+            onBlur={sendChanges}
             name="company"
             value={company}
           />
@@ -38,9 +54,9 @@ function ProjectSettings(props) {
           <select
             type="text"
             onChange={onChange}
-            // onBlur={() => submit()}
+            onBlur={sendChanges}
             name="nature"
-            defaultValue={nature}
+            value={nature}
           >
             {natureOptions.map((option, index) => {
               return (
@@ -58,9 +74,9 @@ function ProjectSettings(props) {
           <select
             type="text"
             onChange={onChange}
-            // onBlur={() => submit()}
+            onBlur={sendChanges}
             name="type"
-            defaultValue={type}
+            value={type}
           >
             {typeOptions.map((option, index) => {
               return (
@@ -79,7 +95,7 @@ function ProjectSettings(props) {
             spellCheck="true"
             type="text"
             onChange={onChange}
-            // onBlur={() => submit()}
+            onBlur={sendChanges}
             name="project"
             value={project}
           />
@@ -90,7 +106,7 @@ function ProjectSettings(props) {
           <input
             type="text"
             onChange={onChange}
-            // onBlur={() => submit()}
+            onBlur={sendChanges}
             name="application"
             value={application}
           />

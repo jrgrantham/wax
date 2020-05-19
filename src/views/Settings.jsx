@@ -1,20 +1,39 @@
-
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import ProjectSettings from "./settingComponents/ProjectSettings";
 import RiskSettings from "./settingComponents/RiskSettings";
 import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+import { setUser } from "../state/actionCreators/userActionCreators";
+
+const userApi = `${url()}api/users/user`;
+// const riskApi = `${url()}api/users/risks`;
+const token = localStorage.getItem("token");
 
 function ClientSettings(props) {
+  function getSettings() {
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        console.log(res.data);
+        props.setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        props.history.push("/login");
+      });
+  }
 
   useEffect(() => {
+    getSettings();
     return () => {
-      (console.log("unmounted settings")) // send state here
-    }
-  }, [])
-  
+      console.log("unmounted settings"); // send state here
+    };
+  }, []);
+
   return (
     <Container>
       <div className="contents">
@@ -27,7 +46,7 @@ function ClientSettings(props) {
   );
 }
 
-export default connect((state) => state, { })(ClientSettings);
+export default connect((state) => state, {setUser})(ClientSettings);
 
 const Container = styled.div`
   display: flex;
