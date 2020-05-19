@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 const templateApi = `${url()}api/users/templates`;
 const userApi = `${url()}api/users/user`;
+const clientsApi = `${url()}api/users/clients`;
 const token = localStorage.getItem("token");
 
 function AdminDashboard(props) {
@@ -28,18 +29,25 @@ function AdminDashboard(props) {
         // window.location.replace(`${url()}login`)
         props.history.push("/login");
       });
-    if (props.user.admin) {
-      console.log("reaerfarf");
-      axiosWithAuth(token)
-        .get(templateApi)
-        .then((res) => {
-          props.replaceTemplateRisks(res.data);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
+    axiosWithAuth(token)
+      .get(clientsApi)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    // if (props.user.admin) {
+      // axiosWithAuth(token)
+      //   .get(templateApi)
+      //   .then((res) => {
+      //     props.replaceTemplateRisks(res.data);
+      //     console.log(res.data);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.message);
+      //   });
+    // }
   }
 
   useEffect(() => {

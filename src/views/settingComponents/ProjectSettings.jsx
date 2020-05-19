@@ -6,7 +6,7 @@ import { projectOptions } from "../../data/projectOptions";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
 
-const riskApi = `${url()}api/users/user`;
+const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
 function ProjectSettings(props) {
@@ -23,7 +23,7 @@ function ProjectSettings(props) {
     const key = event.target.name;
     const value = event.target.value;
     axiosWithAuth(token)
-      .put(riskApi, { key, value })
+      .put(userApi, { key, value })
       .then(() => {}) // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error.message);
