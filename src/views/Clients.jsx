@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 // import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
@@ -6,10 +6,26 @@ import styled from "styled-components";
 // import Options from "./clientComponents/TemplateOptions";
 import addIcon from "../images/addIcon.png";
 // import Menu from "./Menu";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
+
+const clientsApi = `${url()}api/users/clients`;
+const token = localStorage.getItem("token");
 
 function Clients(props) {
   // const selected = props.projectRisks.selected;
   // const templates = props.templates[selected.toLowerCase()];
+
+  function getData() {
+    axiosWithAuth(token)
+      .get(clientsApi)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   const [showMenu, setShowMenu] = useState(false);
   function location(event) {
@@ -18,6 +34,11 @@ function Clients(props) {
     }
     setShowMenu(false);
   }
+
+  useEffect(() => {
+    getData();
+    return () => {};
+  }, []);
 
   return (
     <Container onClick={(event) => location(event)}>

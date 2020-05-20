@@ -46,16 +46,16 @@ function RiskTable(props) {
         console.log(error.message);
         props.history.push("/login");
       });
-        if (props.user.useTemplates) {
-          axiosWithAuth(token)
-            .get(templateApi)
-            .then((res) => {
-              props.replaceTemplateRisks(res.data);
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-        }
+    if (props.user.useTemplates) {
+      axiosWithAuth(token)
+        .get(templateApi)
+        .then((res) => {
+          props.replaceTemplateRisks(res.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   }
 
   // useEffect(() => {
@@ -71,7 +71,7 @@ function RiskTable(props) {
   const [showMenu, setShowMenu] = useState(false);
 
   // console.log(risks);
-  
+
   // const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   // const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
   //   .length;
