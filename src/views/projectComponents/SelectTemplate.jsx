@@ -28,6 +28,10 @@ function Templates(props) {
   const templateRisks = props.templates.entries.filter(
     (risk) => risk.type === type
   );
+
+  console.log('by type', templateRisks);
+  
+
   const currentRisks = props.risks.entries;
 
   const aiRisks = templateRisks.filter((risk) => risk.ai === (1 || true));
