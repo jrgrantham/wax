@@ -25,33 +25,30 @@ function Templates(props) {
   }
 
   const type = props.user.selected;
-  const templateRisks = props.templates.entries.filter(
-    (risk) => risk.type === type
-  );
+  const allTemplates = props.templates.entries;
+  const templateRisks = allTemplates.filter((risk) => risk.type === type);
 
-  console.log('by type', templateRisks);
-  
+  console.log("all templates", allTemplates);
+  console.log("by type", templateRisks); // these are displaying online
 
-  const currentRisks = props.risks.entries;
+  const aiTemplates = templateRisks.filter((risk) => risk.ai === true); // these are not
+  const dltTemplates = templateRisks.filter((risk) => risk.dlt === true); // these are not
+  const manTemplates = templateRisks.filter((risk) => risk.man === true); // these are not
 
-  const aiRisks = templateRisks.filter((risk) => risk.ai === (1 || true));
-  const dltRisks = templateRisks.filter((risk) => risk.dlt === (1 || true));
-  const manRisks = templateRisks.filter((risk) => risk.man === (1 || true));
-
-  console.log('ai, dlt and man', aiRisks, dltRisks, manRisks)
+  console.log("ai, dlt and man", aiTemplates, dltTemplates, manTemplates);
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
     // create single array of required types
     let relevantRisks = [];
     if (props.user.ai) {
-      relevantRisks = relevantRisks.concat(aiRisks);
+      relevantRisks = relevantRisks.concat(aiTemplates);
     }
     if (props.user.dlt) {
-      relevantRisks = relevantRisks.concat(dltRisks);
+      relevantRisks = relevantRisks.concat(dltTemplates);
     }
     if (props.user.man) {
-      relevantRisks = relevantRisks.concat(manRisks);
+      relevantRisks = relevantRisks.concat(manTemplates);
     }
 
     const unique = relevantRisks.reduce((newArray, item) => {
@@ -62,12 +59,13 @@ function Templates(props) {
       }
     }, []);
 
-    console.log('unique', unique);
-    
+    console.log("unique", unique);
+
     return unique;
   }
 
   // create an array of current descriptions to filter by
+  const currentRisks = props.risks.entries;
   const filterDescriptions = currentRisks.map((risk) => {
     return risk.description;
   });
