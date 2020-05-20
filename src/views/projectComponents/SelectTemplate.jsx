@@ -30,9 +30,9 @@ function Templates(props) {
   );
   const currentRisks = props.risks.entries;
 
-  const aiRisks = templateRisks.filter((risk) => risk.ai === 1);
-  const dltRisks = templateRisks.filter((risk) => risk.dlt === 1);
-  const manRisks = templateRisks.filter((risk) => risk.man === 1);
+  const aiRisks = templateRisks.filter((risk) => risk.ai === (1 || true));
+  const dltRisks = templateRisks.filter((risk) => risk.dlt === (1 || true));
+  const manRisks = templateRisks.filter((risk) => risk.man === (1 || true));
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {

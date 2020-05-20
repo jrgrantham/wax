@@ -48,8 +48,6 @@ export function addToTemplate(data) {
 }
 
 export function replaceTemplateRisks(data) {
-  console.log(data);
-  
   return {
     type: actionTypes.REPLACE_TEMPLATE_RISKS,
     payload: data,
