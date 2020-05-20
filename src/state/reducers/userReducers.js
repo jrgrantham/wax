@@ -15,6 +15,9 @@ export function userReducer(state = user, action) {
         ...state,
         [action.payload.key]: action.payload.value,
       };
+    // case actionTypes.SET_CLIENTS:
+    //   console.log(action.payload);
+    //   return action.payload
     default:
       return state;
   }

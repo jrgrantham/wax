@@ -6,13 +6,16 @@ import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 
 function Client(props) {
-  const type = props.projectRisks.selected.toLowerCase();
+  const type = props.user.selected.toLowerCase();
   const client = props.client;
 
   const [checkDelete, setCheckDelete] = useState(false);
   function toggleDelete() {
     setCheckDelete(!checkDelete);
   }
+
+  console.log(props.user);
+  
 
   function confirmDelete() {
     props.deleteTemplateRisk(type, client.id);

@@ -8,6 +8,7 @@ import addIcon from "../images/addIcon.png";
 // import Menu from "./Menu";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
+import { setClients } from '../state/actionCreators/clientActionCreators'
 
 const clientsApi = `${url()}api/users/clients`;
 const token = localStorage.getItem("token");
@@ -21,6 +22,7 @@ function Clients(props) {
       .get(clientsApi)
       .then((res) => {
         console.log(res.data);
+        props.setClients(res.data)
       })
       .catch((error) => {
         console.log(error.message);
@@ -60,7 +62,7 @@ function Clients(props) {
   );
 }
 
-export default connect((state) => state, {})(Clients);
+export default connect((state) => state, {setClients})(Clients);
 
 const Container = styled.div`
   display: flex;
