@@ -34,6 +34,8 @@ function Templates(props) {
   const dltRisks = templateRisks.filter((risk) => risk.dlt === (1 || true));
   const manRisks = templateRisks.filter((risk) => risk.man === (1 || true));
 
+  console.log('ai, dlt and man', aiRisks, dltRisks, manRisks)
+
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
     // create single array of required types
@@ -55,6 +57,9 @@ function Templates(props) {
         return [...newArray, item];
       }
     }, []);
+
+    console.log('unique', unique);
+    
     return unique;
   }
 
