@@ -13,9 +13,9 @@ import {
 const riskApi = `${url()}api/users/risks`;
 const token = localStorage.getItem("token");
 
-function SelectTemplateRisk(props) {
+function SelectTemplate(props) {
   const type = props.user.selected.toLowerCase();
-  const risk = props.risk;
+  const template = props.template;
   const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   const riskCount = props.risks.entries.filter((risk) => risk.type === type)
     .length;
@@ -26,11 +26,11 @@ function SelectTemplateRisk(props) {
       const riskClone = {
         id: uuidv4(),
         type,
-        description: risk.description,
-        probability: risk.probability,
-        consequence: risk.consequence,
+        description: template.description,
+        probability: template.probability,
+        consequence: template.consequence,
         owner: props.user[type.slice(0, 3) + "DefaultOwner"],
-        mitigation: risk.mitigation,
+        mitigation: template.mitigation,
       };
       // props.addToProject(riskClone);
       axiosWithAuth(token)
@@ -49,8 +49,8 @@ function SelectTemplateRisk(props) {
   return (
     <Container>
       <div className="templateRisk">
-        <p>{risk.description}</p>
-        <p>{risk.mitigation}</p>
+        <p>{template.description}</p>
+        <p>{template.mitigation}</p>
         <div className="icon" onClick={() => addRisk()}>
           <img src={addIcon} alt="delete" />
         </div>
@@ -62,7 +62,7 @@ function SelectTemplateRisk(props) {
 export default connect((state) => state, {
   replaceRisks,
   // addToProject,
-})(SelectTemplateRisk);
+})(SelectTemplate);
 
 export const Container = styled.div`
   width: 100%;

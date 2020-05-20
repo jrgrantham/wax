@@ -23,6 +23,7 @@ function Options(props) {
     description: "enter risk description.",
     probability: 0,
     consequence: 0,
+    risk: 0,
     mitigation: "enter risk mitigation.",
   };
 
@@ -44,7 +45,7 @@ function Options(props) {
   // }
 
   function calculateRisk() {
-    const calculatedRisks = props.templates[type].map((entry) => {
+    const calculatedRisks = props.templates.entries.map((entry) => {
       const value = entry.probability * entry.consequence;
       return { ...entry, risk: value };
     });
@@ -55,8 +56,10 @@ function Options(props) {
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
-    props.replaceTemplateRisks(type.toLowerCase(), sortedRisks);
+    props.replaceTemplateRisks(sortedRisks);
   }
+
+
 
   return (
     <Container>
