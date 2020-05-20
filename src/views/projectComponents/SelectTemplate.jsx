@@ -31,9 +31,19 @@ function Templates(props) {
   console.log("all templates", allTemplates);
   console.log("by type", templateRisks); // these are displaying online
 
-  const aiTemplates = templateRisks.filter((risk) => risk.ai === true); // these are not
-  const dltTemplates = templateRisks.filter((risk) => risk.dlt === true); // these are not
-  const manTemplates = templateRisks.filter((risk) => risk.man === true); // these are not
+  let aiTemplates = []
+  let dltTemplates = []
+  let manTemplates = []
+
+  if (process.env.NODE_ENV === "production") {
+    aiTemplates = templateRisks.filter((risk) => risk.ai === true);
+    dltTemplates = templateRisks.filter((risk) => risk.dlt === true);
+    manTemplates = templateRisks.filter((risk) => risk.man === true);
+  } else {
+    aiTemplates = templateRisks.filter((risk) => risk.ai === 1);
+    dltTemplates = templateRisks.filter((risk) => risk.dlt === 1);
+    manTemplates = templateRisks.filter((risk) => risk.man === 1);
+  }
 
   console.log("ai, dlt and man", aiTemplates, dltTemplates, manTemplates);
 
