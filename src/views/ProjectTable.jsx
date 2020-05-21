@@ -14,7 +14,8 @@ import { setUser } from "../state/actionCreators/userActionCreators";
 
 const userApi = `${url()}api/users/user`;
 const templateApi = `${url()}api/users/templates`;
-const riskApi = `${url()}api/users/risks`;
+const clientApi = `${url()}api/users/client/`;
+const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
@@ -29,33 +30,56 @@ function RiskTable(props) {
     axiosWithAuth(token)
       .get(userApi)
       .then((res) => {
-        // console.log(res.data);
-        props.setUser(res.data);
+        // check response, if user not admin, set user
+        console.log('initial id:',res.data.id);
+        if (!res.data.admin) {
+          props.setUser(res.data);
+          // if user is admin, fetch the user by selected id
+        } else {
+          props.setUser(res.data);
+          const selectedUser = localStorage.getItem("tempUser");
+          // if no user in storage, skip.
+          if (selectedUser) {
+            const api = clientApi + selectedUser;
+            console.log(api);
+            axiosWithAuth(token)
+              .get(clientApi + selectedUser)
+              .then((res) => {
+                console.log(res.data);
+                props.setUser(res.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        }
+        console.log(riskApi + localStorage.getItem("tempUser"));
+        axiosWithAuth(token)
+          .get(riskApi + localStorage.getItem("tempUser"))
+          .then((res) => {
+            console.log(res.data);
+            props.replaceRisks(sortRisks(res.data));
+          })
+          .catch((error) => {
+            console.log(error.message);
+            props.history.push("/login");
+          });
+        if (res.data.useTemplates) {
+          axiosWithAuth(token)
+            .get(templateApi)
+            .then((res) => {
+              props.replaceTemplateRisks(res.data);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
       })
       .catch((error) => {
         console.log(error.message);
+        // window.location.replace(`${url()}login`)
         props.history.push("/login");
       });
-    axiosWithAuth(token)
-      .get(riskApi)
-      .then((res) => {
-        // console.log(res.data);
-        props.replaceRisks(sortRisks(res.data));
-      })
-      .catch((error) => {
-        console.log(error.message);
-        props.history.push("/login");
-      });
-    if (props.user.useTemplates) {
-      axiosWithAuth(token)
-        .get(templateApi)
-        .then((res) => {
-          props.replaceTemplateRisks(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
   }
 
   // useEffect(() => {

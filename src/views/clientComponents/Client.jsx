@@ -14,8 +14,7 @@ function Client(props) {
     setCheckDelete(!checkDelete);
   }
 
-  console.log(props.user);
-  
+  // console.log(props.user);
 
   function confirmDelete() {
     props.deleteTemplateRisk(type, client.id);
@@ -26,6 +25,10 @@ function Client(props) {
     if (event.dir === "Left") {
       toggleDelete();
     }
+  }
+
+  function setClient(id) {
+    localStorage.setItem("tempUser", id);
   }
 
   return (
@@ -46,11 +49,15 @@ function Client(props) {
             swipe(event);
           }}
         >
-          <Link to="/">
+          <Link to="/"
+          onClick={() => setClient(props.client.id)}
+          
+          >
             <div className="info">
               {/* <h4>{props.client.project}</h4> */}
               <h6>{props.client.company}</h6>
               <p>{props.client.email}</p>
+              <p>{props.client.id}</p>
             </div>
           </Link>
           <div className="delete" onClick={() => toggleDelete()}>
@@ -102,9 +109,9 @@ export const Container = styled.div`
       img {
         width: 100%;
         transition: transform 0.3s;
-      &:hover {
-        transform: scale(1.3)
-      }
+        &:hover {
+          transform: scale(1.3);
+        }
       }
     }
     &:hover > .delete {

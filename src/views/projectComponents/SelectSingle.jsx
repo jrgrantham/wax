@@ -10,7 +10,7 @@ import {
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
 
-const riskApi = `${url()}api/users/risks`;
+const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
 
 function SelectTemplate(props) {
@@ -34,7 +34,7 @@ function SelectTemplate(props) {
       };
       // props.addToProject(riskClone);
       axiosWithAuth(token)
-        .post(riskApi, riskClone)
+        .post((riskApi + props.user.id), riskClone)
         .then((res) => {
           console.log(res.data);
           props.replaceRisks(res.data);
