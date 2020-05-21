@@ -28,7 +28,7 @@ function Client(props) {
   }
 
   function setClient(id) {
-    localStorage.setItem("tempUser", id);
+    localStorage.setItem("selectedClientId", id);
   }
 
   return (
@@ -51,13 +51,12 @@ function Client(props) {
         >
           <Link to="/"
           onClick={() => setClient(props.client.id)}
-          
           >
             <div className="info">
               {/* <h4>{props.client.project}</h4> */}
               <h6>{props.client.company}</h6>
               <p>{props.client.email}</p>
-              <p>{props.client.id}</p>
+              {/* <p>{props.client.id}</p> */}
             </div>
           </Link>
           <div className="delete" onClick={() => toggleDelete()}>
@@ -103,13 +102,14 @@ export const Container = styled.div`
     }
     .delete {
       transition: opacity 0.3s;
-      opacity: 1;
+      opacity: 0;
       max-width: 30px;
       margin-right: 5px;
       img {
         width: 100%;
         transition: transform 0.3s;
         &:hover {
+          cursor: pointer;
           transform: scale(1.3);
         }
       }

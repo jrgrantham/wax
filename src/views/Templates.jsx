@@ -26,7 +26,7 @@ function Templates(props) {
           // if user is admin, fetch the user by selected id
         } else {
           props.setUser(res.data);
-          const selectedUser = localStorage.getItem("tempUser");
+          const selectedUser = localStorage.getItem("selectedClientId");
           // if no user in storage, skip.
           if (selectedUser) {
             const api = clientApi + selectedUser;

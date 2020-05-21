@@ -37,7 +37,7 @@ function RiskTable(props) {
           // if user is admin, fetch the user by selected id
         } else {
           props.setUser(res.data);
-          const selectedUser = localStorage.getItem("tempUser");
+          const selectedUser = localStorage.getItem("selectedClientId");
           // if no user in storage, skip.
           if (selectedUser) {
             const api = clientApi + selectedUser;
@@ -56,7 +56,7 @@ function RiskTable(props) {
         let user = "";
         // if admin, get by user from local storage
         if (res.data.admin) {
-          user = localStorage.getItem("tempUser");
+          user = localStorage.getItem("selectedClientId");
         // otherwise, get by user info
         } else {
           user = res.data.id;

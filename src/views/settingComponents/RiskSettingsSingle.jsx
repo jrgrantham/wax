@@ -20,8 +20,14 @@ function RiskSettings(props) {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   function sendChanges(key, value) {
+    let id = '';
+    if (props.user.admin) {
+      id = localStorage.getItem('selectedClientId')
+    } else {
+      id = props.user.id
+    }
     axiosWithAuth(token)
-    .put(riskApi, { key, value })
+    .put(riskApi, { key, value, id })
     .then(() => {}) // no action when changes are sent, only when requested
     .catch((error) => {
       console.log(error.message);

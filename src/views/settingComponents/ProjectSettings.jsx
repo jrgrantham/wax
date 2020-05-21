@@ -22,9 +22,14 @@ function ProjectSettings(props) {
   function sendChanges(event) {
     const key = event.target.name;
     const value = event.target.value;
-    const projectId = props.user.id;
+    let id = '';
+    if (props.user.admin) {
+      id = localStorage.getItem('selectedClientId')
+    } else {
+      id = props.user.id
+    }
     axiosWithAuth(token)
-      .put(userApi, { key, value, projectId })
+      .put(userApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error.message);

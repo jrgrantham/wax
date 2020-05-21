@@ -21,8 +21,14 @@ function ProjectSettings(props) {
   const numbers = [100, 500, 1000, 2000];
 
   function sendChanges(key, value) {
+    let id = '';
+    if (props.user.admin) {
+      id = localStorage.getItem('selectedClientId')
+    } else {
+      id = props.user.id
+    }
     axiosWithAuth(token)
-      .put(riskApi, { key, value })
+      .put(riskApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error.message);
