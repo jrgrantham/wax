@@ -90,6 +90,7 @@ const Container = styled.div`
   .createClient {
     display: flex;
     align-items: center;
+    margin-top: 10px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;

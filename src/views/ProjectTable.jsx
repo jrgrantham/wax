@@ -31,7 +31,7 @@ function RiskTable(props) {
       .get(userApi)
       .then((res) => {
         // check response, if user not admin, set user
-        console.log('initial id:',res.data.id);
+        console.log("initial id:", res.data.id);
         if (!res.data.admin) {
           props.setUser(res.data);
           // if user is admin, fetch the user by selected id
@@ -53,9 +53,17 @@ function RiskTable(props) {
               });
           }
         }
-        console.log(riskApi + localStorage.getItem("tempUser"));
+        let user = "";
+        // if admin, get by user from local storage
+        if (res.data.admin) {
+          user = localStorage.getItem("tempUser");
+        // otherwise, get by user info
+        } else {
+          user = res.data.id;
+        }
+        console.log(riskApi + user);
         axiosWithAuth(token)
-          .get(riskApi + localStorage.getItem("tempUser"))
+          .get(riskApi + user)
           .then((res) => {
             console.log(res.data);
             props.replaceRisks(sortRisks(res.data));
@@ -118,8 +126,11 @@ function RiskTable(props) {
     };
   }, []);
 
+  const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
+  const color = props.user[selected];
+
   return (
-    <Container onClick={(event) => checkTarget(event)}>
+    <Container onClick={(event) => checkTarget(event)} color={color}>
       <Menu showMenu={showMenu} />
       {showTemplate ? (
         <SelectTemplate setShowTemplate={setShowTemplate} />
@@ -156,6 +167,9 @@ const Container = styled.div`
     max-width: 1500px;
     margin-top: 186px;
     padding-bottom: 15px;
+    // border: 7px solid;
+    border-color: ${(props) => props.color};
+    border-top: none;
     border-radius: 0 0 0 20px;
   }
 `;

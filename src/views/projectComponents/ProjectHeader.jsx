@@ -20,8 +20,8 @@ function RiskTable(props) {
   }
 
   function setSelected(value) {
-    props.setProjectValue('selected', value);
-    sendChanges('selected', value)
+    props.setProjectValue("selected", value);
+    sendChanges("selected", value);
   }
 
   function showMenu(e) {
@@ -29,8 +29,8 @@ function RiskTable(props) {
     props.setShowMenu(true);
   }
 
-  const selectedColor = props.user.selected.toLowerCase().slice(0, 3) + "Color";
-  const color = props.user[selectedColor];
+  const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
+  const color = props.user[selected];
 
   return (
     <Container color={color}>
@@ -140,11 +140,13 @@ const Container = styled.div`
   .titles {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
+  grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
     column-gap: 5px;
     padding: 5px 0 0px 25px;
     background-color: #e5e5e5;
-
+    // border-left: 7px solid black;
+    // border-right: 7px solid black;
+    border-color: ${(props) => props.color};
     h6 {
       padding: 10px 0;
     }

@@ -92,7 +92,7 @@ function Options(props) {
               <div className="button middle" onClick={() => addToProject()}>
                 <p>Add new row</p>
               </div>
-              <div
+              {props.user.useTemplates ? <div
                 className="button"
                 onClick={() => {
                   setAddRow(false);
@@ -100,7 +100,7 @@ function Options(props) {
                 }}
               >
                 <p>Add from template</p>
-              </div>
+              </div> : null}
             </>
           ) : (
             <>
@@ -140,7 +140,7 @@ const Container = styled.div`
     background-color: white;
   }
   .right {
-    margin-top: -10px;
+    /* margin-top: -10px; */
     display: flex;
     justify-content: center;
     align-items: center;
