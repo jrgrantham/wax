@@ -9,7 +9,7 @@ import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { useEffect } from "react";
 
-const templateApi = `${url()}api/users/templates`;
+// const templateApi = `${url()}api/users/templates`;
 const userApi = `${url()}api/users/user`;
 const clientsApi = `${url()}api/users/clients`;
 const token = localStorage.getItem("token");

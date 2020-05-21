@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function Footer() {
   return (
     <Container>
-      <a href="https://jamesgrantham.me/">developed by James Grantham</a>
+      <a href="https://jamesgrantham.me/"  target="_blank">developed by James Grantham</a>
     </Container>
   );
 }
