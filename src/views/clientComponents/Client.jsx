@@ -6,7 +6,6 @@ import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 
 function Client(props) {
-  const type = props.user.selected.toLowerCase();
   const client = props.client;
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -14,10 +13,9 @@ function Client(props) {
     setCheckDelete(!checkDelete);
   }
 
-  // console.log(props.user);
-
   function confirmDelete() {
-    props.deleteTemplateRisk(type, client.id);
+    console.log('deleted', client.id);
+    // props.deleteClient function
     setCheckDelete(false);
   }
 
@@ -49,9 +47,7 @@ function Client(props) {
             swipe(event);
           }}
         >
-          <Link to="/"
-          onClick={() => setClient(props.client.id)}
-          >
+          <Link to="/" onClick={() => setClient(props.client.id)}>
             <div className="info">
               {/* <h4>{props.client.project}</h4> */}
               <h6>{props.client.company}</h6>

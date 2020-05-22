@@ -8,9 +8,11 @@ import addIcon from "../images/addIcon.png";
 // import Menu from "./Menu";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
-import { setClients } from '../state/actionCreators/clientActionCreators'
+import { setClients } from "../state/actionCreators/clientActionCreators";
+import {user} from '../data/dummyData';
 
-const clientsApi = `${url()}api/users/clients`;
+const allClientsApi = `${url()}api/users/clients`;
+const clientApi = `${url()}api/users/client`;
 const token = localStorage.getItem("token");
 
 function Clients(props) {
@@ -19,14 +21,31 @@ function Clients(props) {
 
   function getData() {
     axiosWithAuth(token)
-      .get(clientsApi)
+      .get(allClientsApi)
       .then((res) => {
         console.log(res.data);
-        props.setClients(res.data)
+        props.setClients(res.data);
       })
       .catch((error) => {
         console.log(error.message);
       });
+  }
+  function sendNewClient(props) {
+    axiosWithAuth(token)
+    .post(clientApi, user)
+    .then((res) => {
+      console.log(res.data);
+      localStorage.setItem('selectedClientId', res.data.id)
+      props.history.push('/project-settings')
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  }
+
+  function addClient() {
+    console.log("client added");
+    // add props.add function here
   }
 
   const [showMenu, setShowMenu] = useState(false);
@@ -45,7 +64,7 @@ function Clients(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
-        <div className="createClient">
+        <div className="createClient" onClick={sendNewClient}>
           <h6>Create new client</h6>
           <div className="image">
             <img src={addIcon} alt="add" />
@@ -62,7 +81,7 @@ function Clients(props) {
   );
 }
 
-export default connect((state) => state, {setClients})(Clients);
+export default connect((state) => state, { setClients })(Clients);
 
 const Container = styled.div`
   display: flex;

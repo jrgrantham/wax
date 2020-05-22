@@ -11,10 +11,10 @@ function Menu(props) {
     >
       <div className="menu" id="subMenu">
         <Link to="project-settings">
-          <h6>Project Settings</h6>
+          <h6>Settings</h6>
         </Link>
         <Link to="risk-document">
-          <h6>View Risk Document</h6>
+          <h6>Risk Document</h6>
         </Link>
         <h6>Export to PDF</h6>
         <h6>Export to spreadsheet</h6>

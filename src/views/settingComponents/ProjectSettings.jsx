@@ -10,7 +10,7 @@ const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
 function ProjectSettings(props) {
-  const { company, project, application, nature, type } = props.user;
+  const { company, project, application, nature, type, email, password } = props.user;
   const { natureOptions, typeOptions } = projectOptions;
 
   function onChange(event) {
@@ -22,11 +22,11 @@ function ProjectSettings(props) {
   function sendChanges(event) {
     const key = event.target.name;
     const value = event.target.value;
-    let id = '';
+    let id = "";
     if (props.user.admin) {
-      id = localStorage.getItem('selectedClientId')
+      id = localStorage.getItem("selectedClientId");
     } else {
-      id = props.user.id
+      id = props.user.id;
     }
     axiosWithAuth(token)
       .put(userApi, { key, value, id })
@@ -40,6 +40,32 @@ function ProjectSettings(props) {
     <Container>
       <form className="projectForm">
         <h5>Project</h5>
+
+        {/* Account / Email */}
+        <div className="info">
+          <label>Account / Email:</label>
+          <input
+            spellCheck="true"
+            type="text"
+            onChange={onChange}
+            onBlur={sendChanges}
+            name="email"
+            value={email}
+          />
+        </div>
+
+        {/* Password */}
+        <div className="info">
+          <label>Change Password:</label>
+          <input
+            spellCheck="true"
+            type="password"
+            onChange={onChange}
+            onBlur={sendChanges}
+            name="password"
+            value={password}
+          />
+        </div>
 
         {/* company name */}
         <div className="info">

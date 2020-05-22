@@ -46,10 +46,13 @@ function SelectTemplate(props) {
     }
   }
 
+  const storedDescription = template.description
+  const description = storedDescription.replace("[company name]", props.user.company)
+
   return (
     <Container>
       <div className="templateRisk">
-        <p>{template.description}</p>
+        <p>{description}</p>
         <p>{template.mitigation}</p>
         <div className="icon" onClick={() => addRisk()}>
           <img src={addIcon} alt="delete" />
