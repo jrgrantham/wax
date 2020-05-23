@@ -1,8 +1,8 @@
 
 
 export const user = {
-  email: "enter email address",
-  password: "1234",
+  email: "user created ",
+  password: "change",
   admin: false,
   company: "",
   nature: "",

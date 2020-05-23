@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
   replaceRisks,
@@ -46,7 +45,6 @@ function Options(props) {
 
   const [addRow, setAddRow] = useState(false);
 
-  const randomId = uuidv4();
   const emtpyRow = {
     // id: randomId,
     type,

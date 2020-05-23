@@ -4,6 +4,11 @@ import { Swipeable } from "react-swipeable";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const clientApi = `${url()}api/users/client`;
+const token = localStorage.getItem("token");
 
 function Client(props) {
   const client = props.client;
@@ -15,7 +20,18 @@ function Client(props) {
 
   function confirmDelete() {
     console.log('deleted', client.id);
-    // props.deleteClient function
+    const id = client.id;
+    const clientId = {id: id};
+    console.log(clientId);
+    
+    axiosWithAuth(token)
+    .delete(clientApi, {data: clientId})
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
     setCheckDelete(false);
   }
 

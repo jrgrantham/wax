@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
 // import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
@@ -30,7 +31,8 @@ function Clients(props) {
         console.log(error.message);
       });
   }
-  function sendNewClient(props) {
+  function sendNewClient() {
+    user.email = 'user created ' + Date();
     axiosWithAuth(token)
     .post(clientApi, user)
     .then((res) => {
@@ -39,13 +41,8 @@ function Clients(props) {
       props.history.push('/project-settings')
     })
     .catch((error) => {
-      console.log(error.message);
+      console.log(error);
     });
-  }
-
-  function addClient() {
-    console.log("client added");
-    // add props.add function here
   }
 
   const [showMenu, setShowMenu] = useState(false);
@@ -81,7 +78,7 @@ function Clients(props) {
   );
 }
 
-export default connect((state) => state, { setClients })(Clients);
+export default withRouter(connect((state) => state, { setClients })(Clients));
 
 const Container = styled.div`
   display: flex;
