@@ -6,11 +6,11 @@ import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
 import SelectTemplate from "./projectComponents/SelectTemplate";
 import Menu from "./Menu";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
 import { replaceRisks } from "../state/actionCreators/riskActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { setUser } from "../state/actionCreators/userActionCreators";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
 
 const userApi = `${url()}api/users/user`;
 const templateApi = `${url()}api/users/templates`;

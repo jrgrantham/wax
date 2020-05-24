@@ -19,19 +19,20 @@ function Client(props) {
   }
 
   function confirmDelete() {
-    console.log('deleted', client.id);
+    if (client.id === 0) return
+    console.log("deleted", client.id);
     const id = client.id;
-    const clientId = {id: id};
+    const clientId = { id: id };
     console.log(clientId);
-    
+
     axiosWithAuth(token)
-    .delete(clientApi, {data: clientId})
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+      .delete(clientApi, { data: clientId })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
     setCheckDelete(false);
   }
 
@@ -71,9 +72,11 @@ function Client(props) {
               {/* <p>{props.client.id}</p> */}
             </div>
           </Link>
-          <div className="delete" onClick={() => toggleDelete()}>
-            <img src={removeIcon} alt="delete" />
-          </div>
+          {client.id !== 1 ? (
+            <div className="delete" onClick={() => toggleDelete()}>
+              <img src={removeIcon} alt="delete" />
+            </div>
+          ) : null}
         </Swipeable>
       )}
     </Container>
