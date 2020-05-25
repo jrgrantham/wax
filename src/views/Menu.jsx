@@ -4,6 +4,47 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Menu(props) {
+  const header = [
+    "user id",
+    "account / email",
+    "risk type",
+    "description",
+    "liklihood",
+    "consequence",
+    "risk",
+    "mitigation",
+    "owner",
+    "risk id",
+  ];
+  let objectToArray = [];
+  objectToArray.push(header);
+  props.risks.entries.forEach((risk) => {
+    objectToArray.push(Object.values(risk));
+  });
+  // console.log(objectToArray);
+
+  const csvFileName = `${props.user.company}, ${props.user.project} - Risks.csv`;
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," +
+    objectToArray.map((risk) => risk.join(",")).join("\n");
+  // console.log(csvContent);
+
+  let encodedUri = encodeURI(csvContent);
+  let link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", csvFileName);
+  document.body.appendChild(link); // Required for FF
+
+  // link.click(); // This will download the data file named "my_data.csv"
+  function download() {
+    link.click();
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+  }
+
   return (
     <Container
       id="menu"
@@ -16,8 +57,8 @@ function Menu(props) {
         <Link to="risk-document">
           <h6>Risk Document</h6>
         </Link>
-        <h6>Export to PDF</h6>
-        <h6>Export to spreadsheet</h6>
+        <h6 onClick={download}>Download CSV</h6>
+        <h6>Download PDF</h6>
       </div>
       {props.user.admin ? (
         <div className="menu">
@@ -27,8 +68,8 @@ function Menu(props) {
         </div>
       ) : null}
       <div>
-        <h6>Change Password</h6>
-        <h6>Log Out</h6>
+        {/* <h6>Change Password</h6> */}
+        <h6 onClick={logout}>Log Out</h6>
       </div>
     </Container>
   );
@@ -67,6 +108,7 @@ const Container = styled.div`
     color: white;
     &:hover {
       cursor: pointer;
+      background-color: #696969;
     }
   }
 `;

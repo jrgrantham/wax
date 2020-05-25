@@ -1,5 +1,5 @@
 import * as actionTypes from "../actionTypes";
-import { user } from "../../data/dummyData";
+import { user } from "../../data/newUser";
 
 export function userReducer(state = user, action) {
   switch (action.type) {

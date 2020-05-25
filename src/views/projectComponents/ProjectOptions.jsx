@@ -26,7 +26,7 @@ function Options(props) {
     }
   }
 
-  console.log(riskApi + props.user.id);
+  // console.log(riskApi + props.user.id);
 
   function addToProject() {
     if (riskLimit) {

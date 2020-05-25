@@ -10,7 +10,7 @@ import addIcon from "../images/addIcon.png";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
 import { setClients } from "../state/actionCreators/clientActionCreators";
-import {user} from '../data/dummyData';
+import {user} from '../data/newUser';
 
 const allClientsApi = `${url()}api/users/clients`;
 const clientApi = `${url()}api/users/client`;
@@ -45,7 +45,7 @@ function Clients(props) {
     });
   }
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [, setShowMenu] = useState(false);
   function location(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
