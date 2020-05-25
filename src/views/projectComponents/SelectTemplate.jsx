@@ -26,51 +26,46 @@ function Templates(props) {
 
   const type = props.user.selected;
   const allTemplates = props.templates.entries;
-  const templateRisks = allTemplates.filter((risk) => risk.type === type);
+  const templateSelected = allTemplates.filter(
+    (template) => template.type === type
+  );
 
-  console.log("all templates", allTemplates);
-  console.log("by type", templateRisks); // these are displaying online
-
-  let aiTemplates = []
-  let dltTemplates = []
-  let manTemplates = []
+  let aiTemplates = [];
+  let dltTemplates = [];
+  let manTemplates = [];
 
   if (process.env.NODE_ENV === "production") {
-    aiTemplates = templateRisks.filter((risk) => risk.ai === true);
-    dltTemplates = templateRisks.filter((risk) => risk.dlt === true);
-    manTemplates = templateRisks.filter((risk) => risk.man === true);
+    aiTemplates = templateSelected.filter((template) => template.ai === true);
+    dltTemplates = templateSelected.filter((template) => template.dlt === true);
+    manTemplates = templateSelected.filter((template) => template.man === true);
   } else {
-    aiTemplates = templateRisks.filter((risk) => risk.ai === 1);
-    dltTemplates = templateRisks.filter((risk) => risk.dlt === 1);
-    manTemplates = templateRisks.filter((risk) => risk.man === 1);
+    aiTemplates = templateSelected.filter((template) => template.ai === 1);
+    dltTemplates = templateSelected.filter((template) => template.dlt === 1);
+    manTemplates = templateSelected.filter((template) => template.man === 1);
   }
-
-  console.log("ai, dlt and man", aiTemplates, dltTemplates, manTemplates);
 
   // funtion to merge relevant arrays and remove duplicates
   function mergedRisks() {
     // create single array of required types
-    let relevantRisks = [];
+    let relevantTemplates = []; // --------- ensure this is not the problem in production 'boolean'
     if (props.user.ai) {
-      relevantRisks = relevantRisks.concat(aiTemplates);
+      relevantTemplates = relevantTemplates.concat(aiTemplates);
     }
     if (props.user.dlt) {
-      relevantRisks = relevantRisks.concat(dltTemplates);
+      relevantTemplates = relevantTemplates.concat(dltTemplates);
     }
     if (props.user.man) {
-      relevantRisks = relevantRisks.concat(manTemplates);
+      relevantTemplates = relevantTemplates.concat(manTemplates);
     }
 
-    const unique = relevantRisks.reduce((newArray, item) => {
+    // remove duplicates
+    const unique = relevantTemplates.reduce((newArray, item) => {
       if (newArray.includes(item)) {
         return newArray;
       } else {
         return [...newArray, item];
       }
     }, []);
-
-    console.log("unique", unique);
-
     return unique;
   }
 
@@ -80,7 +75,7 @@ function Templates(props) {
     return risk.description;
   });
   // remove the entries that are already used
-  const remainingRisks = mergedRisks().filter(
+  const templates = mergedRisks().filter(
     (risk) => !filterDescriptions.includes(risk.description)
   );
 
@@ -117,8 +112,8 @@ function Templates(props) {
           <h6>Mitigation</h6>
         </div>
         <div className="templateRisks">
-          {remainingRisks.map((risk, index) => (
-            <TemplateRisk risk={risk} key={index} />
+          {templates.map((template, index) => (
+            <TemplateRisk template={template} key={index} />
           ))}
         </div>
       </div>

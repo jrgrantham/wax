@@ -1,5 +1,5 @@
 import * as actionTypes from "../actionTypes";
-import { risks } from "../../data/dummyData";
+import { risks } from "../../data/newUser";
 
 export function riskReducer(state = risks, action) {
   switch (action.type) {

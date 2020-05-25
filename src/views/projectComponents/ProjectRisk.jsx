@@ -18,6 +18,8 @@ const token = localStorage.getItem("token");
 
 function removeRisk(id) {
   const riskId = { id };
+  console.log(riskId);
+  
   axiosWithAuth(token)
     .delete(riskApi, { data: riskId })
     .then((res) => {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import {
   addToProject,
   replaceRisks,
@@ -10,7 +9,7 @@ import addIcon from "../../images/addIcon.png";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
 
-const riskApi = `${url()}api/users/risks`;
+const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
 
 function Options(props) {
@@ -27,10 +26,12 @@ function Options(props) {
     }
   }
 
+  // console.log(riskApi + props.user.id);
+
   function addToProject() {
     if (riskLimit) {
       axiosWithAuth(token)
-        .post(riskApi, emtpyRow)
+        .post((riskApi + props.user.id), emtpyRow)
         .then((res) => {
           console.log(res.data);
           props.replaceRisks(res.data);
@@ -44,9 +45,8 @@ function Options(props) {
 
   const [addRow, setAddRow] = useState(false);
 
-  const randomId = uuidv4();
   const emtpyRow = {
-    id: randomId,
+    // id: randomId,
     type,
     description: "enter risk description.",
     probability: 0,
@@ -65,7 +65,7 @@ function Options(props) {
   }
 
   function sortRisks() {
-    console.log('ran');
+    console.log("ran");
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
@@ -90,7 +90,7 @@ function Options(props) {
               <div className="button middle" onClick={() => addToProject()}>
                 <p>Add new row</p>
               </div>
-              <div
+              {props.user.useTemplates ? <div
                 className="button"
                 onClick={() => {
                   setAddRow(false);
@@ -98,7 +98,7 @@ function Options(props) {
                 }}
               >
                 <p>Add from template</p>
-              </div>
+              </div> : null}
             </>
           ) : (
             <>
@@ -138,7 +138,7 @@ const Container = styled.div`
     background-color: white;
   }
   .right {
-    margin-top: -10px;
+    /* margin-top: -10px; */
     display: flex;
     justify-content: center;
     align-items: center;

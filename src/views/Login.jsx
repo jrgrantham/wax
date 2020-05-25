@@ -23,7 +23,7 @@ function Login(props) {
         setLoginForm(blankForm);
         localStorage.setItem("token", response.data.token);
         props.setUser(response.data.settings);
-        console.log(response.data.admin);
+        // console.log(response.data.admin);
         if (response.data.admin) {
           props.history.push("/admin");
         } else {

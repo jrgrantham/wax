@@ -1,5 +1,5 @@
 import * as actionTypes from "../actionTypes";
-import { user } from "../../data/dummyData";
+import { user } from "../../data/newUser";
 
 export function userReducer(state = user, action) {
   switch (action.type) {
@@ -15,6 +15,9 @@ export function userReducer(state = user, action) {
         ...state,
         [action.payload.key]: action.payload.value,
       };
+    // case actionTypes.SET_CLIENTS:
+    //   console.log(action.payload);
+    //   return action.payload
     default:
       return state;
   }

@@ -10,12 +10,12 @@ import {
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
 
-const riskApi = `${url()}api/users/risks`;
+const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
 
-function SelectTemplateRisk(props) {
+function SelectTemplate(props) {
   const type = props.user.selected.toLowerCase();
-  const risk = props.risk;
+  const template = props.template;
   const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   const riskCount = props.risks.entries.filter((risk) => risk.type === type)
     .length;
@@ -26,15 +26,15 @@ function SelectTemplateRisk(props) {
       const riskClone = {
         id: uuidv4(),
         type,
-        description: risk.description,
-        probability: risk.probability,
-        consequence: risk.consequence,
+        description: template.description,
+        probability: template.probability,
+        consequence: template.consequence,
         owner: props.user[type.slice(0, 3) + "DefaultOwner"],
-        mitigation: risk.mitigation,
+        mitigation: template.mitigation,
       };
       // props.addToProject(riskClone);
       axiosWithAuth(token)
-        .post(riskApi, riskClone)
+        .post((riskApi + props.user.id), riskClone)
         .then((res) => {
           console.log(res.data);
           props.replaceRisks(res.data);
@@ -46,11 +46,14 @@ function SelectTemplateRisk(props) {
     }
   }
 
+  const storedDescription = template.description
+  const description = storedDescription.replace("[company name]", props.user.company)
+
   return (
     <Container>
       <div className="templateRisk">
-        <p>{risk.description}</p>
-        <p>{risk.mitigation}</p>
+        <p>{description}</p>
+        <p>{template.mitigation}</p>
         <div className="icon" onClick={() => addRisk()}>
           <img src={addIcon} alt="delete" />
         </div>
@@ -62,7 +65,7 @@ function SelectTemplateRisk(props) {
 export default connect((state) => state, {
   replaceRisks,
   // addToProject,
-})(SelectTemplateRisk);
+})(SelectTemplate);
 
 export const Container = styled.div`
   width: 100%;

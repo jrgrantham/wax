@@ -18,7 +18,7 @@ const clientApi = `${url()}api/users/client/`;
 const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
 
-function RiskTable(props) {
+function PrintTable(props) {
   function sortRisks(array) {
     const sortedRisks = array.sort(function (a, b) {
       return b.risk - a.risk;
@@ -150,7 +150,7 @@ export default connect((state) => state, {
   replaceRisks,
   setUser,
   replaceTemplateRisks,
-})(RiskTable);
+})(PrintTable);
 
 const Container = styled.div`
   display: flex;

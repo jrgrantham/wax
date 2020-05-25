@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
 // import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
@@ -8,8 +9,11 @@ import addIcon from "../images/addIcon.png";
 // import Menu from "./Menu";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
+import { setClients } from "../state/actionCreators/clientActionCreators";
+import {user} from '../data/newUser';
 
-const clientsApi = `${url()}api/users/clients`;
+const allClientsApi = `${url()}api/users/clients`;
+const clientApi = `${url()}api/users/client`;
 const token = localStorage.getItem("token");
 
 function Clients(props) {
@@ -18,16 +22,30 @@ function Clients(props) {
 
   function getData() {
     axiosWithAuth(token)
-      .get(clientsApi)
+      .get(allClientsApi)
       .then((res) => {
         console.log(res.data);
+        props.setClients(res.data);
       })
       .catch((error) => {
         console.log(error.message);
       });
   }
+  function sendNewClient() {
+    user.email = 'user created ' + Date();
+    axiosWithAuth(token)
+    .post(clientApi, user)
+    .then((res) => {
+      console.log(res.data);
+      localStorage.setItem('selectedClientId', res.data.id)
+      props.history.push('/project-settings')
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [, setShowMenu] = useState(false);
   function location(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
@@ -43,7 +61,7 @@ function Clients(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
-        <div className="createClient">
+        <div className="createClient" onClick={sendNewClient}>
           <h6>Create new client</h6>
           <div className="image">
             <img src={addIcon} alt="add" />
@@ -60,7 +78,7 @@ function Clients(props) {
   );
 }
 
-export default connect((state) => state, {})(Clients);
+export default withRouter(connect((state) => state, { setClients })(Clients));
 
 const Container = styled.div`
   display: flex;
@@ -88,6 +106,7 @@ const Container = styled.div`
   .createClient {
     display: flex;
     align-items: center;
+    margin-top: 10px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;

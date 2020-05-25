@@ -12,6 +12,7 @@ import { replaceTemplateRisks } from "../state/actionCreators/templateActionCrea
 
 const templateApi = `${url()}api/users/templates`;
 const userApi = `${url()}api/users/user`;
+const clientApi = `${url()}api/users/client/`;
 const token = localStorage.getItem("token");
 
 function Templates(props) {
@@ -19,8 +20,28 @@ function Templates(props) {
     axiosWithAuth(token)
       .get(userApi)
       .then((res) => {
-        // console.log(res.data);
-        props.setUser(res.data);
+        // check response, if user not admin, set user
+        if (!res.data.admin) {
+          props.setUser(res.data);
+          // if user is admin, fetch the user by selected id
+        } else {
+          props.setUser(res.data);
+          const selectedUser = localStorage.getItem("selectedClientId");
+          // if no user in storage, skip.
+          if (selectedUser) {
+            const api = clientApi + selectedUser;
+            console.log(api);
+            axiosWithAuth(token)
+              .get(clientApi + selectedUser)
+              .then((res) => {
+                console.log(res.data);
+                props.setUser(res.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        }
       })
       .catch((error) => {
         console.log(error.message);

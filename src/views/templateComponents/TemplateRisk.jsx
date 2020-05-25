@@ -36,8 +36,8 @@ function TemplateSingle(props) {
   const riskRange = projectOptions.riskRange;
 
   function sendChanges() {
-    console.log('sent');
-    
+    console.log("sent");
+
     axiosWithAuth(token)
       .put(templateApi, template)
       .then(() => {}) // no action when changes are sent, only when requested
@@ -56,20 +56,19 @@ function TemplateSingle(props) {
   }
 
   function confirmProbability() {
-    console.log("hi");
-    props.updateTemplateProbability(
-      template.id,
-      (template.probability + 1) % riskRange.length
-    );
+    const probability = (template.probability + 1) % riskRange.length;
+    const calculatedRisk = probability * template.consequence;
+    props.updateTemplateProbability(template.id, probability);
+    props.updateTemplateRisk(template.id, "risk", calculatedRisk);
   }
 
   // above here is checked
 
   function confirmConsequence() {
-    props.updateTemplateConsequence(
-      template.id,
-      (template.consequence + 1) % riskRange.length
-    );
+    const consequence = (template.consequence + 1) % riskRange.length;
+    const calculatedRisk = consequence * template.probability;
+    props.updateTemplateConsequence(template.id, consequence);
+    props.updateTemplateRisk(template.id, "risk", calculatedRisk);
   }
 
   function confirmDelete() {

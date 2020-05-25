@@ -8,17 +8,16 @@ import {
   templateReducer,
   riskReducer,
 } from "./state/reducers";
-import { combineReducers, createStore, compose, applyMiddleware } from "redux";
+import { combineReducers, createStore, compose } from "redux";
+// import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Route, withRouter } from "react-router-dom";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
 
 import RiskTable from "./views/ProjectTable";
 import RiskText from "./views/ProjectDocument";
 import Settings from "./views/Settings";
 import Login from "./views/Login";
 import Footer from "./Footer";
-import Templates from "./views/Templates";
-import Clients from "./views/Clients";
 import AdminDashboard from "./views/AdminDashboard";
 
 const monsterReducer = combineReducers({
@@ -44,8 +43,6 @@ function App() {
         <Route exact path="/" component={RiskTable} />
         <Route path="/risk-document" component={RiskText} />
         <Route path="/login" component={Login} />
-        {/* <Route path="/templates" component={Templates} /> */}
-        {/* <Route path="/clients" component={Clients} /> */}
         <Route path="/admin" component={AdminDashboard} />
       </div>
       <Footer />

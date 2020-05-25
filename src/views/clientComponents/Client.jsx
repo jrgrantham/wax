@@ -4,9 +4,13 @@ import { Swipeable } from "react-swipeable";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
+
+const clientApi = `${url()}api/users/client`;
+const token = localStorage.getItem("token");
 
 function Client(props) {
-  const type = props.projectRisks.selected.toLowerCase();
   const client = props.client;
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -15,7 +19,20 @@ function Client(props) {
   }
 
   function confirmDelete() {
-    props.deleteTemplateRisk(type, client.id);
+    if (client.id === 0) return
+    console.log("deleted", client.id);
+    const id = client.id;
+    const clientId = { id: id };
+    console.log(clientId);
+
+    axiosWithAuth(token)
+      .delete(clientApi, { data: clientId })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
     setCheckDelete(false);
   }
 
@@ -23,6 +40,10 @@ function Client(props) {
     if (event.dir === "Left") {
       toggleDelete();
     }
+  }
+
+  function setClient(id) {
+    localStorage.setItem("selectedClientId", id);
   }
 
   return (
@@ -43,16 +64,19 @@ function Client(props) {
             swipe(event);
           }}
         >
-          <Link to="/">
+          <Link to="/" onClick={() => setClient(props.client.id)}>
             <div className="info">
               {/* <h4>{props.client.project}</h4> */}
               <h6>{props.client.company}</h6>
               <p>{props.client.email}</p>
+              {/* <p>{props.client.id}</p> */}
             </div>
           </Link>
-          <div className="delete" onClick={() => toggleDelete()}>
-            <img src={removeIcon} alt="delete" />
-          </div>
+          {client.id !== 1 ? (
+            <div className="delete" onClick={() => toggleDelete()}>
+              <img src={removeIcon} alt="delete" />
+            </div>
+          ) : null}
         </Swipeable>
       )}
     </Container>
@@ -93,15 +117,16 @@ export const Container = styled.div`
     }
     .delete {
       transition: opacity 0.3s;
-      opacity: 1;
+      opacity: 0;
       max-width: 30px;
       margin-right: 5px;
       img {
         width: 100%;
         transition: transform 0.3s;
-      &:hover {
-        transform: scale(1.3)
-      }
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.3);
+        }
       }
     }
     &:hover > .delete {
