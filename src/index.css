@@ -223,9 +223,3 @@ select {
   color: inherit;
   opacity: 1; /* Firefox */
 }
-
-@media print {
-  a[href]::after {
-    content: none !important;
-  }
-}

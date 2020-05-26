@@ -1,4 +1,5 @@
 import React from "react";
+import html2pdf from "html2pdf.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -31,7 +32,7 @@ function Print(props) {
     (risk) => risk.type === "technical"
   );
 
-  console.log(managerial, commercial, legal, technical, environmental);
+  // console.log(managerial, commercial, legal, technical, environmental);
 
   function getData() {
     function sortRisks(array) {
@@ -107,8 +108,10 @@ function Print(props) {
 
   function print() {
     setTimeout(function () {
-      window.print();
-      props.history.push("/");
+      // window.print();
+      // props.history.push("/");
+      const pdf = document.getElementById("pdf");
+      html2pdf(pdf);
     }, 500);
   }
 
@@ -121,14 +124,14 @@ function Print(props) {
   // window.onload = function() { window.print(); }
 
   return (
-    <Container>
+    <Container id="pdf">
       <div className="contents">
         {/* <Link to="/">Risk Table</Link> */}
         <header>
           <h6>
             {props.user.project} - {props.user.company}
           </h6>
-          <h6>Risk Management Document</h6>
+          <h6>Appendix {props.user.appendixRef} Risk Management Table</h6>
         </header>
 
         {props.user.manDisplay ? (
@@ -160,14 +163,8 @@ const Container = styled.div`
   justify-content: center;
   background-color: #f0f0f0;
 
-  @media print {
-    a[href]:after {
-      content: none !important;
-    }
-  }
-
   .contents {
-    padding: 30px;
+    padding: 10px;
     width: 100%;
     max-width: 900px;
     background-color: white;

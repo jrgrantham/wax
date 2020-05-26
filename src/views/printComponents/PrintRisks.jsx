@@ -6,17 +6,29 @@ import { projectOptions } from "../../data/projectOptions";
 function PrintRisks(props) {
   const { type, docRisks } = props;
 
+  // const typeArray = type.split("");
+
+  // console.log(typeArray);
+  // const vertical = typeArray.map((letter) => {
+  //   return letter + "\n";
+  // });
+
   const riskRange = projectOptions.riskRange;
 
   function riskValue(value) {
     return riskRange[value];
   }
 
-  console.log(riskRange);
+  // console.log(riskRange);
 
   return (
     <Container>
-      <p className="vertical">{type}</p>
+      <div className="vertical">
+        <p className="">{type}</p>
+        {/* {typeArray.map((letter, index) => {
+          return <p key={index} >{letter}</p>
+        })} */}
+      </div>
       <div className="risks">
         {docRisks.map((risk, index) => (
           <div key={index} className="risk">
@@ -48,55 +60,53 @@ export default connect((state) => state, {})(PrintRisks);
 
 const Container = styled.div`
   display: flex;
-  /* flex-direction: column; */
-  /* margin-bottom: 20px; */
   text-align: left;
   border: 1px solid black;
 
-  @media print {
-    a[href]::after {
-      content: none !important;
-    }
-  }
-
-  /* @media print { */
   p {
     font-size: 0.8rem;
   }
 
   .vertical {
-    writing-mode: tb-rl;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
-    white-space: nowrap;
-    display: block;
-    bottom: 0;
-    /* width:20px; */
-    /* height:20px; */
-    border: 1px solid black;
-    text-align: center;
+    /* display: flex; */
+    /* min-height: 100px; */
+    /* writing-mode: rl-bt; */
+    /* -webkit-transform: rotate(270deg); */
+    /* -moz-transform: rotate(270deg); */
+    /* -o-transform: rotate(270deg); */
+    /* -ms-transform: rotate(270deg); */
+    /* transform: rotate(270deg); */
+    /* white-space: nowrap; */
+    /* display: block; */
+    /* bottom: 0; */
+    /* border: 1px solid black; */
+    /* text-align: center; */
     padding: 10px 2px;
   }
 
   .risks {
     display: flex;
     flex-direction: column;
+    /* align-content: stretch; */
     width: 100%;
-    height: 100%;
+    min-height: 100%;
   }
   .risk {
     /* border: 1px solid black; */
     display: flex;
+    height: 100%;
+    border: 1px solid red;
     .text {
+      display: flex;
+      align-items: center;
       width: 39%;
       padding: 2px 5px;
       border: 1px solid black;
     }
     .flag {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border: 1px solid black;
       width: 8%;
       padding: 2px 5px;
