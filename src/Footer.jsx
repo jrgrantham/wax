@@ -12,6 +12,9 @@ export default function Footer() {
 }
 
 const Container = styled.div`
+  @media print {
+    display: none;
+  }
   position: fixed;
   display: flex;
   justify-content: flex-end;

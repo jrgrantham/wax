@@ -13,12 +13,14 @@ import { combineReducers, createStore, compose } from "redux";
 import { Route, withRouter } from "react-router-dom";
 // import thunk from "redux-thunk";
 
-import RiskTable from "./views/ProjectTable";
-import RiskText from "./views/ProjectDocument";
+import RiskTable from "./views/RiskTable";
+import RiskText from "./views/Document";
 import Settings from "./views/Settings";
 import Login from "./views/Login";
 import Footer from "./Footer";
 import AdminDashboard from "./views/AdminDashboard";
+import PrintTable from "./views/PrintTable";
+import Print from "./views/Print";
 
 const monsterReducer = combineReducers({
   templates: templateReducer,
@@ -44,6 +46,7 @@ function App() {
         <Route path="/risk-document" component={RiskText} />
         <Route path="/login" component={Login} />
         <Route path="/admin" component={AdminDashboard} />
+        <Route path="/print" component={Print} />
       </div>
       <Footer />
     </Provider>

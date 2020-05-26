@@ -141,6 +141,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-print-color-adjust: exact !important;
+}
+
+* {
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 h1,
@@ -215,4 +222,10 @@ select {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: inherit;
   opacity: 1; /* Firefox */
+}
+
+@media print {
+  a[href]::after {
+    content: none !important;
+  }
 }

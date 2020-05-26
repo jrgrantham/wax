@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import Header from "./projectComponents/ProjectHeader";
-import ProjectRisk from "./projectComponents/ProjectRisk";
+import Header from "./printComponents/PrintHeader";
+import PrintRisk from "./printComponents/PrintRisk";
 import styled from "styled-components";
-import Options from "./projectComponents/ProjectOptions";
-import SelectTemplate from "./projectComponents/SelectTemplate";
-import Menu from "./Menu";
 import { replaceRisks } from "../state/actionCreators/riskActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { setUser } from "../state/actionCreators/userActionCreators";
@@ -99,8 +96,6 @@ function PrintTable(props) {
 
   const type = props.user.selected.toLowerCase();
   const risks = props.risks.entries.filter((risk) => risk.type === type);
-  const [showTemplate, setShowTemplate] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
 
   // console.log(risks);
 
@@ -113,7 +108,6 @@ function PrintTable(props) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
     }
-    setShowMenu(false);
   }
 
   useEffect(() => {
@@ -131,17 +125,12 @@ function PrintTable(props) {
 
   return (
     <Container onClick={(event) => checkTarget(event)} color={color}>
-      <Menu showMenu={showMenu} />
-      {showTemplate ? (
-        <SelectTemplate setShowTemplate={setShowTemplate} />
-      ) : null}
-      <Header setShowMenu={setShowMenu} />
+      <Header />
       <div className="risks">
         {risks.map((risk, index) => (
-          <ProjectRisk risk={risk} key={index} />
+          <PrintRisk risk={risk} key={index} />
         ))}
       </div>
-      <Options setShowTemplate={setShowTemplate} />
     </Container>
   );
 }

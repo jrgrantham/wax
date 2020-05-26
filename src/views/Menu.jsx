@@ -58,7 +58,9 @@ function Menu(props) {
           <h6>Risk Document</h6>
         </Link>
         <h6 onClick={download}>Download CSV</h6>
-        <h6>Download PDF</h6>
+        <Link to="print">
+          <h6>Save PDF</h6>
+        </Link>
       </div>
       {props.user.admin ? (
         <div className="menu">
