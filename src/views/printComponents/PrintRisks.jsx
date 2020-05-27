@@ -12,15 +12,21 @@ function PrintRisks(props) {
     return riskRange[value];
   }
 
-  console.log(riskRange);
+  // console.log(riskRange);
+
+  const typeSize = document.getElementById(type.toLocaleLowerCase())
+
+  console.log(typeSize);
 
   return (
     <Container>
-      <p className="vertical">{type}</p>
+      <div className="type" id={type.toLocaleLowerCase()} >
+        <p className="vertical">{type}</p>
+      </div>
       <div className="risks">
         {docRisks.map((risk, index) => (
           <div key={index} className="risk">
-            <p className="text">{risk.description}</p>
+            <p className="description text">{risk.description}</p>
             <p
               className={`flag ${riskValue(
                 risk.probability
@@ -30,13 +36,13 @@ function PrintRisks(props) {
             </p>
             <p
               className={`flag ${riskValue(
-                risk.probability
+                risk.consequence
               ).toLocaleLowerCase()}`}
             >
               {riskValue(risk.consequence)}
             </p>
             <p className="flag owner">{risk.owner}</p>
-            <p className="text">{risk.mitigation}</p>
+            <p className="consequence text">{risk.mitigation}</p>
           </div>
         ))}
       </div>
@@ -52,54 +58,70 @@ const Container = styled.div`
   /* margin-bottom: 20px; */
   text-align: left;
   border: 1px solid black;
+  margin-bottom: -1px;
 
-  @media print {
-    a[href]::after {
-      content: none !important;
-    }
+  p {
+    font-size: 8pt;
   }
 
-  /* @media print { */
-  p {
-    font-size: 0.8rem;
+  .type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    border-right: 1px solid black;
   }
 
   .vertical {
-    writing-mode: tb-rl;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
     white-space: nowrap;
-    display: block;
-    bottom: 0;
-    /* width:20px; */
-    /* height:20px; */
-    border: 1px solid black;
-    text-align: center;
-    padding: 10px 2px;
+    width: 25px;
+    height: 25px;
+    /* border: 1px solid black; */
   }
 
   .risks {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
   }
   .risk {
     /* border: 1px solid black; */
     display: flex;
+    height: 100%;
+    border-bottom: 1px solid lightgray;
+    /* background-color: lightgray; */
+    :last-child {
+      border-bottom: none;
+    }
     .text {
-      width: 39%;
+      display: flex;
+      align-items: center;
       padding: 2px 5px;
-      border: 1px solid black;
+      /* border: 1px solid black; */
+    }
+    .description {
+      width: 35%;
+      border-right: 1px solid lightgray;
+    }
+    .mitigation {
+      width: 47%;
     }
     .flag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      border: 1px solid black;
-      width: 8%;
-      padding: 2px 5px;
+      border-right: 1px solid lightgray;
+      width: 6%;
     }
     .high {
       background-color: red;
@@ -112,7 +134,6 @@ const Container = styled.div`
     }
     .owner {
       text-align: center;
-      width: 6%;
     }
   }
   /* } */

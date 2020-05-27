@@ -14,8 +14,14 @@ function Slider(props) {
   const changeable = props.user[type.slice(0, 3) + "DisplayChangeable"];
 
   function sendChanges(key, value) {
+    let id = '';
+    if (props.user.admin) {
+      id = localStorage.getItem('selectedClientId')
+    } else {
+      id = props.user.id
+    }
     axiosWithAuth(token)
-      .put(riskApi, { key, value })
+      .put(riskApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error.message);

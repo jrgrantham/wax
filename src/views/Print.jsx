@@ -1,4 +1,5 @@
 import React from "react";
+import html2pdf from "html2pdf.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -31,7 +32,7 @@ function Print(props) {
     (risk) => risk.type === "technical"
   );
 
-  console.log(managerial, commercial, legal, technical, environmental);
+  // console.log(managerial, commercial, legal, technical, environmental);
 
   function getData() {
     function sortRisks(array) {
@@ -105,31 +106,60 @@ function Print(props) {
       .finally();
   }
 
-  function print() {
+  function generatePDF() {
     setTimeout(function () {
-      window.print();
+      // window.print();
+      const element = document.getElementById("pdf");
+      const options = {
+        margin: 0,
+        filename: "Risk Table",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 4 },
+        jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
+      };
+      html2pdf().set(options).from(element).save();
       props.history.push("/");
     }, 500);
   }
 
   useEffect(() => {
     getData();
-    // print();
+    generatePDF();
     return () => {};
   }, []);
 
   // window.onload = function() { window.print(); }
 
   return (
-    <Container>
+    <Container id="pdf">
       <div className="contents">
         {/* <Link to="/">Risk Table</Link> */}
         <header>
           <h6>
             {props.user.project} - {props.user.company}
           </h6>
-          <h6>Risk Management Document</h6>
+          <h6>Appendix {props.user.appendixRef} Risk Management Table</h6>
         </header>
+        <div className="tableHeader">
+          <div className="type"></div>
+          <div className="titles">
+            <div className="description">
+              <p >Description</p>
+            </div>
+            <div className="liklihood">
+              <p>Liklihood</p>
+            </div>
+            <div className="severity">
+              <p>Severity</p>
+            </div>
+            <div className="owner">
+              <p >Owner</p>
+            </div>
+            <div className="mitigation">
+              <p>Mitigation</p>
+            </div>
+          </div>
+        </div>
 
         {props.user.manDisplay ? (
           <PrintRisks docRisks={managerial} type="Managerial" />
@@ -160,16 +190,49 @@ const Container = styled.div`
   justify-content: center;
   background-color: #f0f0f0;
 
-  @media print {
-    a[href]:after {
-      content: none !important;
+  .tableHeader {
+    padding-bottom: 5px;
+    p {
+      font-size: 8pt;
+      text-align: center;
+      font-weight: bold;
+    }
+    .type {
+      width: 27px;
+    }
+    display: flex;
+    .titles {
+      display: flex;
+      width: 100%;
+      .description {
+        width: 35%;
+      }
+      .liklihood {
+        padding-right: 2px;
+        display: flex;
+        justify-content: flex-end;
+        width: 6%;
+      }
+      .severity {
+        padding-left: 2px;
+        display: flex;
+        justify-content: flex-start;
+        text-align: left;
+        width: 6%;
+      }
+      .owner {
+        width: 6%;
+      }
+      .mitigation {
+        width: 47%;
+      }
     }
   }
 
   .contents {
-    padding: 30px;
+    padding: 5px 10px;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     background-color: white;
   }
 
@@ -185,7 +248,7 @@ const Container = styled.div`
   header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 `;
 
