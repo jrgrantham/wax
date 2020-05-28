@@ -57,8 +57,14 @@ function Menu(props) {
         <Link to="risk-document">
           <h6>Risk Document</h6>
         </Link>
-        <h6 onClick={download}>Download CSV</h6>
-        <h6>Download PDF</h6>
+        {props.user.exportSpreadsheet ? (
+          <h6 onClick={download}>Download CSV</h6>
+        ) : null}
+        {props.user.useTemplates ? (
+          <Link to="print">
+            <h6>Download PDF</h6>
+          </Link>
+        ) : null}
       </div>
       {props.user.admin ? (
         <div className="menu">

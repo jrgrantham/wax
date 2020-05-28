@@ -30,7 +30,7 @@ function removeRisk(id) {
     });
 }
 
-function RiskSingle(props) {
+function PrintRisk(props) {
   function sendChanges() {
     axiosWithAuth(token)
       .put(riskApi, risk)
@@ -181,7 +181,7 @@ export default connect((state) => state, {
   updateConsequence,
   deleteRisk,
   updateRisk,
-})(RiskSingle);
+})(PrintRisk);
 
 export const Container = styled.div`
   width: 100%;
@@ -224,7 +224,6 @@ export const Container = styled.div`
     }
     textarea,
     input {
-      /* font-family: "roboto"; */
       border: none;
       resize: none;
       padding: 10px 5px;

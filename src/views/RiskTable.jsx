@@ -31,7 +31,7 @@ function RiskTable(props) {
       .get(userApi)
       .then((res) => {
         // check response, if user not admin, set user
-        console.log("initial id:", res.data.id);
+        // console.log("initial id:", res.data.id);
         if (!res.data.admin) {
           props.setUser(res.data);
           // if user is admin, fetch the user by selected id
@@ -40,12 +40,12 @@ function RiskTable(props) {
           const selectedUser = localStorage.getItem("selectedClientId");
           // if no user in storage, skip.
           if (selectedUser) {
-            const api = clientApi + selectedUser;
-            console.log(api);
+            // const api = clientApi + selectedUser;
+            // console.log(api);
             axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 props.setUser(res.data);
               })
               .catch((error) => {
@@ -61,11 +61,11 @@ function RiskTable(props) {
         } else {
           user = res.data.id;
         }
-        console.log(riskApi + user);
+        // console.log(riskApi + user);
         axiosWithAuth(token)
           .get(riskApi + user)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             props.replaceRisks(sortRisks(res.data));
           })
           .catch((error) => {

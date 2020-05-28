@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import TextType from "./projectComponents/DocumentRisks";
+import TextType from "./printComponents/DocumentRisks";
 
 function RiskText(props) {
   const managerial = props.risks.entries.filter(
