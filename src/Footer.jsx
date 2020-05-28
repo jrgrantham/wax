@@ -4,7 +4,11 @@ import styled from "styled-components";
 export default function Footer() {
   return (
     <Container>
-      <a href="https://jamesgrantham.me/" target="_blank">
+      <a
+        href="https://jamesgrantham.me/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         developed by James Grantham
       </a>
     </Container>

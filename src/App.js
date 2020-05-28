@@ -19,7 +19,7 @@ import Settings from "./views/Settings";
 import Login from "./views/Login";
 import Footer from "./Footer";
 import AdminDashboard from "./views/AdminDashboard";
-import PrintTable from "./views/PrintTable";
+// import PrintTable from "./views/PrintTable";
 import Print from "./views/Print";
 
 const monsterReducer = combineReducers({

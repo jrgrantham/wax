@@ -6,3 +6,10 @@ export function setClients(clients) {
     payload: clients
   }
 }
+
+export function deleteClient(id) {
+  return {
+    type: actionTypes.DELETE_CLIENT,
+    payload: id
+  }
+}

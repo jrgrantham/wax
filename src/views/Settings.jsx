@@ -28,12 +28,12 @@ function ClientSettings(props) {
           const selectedUser = localStorage.getItem("selectedClientId");
           // if no user in storage, skip.
           if (selectedUser) {
-            const api = clientApi + selectedUser;
-            console.log(api);
+            // const api = clientApi + selectedUser;
+            // console.log(api);
             axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 props.setUser(res.data);
               })
               .catch((error) => {

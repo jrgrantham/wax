@@ -5,7 +5,7 @@ export const SET_PROJECT_VALUE = "SET_PROJECT_VALUE";
 
 // CLIENT ACTIONS
 export const SET_CLIENTS = "SET_CLIENTS";
-export const ADD_NEW_CLIENT = "ADD_NEW_CLIENT";
+// export const ADD_NEW_CLIENT = "ADD_NEW_CLIENT";
 export const DELETE_CLIENT = "DELETE_CLIENT";
 
 // RISK ACTIONS

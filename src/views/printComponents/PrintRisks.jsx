@@ -14,9 +14,9 @@ function PrintRisks(props) {
 
   // console.log(riskRange);
 
-  const typeSize = document.getElementById(type.toLocaleLowerCase())
+  // const typeSize = document.getElementById(type.toLocaleLowerCase())
 
-  console.log(typeSize);
+  // console.log(typeSize);
 
   return (
     <Container>

@@ -24,7 +24,7 @@ function Clients(props) {
     axiosWithAuth(token)
       .get(allClientsApi)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         props.setClients(res.data);
       })
       .catch((error) => {
