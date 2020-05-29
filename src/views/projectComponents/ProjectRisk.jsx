@@ -43,8 +43,7 @@ function RiskSingle(props) {
   const type = props.user.selected.toLowerCase();
   const risk = props.risk;
   const riskRange = projectOptions.riskRange;
-  const maxSelected = type.slice(0, 3) + "MaxLength";
-  const maxLength = props.user[maxSelected];
+  const maxLength = props.user.maxCharacters;
 
   function riskValue(value) {
     return riskRange[value];

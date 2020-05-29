@@ -16,11 +16,11 @@ function PrintRisks(props) {
 
   // const typeSize = document.getElementById(type.toLocaleLowerCase())
 
-  // console.log(typeSize);
+  console.log(props.user.fontSize);
 
   return (
-    <Container>
-      <div className="type" id={type.toLocaleLowerCase()} >
+    <Container color={props.color} fontSize={props.user.fontSize}>
+      <div className="type" id={type.toLocaleLowerCase()}>
         <p className="vertical">{type}</p>
       </div>
       <div className="risks">
@@ -42,7 +42,7 @@ function PrintRisks(props) {
               {riskValue(risk.consequence)}
             </p>
             <p className="flag owner">{risk.owner}</p>
-            <p className="consequence text">{risk.mitigation}</p>
+            <p className="mitigation text">{risk.mitigation}</p>
           </div>
         ))}
       </div>
@@ -61,7 +61,7 @@ const Container = styled.div`
   margin-bottom: -1px;
 
   p {
-    font-size: 8pt;
+    font-size: ${(props) => props.fontSize}pt;
   }
 
   .type {
@@ -70,6 +70,7 @@ const Container = styled.div`
     justify-content: center;
     min-height: 80px;
     border-right: 1px solid black;
+    background-color: ${(props) => props.color};
   }
 
   .vertical {
@@ -97,6 +98,7 @@ const Container = styled.div`
     /* border: 1px solid black; */
     display: flex;
     height: 100%;
+    width: 100%;
     border-bottom: 1px solid lightgray;
     /* background-color: lightgray; */
     :last-child {
@@ -113,7 +115,7 @@ const Container = styled.div`
       border-right: 1px solid lightgray;
     }
     .mitigation {
-      width: 47%;
+      max-width: 47%;
     }
     .flag {
       display: flex;

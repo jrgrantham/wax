@@ -10,7 +10,15 @@ const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
 function ProjectSettings(props) {
-  const { company, project, application, nature, type, email, password } = props.user;
+  const {
+    company,
+    project,
+    application,
+    nature,
+    type,
+    email,
+    password,
+  } = props.user;
   const { natureOptions, typeOptions } = projectOptions;
 
   function onChange(event) {
@@ -42,17 +50,19 @@ function ProjectSettings(props) {
         <h5>Project</h5>
 
         {/* Account / Email */}
-        <div className="info">
-          <label>Account / Email:</label>
-          <input
-            spellCheck="true"
-            type="text"
-            onChange={onChange}
-            onBlur={sendChanges}
-            name="email"
-            value={email}
-          />
-        </div>
+        {props.user.admin ? (
+          <div className="info">
+            <label>Account / Email:</label>
+            <input
+              spellCheck="true"
+              type="text"
+              onChange={onChange}
+              onBlur={sendChanges}
+              name="email"
+              value={email}
+            />
+          </div>
+        ) : null}
 
         {/* Password */}
         <div className="info">

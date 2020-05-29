@@ -12,20 +12,21 @@ import url from "../../helpers/url";
 const riskApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
-
 function ProjectSettings(props) {
   const flavours = projectOptions.flavourOptions;
+  const maxCharacterChoices = projectOptions.maxCharacterChoices;
+  const fontSizeChoices = projectOptions.fontSizeChoices;
   const flavour = props.user.flavour;
   const appendixRef = props.user.appendixRef;
   const maxCharacters = props.user.maxCharacters;
-  const numbers = [100, 500, 1000, 2000];
+  const fontSize = props.user.fontSize;
 
   function sendChanges(key, value) {
-    let id = '';
+    let id = "";
     if (props.user.admin) {
-      id = localStorage.getItem('selectedClientId')
+      id = localStorage.getItem("selectedClientId");
     } else {
-      id = props.user.id
+      id = props.user.id;
     }
     axiosWithAuth(token)
       .put(riskApi, { key, value, id })
@@ -39,14 +40,14 @@ function ProjectSettings(props) {
     const key = event.target.id;
     const value = props.user[key];
     props.toggleProjectBoolean(key);
-    sendChanges(key, !value)
+    sendChanges(key, !value);
   }
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
     props.setProjectValue(key, value);
-    sendChanges(key, value)
+    sendChanges(key, value);
   }
 
   return (
@@ -135,7 +136,29 @@ function ProjectSettings(props) {
               name="maxCharacters"
               value={maxCharacters}
             >
-              {numbers.map((number, index) => {
+              {maxCharacterChoices.map((number, index) => {
+                return (
+                  <option key={index} value={number}>
+                    {number}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+
+        {/* fontsize */}
+        <div className="info">
+          <label>PDF font size</label>
+          <div className="width">
+            <select
+              type="number"
+              onChange={onChange}
+              // onBlur={{}}
+              name="fontSize"
+              value={fontSize}
+            >
+              {fontSizeChoices.map((number, index) => {
                 return (
                   <option key={index} value={number}>
                     {number}
@@ -181,7 +204,6 @@ function ProjectSettings(props) {
             </p>
           </div>
         </div>
-
       </form>
     </Container>
   );

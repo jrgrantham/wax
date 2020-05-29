@@ -38,6 +38,9 @@ export const projectOptions = {
     "#F2CBBB",
     "#96B6C5",
   ],
+  maxCharacterChoices: [100, 500, 1000, 2000],
+  fontSizeChoices: [6, 6.5, 7, 7.5, 8],
+
 };
 
 export const templates = { entries: [] };
