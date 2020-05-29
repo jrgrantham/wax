@@ -3,18 +3,18 @@ import html2pdf from "html2pdf.js";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import PrintRisks from "./printComponents/PrintRisks";
-// import axiosWithAuth from "../authentication/axiosWithAuth";
-// import url from "../helpers/url";
+import axiosWithAuth from "../authentication/axiosWithAuth";
+import url from "../helpers/url";
 import { useEffect } from "react";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { replaceRisks } from "../state/actionCreators/riskActionCreators";
 import { setUser } from "../state/actionCreators/userActionCreators";
 
-// const userApi = `${url()}api/users/user`;
-// const templateApi = `${url()}api/users/templates`;
-// const clientApi = `${url()}api/users/client/`;
-// const riskApi = `${url()}api/users/risks/`;
-// const token = localStorage.getItem("token");
+const userApi = `${url()}api/users/user`;
+const templateApi = `${url()}api/users/templates`;
+const clientApi = `${url()}api/users/client/`;
+const riskApi = `${url()}api/users/risks/`;
+const token = localStorage.getItem("token");
 
 function Print(props) {
   const managerial = props.risks.entries.filter(
@@ -33,91 +33,91 @@ function Print(props) {
 
   // console.log(managerial, commercial, legal, technical, environmental);
 
-  // function getData() {
-  //   function sortRisks(array) {
-  //     const sortedRisks = array.sort(function (a, b) {
-  //       return b.risk - a.risk;
-  //     });
-  //     return sortedRisks;
-  //   }
+  function getData() {
+    function sortRisks(array) {
+      const sortedRisks = array.sort(function (a, b) {
+        return b.risk - a.risk;
+      });
+      return sortedRisks;
+    }
 
-  //   axiosWithAuth(token)
-  //     .get(userApi)
-  //     .then((res) => {
-  //       // check response, if user not admin, set user
-  //       console.log("initial id:", res.data.id);
-  //       if (!res.data.admin) {
-  //         props.setUser(res.data);
-  //         // if user is admin, fetch the user by selected id
-  //       } else {
-  //         props.setUser(res.data);
-  //         const selectedUser = localStorage.getItem("selectedClientId");
-  //         // if no user in storage, skip.
-  //         if (selectedUser) {
-  //           const api = clientApi + selectedUser;
-  //           console.log(api);
-  //           axiosWithAuth(token)
-  //             .get(clientApi + selectedUser)
-  //             .then((res) => {
-  //               console.log(res.data);
-  //               props.setUser(res.data);
-  //             })
-  //             .catch((error) => {
-  //               console.log(error.message);
-  //             });
-  //         }
-  //       }
-  //       let user = "";
-  //       // if admin, get by user from local storage
-  //       if (res.data.admin) {
-  //         user = localStorage.getItem("selectedClientId");
-  //         // otherwise, get by user info
-  //       } else {
-  //         user = res.data.id;
-  //       }
-  //       console.log(riskApi + user);
-  //       axiosWithAuth(token)
-  //         .get(riskApi + user)
-  //         .then((res) => {
-  //           console.log(res.data);
-  //           props.replaceRisks(sortRisks(res.data));
-  //         })
-  //         .catch((error) => {
-  //           console.log(error.message);
-  //           props.history.push("/login");
-  //         });
-  //       if (res.data.useTemplates) {
-  //         axiosWithAuth(token)
-  //           .get(templateApi)
-  //           .then((res) => {
-  //             props.replaceTemplateRisks(res.data);
-  //           })
-  //           .catch((error) => {
-  //             console.log(error.message);
-  //           });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //       // window.location.replace(`${url()}login`)
-  //       props.history.push("/login");
-  //     })
-  //     .finally();
-  // }
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        // check response, if user not admin, set user
+        console.log("initial id:", res.data.id);
+        if (!res.data.admin) {
+          props.setUser(res.data);
+          // if user is admin, fetch the user by selected id
+        } else {
+          props.setUser(res.data);
+          const selectedUser = localStorage.getItem("selectedClientId");
+          // if no user in storage, skip.
+          if (selectedUser) {
+            const api = clientApi + selectedUser;
+            console.log(api);
+            axiosWithAuth(token)
+              .get(clientApi + selectedUser)
+              .then((res) => {
+                console.log(res.data);
+                props.setUser(res.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        }
+        let user = "";
+        // if admin, get by user from local storage
+        if (res.data.admin) {
+          user = localStorage.getItem("selectedClientId");
+          // otherwise, get by user info
+        } else {
+          user = res.data.id;
+        }
+        console.log(riskApi + user);
+        axiosWithAuth(token)
+          .get(riskApi + user)
+          .then((res) => {
+            console.log(res.data);
+            props.replaceRisks(sortRisks(res.data));
+          })
+          .catch((error) => {
+            console.log(error.message);
+            props.history.push("/login");
+          });
+        if (res.data.useTemplates) {
+          axiosWithAuth(token)
+            .get(templateApi)
+            .then((res) => {
+              props.replaceTemplateRisks(res.data);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // window.location.replace(`${url()}login`)
+        props.history.push("/login");
+      })
+      .finally();
+  }
 
   function generatePDF() {
     // setTimeout(function () {
-      // window.print();
-      const element = document.getElementById("pdf");
-      const options = {
-        margin: 0,
-        filename: "Risk Table",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 4 },
-        jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
-      };
-      html2pdf().set(options).from(element).save();
-      props.history.push("/");
+    // window.print();
+    const element = document.getElementById("pdf");
+    const options = {
+      margin: 0,
+      filename: "Risk Table",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 4 },
+      jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
+    };
+    html2pdf().set(options).from(element).save();
+    props.history.push("/");
     // }, 500);
   }
 
@@ -130,7 +130,7 @@ function Print(props) {
   // window.onload = function() { window.print(); }
 
   return (
-    <Container id="pdf">
+    <Container id="pdf" fontSize={props.user.fontSize}>
       <div className="contents">
         {/* <Link to="/">Risk Table</Link> */}
         <header>
@@ -143,7 +143,7 @@ function Print(props) {
           <div className="type"></div>
           <div className="titles">
             <div className="description">
-              <p >Description</p>
+              <p>Description</p>
             </div>
             <div className="liklihood">
               <p>Liklihood</p>
@@ -152,7 +152,7 @@ function Print(props) {
               <p>Severity</p>
             </div>
             <div className="owner">
-              <p >Owner</p>
+              <p>Owner</p>
             </div>
             <div className="mitigation">
               <p>Mitigation</p>
@@ -161,23 +161,43 @@ function Print(props) {
         </div>
 
         {props.user.manDisplay ? (
-          <PrintRisks docRisks={managerial} type="Managerial" />
+          <PrintRisks
+            docRisks={managerial}
+            type="Managerial"
+            color={props.user.manColor}
+          />
         ) : null}
 
         {props.user.tecDisplay ? (
-          <PrintRisks docRisks={technical} type="Technical" />
+          <PrintRisks
+            docRisks={technical}
+            type="Technical"
+            color={props.user.tecColor}
+          />
         ) : null}
 
         {props.user.comDisplay ? (
-          <PrintRisks docRisks={commercial} type="Commercial" />
+          <PrintRisks
+            docRisks={commercial}
+            type="Commercial"
+            color={props.user.comColor}
+          />
         ) : null}
 
         {props.user.legDisplay ? (
-          <PrintRisks docRisks={legal} type="Legal" />
+          <PrintRisks
+            docRisks={legal}
+            type="Legal"
+            color={props.user.legColor}
+          />
         ) : null}
 
         {props.user.envDisplay ? (
-          <PrintRisks docRisks={environmental} type="Environmental" />
+          <PrintRisks
+            docRisks={environmental}
+            type="Environmental"
+            color={props.user.envColor}
+          />
         ) : null}
       </div>
     </Container>
@@ -188,6 +208,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: #f0f0f0;
+
+  h6 {
+    font-size: 9pt;
+  }
 
   .tableHeader {
     padding-bottom: 5px;
@@ -220,7 +244,7 @@ const Container = styled.div`
         width: 6%;
       }
       .owner {
-        width: 6%;
+        min-width: 6%;
       }
       .mitigation {
         width: 47%;

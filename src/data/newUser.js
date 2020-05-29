@@ -1,5 +1,3 @@
-
-
 export const user = {
   email: "user created ",
   password: "change",
@@ -15,6 +13,7 @@ export const user = {
   dlt: true,
   man: true,
   useTemplates: false,
+  fontSize: 8,
   exportSpreadsheet: false,
   flavour: "",
   appendixRef: "",
@@ -24,35 +23,30 @@ export const user = {
   manDisplayChangeable: false,
   manDefaultOwner: "",
   manColor: "#e5e5e5",
-  manMaxLength: 1000,
   manMaxRisks: 5,
 
   tecDisplay: true,
   tecDisplayChangeable: false,
   tecDefaultOwner: "",
   tecColor: "#e5e5e5",
-  tecMaxLength: 1000,
   tecMaxRisks: 5,
 
   comDisplay: true,
   comDisplayChangeable: false,
   comDefaultOwner: "",
   comColor: "#e5e5e5",
-  comMaxLength: 1000,
   comMaxRisks: 5,
 
   legDisplay: true,
   legDisplayChangeable: true,
   legDefaultOwner: "",
   legColor: "#e5e5e5",
-  legMaxLength: 1000,
   legMaxRisks: 5,
 
   envDisplay: true,
   envDisplayChangeable: true,
   envDefaultOwner: "",
   envColor: "#e5e5e5",
-  envMaxLength: 1000,
   envMaxRisks: 5,
 };
 
@@ -143,34 +137,29 @@ export const risks = {
 //   manDisplayChangeable: false,
 //   manDefaultOwner: "JG",
 //   manColor: "#E2F0CB",
-//   manMaxLength: 100, // admin
 //   manMaxRisks: 5, // admin
 
 //   tecDisplay: true, // admin
 //   tecDisplayChangeable: false,
 //   tecDefaultOwner: "JG",
 //   tecColor: "#E2F0CB",
-//   tecMaxLength: 100, // admin
 //   tecMaxRisks: 5, // admin
 
 //   comDisplay: true, // admin
 //   comDisplayChangeable: false,
 //   comDefaultOwner: "JG",
 //   comColor: "#E2F0CB",
-//   comMaxLength: 100, // admin
 //   comMaxRisks: 5, // admin
 
 //   legDisplay: true, // admin
 //   legDisplayChangeable: false,
 //   legDefaultOwner: "JG",
 //   legColor: "#E2F0CB",
-//   legMaxLength: 100, // admin
 //   legMaxRisks: 5, // admin
 
 //   envDisplay: true, // admin
 //   envDisplayChangeable: false,
 //   envDefaultOwner: "JG",
 //   envColor: "#E2F0CB",
-//   envMaxLength: 100, // admin
 //   envMaxRisks: 5, // admin
 // };

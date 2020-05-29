@@ -75,7 +75,7 @@ function Client(props) {
               {/* <p>{props.client.id}</p> */}
             </div>
           </Link>
-          {client.id !== 1 ? (
+          {client.id >= 4 ? (
             <div className="delete" onClick={() => toggleDelete()}>
               <img src={removeIcon} alt="delete" />
             </div>
