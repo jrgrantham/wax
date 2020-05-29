@@ -44,7 +44,8 @@ function RiskSingle(props) {
   const risk = props.risk;
   const riskRange = projectOptions.riskRange;
   const maxLength = props.user.maxCharacters;
-
+  const {high, medium, low} = projectOptions;
+  
   function riskValue(value) {
     return riskRange[value];
   }
@@ -103,7 +104,7 @@ function RiskSingle(props) {
   }, [props.risks, confirmConsequence, confirmProbability]);
 
   return (
-    <Container>
+    <Container high={high} medium={medium} low={low} >
       {checkDelete ? (
         <div className="checkDelete" style={{ minHeight: height }}>
           <div className="cancel button" onClick={() => toggleDelete()}>
@@ -259,13 +260,13 @@ export const Container = styled.div`
       /* margin-left: 5px; */
     }
     .high {
-      background-color: rgba(250, 0, 0, 1);
+      background-color: ${props => props.high};
     }
     .medium {
-      background-color: rgba(250, 125, 0, 1);
+      background-color: ${props => props.medium};
     }
     .low {
-      background-color: rgba(0, 125, 0, 1);
+      background-color: ${props => props.low};
     }
     .owner {
       text-align: center;

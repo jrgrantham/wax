@@ -33,7 +33,9 @@ export const projectOptions = {
   ],
   maxCharacterChoices: [150, 250],
   fontSizeChoices: [6, 6.5, 7, 7.5, 8],
-
+  high: "#E06666",
+  medium: "#F9CB9C", 
+  low: '#FBF49B',
 };
 
 export const templates = { entries: [] };

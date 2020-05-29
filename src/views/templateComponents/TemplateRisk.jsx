@@ -34,6 +34,7 @@ function TemplateSingle(props) {
   const type = props.user.selected.toLowerCase();
   const template = props.template;
   const riskRange = projectOptions.riskRange;
+  const {high, medium, low} = projectOptions;
 
   function sendChanges() {
     console.log("sent");
@@ -121,7 +122,7 @@ function TemplateSingle(props) {
   ]);
 
   return (
-    <Container>
+    <Container high={high} medium={medium} low={low} >
       {checkDelete ? (
         <div className="checkDelete" style={{ minHeight: height }}>
           <div className="cancel button" onClick={() => toggleDelete()}>
@@ -290,13 +291,13 @@ export const Container = styled.div`
       /* margin-left: 5px; */
     }
     .high {
-      background-color: rgba(250, 0, 0, 1);
+      background-color: ${props => props.high};
     }
     .medium {
-      background-color: rgba(250, 125, 0, 1);
+      background-color: ${props => props.medium};
     }
     .low {
-      background-color: rgba(0, 125, 0, 1);
+      background-color: ${props => props.low};
     }
     .owner {
       text-align: center;
