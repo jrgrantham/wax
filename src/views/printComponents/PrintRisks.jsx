@@ -7,6 +7,7 @@ function PrintRisks(props) {
   const { type, docRisks } = props;
 
   const riskRange = projectOptions.riskRange;
+  const { high, medium, low } = projectOptions;
 
   function riskValue(value) {
     return riskRange[value];
@@ -19,7 +20,13 @@ function PrintRisks(props) {
   console.log(props.user.fontSize);
 
   return (
-    <Container color={props.color} fontSize={props.user.fontSize}>
+    <Container
+      color={props.color}
+      fontSize={props.user.fontSize}
+      high={high}
+      medium={medium}
+      low={low}
+    >
       <div className="type" id={type.toLocaleLowerCase()}>
         <p className="vertical">{type}</p>
       </div>
@@ -126,13 +133,13 @@ const Container = styled.div`
       width: 6%;
     }
     .high {
-      background-color: red;
+      background-color: ${props => props.high};
     }
     .medium {
-      background-color: orange;
+      background-color: ${props => props.medium};
     }
     .low {
-      background-color: green;
+      background-color: ${props => props.low};
     }
     .owner {
       text-align: center;
