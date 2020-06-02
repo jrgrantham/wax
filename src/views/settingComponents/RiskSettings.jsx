@@ -1,12 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import RiskSettingsSingle from "./RiskSettingsSingle";
 
-export default function RiskSettings() {
+function RiskSettings(props) {
+  const admin = props.user.admin;
+
   return (
     <Container>
       <div className="content">
         <h5>Risks</h5>
+        <div className="titles">
+          <h6 className="type">Risk Type</h6>
+          <h6 className="owner">Owner</h6>
+          <h6 className="colours">Colours</h6>
+          {admin ? <h6 className="max">Max Risks</h6> : null}
+        </div>
         <RiskSettingsSingle type={"Commercial"} />
         <RiskSettingsSingle type={"Technical"} />
         <RiskSettingsSingle type={"Managerial"} />
@@ -17,6 +26,8 @@ export default function RiskSettings() {
   );
 }
 
+export default connect((state) => state, {})(RiskSettings);
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,6 +37,23 @@ const Container = styled.div`
 
   H5 {
     margin-bottom: 30px;
+  }
+
+  .titles {
+    display: flex;
+    margin-bottom: 10px;
+    .type {
+      margin-left: 46px;
+    }
+    .owner {
+      margin-left: 47px;
+    }
+    .colours {
+      margin-left: 20px;
+    }
+    .max {
+      margin-left: 136px;
+    }
   }
 
   .content {
