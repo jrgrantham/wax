@@ -306,11 +306,11 @@ export const Container = styled.div`
       border-radius: 50%;
       width: 28px;
       height: auto;
-      transition: transform 0.3s;
+      /* transition: opacity 0.3s; */
       margin-left: -5px;
       &:hover {
         cursor: pointer;
-        transform: scale(1.5);
+        opacity: 0.5;
       }
       img {
         width: 100%;
