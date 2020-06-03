@@ -34,39 +34,24 @@ function RiskText(props) {
           <h6>Risk Management Document</h6>
         </header>
 
-        {props.user.manDisplay ? (
-          <TextType
-            docRisks={managerial}
-            type="Managerial"
-          />
+        {props.user.manDisplay && managerial.length ? (
+          <TextType docRisks={managerial} type="Managerial" />
         ) : null}
 
-        {props.user.tecDisplay ? (
-          <TextType
-            docRisks={technical}
-            type="Technical"
-          />
+        {props.user.tecDisplay && technical.length ? (
+          <TextType docRisks={technical} type="Technical" />
         ) : null}
 
-        {props.user.comDisplay ? (
-          <TextType
-            docRisks={commercial}
-            type="Commercial"
-          />
+        {props.user.comDisplay && commercial.length ? (
+          <TextType docRisks={commercial} type="Commercial" />
         ) : null}
 
-        {props.user.legDisplay ? (
-          <TextType
-            docRisks={legal}
-            type="Legal"
-          />
+        {props.user.legDisplay && legal.length ? (
+          <TextType docRisks={legal} type="Legal" />
         ) : null}
 
-        {props.user.envDisplay ? (
-          <TextType
-            docRisks={environmental}
-            type="Environmental"
-          />
+        {props.user.envDisplay && environmental.length ? (
+          <TextType docRisks={environmental} type="Environmental" />
         ) : null}
       </div>
     </Container>
@@ -94,7 +79,7 @@ const Container = styled.div`
     text-align: right;
     color: black;
     border: 1px solid black;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
     border-radius: 5px;
     padding: 0.6rem 1.6rem;
     margin-bottom: 20px;

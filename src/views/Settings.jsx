@@ -15,6 +15,10 @@ const clientApi = `${url()}api/users/client/`;
 const token = localStorage.getItem("token");
 
 function ClientSettings(props) {
+  // console.log(props.history);
+  // console.log(document.referrer);
+  
+  
   function getSettings() {
     axiosWithAuth(token)
       .get(userApi)

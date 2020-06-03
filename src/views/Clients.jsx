@@ -83,12 +83,13 @@ export default withRouter(connect((state) => state, { setClients })(Clients));
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 20px;
+  margin:  0px 20px 20px 20px;
   align-items: center;
   /* min-height: 100vh; */
-  background-color: #e5e5e5;
-  padding: 0px 0 20px 0;
+  /* background-color: #e5e5e5; */
+  /* padding: 0px 0 20px 0; */
   border-radius: 10px;
+  overflow: hidden;
 
   .banner {
     display: flex;
@@ -97,7 +98,7 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     position: fixed;
-    margin: 125px 0px 0 0px;
+    margin: 83px 0px 0 0px;
     background-color: #e5e5e5;
     /* border: 1px solid red; */
     padding: 15px;
@@ -133,8 +134,8 @@ const Container = styled.div`
     background-color: #e5e5e5;
     width: 100%;
     max-width: 1500px;
-    margin-top: 215px;
-    padding: 0px 15px 15px 15px;
+    margin-top: 162px;
+    /* padding: 0px 15px 15px 15px; */
     /* border-radius: 20px; */
     /* border: 1px solid red; */
   }

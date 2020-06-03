@@ -83,26 +83,28 @@ function AdminDashboard(props) {
     <Container>
       <header>
         <h3>Admin Dashboard</h3>
-        <button className='dashboarrd'
-          onClick={() => setDisplayClients(true)}
-          style={
-            displayClients
-              ? { backgroundColor: "lightgreen" }
-              : { backgroundColor: "lightgrey" }
-          }
-        >
-          <h5>Client Management</h5>
-        </button>
-        <button className='dashboarrd'
-          onClick={() => setDisplayClients(false)}
-          style={
-            displayClients
-              ? { backgroundColor: "lightgrey" }
-              : { backgroundColor: "lightgreen" }
-          }
-        >
-          <h5>Risk Templates</h5>
-        </button>
+        <div>
+          <button className='dashboard left'
+            onClick={() => setDisplayClients(true)}
+            style={
+              displayClients
+                ? { backgroundColor: "darkseagreen" }
+                : { backgroundColor: "lightgrey" }
+            }
+          >
+            <h5>Clients</h5>
+          </button>
+          <button className='dashboard right'
+            onClick={() => setDisplayClients(false)}
+            style={
+              displayClients
+                ? { backgroundColor: "lightgrey" }
+                : { backgroundColor: "darkseagreen" }
+            }
+          >
+            <h5>Templates</h5>
+          </button>
+        </div>
       </header>
       {displayClients ? <Clients /> : <Templates />}
     </Container>
@@ -120,22 +122,32 @@ const Container = styled.div`
   /* z-index: 2; */
 
   header {
-    padding: 10px 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    /* padding: 10px 0 20px 0; */
     position: fixed;
     background-color: white;
-    width: 100%;
+    width: calc(100%);
     max-width: 1500px;
   }
 
-  button.dashboarrd {
-    width: 40%;
+  button.dashboard {
+    width: 140px;
     max-width: 450px;
-    margin: 10px 10px;
+    /* margin: 10px 10px; */
     border: none;
-    border-radius: 10px;
+    border-radius: 0px;
+    /* border-radius: 10px; */
     padding: 10px;
     &:hover {
       cursor: pointer;
     }
+  }
+  button.left {
+    border-radius: 10px 0 0 10px;
+  }
+  button.right {
+    border-radius: 0 10px 10px 0;
   }
 `;
