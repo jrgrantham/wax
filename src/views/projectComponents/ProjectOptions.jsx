@@ -87,12 +87,12 @@ function Options(props) {
         <div className="right">
           {addRow ? (
             <>
-              <div className="button cancel" onClick={() => setAddRow(false)}>
+              <button className="button cancel" onClick={() => setAddRow(false)}>
                 <p>Cancel</p>
-              </div>
-              <div className="button middle add" onClick={() => addToProject()}>
+              </button>
+              <button className="button middle add" onClick={() => addToProject()}>
                 <p>blank row</p>
-              </div>
+              </button>
               {props.user.useTemplates ? <div
                 className="button add"
                 onClick={() => {
@@ -106,9 +106,9 @@ function Options(props) {
           ) : (
             <>
               {!riskLimit ? <p className="maxRisks">Maximum Risks: {maxRisks} </p> : null}
-              <div className="button" onClick={() => sortRisks()}>
+              <button className="button" onClick={() => sortRisks()}>
                 <p>Sort</p>
-              </div>
+              </button>
               <div className="image" onClick={() => checkMax()}>
                 <img src={addIcon} alt="add" />
               </div>
@@ -167,6 +167,7 @@ const Container = styled.div`
     background-color: #c5c5c5;
     border-radius: 5px;
     padding: 0.3rem 0.8rem;
+    border: none;
     &:hover {
       cursor: pointer;
     }

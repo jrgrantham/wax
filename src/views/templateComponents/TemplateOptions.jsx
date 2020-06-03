@@ -67,9 +67,9 @@ function Options(props) {
       <div className="white">
         <div className="right">
           <>
-            <div className="button" onClick={() => sortRisks()}>
+            <button className="button" onClick={() => sortRisks()}>
               <p>Sort</p>
-            </div>
+            </button>
             <div className="image" onClick={() => sendTemplate()}>
               <img src={addIcon} alt="add" />
             </div>
@@ -127,6 +127,7 @@ const Container = styled.div`
     background-color: #c5c5c5;
     border-radius: 5px;
     padding: 0.3rem 0.8rem;
+    border: none;
     &:hover {
       cursor: pointer;
     }

@@ -55,9 +55,27 @@ function ProjectSettings(props) {
       <form className="projectForm">
         <h5>Admin</h5>
 
+        {/* useTemplate */}
+        <div className="info">
+          <label>Use Templates</label>
+          <div className="buttons">
+            <p
+              id="useTemplates"
+              style={
+                props.user.useTemplates
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: null }
+              }
+              onClick={(e) => toggle(e)}
+            >
+              {props.user.useTemplates ? "Yes" : "No"}
+            </p>
+          </div>
+        </div>
+
         {/* type */}
         <div className="info">
-          <label>Project Type</label>
+          <label>Templates Available</label>
           <div className="buttons">
             <p
               id="ai"
@@ -166,24 +184,6 @@ function ProjectSettings(props) {
                 );
               })}
             </select>
-          </div>
-        </div>
-
-        {/* useTemplate */}
-        <div className="info">
-          <label>Use Template Risks</label>
-          <div className="buttons">
-            <p
-              id="useTemplates"
-              style={
-                props.user.useTemplates
-                  ? { backgroundColor: "green" }
-                  : { backgroundColor: null }
-              }
-              onClick={(e) => toggle(e)}
-            >
-              {props.user.useTemplates ? "Yes" : "No"}
-            </p>
           </div>
         </div>
 

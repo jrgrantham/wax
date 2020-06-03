@@ -153,13 +153,15 @@ const Container = styled.div`
   }
 `;
 
-const Type = styled.div`
+const Type = styled.button`
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 41px;
   align-items: center;
   border-radius: 20px 20px 0px 0px;
   background-color: ${(props) => props.background};
+  border: none;
   padding: 10px;
   &:hover {
     cursor: pointer;

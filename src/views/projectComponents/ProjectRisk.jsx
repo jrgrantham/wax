@@ -130,7 +130,7 @@ function RiskSingle(props) {
             value={risk.description}
             maxLength={maxLength}
           />
-          <div
+          <button
             onClick={() => confirmProbability()}
             onBlur={sendChanges}
             className={
@@ -138,15 +138,15 @@ function RiskSingle(props) {
             }
           >
             <h6>{riskValue(risk.probability)}</h6>
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => confirmConsequence(risk)}
             className={
               riskValue(risk.consequence).toLowerCase() + " consequence flag"
             }
           >
             <h6>{riskValue(risk.consequence)}</h6>
-          </div>
+          </button>
           <textarea
             id={`${type}mitigation${risk.id}`}
             type="text"
@@ -249,6 +249,7 @@ export const Container = styled.div`
       border-radius: 5px;
       min-height: 50px;
       height: 100%;
+      border: none;
       &:hover {
         cursor: pointer;
       }
