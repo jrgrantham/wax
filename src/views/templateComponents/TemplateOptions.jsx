@@ -68,7 +68,7 @@ function Options(props) {
         <div className="right">
           <>
             <div className="button" onClick={() => sortRisks()}>
-              <p>Sort and update</p>
+              <p>Sort</p>
             </div>
             <div className="image" onClick={() => sendTemplate()}>
               <img src={addIcon} alt="add" />

@@ -64,8 +64,8 @@ const Container = styled.div`
   /* flex-direction: column; */
   /* margin-bottom: 20px; */
   text-align: left;
-  border: 1px solid black;
-  margin-bottom: -1px;
+  border: 2px solid black;
+  margin-bottom: -2px;
 
   p {
     font-size: ${(props) => props.fontSize}pt;
@@ -75,7 +75,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80px;
+    min-height: 90px;
     border-right: 1px solid black;
     background-color: ${(props) => props.color};
   }
@@ -92,6 +92,7 @@ const Container = styled.div`
     white-space: nowrap;
     width: 25px;
     height: 25px;
+    font-weight: bold;
     /* border: 1px solid black; */
   }
 
@@ -106,8 +107,8 @@ const Container = styled.div`
     display: flex;
     height: 100%;
     width: 100%;
-    border-bottom: 1px solid lightgray;
-    /* background-color: lightgray; */
+    border-bottom: 1px solid black;
+    /* background-color: black; */
     :last-child {
       border-bottom: none;
     }
@@ -119,7 +120,7 @@ const Container = styled.div`
     }
     .description {
       width: 35%;
-      border-right: 1px solid lightgray;
+      border-right: 1px solid black;
     }
     .mitigation {
       max-width: 47%;
@@ -129,7 +130,7 @@ const Container = styled.div`
       align-items: center;
       justify-content: center;
       text-align: center;
-      border-right: 1px solid lightgray;
+      border-right: 1px solid black;
       width: 6%;
     }
     .high {

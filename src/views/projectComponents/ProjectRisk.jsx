@@ -201,11 +201,11 @@ export const Container = styled.div`
       }
     }
     .cancel {
-      background-color: green;
+      background-color: darkseagreen;
       color: white;
     }
     .delete {
-      background-color: red;
+      background-color: IndianRed;
       color: white;
     }
   }
@@ -214,7 +214,7 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
     column-gap: 5px;
-    padding: 5px 0px 5px 25px;
+    padding: 10px 0px 10px 25px;
     /* transition: background-color 0.3s; */
     &:hover {
       background-color: lightblue;
@@ -270,7 +270,7 @@ export const Container = styled.div`
     }
     .owner {
       text-align: center;
-      background-color: rgba(180, 180, 180, 1);
+      /* background-color: rgba(180, 180, 180, 1); */
     }
     .tbc {
       border: 1px solid black;
@@ -298,13 +298,15 @@ export const Container = styled.div`
       padding-left: 10px;
     }
     .icon {
+      display: flex;
       opacity: 0;
       margin: auto;
       padding-right: 5px;
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 28px;
+      height: auto;
       transition: transform 0.3s;
+      margin-left: -5px;
       &:hover {
         cursor: pointer;
         transform: scale(1.5);
