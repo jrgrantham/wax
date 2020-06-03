@@ -4,6 +4,7 @@ import axios from "axios";
 import url from "../helpers/url";
 import { connect } from "react-redux";
 import { setUser } from "../state/actionCreators/userActionCreators";
+import logo from '../images/damien.png'
 
 function Login(props) {
   const loginApi = url() + "api/auth/login";
@@ -40,7 +41,8 @@ function Login(props) {
   return (
     <Container>
       <div className="contents">
-        <h4>Risk Assessments R Us</h4>
+        <div className='image'><img src={logo} alt="risk"/></div>
+        <h4>Risk Assessment</h4>
         <input
           type="text"
           name="email"
@@ -82,6 +84,7 @@ const Container = styled.div`
     color: grey;
   }
   input {
+    width: 220px;
     font-size: 0.8rem;
     padding: 10px;
   }
@@ -98,7 +101,13 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 250px;
+    height: 400px;
     /* border: 1px solid red */
+  }
+
+  .image {
+    img {
+      width: 200px;
+    }
   }
 `;

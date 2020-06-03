@@ -111,7 +111,7 @@ function ProjectSettings(props) {
         </div>
 
         {/* type */}
-        <div className="info">
+        {/* <div className="info">
           <label>Project Type:</label>
           <select
             type="text"
@@ -128,7 +128,7 @@ function ProjectSettings(props) {
               );
             })}
           </select>
-        </div>
+        </div> */}
 
         {/* project */}
         <div className="info">

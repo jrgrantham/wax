@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
+import {
+  addToProject,
+  replaceRisks,
+} from "../../state/actionCreators/riskActionCreators";
 // import axiosWithAuth from "../../authentication/axiosWithAuth";
 // import url from "../../helpers/url";
 
@@ -20,6 +24,7 @@ function RiskTable(props) {
   // }
 
   function setSelected(value) {
+    sortRisks();
     props.setProjectValue("selected", value);
     // sendChanges("selected", value);
   }
@@ -27,6 +32,22 @@ function RiskTable(props) {
   function showMenu(e) {
     e.stopPropagation();
     props.setShowMenu(true);
+  }
+
+  function calculateRisk() {
+    const calculatedRisks = props.risks.entries.map((entry) => {
+      const value = entry.probability * entry.consequence;
+      return { ...entry, risk: value };
+    });
+    return calculatedRisks;
+  }
+
+  function sortRisks() {
+    console.log("ran");
+    const sortedRisks = calculateRisk().sort(function (a, b) {
+      return b.risk - a.risk;
+    });
+    props.replaceRisks(sortedRisks);
   }
 
   const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
@@ -93,7 +114,11 @@ function RiskTable(props) {
   );
 }
 
-export default connect((state) => state, { setProjectValue })(RiskTable);
+export default connect((state) => state, {
+  setProjectValue,
+  addToProject,
+  replaceRisks,
+})(RiskTable);
 
 const Container = styled.div`
   display: flex;
@@ -140,7 +165,7 @@ const Container = styled.div`
   .titles {
     width: 100%;
     display: grid;
-  grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
+    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
     column-gap: 5px;
     padding: 5px 0 0px 25px;
     background-color: #e5e5e5;
