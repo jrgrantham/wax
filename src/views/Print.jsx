@@ -160,7 +160,7 @@ function Print(props) {
           </div>
         </div>
 
-        {props.user.manDisplay ? (
+        {props.user.manDisplay && managerial.length ? (
           <PrintRisks
             docRisks={managerial}
             type="Managerial"
@@ -168,7 +168,7 @@ function Print(props) {
           />
         ) : null}
 
-        {props.user.tecDisplay ? (
+        {props.user.tecDisplay && technical.length ? (
           <PrintRisks
             docRisks={technical}
             type="Technical"
@@ -176,7 +176,7 @@ function Print(props) {
           />
         ) : null}
 
-        {props.user.comDisplay ? (
+        {props.user.comDisplay && commercial.length ? (
           <PrintRisks
             docRisks={commercial}
             type="Commercial"
@@ -184,7 +184,7 @@ function Print(props) {
           />
         ) : null}
 
-        {props.user.legDisplay ? (
+        {props.user.legDisplay && legal.length ? (
           <PrintRisks
             docRisks={legal}
             type="Legal"
@@ -192,7 +192,7 @@ function Print(props) {
           />
         ) : null}
 
-        {props.user.envDisplay ? (
+        {props.user.envDisplay && environmental.length ? (
           <PrintRisks
             docRisks={environmental}
             type="Environmental"

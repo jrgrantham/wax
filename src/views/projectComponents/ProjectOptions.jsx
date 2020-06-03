@@ -93,7 +93,7 @@ function Options(props) {
               <button className="button middle add" onClick={() => addToProject()}>
                 <p>blank row</p>
               </button>
-              {props.user.useTemplates ? <div
+              {props.user.useTemplates ? <button
                 className="button add"
                 onClick={() => {
                   setAddRow(false);
@@ -101,7 +101,7 @@ function Options(props) {
                 }}
               >
                 <p>from template</p>
-              </div> : null}
+              </button> : null}
             </>
           ) : (
             <>

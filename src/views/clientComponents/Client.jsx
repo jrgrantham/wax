@@ -154,11 +154,11 @@ export const Container = styled.div`
       }
     }
     .cancel {
-      background-color: green;
+      background-color: darkseagreen;
       color: white;
     }
     .delete {
-      background-color: red;
+      background-color: indianred;
       color: white;
     }
   }

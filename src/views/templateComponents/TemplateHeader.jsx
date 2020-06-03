@@ -91,7 +91,7 @@ const Container = styled.div`
   align-items: center;
   /* border: 1px solid black; */
   position: fixed;
-  margin-top: 114px;
+  margin-top: 83px;
   background-color: white;
   width: calc(100% - 40px);
   max-width: 1460px;
@@ -118,7 +118,6 @@ const Container = styled.div`
   }
   .types {
     width: 100%;
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     /* border: 1px solid red; */
