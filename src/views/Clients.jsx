@@ -61,12 +61,12 @@ function Clients(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
-        <div className="createClient" onClick={sendNewClient}>
-          <h6>Create new client</h6>
+        <button className="createClient" onClick={sendNewClient}>
+          <h6>Create Client</h6>
           <div className="image">
             <img src={addIcon} alt="add" />
           </div>
-        </div>
+        </button>
       </div>
       <div className="clients">
         {props.clients.map((client, index) => (
@@ -91,10 +91,11 @@ const Container = styled.div`
   border-radius: 10px;
 
   .banner {
+    display: flex;
     width: calc(100% - 40px);
     max-width: 1460px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     position: fixed;
     margin: 125px 0px 0 0px;
     background-color: #e5e5e5;
@@ -106,7 +107,6 @@ const Container = styled.div`
   .createClient {
     display: flex;
     align-items: center;
-    margin-top: 10px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -129,7 +129,7 @@ const Container = styled.div`
   .clients {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: #e5e5e5;
     width: 100%;
     max-width: 1500px;

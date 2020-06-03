@@ -24,7 +24,9 @@ function RiskText(props) {
   return (
     <Container>
       <div className="contents">
-        <Link to="/">back to Risk Table</Link>
+        <div className="link">
+          <Link to="/">back to Risk Table</Link>
+        </div>
         <header>
           <h3>
             Project {props.user.project} - {props.user.company}
@@ -82,10 +84,17 @@ const Container = styled.div`
     background-color: white;
   }
 
+  .link {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   a {
     display: inline-block;
-    color: lightgray;
-    border: 1px solid lightgray;
+    text-align: right;
+    color: black;
+    border: 1px solid black;
+    background-color: #F0F0F0;
     border-radius: 5px;
     padding: 0.6rem 1.6rem;
     margin-bottom: 20px;

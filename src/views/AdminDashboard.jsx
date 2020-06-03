@@ -83,7 +83,7 @@ function AdminDashboard(props) {
     <Container>
       <header>
         <h3>Admin Dashboard</h3>
-        <button
+        <button className='dashboarrd'
           onClick={() => setDisplayClients(true)}
           style={
             displayClients
@@ -93,7 +93,7 @@ function AdminDashboard(props) {
         >
           <h5>Client Management</h5>
         </button>
-        <button
+        <button className='dashboarrd'
           onClick={() => setDisplayClients(false)}
           style={
             displayClients
@@ -127,7 +127,7 @@ const Container = styled.div`
     max-width: 1500px;
   }
 
-  button {
+  button.dashboarrd {
     width: 40%;
     max-width: 450px;
     margin: 10px 10px;

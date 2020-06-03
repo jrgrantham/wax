@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 function Menu(props) {
   const header = [
@@ -9,8 +9,8 @@ function Menu(props) {
     "account / email",
     "risk type",
     "description",
-    "liklihood",
-    "consequence",
+    "likelihood",
+    "severity",
     "risk",
     "mitigation",
     "owner",
@@ -43,6 +43,7 @@ function Menu(props) {
 
   function logout() {
     localStorage.removeItem("token");
+    props.history.push('/login')
   }
 
   return (
@@ -81,7 +82,7 @@ function Menu(props) {
   );
 }
 
-export default connect((state) => state, {})(Menu);
+export default withRouter(connect((state) => state, {})(Menu));
 
 const Container = styled.div`
   height: 100%;

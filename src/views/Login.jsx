@@ -56,7 +56,7 @@ function Login(props) {
           onChange={onChange}
         />
         <button onClick={submit}>Login</button>
-        <p>send me my password</p>
+        {/* <p>send me my password</p> */}
       </div>
     </Container>
   );

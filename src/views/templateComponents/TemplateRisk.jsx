@@ -147,7 +147,7 @@ function TemplateSingle(props) {
             name="description"
             value={template.description}
           />
-          <div
+          <button
             onClick={() => confirmProbability()}
             className={
               riskValue(template.probability).toLowerCase() +
@@ -155,8 +155,8 @@ function TemplateSingle(props) {
             }
           >
             <h6>{riskValue(template.probability)}</h6>
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => confirmConsequence()}
             className={
               riskValue(template.consequence).toLowerCase() +
@@ -164,7 +164,7 @@ function TemplateSingle(props) {
             }
           >
             <h6>{riskValue(template.consequence)}</h6>
-          </div>
+          </button>
           <textarea
             id={`${type}mitigation${template.id}`}
             type="text"
@@ -175,27 +175,27 @@ function TemplateSingle(props) {
             style={{ minHeight: height }}
           />
 
-          <div
+          <button
             onClick={() => toggleType("ai", template.id)}
             className="flag tbc"
             style={template.ai ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.ai ? "Yes" : "No"}</h6>
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => toggleType("dlt", template.id)}
             className="flag tbc"
             style={template.dlt ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.dlt ? "Yes" : "No"}</h6>
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => toggleType("man", template.id)}
             className="flag tbc"
             style={template.man ? { backgroundColor: "lightyellow" } : null}
           >
             <h6>{template.man ? "Yes" : "No"}</h6>
-          </div>
+          </button>
 
           <div className="icon" onClick={() => toggleDelete()}>
             <img src={removeIcon} alt="delete" />
@@ -233,11 +233,11 @@ export const Container = styled.div`
       }
     }
     .cancel {
-      background-color: green;
+      background-color: darkseagreen;
       color: white;
     }
     .delete {
-      background-color: red;
+      background-color: IndianRed;
       color: white;
     }
   }
@@ -246,7 +246,7 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px 20px;
     column-gap: 5px;
-    padding: 5px 0px 5px 25px;
+    padding: 10px 0px 10px 25px;
     /* transition: background-color 0.3s; */
     &:hover {
       background-color: lightblue;
@@ -280,6 +280,7 @@ export const Container = styled.div`
       border-radius: 5px;
       min-height: 50px;
       height: 100%;
+      border: none;
       &:hover {
         cursor: pointer;
       }
@@ -329,13 +330,15 @@ export const Container = styled.div`
       padding-left: 10px;
     }
     .icon {
+      display: flex;
       opacity: 0;
       margin: auto;
       padding-right: 5px;
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 28px;
+      height: auto;
       transition: transform 0.3s;
+      margin-left: -5px;
       &:hover {
         cursor: pointer;
         transform: scale(1.5);

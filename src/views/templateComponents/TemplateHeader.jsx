@@ -20,8 +20,8 @@ function TemplateHeader(props) {
   }
 
   function setSelected(type) {
-    props.setProjectValue('selected', type);
-    sendChanges('selected', type)
+    props.setProjectValue("selected", type);
+    sendChanges("selected", type);
   }
 
   const selected = props.user.selected.toLowerCase();
@@ -56,18 +56,18 @@ function TemplateHeader(props) {
         >
           <h6>Technical</h6>
         </Type>
-          <Type
-            background={props.user.envColor}
-            onClick={() => setSelected("environmental")}
-          >
-            <h6>Environmental</h6>
-          </Type>
-          <Type
-            background={props.user.legColor}
-            onClick={() => setSelected("legal")}
-          >
-            <h6>Legal</h6>
-          </Type>
+        <Type
+          background={props.user.envColor}
+          onClick={() => setSelected("environmental")}
+        >
+          <h6>Environmental</h6>
+        </Type>
+        <Type
+          background={props.user.legColor}
+          onClick={() => setSelected("legal")}
+        >
+          <h6>Legal</h6>
+        </Type>
       </div>
       <div className="banner"></div>
       <div className="titles">
@@ -91,7 +91,7 @@ const Container = styled.div`
   align-items: center;
   /* border: 1px solid black; */
   position: fixed;
-  margin-top: 110px;
+  margin-top: 114px;
   background-color: white;
   width: calc(100% - 40px);
   max-width: 1460px;
@@ -124,7 +124,7 @@ const Container = styled.div`
     /* border: 1px solid red; */
   }
   .banner {
-    background-color: ${props => props.color};
+    background-color: ${(props) => props.color};
     height: 10px;
     width: 100%;
   }
@@ -142,7 +142,7 @@ const Container = styled.div`
   }
 `;
 
-const Type = styled.div`
+const Type = styled.button`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -150,6 +150,7 @@ const Type = styled.div`
   border-radius: 20px 20px 0px 0px;
   background-color: ${(props) => props.background};
   padding: 10px;
+  border: none;
   &:hover {
     cursor: pointer;
   }
