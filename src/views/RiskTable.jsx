@@ -66,7 +66,7 @@ function RiskTable(props) {
         axiosWithAuth(token)
           .get(riskApi + user)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             props.replaceRisks(sortRisks(res.data));
           })
           .catch((error) => {

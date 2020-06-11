@@ -4,21 +4,42 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
 function Menu(props) {
+  const forCSV = [];
+
+  props.risks.entries.forEach((risk) => {
+    const type = risk.type;
+    const description = risk.description;
+    const probability = risk.probability;
+    const consequences = risk.consequence;
+    const mitigation = risk.mitigation;
+    const owner = risk.owner;
+    const output = {
+      type,
+      description,
+      probability,
+      consequences,
+      mitigation,
+      owner,
+    };
+    forCSV.push(output)
+  });
+
+  console.log(forCSV);
   const header = [
-    "user id",
-    "account / email",
+    // "user id", // not needed
+    // "account / email", // not needed
     "risk type",
     "description",
     "likelihood",
     "severity",
-    "risk",
+    // "risk", // not needed
     "mitigation",
     "owner",
-    "risk id",
+    // "risk id", // not needed
   ];
   let objectToArray = [];
   objectToArray.push(header);
-  props.risks.entries.forEach((risk) => {
+  forCSV.forEach((risk) => {
     objectToArray.push(Object.values(risk));
   });
   // console.log(objectToArray);
@@ -43,7 +64,7 @@ function Menu(props) {
 
   function logout() {
     localStorage.removeItem("token");
-    props.history.push('/login')
+    props.history.push("/login");
   }
 
   return (
