@@ -107,6 +107,7 @@ function Templates(props) {
     >
       <div className="templateContents">
         <h5>{title}</h5>
+        {/* <h6>Maximum Risks Reached</h6> */}
         <div className="close" onClick={() => props.setShowTemplate(false)}>
           <img src={removeIcon} alt="" />
         </div>

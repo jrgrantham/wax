@@ -7,26 +7,38 @@ import {
   addToProject,
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
-// import axiosWithAuth from "../../authentication/axiosWithAuth";
-// import url from "../../helpers/url";
+import axiosWithAuth from "../../authentication/axiosWithAuth";
+import url from "../../helpers/url";
 
-// const userApi = `${url()}api/users/user`;
-// const token = localStorage.getItem("token");
+const userApi = `${url()}api/users/user`;
+const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-  // function sendChanges(key, value) {
-  //   axiosWithAuth(token)
-  //     .put(userApi, { key, value })
-  //     .then(() => {}) // no action when changes are sent, only when requested
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //     });
-  // }
+  const countMan = props.risks.entries.filter((risk) => risk.type === "managerial").length;
+  const countTec = props.risks.entries.filter((risk) => risk.type === "technical").length;
+  const countCom = props.risks.entries.filter((risk) => risk.type === "commercial").length;
+  const countLeg = props.risks.entries.filter((risk) => risk.type === "legal").length;
+  const countEnv = props.risks.entries.filter((risk) => risk.type === "environmental").length;
+
+  function sendChanges(key, value) {
+    let id = "";
+    if (props.user.admin) {
+      id = localStorage.getItem("selectedClientId");
+    } else {
+      id = props.user.id;
+    }
+    axiosWithAuth(token)
+      .put(userApi, { key, value, id })
+      .then(() => {}) // no action when changes are sent, only when requested
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   function setSelected(value) {
     sortRisks();
     props.setProjectValue("selected", value);
-    // sendChanges("selected", value);
+    sendChanges("selected", value);
   }
 
   function showMenu(e) {
@@ -71,26 +83,26 @@ function RiskTable(props) {
           background={props.user.manColor}
           onClick={() => setSelected("managerial")}
         >
-          <h6>Managerial</h6>
+          <h6>Managerial ({countMan})</h6>
         </Type>
         <Type
           background={props.user.comColor}
           onClick={() => setSelected("commercial")}
         >
-          <h6>Commercial</h6>
+          <h6>Commercial ({countCom})</h6>
         </Type>
         <Type
           background={props.user.tecColor}
           onClick={() => setSelected("technical")}
         >
-          <h6>Technical</h6>
+          <h6>Technical ({countTec})</h6>
         </Type>
         {props.user.envDisplay ? (
           <Type
             background={props.user.envColor}
             onClick={() => setSelected("environmental")}
           >
-            <h6>Environmental</h6>
+            <h6>Environmental ({countEnv})</h6>
           </Type>
         ) : null}
         {props.user.legDisplay ? (
@@ -98,7 +110,7 @@ function RiskTable(props) {
             background={props.user.legColor}
             onClick={() => setSelected("legal")}
           >
-            <h6>Legal</h6>
+            <h6>Legal ({countLeg})</h6>
           </Type>
         ) : null}
       </div>
