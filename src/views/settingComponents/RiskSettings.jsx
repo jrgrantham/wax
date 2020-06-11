@@ -16,11 +16,11 @@ function RiskSettings(props) {
           <h6 className="colours">Colours</h6>
           {admin ? <h6 className="max">Max Risks</h6> : null}
         </div>
+        <RiskSettingsSingle type={"Managerial"} />
         <RiskSettingsSingle type={"Commercial"} />
         <RiskSettingsSingle type={"Technical"} />
-        <RiskSettingsSingle type={"Managerial"} />
-        <RiskSettingsSingle type={"Legal"} />
         <RiskSettingsSingle type={"Environmental"} />
+        <RiskSettingsSingle type={"Legal"} />
       </div>
     </Container>
   );

@@ -52,12 +52,12 @@ function ProjectSettings(props) {
 
   function selectAll() {
     // ai, dlt, man
-    props.setProjectValue('ai', true);
-    sendChanges('ai', true);
-    props.setProjectValue('dlt', true);
-    sendChanges('dlt', true);
-    props.setProjectValue('man', true);
-    sendChanges('man', true);
+    props.setProjectValue('ai', !props.user.ai);
+    sendChanges('ai', !props.user.ai);
+    props.setProjectValue('dlt', !props.user.ai);
+    sendChanges('dlt', !props.user.ai);
+    props.setProjectValue('man', !props.user.ai);
+    sendChanges('man', !props.user.ai);
   }
 
   return (
@@ -80,7 +80,7 @@ function ProjectSettings(props) {
             >
               {props.user.useTemplates ? "Yes" : "No"}
             </p>
-            <p
+            {props.user.useTemplates ? <p
               id="selectAll"
               // style={
               //   props.user.useTemplates
@@ -89,13 +89,13 @@ function ProjectSettings(props) {
               // }
               onClick={(e) => selectAll(e)}
             >
-              Select All
-            </p>
+              Toggle all
+            </p> : null}
           </div>
         </div>
 
         {/* type */}
-        <div className="info">
+        {props.user.useTemplates ?         <div className="info">
           <label>Templates Available</label>
           <div className="buttons">
             <p
@@ -132,7 +132,7 @@ function ProjectSettings(props) {
               MAN
             </p>
           </div>
-        </div>
+        </div> : null}
 
         {/* flavour */}
         <div className="info">
