@@ -25,7 +25,9 @@ function Templates(props) {
   }
 
   const type = props.user.selected;
-  const title = type.charAt(0).toUpperCase() + type.slice(1) + ' Risks';
+  const title = type.charAt(0).toUpperCase() + type.slice(1) + " Risks";
+
+  // -------------------- SELECT THE CORRECT TEMPLATES IN THIS SECTION --------------------
 
   const allTemplates = props.templates.entries;
   // filter all templates by risk type eg. managerial
@@ -75,13 +77,18 @@ function Templates(props) {
   // create an array of current descriptions to filter by
   const currentRisks = props.risks.entries;
   const filterDescriptions = currentRisks.map((risk) => {
-    return risk.description;
+    return risk.templateId;
   });
+  console.log(filterDescriptions);
+
   // remove the entries that are already used
   const templates = mergedRisks().filter(
-    (risk) => !filterDescriptions.includes(risk.description)
+    (risk) => !filterDescriptions.includes(risk.id)
   );
 
+  // -------------------- SELECT THE CORRECT TEMPLATES IN THIS SECTION --------------------
+
+  // check where clicked to close the template window
   function checkId(targetId) {
     if (targetId === "templateContainer") {
       props.setShowTemplate(false);
@@ -95,6 +102,14 @@ function Templates(props) {
   //   }
   // }
   // closeTemplate()
+
+  const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
+    .length;
+  const riskLimit = usedRisks < maxRisks;
+  if (!riskLimit) {
+    props.setShowTemplate(false);
+  }
 
   useEffect(() => {
     getTemplates();

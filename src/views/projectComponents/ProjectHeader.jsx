@@ -14,11 +14,20 @@ const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-  const countMan = props.risks.entries.filter((risk) => risk.type === "managerial").length;
-  const countTec = props.risks.entries.filter((risk) => risk.type === "technical").length;
-  const countCom = props.risks.entries.filter((risk) => risk.type === "commercial").length;
-  const countLeg = props.risks.entries.filter((risk) => risk.type === "legal").length;
-  const countEnv = props.risks.entries.filter((risk) => risk.type === "environmental").length;
+  const countMan = props.risks.entries.filter(
+    (risk) => risk.type === "managerial"
+  ).length;
+  const countTec = props.risks.entries.filter(
+    (risk) => risk.type === "technical"
+  ).length;
+  const countCom = props.risks.entries.filter(
+    (risk) => risk.type === "commercial"
+  ).length;
+  const countLeg = props.risks.entries.filter((risk) => risk.type === "legal")
+    .length;
+  const countEnv = props.risks.entries.filter(
+    (risk) => risk.type === "environmental"
+  ).length;
 
   function sendChanges(key, value) {
     let id = "";
@@ -116,10 +125,16 @@ function RiskTable(props) {
       </div>
       <div className="banner"></div>
       <div className="titles">
-        <h6>Description</h6>
+        <div className="comments">
+          <h6>Description</h6>
+          <span>{`(${props.user.maxCharacters} max characters)`}</span>
+        </div>
         <h6>Likelihood</h6>
         <h6>Severity</h6>
-        <h6>Mitigation</h6>
+        <div className="comments">
+          <h6>Mitigation</h6>
+          <span>{`(${props.user.maxCharacters} max characters)`}</span>
+        </div>
         <h6>Owner</h6>
       </div>
     </Container>
@@ -184,6 +199,16 @@ const Container = styled.div`
     // border-left: 7px solid black;
     // border-right: 7px solid black;
     border-color: ${(props) => props.color};
+    .comments {
+      display: flex;
+      /* flex-direction: column; */
+      justify-content: center;
+      align-items: baseline;
+      span {
+        padding-left: 10px;
+        font-size: 0.7rem;
+      }
+    }
     h6 {
       padding: 10px 0;
     }

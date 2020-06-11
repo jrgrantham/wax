@@ -20,17 +20,17 @@ function SelectTemplate(props) {
   const riskCount = props.risks.entries.filter((risk) => risk.type === type)
     .length;
   const riskLimit = riskCount < maxRisks;
-
+  
   function addRisk() {
     if (riskLimit) {
       const riskClone = {
-        id: uuidv4(),
+        templateId: template.id,
         type,
-        description: template.description,
+        description: description,
         probability: template.probability,
         consequence: template.consequence,
         owner: props.user[type.slice(0, 3) + "DefaultOwner"],
-        mitigation: template.mitigation,
+        mitigation: mitigation,
       };
       // props.addToProject(riskClone);
       axiosWithAuth(token)
@@ -49,11 +49,14 @@ function SelectTemplate(props) {
   const storedDescription = template.description
   const description = storedDescription.replace("[company name]", props.user.company)
 
+  const storedMitigation = template.mitigation
+  const mitigation = storedMitigation.replace("[company name]", props.user.company)
+
   return (
     <Container>
       <div className="templateRisk">
         <p>{description}</p>
-        <p>{template.mitigation}</p>
+        <p>{mitigation}</p>
         <div className="icon" onClick={() => addRisk()}>
           <img src={addIcon} alt="delete" />
         </div>

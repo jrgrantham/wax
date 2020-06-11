@@ -57,6 +57,7 @@ function Options(props) {
     risk: 0,
     owner: defaultOwner,
     mitigation: "enter risk mitigation.",
+    templateId: 0,
   };
 
   function calculateRisk() {
