@@ -31,7 +31,7 @@ function Options(props) {
   function addToProject() {
     if (riskLimit) {
       axiosWithAuth(token)
-        .post((riskApi + props.user.id), emtpyRow)
+        .post(riskApi + props.user.id, emtpyRow)
         .then((res) => {
           console.log(res.data);
           props.replaceRisks(res.data);
@@ -41,8 +41,8 @@ function Options(props) {
           // props.history.push("/login");
         })
         .finally(() => {
-          setAddRow(false)
-        })
+          setAddRow(false);
+        });
     }
   }
 
@@ -87,31 +87,43 @@ function Options(props) {
         <div className="right">
           {addRow ? (
             <>
-              <button className="button cancel" onClick={() => setAddRow(false)}>
+              <button
+                className="button cancel"
+                onClick={() => setAddRow(false)}
+              >
                 <p>Cancel</p>
               </button>
-              <button className="button middle add" onClick={() => addToProject()}>
+              <button
+                className="button middle add"
+                onClick={() => addToProject()}
+              >
                 <p>blank row</p>
               </button>
-              {props.user.useTemplates ? <button
-                className="button add"
-                onClick={() => {
-                  setAddRow(false);
-                  props.setShowTemplate(true);
-                }}
-              >
-                <p>from template</p>
-              </button> : null}
+              {props.user.useTemplates ? (
+                <button
+                  className="button add"
+                  onClick={() => {
+                    setAddRow(false);
+                    props.setShowTemplate(true);
+                  }}
+                >
+                  <p>from template</p>
+                </button>
+              ) : null}
             </>
           ) : (
             <>
-              {!riskLimit ? <p className="maxRisks">Maximum Risks: {maxRisks} </p> : null}
+              {!riskLimit ? (
+                <p className="maxRisks">Risk Limit Reached</p>
+              ) : null}
               <button className="button" onClick={() => sortRisks()}>
                 <p>Sort</p>
               </button>
-              <div className="image" onClick={() => checkMax()}>
-                <img src={addIcon} alt="add" />
-              </div>
+              {riskLimit ? (
+                <div className="image" onClick={() => checkMax()}>
+                  <img src={addIcon} alt="add" />
+                </div>
+              ) : null}
             </>
           )}
         </div>

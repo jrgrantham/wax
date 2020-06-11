@@ -7,11 +7,11 @@ export default function Header() {
   return (
     <Container>
       <header>
-        <h4>Main Settings</h4>
+        <h4>Settings</h4>
       </header>
       <div className="links">
         <Link to="/">
-          <p>Close</p>
+          <p>Save and Close</p>
           <img src={removeIcon} alt="remove" />
         </Link>
         {/* <Link to="risk-document">View Risk Document</Link> */}
@@ -37,7 +37,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 110px;
+    width: 180px;
     padding: 0.3rem 0.8rem;
     border-radius: 10px;
     margin: 10px 0px 10px 10px;

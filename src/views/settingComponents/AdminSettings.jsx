@@ -50,6 +50,16 @@ function ProjectSettings(props) {
     sendChanges(key, value);
   }
 
+  function selectAll() {
+    // ai, dlt, man
+    props.setProjectValue('ai', true);
+    sendChanges('ai', true);
+    props.setProjectValue('dlt', true);
+    sendChanges('dlt', true);
+    props.setProjectValue('man', true);
+    sendChanges('man', true);
+  }
+
   return (
     <Container>
       <form className="projectForm">
@@ -59,16 +69,27 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Use Templates</label>
           <div className="buttons">
-            <p
+          <p
               id="useTemplates"
               style={
                 props.user.useTemplates
-                  ? { backgroundColor: "green" }
+                  ? { backgroundColor: "darkseagreen" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
             >
               {props.user.useTemplates ? "Yes" : "No"}
+            </p>
+            <p
+              id="selectAll"
+              // style={
+              //   props.user.useTemplates
+              //     ? { backgroundColor: "green" }
+              //     : { backgroundColor: null }
+              // }
+              onClick={(e) => selectAll(e)}
+            >
+              Select All
             </p>
           </div>
         </div>
@@ -81,7 +102,7 @@ function ProjectSettings(props) {
               id="ai"
               style={
                 props.user.ai
-                  ? { backgroundColor: "green" }
+                  ? { backgroundColor: "darkseagreen" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
@@ -92,7 +113,7 @@ function ProjectSettings(props) {
               id="dlt"
               style={
                 props.user.dlt
-                  ? { backgroundColor: "green" }
+                  ? { backgroundColor: "darkseagreen" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
@@ -103,7 +124,7 @@ function ProjectSettings(props) {
               id="man"
               style={
                 props.user.man
-                  ? { backgroundColor: "green" }
+                  ? { backgroundColor: "darkseagreen" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
@@ -195,7 +216,7 @@ function ProjectSettings(props) {
               id="exportSpreadsheet"
               style={
                 props.user.exportSpreadsheet
-                  ? { backgroundColor: "green" }
+                  ? { backgroundColor: "darkseagreen" }
                   : { backgroundColor: null }
               }
               onClick={(e) => toggle(e)}
@@ -279,6 +300,9 @@ const Container = styled.div`
       background-color: #d5d5d5;
       border-radius: 5px;
       padding: 2px;
+    }
+    #selectAll {
+      width: 65%;
     }
   }
   .width {

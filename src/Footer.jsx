@@ -24,19 +24,22 @@ const Container = styled.div`
   justify-content: flex-end;
   /* z-index: 10; */
   bottom: 0;
-  background-color: black;
+  /* background-color: black; */
   width: 100%;
-  padding: 5px 15px;
+  /* padding: 5px 15px; */
   opacity: 0.3;
   transition: opacity 0.3s;
   &:hover {
-    opacity: 0.4;
+    opacity: 1;
   }
 
   a {
     text-align: right;
-    width: 100%;
-    color: white;
+    /* width: 100%; */
+    color: black;
     font-size: 0.8rem;
+    background-color: white;
+    padding: 0.6rem 1.6rem;
+    border-radius: 10px 0 0 0;
   }
 `;
