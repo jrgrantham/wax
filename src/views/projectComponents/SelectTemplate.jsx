@@ -25,7 +25,10 @@ function Templates(props) {
   }
 
   const type = props.user.selected;
+  const title = type.charAt(0).toUpperCase() + type.slice(1) + ' Risks';
+
   const allTemplates = props.templates.entries;
+  // filter all templates by risk type eg. managerial
   const templateSelected = allTemplates.filter(
     (template) => template.type === type
   );
@@ -103,7 +106,7 @@ function Templates(props) {
       onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
-        <h5>{props.user.selected} Risks</h5>
+        <h5>{title}</h5>
         <div className="close" onClick={() => props.setShowTemplate(false)}>
           <img src={removeIcon} alt="" />
         </div>
