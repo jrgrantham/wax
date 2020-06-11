@@ -27,7 +27,7 @@ const Container = styled.div`
   /* background-color: black; */
   width: 100%;
   /* padding: 5px 15px; */
-  opacity: 0.3;
+  opacity: 0.5;
   transition: opacity 0.3s;
   &:hover {
     opacity: 1;
@@ -39,7 +39,7 @@ const Container = styled.div`
     color: black;
     font-size: 0.8rem;
     background-color: white;
-    padding: 0.6rem 1.6rem;
+    padding: 0.3rem 0.8rem;
     border-radius: 10px 0 0 0;
   }
 `;

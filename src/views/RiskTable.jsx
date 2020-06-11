@@ -11,6 +11,7 @@ import { replaceTemplateRisks } from "../state/actionCreators/templateActionCrea
 import { setUser } from "../state/actionCreators/userActionCreators";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
+import add from "../images/addIcon.png";
 
 const userApi = `${url()}api/users/user`;
 const templateApi = `${url()}api/users/templates`;
@@ -57,7 +58,7 @@ function RiskTable(props) {
         // if admin, get by user from local storage
         if (res.data.admin) {
           user = localStorage.getItem("selectedClientId");
-        // otherwise, get by user info
+          // otherwise, get by user info
         } else {
           user = res.data.id;
         }
@@ -65,7 +66,7 @@ function RiskTable(props) {
         axiosWithAuth(token)
           .get(riskApi + user)
           .then((res) => {
-            // console.log(res.data);
+            console.log(res.data);
             props.replaceRisks(sortRisks(res.data));
           })
           .catch((error) => {
@@ -129,6 +130,16 @@ function RiskTable(props) {
   const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
   const color = props.user[selected];
 
+  const emtpy = (
+    <div className="empty">
+      <span>Use the</span>{" "}
+      <div className="image">
+        <img src={add} alt="add" />
+      </div>{" "}
+      <span>button to add risks</span>
+    </div>
+  );
+
   return (
     <Container onClick={(event) => checkTarget(event)} color={color}>
       <Menu showMenu={showMenu} />
@@ -137,6 +148,7 @@ function RiskTable(props) {
       ) : null}
       <Header setShowMenu={setShowMenu} />
       <div className="risks">
+        {risks.length ? null : emtpy}
         {risks.map((risk, index) => (
           <ProjectRisk risk={risk} key={index} />
         ))}
@@ -171,5 +183,17 @@ const Container = styled.div`
     border-color: ${(props) => props.color};
     border-top: none;
     border-radius: 0 0 0 20px;
+  }
+  .empty {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    .image {
+    }
+    img {
+      width: 40px;
+      height: auto;
+      padding: 0 10px;
+    }
   }
 `;

@@ -25,7 +25,12 @@ function Templates(props) {
   }
 
   const type = props.user.selected;
+  const title = type.charAt(0).toUpperCase() + type.slice(1) + " Risks";
+
+  // -------------------- SELECT THE CORRECT TEMPLATES IN THIS SECTION --------------------
+
   const allTemplates = props.templates.entries;
+  // filter all templates by risk type eg. managerial
   const templateSelected = allTemplates.filter(
     (template) => template.type === type
   );
@@ -72,13 +77,18 @@ function Templates(props) {
   // create an array of current descriptions to filter by
   const currentRisks = props.risks.entries;
   const filterDescriptions = currentRisks.map((risk) => {
-    return risk.description;
+    return risk.templateId;
   });
+  console.log(filterDescriptions);
+
   // remove the entries that are already used
   const templates = mergedRisks().filter(
-    (risk) => !filterDescriptions.includes(risk.description)
+    (risk) => !filterDescriptions.includes(risk.id)
   );
 
+  // -------------------- SELECT THE CORRECT TEMPLATES IN THIS SECTION --------------------
+
+  // check where clicked to close the template window
   function checkId(targetId) {
     if (targetId === "templateContainer") {
       props.setShowTemplate(false);
@@ -93,6 +103,14 @@ function Templates(props) {
   // }
   // closeTemplate()
 
+  const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
+  const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
+    .length;
+  const riskLimit = usedRisks < maxRisks;
+  if (!riskLimit) {
+    props.setShowTemplate(false);
+  }
+
   useEffect(() => {
     getTemplates();
   }, []);
@@ -103,7 +121,8 @@ function Templates(props) {
       onClick={(event) => checkId(event.target.id)}
     >
       <div className="templateContents">
-        <h5>{props.user.selected} Risks</h5>
+        <h5>{title}</h5>
+        {/* <h6>Maximum Risks Reached</h6> */}
         <div className="close" onClick={() => props.setShowTemplate(false)}>
           <img src={removeIcon} alt="" />
         </div>
