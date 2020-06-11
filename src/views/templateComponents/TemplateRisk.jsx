@@ -178,21 +178,21 @@ function TemplateSingle(props) {
           <button
             onClick={() => toggleType("ai", template.id)}
             className="flag tbc"
-            style={template.ai ? { backgroundColor: "lightyellow" } : null}
+            style={template.ai ? { backgroundColor: "darkseagreen" } : null}
           >
             <h6>{template.ai ? "Yes" : "No"}</h6>
           </button>
           <button
             onClick={() => toggleType("dlt", template.id)}
             className="flag tbc"
-            style={template.dlt ? { backgroundColor: "lightyellow" } : null}
+            style={template.dlt ? { backgroundColor: "darkseagreen" } : null}
           >
             <h6>{template.dlt ? "Yes" : "No"}</h6>
           </button>
           <button
             onClick={() => toggleType("man", template.id)}
             className="flag tbc"
-            style={template.man ? { backgroundColor: "lightyellow" } : null}
+            style={template.man ? { backgroundColor: "darkseagreen" } : null}
           >
             <h6>{template.man ? "Yes" : "No"}</h6>
           </button>
@@ -300,10 +300,10 @@ export const Container = styled.div`
     .low {
       background-color: ${props => props.low};
     }
-    .owner {
+    /* .owner {
       text-align: center;
       background-color: rgba(180, 180, 180, 1);
-    }
+    } */
     .tbc {
       border: 1px solid black;
       background-color: #e0e0e0;
@@ -320,12 +320,12 @@ export const Container = styled.div`
         }
       }
     }
-    .even {
+    /* .even {
       background-color: #f0f0f0;
     }
     .odd {
       background-color: #e0e0e0;
-    }
+    } */
     .mitigation {
       padding-left: 10px;
     }

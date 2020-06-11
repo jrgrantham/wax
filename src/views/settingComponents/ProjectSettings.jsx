@@ -44,6 +44,28 @@ function ProjectSettings(props) {
       });
   }
 
+  let button = 'show';
+
+  function showPassword(e) {
+    e.preventDefault();
+    const display = document.getElementById('type');
+    if (display.type === 'password') {
+      display.type = 'text'
+      button = 'hide'
+    } else {
+      display.type = 'password'
+      button = 'show'
+    }
+  }
+
+  // useEffect(() => {
+  //   const display = document.getElementById('display');
+  // console.log(display);
+  //   return () => {
+      
+  //   }
+  // }, [])
+
   return (
     <Container>
       <form className="projectForm">
@@ -66,8 +88,10 @@ function ProjectSettings(props) {
 
         {/* Password */}
         <div className="info">
-          <label>Change Password:</label>
+          <label>Password:</label>
+          {/* <button className='password' onClick={(e) => showPassword(e)}>{button}</button> */}
           <input
+            id='type'
             spellCheck="true"
             type="password"
             onChange={onChange}
@@ -193,6 +217,11 @@ const Container = styled.div`
       align-items: center;
       width: 100%;
       margin: 5px;
+    }
+    .password {
+      font-size: 0.7rem;
+      margin-right: 1rem;
+      border-color: lightgray;
     }
 
     input,
