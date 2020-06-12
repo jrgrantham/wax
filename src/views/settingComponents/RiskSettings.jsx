@@ -61,11 +61,12 @@ const Container = styled.div`
   .content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* border: 1px solid black; */
     border-radius: 10px;
     width: 100%;
     max-width: 600px;
-    padding: 20px;
+    padding: 40px 20px;
     background-color: #f0f0f0;
   }
 `;

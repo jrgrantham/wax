@@ -44,7 +44,7 @@ const store = createStore(
   )
 );
 
-function App(props) {
+function App() {
 
 //   function redirect() {
 //     console.log("this is app");

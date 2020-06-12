@@ -44,6 +44,20 @@ function Login(props) {
     // }, 1500);
   }
 
+  let button = "show";
+
+  function showPassword(e) {
+    e.preventDefault();
+    const display = document.getElementById("type");
+    if (display.type === "password") {
+      display.type = "text";
+      button = "hide";
+    } else {
+      display.type = "password";
+      button = "show";
+    }
+  }
+
   useEffect(() => {
     // to clear redux
     if (!window.location.hash) {

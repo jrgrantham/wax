@@ -3,15 +3,13 @@ import { connect } from "react-redux";
 import Clients from "./Clients";
 import Templates from "./Templates";
 import styled from "styled-components";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
 import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { useEffect } from "react";
 
 // const templateApi = `${url()}api/users/templates`;
 
-function AdminDashboard(props) {
+function AdminDashboard() {
   const [displayClients, setDisplayClients] = useState(true);
 
   // if admin, need to fetch client by different method

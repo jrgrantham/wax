@@ -27,28 +27,27 @@ function RiskTable(props) {
     return sortedRisks;
   }
 
-  console.log('ran');
   function getData() {
-    
+    console.log('fetching user data');
+    const selectedUser = localStorage.getItem("selectedClientId");
     axiosWithAuth(token)
       .get(userApi)
       .then((res) => {
         // check response, if user not admin, set user
         // console.log("initial id:", res.data.id);
         if (!res.data.admin) {
+          console.log('client detected - setting user');
           props.setUser(res.data);
           // if user is admin, fetch the user by selected id
         } else {
-          props.setUser(res.data);
-          const selectedUser = localStorage.getItem("selectedClientId");
+          // props.setUser(res.data);
+          console.log(`admin detected - fetching data, ID: ${selectedUser}`);
           // if no user in storage, skip.
           if (selectedUser) {
-            // const api = clientApi + selectedUser;
-            // console.log(api);
             axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
-                // console.log(res.data);
+                console.log(`data for user ID: ${selectedUser} received`);
                 props.setUser(res.data);
               })
               .catch((error) => {
@@ -59,32 +58,37 @@ function RiskTable(props) {
         let user = "";
         // if admin, get by user from local storage
         if (res.data.admin) {
-          user = localStorage.getItem("selectedClientId");
+          user = selectedUser;
           // otherwise, get by user info
         } else {
           user = res.data.id;
         }
-        // console.log(riskApi + user);
-        axiosWithAuth(token)
-          .get(riskApi + user)
-          .then((res) => {
-            // console.log(res.data);
-            props.replaceRisks(sortRisks(res.data));
-          })
-          .catch((error) => {
-            console.log(error.message);
-            // props.history.push("/login");
-          });
-        if (res.data.useTemplates) {
+        setTimeout(() => {
+          console.log('** 500ms delay **');
+          console.log('fetching risks');
           axiosWithAuth(token)
-            .get(templateApi)
+            .get(riskApi + user)
             .then((res) => {
-              props.replaceTemplateRisks(res.data);
+              console.log('risks received');
+              props.replaceRisks(sortRisks(res.data));
             })
             .catch((error) => {
               console.log(error.message);
+              // props.history.push("/login");
             });
-        }
+          if (res.data.useTemplates) {
+          console.log('fetching templates');
+          axiosWithAuth(token)
+              .get(templateApi)
+              .then((res) => {
+              console.log('templates received');
+              props.replaceTemplateRisks(res.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        }, 500);
       })
       .catch((error) => {
         console.log(error.message);
@@ -93,24 +97,10 @@ function RiskTable(props) {
       });
   }
 
-  // useEffect(() => {
-  //   getData();
-  //   return function cleanup() {
-  //     (console.log("unmounted")) // send state here
-  //   }
-  // }, []);
-
   const type = props.user.selected.toLowerCase();
   const risks = props.risks.entries.filter((risk) => risk.type === type);
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-
-  // console.log(risks);
-
-  // const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
-  // const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
-  //   .length;
-  // const riskLimit = usedRisks < maxRisks;
 
   function checkTarget(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
@@ -125,7 +115,7 @@ function RiskTable(props) {
     // }
     getData();
     return () => {
-      console.log("unmounted risks"); // send state here
+      console.log("leaving risk table"); // send state here
     };
   }, []);
 

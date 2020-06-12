@@ -1,5 +1,5 @@
 export const user = {
-  email: "user created ",
+  email: "",
   password: "change",
   admin: false,
   company: "",
