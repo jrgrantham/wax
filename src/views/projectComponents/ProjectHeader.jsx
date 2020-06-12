@@ -78,10 +78,10 @@ function RiskTable(props) {
     <Container color={color}>
       <header>
         <div className="left">
-          <h4>Risk Management Table {props.user.admin ? "(Admin)" : null}</h4>
-          <p>
+          <h4>
+            Risk Management{props.user.admin ? " (Admin)" : null}:{" "}
             {props.user.project} - {props.user.company}
-          </p>
+          </h4>
         </div>
         <div className="image" onClick={(e) => showMenu(e)}>
           <img src={menu} alt="menu" />
@@ -165,6 +165,10 @@ const Container = styled.div`
     margin-left: 10px;
     width: 100%;
     padding-top: 15px;
+    .left {
+      display: flex;
+      align-items: baseline;
+    }
     .image {
       width: 30px;
       margin-right: 10px;

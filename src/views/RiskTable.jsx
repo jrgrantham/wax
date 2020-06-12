@@ -169,7 +169,7 @@ const Container = styled.div`
     background-color: #e5e5e5;
     width: 100%;
     max-width: 1500px;
-    margin-top: 186px;
+    margin-top: 168px;
     padding-bottom: 15px;
     // border: 7px solid;
     border-color: ${(props) => props.color};
