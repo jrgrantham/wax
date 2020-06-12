@@ -9,11 +9,16 @@ import { useEffect } from "react";
 
 // const templateApi = `${url()}api/users/templates`;
 
-function AdminDashboard() {
+function AdminDashboard(props) {
   const [displayClients, setDisplayClients] = useState(true);
 
   // if admin, need to fetch client by different method
   // set the chosen project id to local storage
+
+  function logout() {
+    localStorage.removeItem("token");
+    props.history.push("/login");
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,7 +32,14 @@ function AdminDashboard() {
       <header>
         <h3>Admin Dashboard</h3>
         <div>
-          <button className='dashboard left'
+          <button
+            className="dashboard logout"
+            onClick={logout}
+          >
+            <h5>Log out</h5>
+          </button>
+          <button
+            className="dashboard left"
             onClick={() => setDisplayClients(true)}
             style={
               displayClients
@@ -37,7 +49,8 @@ function AdminDashboard() {
           >
             <h5>Clients</h5>
           </button>
-          <button className='dashboard right'
+          <button
+            className="dashboard right"
             onClick={() => setDisplayClients(false)}
             style={
               displayClients
@@ -92,5 +105,10 @@ const Container = styled.div`
   }
   button.right {
     border-radius: 0 10px 10px 0;
+  }
+  button.logout {
+    background-color: lightgray;
+    border-radius: 10px;
+    margin-right: 20px;
   }
 `;

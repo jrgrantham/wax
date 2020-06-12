@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
@@ -10,7 +10,8 @@ import addIcon from "../images/addIcon.png";
 import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
 import { setClients } from "../state/actionCreators/clientActionCreators";
-import {user} from '../data/newUser';
+import { user } from "../data/newUser";
+import { v4 as uuidv4 } from "uuid";
 
 const allClientsApi = `${url()}api/users/clients`;
 const clientApi = `${url()}api/users/client`;
@@ -20,29 +21,32 @@ function Clients(props) {
   // const selected = props.projectRisks.selected;
   // const templates = props.templates[selected.toLowerCase()];
 
-  function getData() {
+  function getClients() {
+    console.log('fetching clients');
+    const token = localStorage.getItem("token");
     axiosWithAuth(token)
       .get(allClientsApi)
       .then((res) => {
-        console.log(res.data);
+        console.log('clients received');
         props.setClients(res.data);
       })
       .catch((error) => {
         console.log(error.message);
       });
   }
+
   function sendNewClient() {
-    user.email = 'user created ' + Date();
+    user.email = `new user ${uuidv4().slice(24)}`;
     axiosWithAuth(token)
-    .post(clientApi, user)
-    .then((res) => {
-      console.log(res.data);
-      localStorage.setItem('selectedClientId', res.data.id)
-      props.history.push('/project-settings')
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .post(clientApi, user)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("selectedClientId", res.data.id);
+        props.history.push("/project-settings");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   const [, setShowMenu] = useState(false);
@@ -54,9 +58,9 @@ function Clients(props) {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      getData();
-    }, 500);
+    if (!props.clients.length) {
+      getClients();
+    }
     return () => {};
   }, []);
 
@@ -85,7 +89,7 @@ export default withRouter(connect((state) => state, { setClients })(Clients));
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin:  0px 20px 20px 20px;
+  margin: 0px 20px 20px 20px;
   align-items: center;
   /* min-height: 100vh; */
   /* background-color: #e5e5e5; */
