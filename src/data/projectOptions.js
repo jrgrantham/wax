@@ -1,11 +1,6 @@
 export const projectOptions = {
   riskRange: ["TBC", "Low", "Medium", "High"],
-  natureOptions: [
-    "Platform",
-    "Product",
-    "Process",
-    "Service",
-  ],
+  natureOptions: ["Platform", "Product", "Process", "Service"],
   typeOptions: [
     "General",
     "Artificial Intelligence",
@@ -18,6 +13,14 @@ export const projectOptions = {
     "Review+",
     "Review",
     "Template",
+  ],
+  ipMethodOptions: [
+    "copyright",
+    "patents",
+    "trade secrets",
+    "patents and copyright",
+    "copyright and trade secrets",
+    "patents and trade secrets",
   ],
   riskColorOptions: [
     "#C28B9A",
@@ -33,8 +36,8 @@ export const projectOptions = {
   maxCharacterChoices: [300],
   fontSizeChoices: [6, 6.5, 7, 7.5, 8],
   high: "#E06666",
-  medium: "#F9CB9C", 
-  low: '#FBF49B',
+  medium: "#F9CB9C",
+  low: "#FBF49B",
 };
 
 export const templates = { entries: [] };

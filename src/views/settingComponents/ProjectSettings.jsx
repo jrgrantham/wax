@@ -12,8 +12,8 @@ const token = localStorage.getItem("token");
 const clientApi = `${url()}api/users/client/`;
 
 function ProjectSettings(props) {
-  const { company, project, application, nature, email, password } = props.user;
-  const { natureOptions } = projectOptions;
+  const { company, project, application, nature, email, password, ipMethod } = props.user;
+  const { natureOptions, ipMethodOptions } = projectOptions;
 
   function onChange(event) {
     const key = event.target.name;
@@ -39,12 +39,12 @@ function ProjectSettings(props) {
           if (selectedUser) {
             // const api = clientApi + selectedUser;
             // console.log(api);
-          console.log("fetching client, ID: ", selectedUser);
-          axiosWithAuth(token)
+            console.log("fetching client, ID: ", selectedUser);
+            axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
-          console.log("client", selectedUser, 'received');
-          props.setUser(res.data);
+                console.log("client", selectedUser, "received");
+                props.setUser(res.data);
               })
               .catch((error) => {
                 console.log(error.message);
@@ -143,6 +143,26 @@ function ProjectSettings(props) {
             value={nature}
           >
             {natureOptions.map((option, index) => {
+              return (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        {/* ipMethod */}
+        <div className="info">
+          <label>IP Method:</label>
+          <select
+            type="text"
+            onChange={onChange}
+            onBlur={sendChanges}
+            name="ipMethod"
+            value={ipMethod}
+          >
+            {ipMethodOptions.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
