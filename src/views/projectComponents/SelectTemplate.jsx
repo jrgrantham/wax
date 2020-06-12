@@ -29,24 +29,27 @@ function Templates(props) {
 
   // -------------------- SELECT THE CORRECT TEMPLATES IN THIS SECTION --------------------
 
-  const allTemplates = props.templates.entries;
+  const originalTemplates = props.templates.entries;
   // filter all templates by risk type eg. managerial
-  const templateSelected = allTemplates.filter(
+  const templateSelected = originalTemplates.filter(
     (template) => template.type === type
   );
 
   let aiTemplates = [];
   let dltTemplates = [];
   let manTemplates = [];
+  let allTemplates = [];
 
   if (process.env.NODE_ENV === "production") {
     aiTemplates = templateSelected.filter((template) => template.ai === true);
     dltTemplates = templateSelected.filter((template) => template.dlt === true);
     manTemplates = templateSelected.filter((template) => template.man === true);
+    allTemplates = templateSelected.filter((template) => template.all === true);
   } else {
     aiTemplates = templateSelected.filter((template) => template.ai === 1);
     dltTemplates = templateSelected.filter((template) => template.dlt === 1);
     manTemplates = templateSelected.filter((template) => template.man === 1);
+    allTemplates = templateSelected.filter((template) => template.all === 1);
   }
 
   // funtion to merge relevant arrays and remove duplicates
@@ -61,6 +64,9 @@ function Templates(props) {
     }
     if (props.user.man) {
       relevantTemplates = relevantTemplates.concat(manTemplates);
+    }
+    if (props.user.all) {
+      relevantTemplates = relevantTemplates.concat(allTemplates);
     }
 
     // remove duplicates

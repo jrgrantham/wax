@@ -3,18 +3,10 @@ import html2pdf from "html2pdf.js";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import PrintRisks from "./printComponents/PrintRisks";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
 import { useEffect } from "react";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { replaceRisks } from "../state/actionCreators/riskActionCreators";
-import { setUser } from "../state/actionCreators/userActionCreators";
-
-const userApi = `${url()}api/users/user`;
-const templateApi = `${url()}api/users/templates`;
-const clientApi = `${url()}api/users/client/`;
-const riskApi = `${url()}api/users/risks/`;
-const token = localStorage.getItem("token");
+import { setUser } from "../state/actionCreators/userActionCreators"
 
 function Print(props) {
   const managerial = props.risks.entries.filter(
@@ -31,108 +23,34 @@ function Print(props) {
     (risk) => risk.type === "technical"
   );
 
-  // console.log(managerial, commercial, legal, technical, environmental);
-
-  function getData() {
-    function sortRisks(array) {
-      const sortedRisks = array.sort(function (a, b) {
-        return b.risk - a.risk;
-      });
-      return sortedRisks;
-    }
-
-    axiosWithAuth(token)
-      .get(userApi)
-      .then((res) => {
-        // check response, if user not admin, set user
-        console.log("initial id:", res.data.id);
-        if (!res.data.admin) {
-          props.setUser(res.data);
-          // if user is admin, fetch the user by selected id
-        } else {
-          props.setUser(res.data);
-          const selectedUser = localStorage.getItem("selectedClientId");
-          // if no user in storage, skip.
-          if (selectedUser) {
-            const api = clientApi + selectedUser;
-            console.log(api);
-            axiosWithAuth(token)
-              .get(clientApi + selectedUser)
-              .then((res) => {
-                console.log(res.data);
-                props.setUser(res.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
-        }
-        let user = "";
-        // if admin, get by user from local storage
-        if (res.data.admin) {
-          user = localStorage.getItem("selectedClientId");
-          // otherwise, get by user info
-        } else {
-          user = res.data.id;
-        }
-        console.log(riskApi + user);
-        axiosWithAuth(token)
-          .get(riskApi + user)
-          .then((res) => {
-            console.log(res.data);
-            props.replaceRisks(sortRisks(res.data));
-          })
-          .catch((error) => {
-            console.log(error.message);
-            // props.history.push("/login");
-          });
-        if (res.data.useTemplates) {
-          axiosWithAuth(token)
-            .get(templateApi)
-            .then((res) => {
-              props.replaceTemplateRisks(res.data);
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        // window.location.replace(`${url()}login`)
-        // props.history.push("/login");
-      })
-      .finally();
-  }
-
   function generatePDF() {
-    // setTimeout(function () {
-    // window.print();
     const element = document.getElementById("pdf");
+    const {project, application, appendixRef} = props.user
+    const filename = `${project} - ${application} - Appendix ${appendixRef}`;
+
     const options = {
       margin: 0,
-      filename: "Risk Table",
+      filename,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 4 },
       jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
     };
     html2pdf().set(options).from(element).save();
-    props.history.push("/");
-    // }, 500);
+    setTimeout(() => {
+      props.history.push("/");
+    }, 5000);
   }
 
   useEffect(() => {
-    // getData();
-    generatePDF();
-    // return () => {};
+    setTimeout(() => {
+      generatePDF();
+    }, 1000);
+    return () => {};
   }, []);
-
-  // window.onload = function() { window.print(); }
 
   return (
     <Container id="pdf" fontSize={props.user.fontSize}>
       <div className="contents">
-        {/* <Link to="/">Risk Table</Link> */}
         <header>
           <h6>
             {props.user.project} - {props.user.company}
