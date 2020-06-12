@@ -75,7 +75,7 @@ function ProjectSettings(props) {
   }
 
   useEffect(() => {
-    if (!props.user.email) {
+    if (!props.user.company) {
       getSettings();
     }
     return () => {};

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 
 import { Provider } from "react-redux";
@@ -10,13 +10,7 @@ import {
 } from "./state/reducers";
 import { combineReducers, createStore, compose } from "redux";
 // import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-import {
-  Route,
-  withRouter,
-  BrowserRouter,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, withRouter, BrowserRouter, Switch } from "react-router-dom";
 // import thunk from "redux-thunk";
 
 import RiskTable from "./views/RiskTable";
@@ -25,9 +19,7 @@ import Settings from "./views/Settings";
 import Login from "./views/Login";
 import Footer from "./Footer";
 import AdminDashboard from "./views/AdminDashboard";
-// import PrintTable from "./views/PrintTable";
 import Print from "./views/Print";
-import { render } from "@testing-library/react";
 
 const monsterReducer = combineReducers({
   templates: templateReducer,
@@ -45,19 +37,6 @@ const store = createStore(
 );
 
 function App() {
-
-//   function redirect() {
-//     console.log("this is app");
-//     render() {
-//       <Redirect to={{ pathname: "/" }} />;
-//     }
-//   }
-
-  useEffect(() => {
-    // redirect()
-    return () => {};
-  }, []);
-
   return (
     <Provider store={store}>
       {/* <div className="App"> */}
@@ -71,9 +50,9 @@ function App() {
           <Route path="/print" component={Print} />
           <Route component={RiskTable} />
         </Switch>
+        <Footer />
       </BrowserRouter>
       {/* </div> */}
-      <Footer />
     </Provider>
   );
 }
