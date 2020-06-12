@@ -11,6 +11,7 @@ import axiosWithAuth from "../authentication/axiosWithAuth";
 import url from "../helpers/url";
 import { setClients } from "../state/actionCreators/clientActionCreators";
 import { user } from "../data/newUser";
+import { setUser } from "../state/actionCreators/userActionCreators";
 import { v4 as uuidv4 } from "uuid";
 
 const allClientsApi = `${url()}api/users/clients`;
@@ -37,6 +38,7 @@ function Clients(props) {
 
   function sendNewClient() {
     user.email = `new user ${uuidv4().slice(24)}`;
+    localStorage.setItem('newClient', 'true');
     axiosWithAuth(token)
       .post(clientApi, user)
       .then((res) => {
@@ -84,7 +86,7 @@ function Clients(props) {
   );
 }
 
-export default withRouter(connect((state) => state, { setClients })(Clients));
+export default withRouter(connect((state) => state, { setClients, setUser })(Clients));
 
 const Container = styled.div`
   display: flex;

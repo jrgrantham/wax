@@ -23,6 +23,10 @@ function Options(props) {
   function checkMax() {
     if (riskLimit) {
       setAddRow(true);
+    } else {
+      alert(
+        "You cant add more risks as risk limit has been reached. \nDelete a risk too add new risks"
+      );
     }
   }
 
@@ -120,11 +124,11 @@ function Options(props) {
               <button className="button" onClick={() => sortRisks()}>
                 <p>Sort</p>
               </button>
-              {riskLimit ? (
+              {/* {riskLimit ? ( */}
                 <div className="image" onClick={() => checkMax()}>
                   <img src={addIcon} alt="add" />
                 </div>
-              ) : null}
+              {/* // ) : null} */}
             </>
           )}
         </div>

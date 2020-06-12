@@ -78,6 +78,7 @@ function TemplateHeader(props) {
         <h6>AI</h6>
         <h6>DLT</h6>
         <h6>MAN</h6>
+        <h6>ALL</h6>
       </div>
     </Container>
   );
@@ -130,13 +131,14 @@ const Container = styled.div`
   .titles {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px;
+    grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px 50px;
     column-gap: 5px;
     padding: 5px 25px 0px 25px;
     background-color: #e5e5e5;
 
     h6 {
       padding: 10px 0;
+      text-align: center;
     }
   }
 `;

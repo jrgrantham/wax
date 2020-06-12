@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Clients from "./Clients";
 import Templates from "./Templates";
 import styled from "styled-components";
-import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 import { useEffect } from "react";
 
@@ -67,7 +66,7 @@ function AdminDashboard(props) {
   );
 }
 
-export default connect((state) => state, { replaceTemplateRisks, setUser })(
+export default connect((state) => state, { replaceTemplateRisks })(
   AdminDashboard
 );
 

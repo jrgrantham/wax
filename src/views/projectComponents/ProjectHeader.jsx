@@ -36,7 +36,7 @@ function RiskTable(props) {
     } else {
       id = props.user.id;
     }
-    console.log('setting risk type');
+    console.log("setting risk type");
     axiosWithAuth(token)
       .put(userApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
@@ -78,7 +78,7 @@ function RiskTable(props) {
     <Container color={color}>
       <header>
         <div className="left">
-          <h4>Risk Management Table</h4>
+          <h4>Risk Management Table {props.user.admin ? "(Admin)" : null}</h4>
           <p>
             {props.user.project} - {props.user.company}
           </p>
@@ -211,6 +211,7 @@ const Container = styled.div`
     }
     h6 {
       padding: 10px 0;
+      text-align: center;
     }
   }
 `;

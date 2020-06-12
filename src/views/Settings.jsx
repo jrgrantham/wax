@@ -6,8 +6,15 @@ import RiskSettings from "./settingComponents/RiskSettings";
 import Header from "./settingComponents/SettingsHeader";
 import AdminSettings from "./settingComponents/AdminSettings";
 import { setUser } from "../state/actionCreators/userActionCreators";
+import { useEffect } from "react";
 
 function ClientSettings(props) {
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('newClient')
+    }
+  }, [])
+  
   return (
     <Container>
       <div className="contents">

@@ -196,6 +196,13 @@ function TemplateSingle(props) {
           >
             <h6>{template.man ? "Yes" : "No"}</h6>
           </button>
+          <button
+            onClick={() => toggleType("all", template.id)}
+            className="flag tbc"
+            style={template.all ? { backgroundColor: "darkseagreen" } : null}
+          >
+            <h6>{template.all ? "Yes" : "No"}</h6>
+          </button>
 
           <div className="icon" onClick={() => toggleDelete()}>
             <img src={removeIcon} alt="delete" />
@@ -244,7 +251,7 @@ export const Container = styled.div`
 
   .risk {
     display: grid;
-    grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px 20px;
+    grid-template-columns: 1fr 90px 90px 1fr 50px 50px 50px 50px 20px;
     column-gap: 5px;
     padding: 10px 0px 10px 25px;
     /* transition: background-color 0.3s; */

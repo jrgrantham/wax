@@ -50,15 +50,15 @@ function ProjectSettings(props) {
     sendChanges(key, value);
   }
 
-  function selectAll() {
-    // ai, dlt, man
-    props.setProjectValue('ai', !props.user.ai);
-    sendChanges('ai', !props.user.ai);
-    props.setProjectValue('dlt', !props.user.ai);
-    sendChanges('dlt', !props.user.ai);
-    props.setProjectValue('man', !props.user.ai);
-    sendChanges('man', !props.user.ai);
-  }
+  // function selectAll() {
+  //   // ai, dlt, man
+  //   props.setProjectValue('ai', !props.user.ai);
+  //   sendChanges('ai', !props.user.ai);
+  //   props.setProjectValue('dlt', !props.user.ai);
+  //   sendChanges('dlt', !props.user.ai);
+  //   props.setProjectValue('man', !props.user.ai);
+  //   sendChanges('man', !props.user.ai);
+  // }
 
   return (
     <Container>
@@ -69,7 +69,7 @@ function ProjectSettings(props) {
         <div className="info">
           <label>Use Templates</label>
           <div className="buttons">
-          <p
+            <p
               id="useTemplates"
               style={
                 props.user.useTemplates
@@ -80,7 +80,7 @@ function ProjectSettings(props) {
             >
               {props.user.useTemplates ? "Yes" : "No"}
             </p>
-            {props.user.useTemplates ? <p
+            {/* {props.user.useTemplates ? <p
               id="selectAll"
               // style={
               //   props.user.useTemplates
@@ -90,49 +90,51 @@ function ProjectSettings(props) {
               onClick={(e) => selectAll(e)}
             >
               Toggle all
-            </p> : null}
+            </p> : null} */}
           </div>
         </div>
 
         {/* type */}
-        {props.user.useTemplates ?         <div className="info">
-          <label>Templates Available</label>
-          <div className="buttons">
-            <p
-              id="ai"
-              style={
-                props.user.ai
-                  ? { backgroundColor: "darkseagreen" }
-                  : { backgroundColor: null }
-              }
-              onClick={(e) => toggle(e)}
-            >
-              AI
-            </p>
-            <p
-              id="dlt"
-              style={
-                props.user.dlt
-                  ? { backgroundColor: "darkseagreen" }
-                  : { backgroundColor: null }
-              }
-              onClick={(e) => toggle(e)}
-            >
-              DLT
-            </p>
-            <p
-              id="man"
-              style={
-                props.user.man
-                  ? { backgroundColor: "darkseagreen" }
-                  : { backgroundColor: null }
-              }
-              onClick={(e) => toggle(e)}
-            >
-              MAN
-            </p>
+        {props.user.useTemplates ? (
+          <div className="info">
+            <label>Templates Available</label>
+            <div className="buttons">
+              <p
+                id="ai"
+                style={
+                  props.user.ai
+                    ? { backgroundColor: "darkseagreen" }
+                    : { backgroundColor: null }
+                }
+                onClick={(e) => toggle(e)}
+              >
+                AI
+              </p>
+              <p
+                id="dlt"
+                style={
+                  props.user.dlt
+                    ? { backgroundColor: "darkseagreen" }
+                    : { backgroundColor: null }
+                }
+                onClick={(e) => toggle(e)}
+              >
+                DLT
+              </p>
+              <p
+                id="man"
+                style={
+                  props.user.man
+                    ? { backgroundColor: "darkseagreen" }
+                    : { backgroundColor: null }
+                }
+                onClick={(e) => toggle(e)}
+              >
+                MAN
+              </p>
+            </div>
           </div>
-        </div> : null}
+        ) : null}
 
         {/* flavour */}
         <div className="info">
