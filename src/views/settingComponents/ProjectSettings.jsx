@@ -1,30 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/projectOptions";
+import { setUser } from "../../state/actionCreators/userActionCreators";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
 
 const userApi = `${url()}api/users/user`;
 const token = localStorage.getItem("token");
+const clientApi = `${url()}api/users/client/`;
 
 function ProjectSettings(props) {
-  const {
-    company,
-    project,
-    application,
-    nature,
-    type,
-    email,
-    password,
-  } = props.user;
-  const { natureOptions, typeOptions } = projectOptions;
+  const { company, project, application, nature, email, password } = props.user;
+  const { natureOptions } = projectOptions;
 
   function onChange(event) {
     const key = event.target.name;
     const value = event.target.value;
     props.setProjectValue(key, value);
+  }
+
+  function getSettings() {
+    console.log("fetching user");
+    const selectedUser = localStorage.getItem("selectedClientId");
+    axiosWithAuth(token)
+      .get(userApi)
+      .then((res) => {
+        // check response, if user not admin, set user
+        if (!res.data.admin) {
+          props.setUser(res.data);
+          // if user is admin, fetch the user by selected id
+        } else {
+          // props.setUser(res.data);
+          // if no user in storage, skip.
+          if (selectedUser) {
+            // const api = clientApi + selectedUser;
+            // console.log(api);
+            axiosWithAuth(token)
+              .get(clientApi + selectedUser)
+              .then((res) => {
+                // console.log(res.data);
+                props.setUser(res.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // window.location.replace(`${url()}login`)
+        // props.history.push("/login");
+      });
   }
 
   function sendChanges(event) {
@@ -45,27 +74,12 @@ function ProjectSettings(props) {
       });
   }
 
-  let button = "show";
-
-  function showPassword(e) {
-    e.preventDefault();
-    const display = document.getElementById("type");
-    if (display.type === "password") {
-      display.type = "text";
-      button = "hide";
-    } else {
-      display.type = "password";
-      button = "show";
+  useEffect(() => {
+    if (!props.user.email) {
+      getSettings();
     }
-  }
-
-  // useEffect(() => {
-  //   const display = document.getElementById('display');
-  // console.log(display);
-  //   return () => {
-
-  //   }
-  // }, [])
+    return () => {};
+  }, []);
 
   return (
     <Container>
@@ -135,26 +149,6 @@ function ProjectSettings(props) {
           </select>
         </div>
 
-        {/* type */}
-        {/* <div className="info">
-          <label>Project Type:</label>
-          <select
-            type="text"
-            onChange={onChange}
-            onBlur={sendChanges}
-            name="type"
-            value={type}
-          >
-            {typeOptions.map((option, index) => {
-              return (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              );
-            })}
-          </select>
-        </div> */}
-
         {/* project */}
         <div className="info">
           <label>Project Name: </label>
@@ -183,7 +177,9 @@ function ProjectSettings(props) {
   );
 }
 
-export default connect((state) => state, { setProjectValue })(ProjectSettings);
+export default connect((state) => state, { setProjectValue, setUser })(
+  ProjectSettings
+);
 
 const Container = styled.div`
   display: flex;

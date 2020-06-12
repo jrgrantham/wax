@@ -11,39 +11,10 @@ import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 
 const templateApi = `${url()}api/users/templates`;
-const userApi = `${url()}api/users/user`;
-const clientApi = `${url()}api/users/client/`;
 const token = localStorage.getItem("token");
 
 function Templates(props) {
   function getTemplates() {
-    // axiosWithAuth(token)
-    //   .get(userApi)
-    //   .then((res) => {
-    //     props.setUser(res.data);
-    //     // check response, if user admin
-    //     // if (res.data.admin) {
-    //     //   const selectedUser = localStorage.getItem("selectedClientId");
-    //     //   // if no user in storage, skip.
-    //     //   if (selectedUser) {
-    //     //     const client = clientApi + selectedUser;
-    //     //     axiosWithAuth(token)
-    //     //       .get(client)
-    //     //       .then((res) => {
-    //     //         console.log(res.data);
-    //     //         props.setUser(res.data);
-    //     //       })
-    //     //       .catch((error) => {
-    //     //         console.log(error.message);
-    //     //       });
-    //     //   }
-    //     // }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //     // window.location.replace(`${url()}login`)
-    //     props.history.push("/login");
-    //   });
     axiosWithAuth(token)
       .get(templateApi)
       .then((res) => {
@@ -56,9 +27,9 @@ function Templates(props) {
   }
 
   useEffect(() => {
-    if (props.user.admin) {
+    setTimeout(() => {
       getTemplates();
-    }
+    }, 500);
     return () => {
       // send data back
     };

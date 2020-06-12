@@ -54,7 +54,9 @@ function Clients(props) {
   }
 
   useEffect(() => {
-    getData();
+    setTimeout(() => {
+      getData();
+    }, 500);
     return () => {};
   }, []);
 

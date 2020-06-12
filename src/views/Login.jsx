@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import url from "../helpers/url";
@@ -24,26 +25,37 @@ function Login(props) {
         setLoginForm(blankForm);
         localStorage.setItem("token", response.data.token);
         props.setUser(response.data.settings);
-        // console.log(response.data.admin);
-        // console.log(response.data.settings);
-        if (response.data.admin) {
-          props.history.push("/admin");
-        } else {
-          props.history.push("/");
-        }
-        // setTimeout(() => {
-        //   if (response.data.admin) {
-        //     props.history.push("/admin");
-        //   } else {
-        //     props.history.push("/");
-        //   }
-        // }, 3000);
+        redirect(response.data.admin);
       })
       .catch((error) => {
         console.log(error);
         setLoginForm(blankForm);
       })
       .finally(() => {}); // add code in the block if required
+  }
+
+  function redirect(admin) {
+    // setTimeout(() => {
+      if (admin) {
+        props.history.push("/admin");
+      } else {
+        props.history.push("/");
+      }
+    // }, 1500);
+  }
+
+  let button = "show";
+
+  function showPassword(e) {
+    e.preventDefault();
+    const display = document.getElementById("type");
+    if (display.type === "password") {
+      display.type = "text";
+      button = "hide";
+    } else {
+      display.type = "password";
+      button = "show";
+    }
   }
 
   useEffect(() => {
