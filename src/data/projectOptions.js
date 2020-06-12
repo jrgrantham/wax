@@ -1,7 +1,6 @@
 export const projectOptions = {
   riskRange: ["TBC", "Low", "Medium", "High"],
   natureOptions: [
-    "select nature...",
     "Platform",
     "Product",
     "Process",

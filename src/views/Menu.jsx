@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import { projectOptions } from "../data/projectOptions";
 
 function Menu(props) {
   const forCSV = [];
@@ -9,8 +10,8 @@ function Menu(props) {
   props.risks.entries.forEach((risk) => {
     const type = risk.type;
     const description = risk.description;
-    const probability = risk.probability;
-    const consequences = risk.consequence;
+    const probability = projectOptions.riskRange[risk.probability];
+    const consequences = projectOptions.riskRange[risk.consequence];
     const mitigation = risk.mitigation;
     const owner = risk.owner;
     const output = {

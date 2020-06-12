@@ -84,7 +84,7 @@ function Print(props) {
           })
           .catch((error) => {
             console.log(error.message);
-            props.history.push("/login");
+            // props.history.push("/login");
           });
         if (res.data.useTemplates) {
           axiosWithAuth(token)
@@ -100,7 +100,7 @@ function Print(props) {
       .catch((error) => {
         console.log(error.message);
         // window.location.replace(`${url()}login`)
-        props.history.push("/login");
+        // props.history.push("/login");
       })
       .finally();
   }

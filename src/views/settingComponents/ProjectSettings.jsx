@@ -15,11 +15,10 @@ function ProjectSettings(props) {
     project,
     application,
     nature,
-    type,
     email,
     password,
   } = props.user;
-  const { natureOptions, typeOptions } = projectOptions;
+  const { natureOptions } = projectOptions;
 
   function onChange(event) {
     const key = event.target.name;

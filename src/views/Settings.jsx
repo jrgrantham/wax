@@ -49,14 +49,14 @@ function ClientSettings(props) {
       .catch((error) => {
         console.log(error.message);
         // window.location.replace(`${url()}login`)
-        props.history.push("/login");
+        // props.history.push("/login");
       });
   }
 
   useEffect(() => {
-    getSettings();
+    // getSettings();
     return () => {
-      console.log("unmounted settings"); // send state here
+      // console.log("unmounted settings"); // send state here
     };
   }, []);
 
