@@ -36,6 +36,7 @@ function RiskTable(props) {
     } else {
       id = props.user.id;
     }
+    console.log('setting risk type');
     axiosWithAuth(token)
       .put(userApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
@@ -64,7 +65,6 @@ function RiskTable(props) {
   }
 
   function sortRisks() {
-    console.log("ran");
     const sortedRisks = calculateRisk().sort(function (a, b) {
       return b.risk - a.risk;
     });
