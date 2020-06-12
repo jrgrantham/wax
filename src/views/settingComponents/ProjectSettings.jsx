@@ -40,21 +40,22 @@ function ProjectSettings(props) {
       .put(userApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
       .catch((error) => {
-        console.log(error.message);
+        console.log(error);
+        // alert(error.message);
       });
   }
 
-  let button = 'show';
+  let button = "show";
 
   function showPassword(e) {
     e.preventDefault();
-    const display = document.getElementById('type');
-    if (display.type === 'password') {
-      display.type = 'text'
-      button = 'hide'
+    const display = document.getElementById("type");
+    if (display.type === "password") {
+      display.type = "text";
+      button = "hide";
     } else {
-      display.type = 'password'
-      button = 'show'
+      display.type = "password";
+      button = "show";
     }
   }
 
@@ -62,7 +63,7 @@ function ProjectSettings(props) {
   //   const display = document.getElementById('display');
   // console.log(display);
   //   return () => {
-      
+
   //   }
   // }, [])
 
@@ -91,7 +92,7 @@ function ProjectSettings(props) {
           <label>Password:</label>
           {/* <button className='password' onClick={(e) => showPassword(e)}>{button}</button> */}
           <input
-            id='type'
+            id="type"
             spellCheck="true"
             type="password"
             onChange={onChange}

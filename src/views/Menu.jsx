@@ -24,7 +24,6 @@ function Menu(props) {
     forCSV.push(output)
   });
 
-  console.log(forCSV);
   const header = [
     // "user id", // not needed
     // "account / email", // not needed
@@ -57,7 +56,6 @@ function Menu(props) {
   link.setAttribute("download", csvFileName);
   document.body.appendChild(link); // Required for FF
 
-  // link.click(); // This will download the data file named "my_data.csv"
   function download() {
     link.click();
   }

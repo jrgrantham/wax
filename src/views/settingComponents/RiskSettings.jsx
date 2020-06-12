@@ -40,19 +40,21 @@ const Container = styled.div`
   }
 
   .titles {
+    margin-left: 55px;
     display: flex;
+    justify-content: flex-start;
     margin-bottom: 10px;
     .type {
-      margin-left: 46px;
+      /* margin-left: 46px; */
     }
     .owner {
-      margin-left: 47px;
+      margin-left: 53px;
     }
     .colours {
-      margin-left: 20px;
+      margin-left: 30px;
     }
     .max {
-      margin-left: 136px;
+      margin-left: 148px;
     }
   }
 
@@ -63,7 +65,7 @@ const Container = styled.div`
     border-radius: 10px;
     width: 100%;
     max-width: 600px;
-    padding: 40px;
+    padding: 20px;
     background-color: #f0f0f0;
   }
 `;

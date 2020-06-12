@@ -27,7 +27,9 @@ function RiskTable(props) {
     return sortedRisks;
   }
 
+  console.log('ran');
   function getData() {
+    
     axiosWithAuth(token)
       .get(userApi)
       .then((res) => {
@@ -187,7 +189,7 @@ const Container = styled.div`
   .empty {
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    padding: 30px 10px 20px 10px;
     .image {
     }
     img {
