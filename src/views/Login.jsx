@@ -28,7 +28,8 @@ function Login(props) {
         redirect(response.data.admin);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
+
         setLoginForm(blankForm);
       })
       .finally(() => {}); // add code in the block if required
@@ -60,10 +61,10 @@ function Login(props) {
 
   useEffect(() => {
     // to clear redux
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
+    // if (!window.location.hash) {
+    //   window.location = window.location + "#loaded";
+    //   window.location.reload();
+    // }
     return () => {};
   }, []);
 
