@@ -6,9 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import addIcon from "../../images/addIcon.png";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
-import {
-  replaceRisks,
-} from "../../state/actionCreators/riskActionCreators";
+import { replaceRisks } from "../../state/actionCreators/riskActionCreators";
 
 const riskApi = `${url()}api/users/risks/`;
 const token = localStorage.getItem("token");
@@ -20,7 +18,17 @@ function SelectTemplate(props) {
   const riskCount = props.risks.entries.filter((risk) => risk.type === type)
     .length;
   const riskLimit = riskCount < maxRisks;
-  
+
+  const description = template.description
+    .replace("[company name]", props.user.company)
+    .replace("[output nature]", props.user.nature)
+    .replace("[IPMethod]", props.user.ipMethod);
+
+  const mitigation = template.mitigation
+    .replace("[company name]", props.user.company)
+    .replace("[output nature]", props.user.nature)
+    .replace("[ip method]", props.user.ipMethod);
+
   function addRisk() {
     if (riskLimit) {
       const riskClone = {
@@ -34,7 +42,7 @@ function SelectTemplate(props) {
       };
       // props.addToProject(riskClone);
       axiosWithAuth(token)
-        .post((riskApi + props.user.id), riskClone)
+        .post(riskApi + props.user.id, riskClone)
         .then((res) => {
           console.log(res.data);
           props.replaceRisks(res.data);
@@ -45,12 +53,6 @@ function SelectTemplate(props) {
         });
     }
   }
-
-  const storedDescription = template.description
-  const description = storedDescription.replace("[company name]", props.user.company)
-
-  const storedMitigation = template.mitigation
-  const mitigation = storedMitigation.replace("[company name]", props.user.company)
 
   return (
     <Container>

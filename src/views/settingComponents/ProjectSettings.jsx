@@ -29,19 +29,22 @@ function ProjectSettings(props) {
       .then((res) => {
         // check response, if user not admin, set user
         if (!res.data.admin) {
+          console.log("user is client");
           props.setUser(res.data);
           // if user is admin, fetch the user by selected id
         } else {
+          console.log("user is admin");
           // props.setUser(res.data);
           // if no user in storage, skip.
           if (selectedUser) {
             // const api = clientApi + selectedUser;
             // console.log(api);
-            axiosWithAuth(token)
+          console.log("fetching client, ID: ", selectedUser);
+          axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
-                // console.log(res.data);
-                props.setUser(res.data);
+          console.log("client", selectedUser, 'received');
+          props.setUser(res.data);
               })
               .catch((error) => {
                 console.log(error.message);
@@ -75,7 +78,7 @@ function ProjectSettings(props) {
   }
 
   useEffect(() => {
-    if (!props.user.company) {
+    if (!props.user.company || localStorage.getItem("newClient")) {
       getSettings();
     }
     return () => {};

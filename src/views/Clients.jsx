@@ -42,7 +42,7 @@ function Clients(props) {
     axiosWithAuth(token)
       .post(clientApi, user)
       .then((res) => {
-        console.log(res.data);
+        console.log('new client returned ID: ', res.data.id);
         localStorage.setItem("selectedClientId", res.data.id);
         props.history.push("/project-settings");
       })
@@ -70,7 +70,7 @@ function Clients(props) {
     <Container onClick={(event) => location(event)}>
       <div className="banner">
         <button className="createClient" onClick={sendNewClient}>
-          <h6>Create Client</h6>
+          <h6>Create New Client</h6>
           <div className="image">
             <img src={addIcon} alt="add" />
           </div>

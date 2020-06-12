@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import removeIcon from "../../images/removeIcon.png";
 
 export default function Header() {
-  const newClient = localStorage.getItem('newClient')
-  console.log(newClient);
-  
+  const newClient = localStorage.getItem("newClient");
+
   return (
     <Container>
       <header>
-        {newClient ? <h4>Create New Client</h4> : <h4>Settings</h4> }
+        {newClient ? <h4>Edit New Client</h4> : <h4>Settings</h4>}
       </header>
       <div className="links">
         <Link to="/">
