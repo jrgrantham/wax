@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import url from "../helpers/url";
 import { connect } from "react-redux";
 import { setUser } from "../state/actionCreators/userActionCreators";
-import logo from '../images/damien.png'
+import logo from "../images/damien.png";
 
 function Login(props) {
   const loginApi = url() + "api/auth/login";
@@ -25,11 +25,19 @@ function Login(props) {
         localStorage.setItem("token", response.data.token);
         props.setUser(response.data.settings);
         // console.log(response.data.admin);
+        // console.log(response.data.settings);
         if (response.data.admin) {
           props.history.push("/admin");
         } else {
           props.history.push("/");
         }
+        // setTimeout(() => {
+        //   if (response.data.admin) {
+        //     props.history.push("/admin");
+        //   } else {
+        //     props.history.push("/");
+        //   }
+        // }, 3000);
       })
       .catch((error) => {
         console.log(error);
@@ -38,10 +46,21 @@ function Login(props) {
       .finally(() => {}); // add code in the block if required
   }
 
+  useEffect(() => {
+    // to clear redux
+    if (!window.location.hash) {
+      window.location = window.location + "#loaded";
+      window.location.reload();
+    }
+    return () => {};
+  }, []);
+
   return (
     <Container>
       <div className="contents">
-        <div className='image'><img src={logo} alt="risk"/></div>
+        <div className="image">
+          <img src={logo} alt="risk" />
+        </div>
         <h4>Risk Assessment</h4>
         <input
           type="text"

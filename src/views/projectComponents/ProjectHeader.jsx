@@ -127,13 +127,13 @@ function RiskTable(props) {
       <div className="titles">
         <div className="comments">
           <h6>Description</h6>
-          <span>{`(${props.user.maxCharacters} max characters)`}</span>
+          <span>{`(max ${props.user.maxCharacters} characters)`}</span>
         </div>
         <h6>Likelihood</h6>
         <h6>Severity</h6>
         <div className="comments">
           <h6>Mitigation</h6>
-          <span>{`(${props.user.maxCharacters} max characters)`}</span>
+          <span>{`(max ${props.user.maxCharacters} characters)`}</span>
         </div>
         <h6>Owner</h6>
       </div>

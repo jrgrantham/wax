@@ -21,7 +21,7 @@ function TemplateHeader(props) {
 
   function setSelected(type) {
     props.setProjectValue("selected", type);
-    sendChanges("selected", type);
+    // sendChanges("selected", type);
   }
 
   const selected = props.user.selected.toLowerCase();

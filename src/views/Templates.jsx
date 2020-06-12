@@ -17,52 +17,48 @@ const token = localStorage.getItem("token");
 
 function Templates(props) {
   function getTemplates() {
+    // axiosWithAuth(token)
+    //   .get(userApi)
+    //   .then((res) => {
+    //     props.setUser(res.data);
+    //     // check response, if user admin
+    //     // if (res.data.admin) {
+    //     //   const selectedUser = localStorage.getItem("selectedClientId");
+    //     //   // if no user in storage, skip.
+    //     //   if (selectedUser) {
+    //     //     const client = clientApi + selectedUser;
+    //     //     axiosWithAuth(token)
+    //     //       .get(client)
+    //     //       .then((res) => {
+    //     //         console.log(res.data);
+    //     //         props.setUser(res.data);
+    //     //       })
+    //     //       .catch((error) => {
+    //     //         console.log(error.message);
+    //     //       });
+    //     //   }
+    //     // }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //     // window.location.replace(`${url()}login`)
+    //     props.history.push("/login");
+    //   });
     axiosWithAuth(token)
-      .get(userApi)
+      .get(templateApi)
       .then((res) => {
-        // check response, if user not admin, set user
-        if (!res.data.admin) {
-          props.setUser(res.data);
-          // if user is admin, fetch the user by selected id
-        } else {
-          props.setUser(res.data);
-          const selectedUser = localStorage.getItem("selectedClientId");
-          // if no user in storage, skip.
-          if (selectedUser) {
-            const api = clientApi + selectedUser;
-            console.log(api);
-            axiosWithAuth(token)
-              .get(clientApi + selectedUser)
-              .then((res) => {
-                console.log(res.data);
-                props.setUser(res.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
-        }
+        props.replaceTemplateRisks(res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error.message);
-        // window.location.replace(`${url()}login`)
-        props.history.push("/login");
       });
-    if (props.user.admin) {
-      axiosWithAuth(token)
-        .get(templateApi)
-        .then((res) => {
-          props.replaceTemplateRisks(res.data);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
   }
 
   useEffect(() => {
-    getTemplates();
+    if (props.user.admin) {
+      getTemplates();
+    }
     return () => {
       // send data back
     };

@@ -136,7 +136,7 @@ const Container = styled.div`
 
   form {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     /* max-width: 300px; */
@@ -149,8 +149,9 @@ const Container = styled.div`
       /* margin-left: 10px; */
       text-align: left;
       /* border: 1px solid red; */
-      min-width: 100px;
+      min-width: 103px;
       margin: 5px;
+      margin-left: 20px;
     }
     .owner {
       margin-right: 20px;
@@ -161,7 +162,7 @@ const Container = styled.div`
       text-align: center;
       border: 1px solid lightgrey;
       width: 50px;
-      margin-left: 10px;
+      margin-left: 20px;
 
       /* border: 1px solid red; */
     }
@@ -170,6 +171,7 @@ const Container = styled.div`
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      margin-left: 10px;
       .color {
         margin: 2px;
         display: flex;
