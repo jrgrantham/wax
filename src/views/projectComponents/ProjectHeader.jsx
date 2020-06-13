@@ -71,8 +71,9 @@ function RiskTable(props) {
     props.replaceRisks(sortedRisks);
   }
 
-  const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
-  const color = props.user[selected];
+  const selected = props.user.selected;
+  const selectedColor = selected.toLowerCase().slice(0, 3) + "Color";
+  const color = props.user[selectedColor];
 
   return (
     <Container color={color}>
@@ -89,26 +90,38 @@ function RiskTable(props) {
       </header>
       <div className="types">
         <Type
-          background={props.user.manColor}
+          // background={props.user.manColor}
+          background={
+            selected === "managerial" ? props.user.manColor : "lightgrey"
+          }
           onClick={() => setSelected("managerial")}
         >
           <h6>Managerial ({countMan})</h6>
         </Type>
         <Type
-          background={props.user.comColor}
+          // background={props.user.comColor}
+          background={
+            selected === "commercial" ? props.user.comColor : "lightgrey"
+          }
           onClick={() => setSelected("commercial")}
         >
           <h6>Commercial ({countCom})</h6>
         </Type>
         <Type
-          background={props.user.tecColor}
+          // background={props.user.tecColor}
+          background={
+            selected === "technical" ? props.user.tecColor : "lightgrey"
+          }
           onClick={() => setSelected("technical")}
         >
           <h6>Technical ({countTec})</h6>
         </Type>
         {props.user.envDisplay ? (
           <Type
-            background={props.user.envColor}
+            // background={props.user.envColor}
+            background={
+              selected === "environmental" ? props.user.envColor : "lightgrey"
+            }
             onClick={() => setSelected("environmental")}
           >
             <h6>Environmental ({countEnv})</h6>
@@ -116,7 +129,10 @@ function RiskTable(props) {
         ) : null}
         {props.user.legDisplay ? (
           <Type
-            background={props.user.legColor}
+            // background={props.user.legColor}
+            background={
+              selected === "legal" ? props.user.legColor : "lightgrey"
+            }
             onClick={() => setSelected("legal")}
           >
             <h6>Legal ({countLeg})</h6>
