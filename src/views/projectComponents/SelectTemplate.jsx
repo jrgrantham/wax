@@ -65,9 +65,7 @@ function Templates(props) {
     if (props.user.man) {
       relevantTemplates = relevantTemplates.concat(manTemplates);
     }
-    if (props.user.all) {
-      relevantTemplates = relevantTemplates.concat(allTemplates);
-    }
+    relevantTemplates = relevantTemplates.concat(allTemplates);
 
     // remove duplicates
     const unique = relevantTemplates.reduce((newArray, item) => {
