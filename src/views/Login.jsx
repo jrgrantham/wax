@@ -14,7 +14,7 @@ function Login(props) {
     password: "",
   };
   const [loginForm, setLoginForm] = useState(blankForm);
-  const [opacity, setOpacity] = useState(1);
+  const [opacity, setOpacity] = useState(0);
 
   function onChange(e) {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -68,7 +68,7 @@ function Login(props) {
 
   setTimeout(() => {
     setOpacity(1);
-  }, 500);
+  }, 300);
 
   return (
     <Container style={{ opacity: opacity }}>
