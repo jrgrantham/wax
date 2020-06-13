@@ -10,11 +10,10 @@ import url from "../helpers/url";
 import { setUser } from "../state/actionCreators/userActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
 
-const templateApi = `${url()}api/users/templates`;
-const token = localStorage.getItem("token");
-
 function Templates(props) {
   function getTemplates() {
+    const templateApi = `${url()}api/users/templates`;
+    const token = localStorage.getItem("token");
     axiosWithAuth(token)
       .get(templateApi)
       .then((res) => {

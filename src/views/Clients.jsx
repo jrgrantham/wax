@@ -14,7 +14,6 @@ import { user } from "../data/newUser";
 import { setUser } from "../state/actionCreators/userActionCreators";
 import { v4 as uuidv4 } from "uuid";
 
-const allClientsApi = `${url()}api/users/clients`;
 const clientApi = `${url()}api/users/client`;
 const token = localStorage.getItem("token");
 
@@ -23,12 +22,13 @@ function Clients(props) {
   // const templates = props.templates[selected.toLowerCase()];
 
   function getClients() {
-    console.log('fetching clients');
+    console.log("fetching clients");
+    const allClientsApi = `${url()}api/users/clients`;
     const token = localStorage.getItem("token");
     axiosWithAuth(token)
       .get(allClientsApi)
       .then((res) => {
-        console.log('clients received');
+        console.log("clients received");
         props.setClients(res.data);
       })
       .catch((error) => {
@@ -38,11 +38,11 @@ function Clients(props) {
 
   function sendNewClient() {
     user.email = `new user ${uuidv4().slice(24)}`;
-    localStorage.setItem('newClient', 'true');
+    localStorage.setItem("newClient", true);
     axiosWithAuth(token)
       .post(clientApi, user)
       .then((res) => {
-        console.log('new client returned ID: ', res.data.id);
+        console.log("new client returned ID: ", res.data.id);
         localStorage.setItem("selectedClientId", res.data.id);
         props.history.push("/project-settings");
       })
@@ -60,9 +60,10 @@ function Clients(props) {
   }
 
   useEffect(() => {
-    if (!props.clients.length) {
+    if (!props.clients.length || localStorage.getItem('newClient')) {
       getClients();
     }
+    localStorage.removeItem('newClient')
     return () => {};
   }, []);
 
@@ -86,7 +87,9 @@ function Clients(props) {
   );
 }
 
-export default withRouter(connect((state) => state, { setClients, setUser })(Clients));
+export default withRouter(
+  connect((state) => state, { setClients, setUser })(Clients)
+);
 
 const Container = styled.div`
   display: flex;
