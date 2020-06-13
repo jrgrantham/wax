@@ -179,7 +179,10 @@ const Container = styled.div`
   .empty {
     display: flex;
     justify-content: center;
-    padding: 30px 10px 20px 10px;
+    background-color: white;
+    margin: 10px 200px;
+    padding: 10px 10px;
+    border-radius: 5px;
     .image {
     }
     img {
