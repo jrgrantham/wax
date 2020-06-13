@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import url from "../helpers/url";
@@ -14,6 +13,7 @@ function Login(props) {
     password: "",
   };
   const [loginForm, setLoginForm] = useState(blankForm);
+  const [opacity, setOpacity] = useState(0)
 
   function onChange(e) {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -59,22 +59,17 @@ function Login(props) {
     }
   }
 
-  useEffect(() => {
-    // to clear redux
-    // if (!window.location.hash) {
-    //   window.location = window.location + "#loaded";
-    //   window.location.reload();
-    // }
-    return () => {};
-  }, []);
+  setTimeout(() => {
+    setOpacity(1)
+  }, 500);
 
   return (
-    <Container>
+    <Container style={{opacity: opacity}}>
       <div className="contents">
         <div className="image">
           <img src={logo} alt="risk" />
         </div>
-        <h4>Risk Assessment</h4>
+        {/* <h4>Risk Assessment</h4> */}
         <input
           type="text"
           name="email"
@@ -104,6 +99,8 @@ const Container = styled.div`
   align-items: center;
   background-color: #f0f0f0;
   height: 100vh;
+  opacity: 0;
+  transition: opacity 1s;
   h4 {
     margin-bottom: 20px;
   }
@@ -119,11 +116,13 @@ const Container = styled.div`
     width: 220px;
     font-size: 0.8rem;
     padding: 10px;
+    border-color: lightgray;
   }
   button {
     font-size: 0.8rem;
     padding: 0.6rem 1.6rem;
     border-radius: 5px;
+    border-color: lightgray;
     &:hover {
       cursor: pointer;
     }
@@ -133,7 +132,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 400px;
+    height: 350px;
     /* border: 1px solid red */
   }
 
