@@ -5,6 +5,7 @@ import url from "../helpers/url";
 import { connect } from "react-redux";
 import { setUser } from "../state/actionCreators/userActionCreators";
 import logo from "../images/damien.png";
+import eye from "../images/eye.png";
 
 function Login(props) {
   const loginApi = url() + "api/auth/login";
@@ -13,7 +14,7 @@ function Login(props) {
     password: "",
   };
   const [loginForm, setLoginForm] = useState(blankForm);
-  const [opacity, setOpacity] = useState(0)
+  const [opacity, setOpacity] = useState(1);
 
   function onChange(e) {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -35,13 +36,19 @@ function Login(props) {
       .finally(() => {}); // add code in the block if required
   }
 
+  // document.addEventListener("keydown", (event) => {
+  //   if (event.keyCode === 13) {
+  //     submit();
+  //   }
+  // });
+
   function redirect(admin) {
     // setTimeout(() => {
-      if (admin) {
-        props.history.push("/admin");
-      } else {
-        props.history.push("/");
-      }
+    if (admin) {
+      props.history.push("/admin");
+    } else {
+      props.history.push("/");
+    }
     // }, 1500);
   }
 
@@ -60,11 +67,11 @@ function Login(props) {
   }
 
   setTimeout(() => {
-    setOpacity(1)
+    setOpacity(1);
   }, 500);
 
   return (
-    <Container style={{opacity: opacity}}>
+    <Container style={{ opacity: opacity }}>
       <div className="contents">
         <div className="image">
           <img src={logo} alt="risk" />
@@ -77,13 +84,19 @@ function Login(props) {
           value={loginForm.email}
           onChange={onChange}
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={loginForm.password}
-          onChange={onChange}
-        />
+        <div className='password'>
+          <input
+            id='type'
+            type="password"
+            name="password"
+            placeholder="password"
+            value={loginForm.password}
+            onChange={onChange}
+          />
+          <div className='show'>
+            <img src={eye} alt="show password" onClick={showPassword} />
+          </div>
+        </div>
         <button onClick={submit}>Login</button>
         {/* <p>send me my password</p> */}
       </div>
@@ -99,7 +112,6 @@ const Container = styled.div`
   align-items: center;
   background-color: #f0f0f0;
   height: 100vh;
-  opacity: 0;
   transition: opacity 1s;
   h4 {
     margin-bottom: 20px;
@@ -117,6 +129,18 @@ const Container = styled.div`
     font-size: 0.8rem;
     padding: 10px;
     border-color: lightgray;
+  }
+  .password {
+    display: flex;
+    align-items: center;
+    .show {
+    display: flex;
+    align-items: center;
+      img {
+        margin-left: -30px;
+        width: 25px
+      }
+    }
   }
   button {
     font-size: 0.8rem;
