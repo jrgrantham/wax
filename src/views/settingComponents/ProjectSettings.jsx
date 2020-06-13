@@ -29,7 +29,7 @@ function ProjectSettings(props) {
       .then((res) => {
         // check response, if user not admin, set user
         if (!res.data.admin) {
-          console.log("user is client");
+          console.log("user is a client");
           props.setUser(res.data);
           // if user is admin, fetch the user by selected id
         } else {

@@ -1,12 +1,13 @@
 export const user = {
   email: "",
-  password: 1234,
+  password: "",
   admin: false,
   company: "", // leave empty, this is for checking state
   nature: "",
-  type: "General",
+  type: "",
   project: "",
   application: "",
+  ipMethod: "",
   selected: "managerial",
 
   ai: false,
