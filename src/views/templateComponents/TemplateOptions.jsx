@@ -20,11 +20,11 @@ function Options(props) {
   const emtpyRow = {
     id: randomId,
     type,
-    description: "enter risk description.",
+    description: "",
     probability: 0,
     consequence: 0,
     risk: 0,
-    mitigation: "enter risk mitigation.",
+    mitigation: "",
   };
 
   function sendTemplate() {
