@@ -12,15 +12,7 @@ const token = localStorage.getItem("token");
 const clientApi = `${url()}api/users/client/`;
 
 function ProjectSettings(props) {
-  const {
-    company,
-    project,
-    application,
-    nature,
-    email,
-    password,
-    ipMethod,
-  } = props.user;
+  const { company, project, application, nature, email, password, ipMethod } = props.user;
   const { natureOptions, ipMethodOptions } = projectOptions;
 
   function onChange(event) {
@@ -151,26 +143,6 @@ function ProjectSettings(props) {
             value={nature}
           >
             {natureOptions.map((option, index) => {
-              return (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-
-        {/* ipMethod */}
-        <div className="info">
-          <label>IP Method:</label>
-          <select
-            type="text"
-            onChange={onChange}
-            onBlur={sendChanges}
-            name="ipMethod"
-            value={ipMethod}
-          >
-            {ipMethodOptions.map((option, index) => {
               return (
                 <option key={index} value={option}>
                   {option}
