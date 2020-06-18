@@ -25,7 +25,7 @@ function Options(props) {
       setAddRow(true);
     } else {
       alert(
-        "You cant add more risks as risk limit has been reached. \nDelete a risk too add new risks"
+        "You cant add more risks as risk limit has been reached. \nDelete a risk to add new risks"
       );
     }
   }
