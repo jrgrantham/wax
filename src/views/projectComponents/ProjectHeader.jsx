@@ -36,7 +36,7 @@ function RiskTable(props) {
     } else {
       id = props.user.id;
     }
-    console.log("setting risk type");
+    // console.log("setting risk type");
     axiosWithAuth(token)
       .put(userApi, { key, value, id })
       .then(() => {}) // no action when changes are sent, only when requested
@@ -90,38 +90,38 @@ function RiskTable(props) {
       </header>
       <div className="types">
         <Type
-          // background={props.user.manColor}
-          background={
-            selected === "managerial" ? props.user.manColor : "lightgrey"
-          }
+          background={props.user.manColor}
+          // background={
+          //   selected === "managerial" ? props.user.manColor : "lightgrey"
+          // }
           onClick={() => setSelected("managerial")}
         >
           <h6>Managerial ({countMan})</h6>
         </Type>
         <Type
-          // background={props.user.comColor}
-          background={
-            selected === "commercial" ? props.user.comColor : "lightgrey"
-          }
+          background={props.user.comColor}
+          // background={
+          //   selected === "commercial" ? props.user.comColor : "lightgrey"
+          // }
           onClick={() => setSelected("commercial")}
         >
           <h6>Commercial ({countCom})</h6>
         </Type>
         <Type
-          // background={props.user.tecColor}
-          background={
-            selected === "technical" ? props.user.tecColor : "lightgrey"
-          }
+          background={props.user.tecColor}
+          // background={
+          //   selected === "technical" ? props.user.tecColor : "lightgrey"
+          // }
           onClick={() => setSelected("technical")}
         >
           <h6>Technical ({countTec})</h6>
         </Type>
         {props.user.envDisplay ? (
           <Type
-            // background={props.user.envColor}
-            background={
-              selected === "environmental" ? props.user.envColor : "lightgrey"
-            }
+            background={props.user.envColor}
+            // background={
+            //   selected === "environmental" ? props.user.envColor : "lightgrey"
+            // }
             onClick={() => setSelected("environmental")}
           >
             <h6>Environmental ({countEnv})</h6>
@@ -129,10 +129,10 @@ function RiskTable(props) {
         ) : null}
         {props.user.legDisplay ? (
           <Type
-            // background={props.user.legColor}
-            background={
-              selected === "legal" ? props.user.legColor : "lightgrey"
-            }
+            background={props.user.legColor}
+            // background={
+            //   selected === "legal" ? props.user.legColor : "lightgrey"
+            // }
             onClick={() => setSelected("legal")}
           >
             <h6>Legal ({countLeg})</h6>

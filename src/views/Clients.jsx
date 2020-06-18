@@ -37,6 +37,7 @@ function Clients(props) {
   }
 
   function sendNewClient() {
+    console.log('sending new client');
     user.email = `new user ${uuidv4().slice(24)}`;
     localStorage.setItem("newClient", true);
     axiosWithAuth(token)

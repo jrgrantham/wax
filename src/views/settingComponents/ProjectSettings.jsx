@@ -39,7 +39,7 @@ function ProjectSettings(props) {
           if (selectedUser) {
             // const api = clientApi + selectedUser;
             // console.log(api);
-            console.log("fetching client, ID: ", selectedUser);
+            console.log("fetching client, ID:", selectedUser);
             axiosWithAuth(token)
               .get(clientApi + selectedUser)
               .then((res) => {
@@ -154,7 +154,7 @@ function ProjectSettings(props) {
 
         {/* ipMethod */}
         <div className="info">
-          <label>IP Method:</label>
+          <label>IP Protection:</label>
           <select
             type="text"
             onChange={onChange}

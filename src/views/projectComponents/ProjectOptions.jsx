@@ -25,7 +25,7 @@ function Options(props) {
       setAddRow(true);
     } else {
       alert(
-        "You cant add more risks as risk limit has been reached. \nDelete a risk too add new risks"
+        "You cant add more risks as risk limit has been reached. \nDelete a risk to add new risks"
       );
     }
   }
@@ -55,12 +55,12 @@ function Options(props) {
   const emtpyRow = {
     // id: randomId,
     type,
-    description: "enter risk description.",
+    description: "",
     probability: 0,
     consequence: 0,
     risk: 0,
     owner: defaultOwner,
-    mitigation: "enter risk mitigation.",
+    mitigation: "",
     templateId: 0,
   };
 

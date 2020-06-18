@@ -26,7 +26,7 @@ function Print(props) {
   function generatePDF() {
     const element = document.getElementById("pdf");
     const {project, application, appendixRef} = props.user
-    const filename = `${project} - ${application} - Appendix ${appendixRef}`;
+    const filename = `${project} - ${application} - Appendix ${appendixRef}, Risk Management`;
 
     const options = {
       margin: 0,

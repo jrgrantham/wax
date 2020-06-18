@@ -22,7 +22,7 @@ function Menu(props) {
       mitigation,
       owner,
     };
-    forCSV.push(output)
+    forCSV.push(output);
   });
 
   const header = [
@@ -81,11 +81,9 @@ function Menu(props) {
         {props.user.exportSpreadsheet ? (
           <h6 onClick={download}>Download CSV</h6>
         ) : null}
-        {props.user.useTemplates ? (
-          <Link to="print">
-            <h6>Download PDF</h6>
-          </Link>
-        ) : null}
+        <Link to="print">
+          <h6>Download PDF</h6>
+        </Link>
       </div>
       {props.user.admin ? (
         <div className="menu">

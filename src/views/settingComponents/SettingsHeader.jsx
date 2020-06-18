@@ -1,15 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import removeIcon from "../../images/removeIcon.png";
 
-export default function Header() {
+function Header(props) {
   const newClient = localStorage.getItem("newClient");
 
   return (
     <Container>
       <header>
-        {newClient ? <h4>Edit New Client</h4> : <h4>Settings</h4>}
+        {newClient ? (
+          <h4>Edit New Client</h4>
+        ) : (
+          <h4>{`Settings ${props.user.admin ? "(Admin)" : null}`}</h4>
+        )}
       </header>
       <div className="links">
         <Link to="/">
@@ -21,6 +26,8 @@ export default function Header() {
     </Container>
   );
 }
+
+export default connect((state) => state, {})(Header);
 
 const Container = styled.div`
   max-width: 600px;
