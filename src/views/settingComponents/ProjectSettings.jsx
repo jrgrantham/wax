@@ -12,7 +12,15 @@ const token = localStorage.getItem("token");
 const clientApi = `${url()}api/users/client/`;
 
 function ProjectSettings(props) {
-  const { company, project, application, nature, email, password, ipMethod } = props.user;
+  const {
+    company,
+    project,
+    application,
+    nature,
+    email,
+    password,
+    ipMethod,
+  } = props.user;
   const { natureOptions, ipMethodOptions } = projectOptions;
 
   function onChange(event) {

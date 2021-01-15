@@ -88,7 +88,10 @@ function Menu(props) {
       {props.user.admin ? (
         <div className="menu">
           <Link to="admin">
-            <h6>Admin</h6>
+            <h6>Home</h6>
+          </Link>
+          <Link to="password">
+            <h6>Change Password</h6>
           </Link>
         </div>
       ) : null}
