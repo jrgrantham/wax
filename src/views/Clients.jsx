@@ -68,6 +68,12 @@ function Clients(props) {
     return () => {};
   }, []);
 
+  console.log(props.clients);
+  const clients = (props.clients.filter(
+    (client) => client.admin === 0
+    ));
+  console.log(clients)
+  
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
@@ -79,7 +85,7 @@ function Clients(props) {
         </button>
       </div>
       <div className="clients">
-        {props.clients.map((client, index) => (
+        {clients.map((client, index) => (
           <Client client={client} key={index} />
         ))}
       </div>

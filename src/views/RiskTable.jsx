@@ -16,7 +16,7 @@ import add from "../images/addIcon.png";
 const userApi = `${url()}api/users/user`;
 const templateApi = `${url()}api/users/templates`;
 const clientApi = `${url()}api/users/client/`;
-const riskApi = `${url()}api/users/risks/`;
+const riskApi = `${url()}api/users/risks/`
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
@@ -26,6 +26,8 @@ function RiskTable(props) {
     });
     return sortedRisks;
   }
+
+  console.log(token);
 
   function getData() {
     console.log('fetching user data');
@@ -73,6 +75,7 @@ function RiskTable(props) {
               props.replaceRisks(sortRisks(res.data));
             })
             .catch((error) => {
+              console.log('test');
               console.log(error.message);
               // props.history.push("/login");
             });

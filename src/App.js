@@ -26,6 +26,7 @@ import Login from "./views/Login";
 import Footer from "./Footer";
 import AdminDashboard from "./views/AdminDashboard";
 import Print from "./views/Print";
+import Password from "./views/Password";
 
 const monsterReducer = combineReducers({
   templates: templateReducer,
@@ -82,6 +83,11 @@ function App() {
           <Route
             path="/print"
             render={(props) => protectedRoute(Print, props)}
+          />
+          {/* <Route path="/print" component={Print} /> */}
+          <Route
+            path="/password"
+            render={(props) => protectedRoute(Password, props)}
           />
           {/* <Route component={RiskTable} /> */}
           <Route
