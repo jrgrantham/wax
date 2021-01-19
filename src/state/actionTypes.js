@@ -1,4 +1,7 @@
 // PROJECT ACTIONS
+export const GET_USER = "GET_USER";
+export const USERS_ERROR = "USERS_ERROR";
+
 export const SET_USER = "SET_USER";
 export const TOGGLE_PROJECT_BOOLEAN = "TOGGLE_PROJECT_BOOLEAN";
 export const SET_PROJECT_VALUE = "SET_PROJECT_VALUE";
@@ -9,6 +12,7 @@ export const SET_CLIENTS = "SET_CLIENTS";
 export const DELETE_CLIENT = "DELETE_CLIENT";
 
 // RISK ACTIONS
+export const GET_RISKS = "GET_RISKS";
 export const ADD_TO_PROJECT = "ADD_TO_PROJECT";
 export const DELETE_RISK = "DELETE_RISK";
 export const REPLACE_RISKS = "REPLACE_RISKS";

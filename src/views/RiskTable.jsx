@@ -6,99 +6,22 @@ import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
 import SelectTemplate from "./projectComponents/SelectTemplate";
 import Menu from "./Menu";
-import { replaceRisks } from "../state/actionCreators/riskActionCreators";
+import { replaceRisks, getRisks } from "../state/actionCreators/riskActionCreators";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
-import { setUser } from "../state/actionCreators/userActionCreators";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
+import { setUser, getUser } from "../state/actionCreators/userActionCreators";
 import add from "../images/addIcon.png";
 
-const userApi = `${url()}api/users/user`;
-const templateApi = `${url()}api/users/templates`;
-const clientApi = `${url()}api/users/client/`;
-const riskApi = `${url()}api/users/risks/`
 const token = localStorage.getItem("token");
 
 function RiskTable(props) {
-  function sortRisks(array) {
-    const sortedRisks = array.sort(function (a, b) {
-      return b.risk - a.risk;
-    });
-    return sortedRisks;
-  }
+  // function sortRisks(array) {
+  //   const sortedRisks = array.sort(function (a, b) {
+  //     return b.risk - a.risk;
+  //   });
+  //   return sortedRisks;
+  // }
 
-  console.log(token);
-
-  function getData() {
-    console.log('fetching user data');
-    const selectedUser = localStorage.getItem("selectedClientId");
-    axiosWithAuth(token)
-      .get(userApi)
-      .then((res) => {
-        // check response, if user not admin, set user
-        // console.log("initial id:", res.data.id);
-        if (!res.data.admin) {
-          console.log('client detected - setting user');
-          props.setUser(res.data);
-          // if user is admin, fetch the user by selected id
-        } else {
-          // props.setUser(res.data);
-          console.log(`admin detected - fetching data, ID: ${selectedUser}`);
-          // if no user in storage, skip.
-          if (selectedUser) {
-            axiosWithAuth(token)
-              .get(clientApi + selectedUser)
-              .then((res) => {
-                console.log(`data for user ID: ${selectedUser} received`);
-                props.setUser(res.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
-        }
-        let user = "";
-        // if admin, get by user from local storage
-        if (res.data.admin) {
-          user = selectedUser;
-          // otherwise, get by user info
-        } else {
-          user = res.data.id;
-        }
-        setTimeout(() => {
-          console.log('** 500ms delay **');
-          console.log('fetching risks');
-          axiosWithAuth(token)
-            .get(riskApi + user)
-            .then((res) => {
-              console.log('risks received');
-              props.replaceRisks(sortRisks(res.data));
-            })
-            .catch((error) => {
-              console.log('test');
-              console.log(error.message);
-              // props.history.push("/login");
-            });
-          if (res.data.useTemplates) {
-          console.log('fetching templates');
-          axiosWithAuth(token)
-              .get(templateApi)
-              .then((res) => {
-              console.log('templates received');
-              props.replaceTemplateRisks(res.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
-        }, 500);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        // window.location.replace(`${url()}login`)
-        // props.history.push("/login");
-      });
-  }
+  // console.log(token);
 
   const type = props.user.selected.toLowerCase();
   const risks = props.risks.entries.filter((risk) => risk.type === type);
@@ -112,16 +35,6 @@ function RiskTable(props) {
     setShowMenu(false);
   }
 
-  useEffect(() => {
-    // if (riskLimit) {
-    //   setShowTemplate(false);
-    // }
-    getData();
-    return () => {
-      console.log("leaving risk table"); // send state here
-    };
-  }, []);
-
   const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
   const color = props.user[selected];
 
@@ -134,6 +47,17 @@ function RiskTable(props) {
       <span>button to add risks</span>
     </div>
   );
+
+  useEffect(() => {
+    // if (riskLimit) {
+    //   setShowTemplate(false);
+    // }
+    props.getUser();
+    props.getRisks();
+    return () => {
+      console.log("leaving risk table");
+    };
+  }, []);
 
   return (
     <Container onClick={(event) => checkTarget(event)} color={color}>
@@ -154,6 +78,8 @@ function RiskTable(props) {
 }
 
 export default connect((state) => state, {
+  getUser,
+  getRisks,
   replaceRisks,
   setUser,
   replaceTemplateRisks,

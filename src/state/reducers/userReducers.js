@@ -3,8 +3,8 @@ import { user } from "../../data/newUser";
 
 export function userReducer(state = user, action) {
   switch (action.type) {
-    case actionTypes.SET_USER:
-      return action.payload;
+    // case actionTypes.SET_USER:
+    //   return action.payload;
     case actionTypes.TOGGLE_PROJECT_BOOLEAN:
       return {
         ...state,
@@ -15,9 +15,9 @@ export function userReducer(state = user, action) {
         ...state,
         [action.payload.key]: action.payload.value,
       };
-    // case actionTypes.SET_CLIENTS:
-    //   console.log(action.payload);
-    //   return action.payload
+    case actionTypes.GET_USER:
+      // console.log('userReducer', action.payload);
+      return action.payload;
     default:
       return state;
   }

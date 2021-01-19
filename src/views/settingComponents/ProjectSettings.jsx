@@ -8,8 +8,8 @@ import axiosWithAuth from "../../authentication/axiosWithAuth";
 import url from "../../helpers/url";
 
 const userApi = `${url()}api/users/user`;
-const token = localStorage.getItem("token");
 const clientApi = `${url()}api/users/client/`;
+const token = localStorage.getItem("token");
 
 function ProjectSettings(props) {
   const {

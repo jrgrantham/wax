@@ -8,7 +8,7 @@ import {
   templateReducer,
   riskReducer,
 } from "./state/reducers";
-import { combineReducers, createStore, compose } from "redux";
+import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 // import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import {
   Route,
@@ -17,7 +17,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-// import thunk from "redux-thunk";
+import thunk from "redux-thunk";
 
 import RiskTable from "./views/RiskTable";
 import RiskText from "./views/Document";
@@ -35,13 +35,16 @@ const monsterReducer = combineReducers({
   user: userReducer,
 });
 
+const middleware = [thunk];
+
 const store = createStore(
   monsterReducer,
   compose(
-    // applyMiddleware(thunk),
+    applyMiddleware(...middleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
+
 
 function protectedRoute(Component, props) {
   // Not really secure. Any token would pass the test.

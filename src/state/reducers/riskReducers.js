@@ -41,11 +41,14 @@ export function riskReducer(state = risks, action) {
       };
     case actionTypes.ADD_TO_PROJECT:
       return {
-        entries: state.entries.concat(
-          action.payload
-        ),
+        entries: state.entries.concat(action.payload),
       };
     case actionTypes.REPLACE_RISKS:
+      return {
+        entries: action.payload,
+      };
+    case actionTypes.GET_RISKS:
+      console.log(action.payload);
       return {
         entries: action.payload,
       };

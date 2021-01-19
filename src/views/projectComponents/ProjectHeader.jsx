@@ -2,16 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
-import { setProjectValue } from "../../state/actionCreators/userActionCreators";
+import {
+  setProjectValue,
+  sendChanges,
+} from "../../state/actionCreators/userActionCreators";
 import {
   addToProject,
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
+// import axiosWithAuth from "../../authentication/axiosWithAuth";
+// import url from "../../helpers/url";
 
-const userApi = `${url()}api/users/user`;
-const token = localStorage.getItem("token");
+// const userApi = `${url()}api/users/user`;
+// const token = localStorage.getItem("token");
 
 function RiskTable(props) {
   const countMan = props.risks.entries.filter(
@@ -29,26 +32,27 @@ function RiskTable(props) {
     (risk) => risk.type === "environmental"
   ).length;
 
-  function sendChanges(key, value) {
-    let id = "";
-    if (props.user.admin) {
-      id = localStorage.getItem("selectedClientId");
-    } else {
-      id = props.user.id;
-    }
-    // console.log("setting risk type");
-    axiosWithAuth(token)
-      .put(userApi, { key, value, id })
-      .then(() => {}) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
+  // function sendChanges(key, value) {
+  //   let id = "";
+  //   if (props.user.admin) {
+  //     id = localStorage.getItem("selectedClientId");
+  //   } else {
+  //     id = props.user.id;
+  //   }
+  //   // console.log("setting risk type");
+  //   axiosWithAuth(token)
+  //     .put(userApi, { key, value, id })
+  //     .then(() => {}) // no action when changes are sent, only when requested
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // }
 
   function setSelected(value) {
     sortRisks();
-    props.setProjectValue("selected", value);
-    sendChanges("selected", value);
+    // props.setProjectValue("selected", value);
+    props.sendChanges("selected", value, props.user.id);
+    // sendChanges("selected", value);
   }
 
   function showMenu(e) {
@@ -158,6 +162,7 @@ function RiskTable(props) {
 }
 
 export default connect((state) => state, {
+  sendChanges,
   setProjectValue,
   addToProject,
   replaceRisks,

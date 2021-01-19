@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import url from "../helpers/url";
 import { connect } from "react-redux";
 import { setUser } from "../state/actionCreators/userActionCreators";
@@ -10,10 +9,10 @@ import axiosWithAuth from "../authentication/axiosWithAuth";
 function Password(props) {
   if (props.user.email === "") {
     // uncomment line below once complete
-    redirect()
+    redirect();
   }
 
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
 
   const editUserApi = url() + "api/users/user";
   const blankForm = {
@@ -32,16 +31,16 @@ function Password(props) {
   }
 
   function sendChanges() {
-    console.log('key: password, value: ', loginForm.new);
-    const key = 'password';
+    console.log("key: password, value: ", loginForm.new);
+    const key = "password";
     const value = loginForm.new;
     let id = props.user.id;
 
     axiosWithAuth(token)
       .put(editUserApi, { key, value, id })
       .then(() => {
-        alert('Password changed')
-        redirect()
+        alert("Password changed");
+        redirect();
       }) // no action when changes are sent, only when requested
       .catch((error) => {
         console.log(error);
@@ -119,11 +118,7 @@ function Password(props) {
             <img src={eye} alt="show password" onClick={showPassword} />
           </div>
         </div>
-        <button
-          onClick={sendChanges}
-        >
-          Submit
-        </button>
+        <button onClick={sendChanges}>Submit</button>
         {/* <p>send me my password</p> */}
       </div>
     </Container>
