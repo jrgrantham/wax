@@ -33,21 +33,24 @@ export function templateReducer(state = templates, action) {
           return entry;
         }),
       };
-    case actionTypes.DELETE_TEMPLATE_RISK:
+    case actionTypes.DELETE_TEMPLATE:
+      console.log(action.payload.templateId);
       return {
         entries: state.entries.filter(
-          (entry) => entry.id !== action.payload.id
+          (entry) => entry.id !== action.payload.templateId
         ),
       };
     case actionTypes.ADD_TO_TEMPLATE:
       console.log(action.payload);
-      
+
       return {
-        entries: state.entries.concat(
-          action.payload
-        ),
+        entries: state.entries.concat(action.payload),
       };
     case actionTypes.REPLACE_TEMPLATE_RISKS:
+      return {
+        entries: action.payload,
+      };
+    case actionTypes.GET_TEMPLATES:
       return {
         entries: action.payload,
       };

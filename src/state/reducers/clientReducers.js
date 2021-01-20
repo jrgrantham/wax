@@ -2,6 +2,12 @@ import * as actionTypes from "../actionTypes";
 
 export function clientReducer(state = [], action) {
   switch (action.type) {
+    case actionTypes.NEW_CLIENT:
+      console.log(action.payload);
+      return state;
+    case actionTypes.GET_CLIENTS:
+      // console.log(action.payload);
+      return action.payload;
     case actionTypes.SET_CLIENTS:
       // console.log(action.payload);
       return action.payload;

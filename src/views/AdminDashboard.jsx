@@ -4,27 +4,14 @@ import Clients from "./Clients";
 import Templates from "./Templates";
 import styled from "styled-components";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
-import { useEffect } from "react";
-
-// const templateApi = `${url()}api/users/templates`;
 
 function AdminDashboard(props) {
   const [displayClients, setDisplayClients] = useState(true);
-
-  // if admin, need to fetch client by different method
-  // set the chosen project id to local storage
 
   function logout() {
     localStorage.removeItem("token");
     props.history.push("/login");
   }
-
-  useEffect(() => {
-    setTimeout(() => {
-      // getData();
-    }, 1000);
-    return () => {};
-  }, []);
 
   return (
     <Container>

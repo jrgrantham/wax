@@ -12,11 +12,6 @@ function PrintRisks(props) {
   function riskValue(value) {
     return riskRange[value];
   }
-
-  // console.log(riskRange);
-
-  // const typeSize = document.getElementById(type.toLocaleLowerCase())
-
   console.log(props.user.fontSize);
 
   return (
@@ -134,13 +129,13 @@ const Container = styled.div`
       width: 6%;
     }
     .high {
-      background-color: ${props => props.high};
+      background-color: ${(props) => props.high};
     }
     .medium {
-      background-color: ${props => props.medium};
+      background-color: ${(props) => props.medium};
     }
     .low {
-      background-color: ${props => props.low};
+      background-color: ${(props) => props.low};
     }
     .owner {
       text-align: center;

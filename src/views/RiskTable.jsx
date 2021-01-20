@@ -6,28 +6,19 @@ import styled from "styled-components";
 import Options from "./projectComponents/ProjectOptions";
 import SelectTemplate from "./projectComponents/SelectTemplate";
 import Menu from "./Menu";
-import { replaceRisks, getRisks } from "../state/actionCreators/riskActionCreators";
-import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
-import { setUser, getUser } from "../state/actionCreators/userActionCreators";
+import { getRisks } from "../state/actionCreators/riskActionCreators";
+import { getUser } from "../state/actionCreators/userActionCreators";
 import add from "../images/addIcon.png";
 
-const token = localStorage.getItem("token");
-
 function RiskTable(props) {
-  // function sortRisks(array) {
-  //   const sortedRisks = array.sort(function (a, b) {
-  //     return b.risk - a.risk;
-  //   });
-  //   return sortedRisks;
-  // }
 
-  // console.log(token);
-
-  const type = props.user.selected.toLowerCase();
-  const risks = props.risks.entries.filter((risk) => risk.type === type);
+  const selected = props.user.selected.toLowerCase();
+  // set the initial view by filtering by selected
+  const risks = props.risks.entries.filter((risk) => risk.type === selected);
   const [showTemplate, setShowTemplate] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
+  // check where clicked to close the menu / templates
   function checkTarget(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
@@ -35,8 +26,8 @@ function RiskTable(props) {
     setShowMenu(false);
   }
 
-  const selected = props.user.selected.toLowerCase().slice(0, 3) + "Color";
-  const color = props.user[selected];
+  const selectedColor = props.user.selected.toLowerCase().slice(0, 3) + "Color";
+  const color = props.user[selectedColor];
 
   const emtpy = (
     <div className="empty">
@@ -80,9 +71,6 @@ function RiskTable(props) {
 export default connect((state) => state, {
   getUser,
   getRisks,
-  replaceRisks,
-  setUser,
-  replaceTemplateRisks,
 })(RiskTable);
 
 const Container = styled.div`

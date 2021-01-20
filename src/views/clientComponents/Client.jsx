@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 import { deleteClient } from "../../state/actionCreators/clientActionCreators";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const clientApi = `${url()}api/users/client`;
-const token = localStorage.getItem("token");
 
 function Client(props) {
   const client = props.client;
@@ -20,22 +15,11 @@ function Client(props) {
   }
 
   function confirmDelete() {
-    if (client.id === 0) return
-    // console.log("deleted", client.id);
+    if (client.id === 0) return;
     const id = client.id;
-    const clientId = { id: id };
-    // console.log(clientId);
+    const clientId = { id };
 
-    axiosWithAuth(token)
-      .delete(clientApi, { data: clientId })
-      .then((res) => {
-        console.log(res.data);
-        props.deleteClient(clientId.id);
-        localStorage.removeItem('selectedClientId')
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    props.deleteClient(clientId);
     setCheckDelete(false);
   }
 
@@ -86,7 +70,7 @@ function Client(props) {
   );
 }
 
-export default connect((state) => state, {deleteClient})(Client);
+export default connect((state) => state, { deleteClient })(Client);
 
 export const Container = styled.div`
   display: flex;

@@ -39,10 +39,10 @@ export function riskReducer(state = risks, action) {
           (entry) => entry.id !== action.payload.id
         ),
       };
-    case actionTypes.ADD_TO_PROJECT:
-      return {
-        entries: state.entries.concat(action.payload),
-      };
+    // case actionTypes.ADD_TO_PROJECT:
+    //   return {
+    //     entries: state.entries.concat(action.payload),
+    //   };
     case actionTypes.REPLACE_RISKS:
       return {
         entries: action.payload,

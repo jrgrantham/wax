@@ -1,55 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import Header from "./clientComponents/CleintHeader";
 import Client from "./clientComponents/Client";
 import styled from "styled-components";
-// import Options from "./clientComponents/TemplateOptions";
 import addIcon from "../images/addIcon.png";
-// import Menu from "./Menu";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
-import { setClients } from "../state/actionCreators/clientActionCreators";
+import {
+  setClients,
+  getClients,
+} from "../state/actionCreators/clientActionCreators";
 import { user } from "../data/newUser";
 import { setUser } from "../state/actionCreators/userActionCreators";
-import { v4 as uuidv4 } from "uuid";
-
-const clientApi = `${url()}api/users/client`;
-const token = localStorage.getItem("token");
+import { sendNewClient } from "../state/actionCreators/clientActionCreators";
 
 function Clients(props) {
-  // const selected = props.projectRisks.selected;
-  // const templates = props.templates[selected.toLowerCase()];
-
-  function getClients() {
-    console.log("fetching clients");
-    const allClientsApi = `${url()}api/users/clients`;
-    const token = localStorage.getItem("token");
-    axiosWithAuth(token)
-      .get(allClientsApi)
-      .then((res) => {
-        console.log("clients received");
-        props.setClients(res.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-
   function sendNewClient() {
-    console.log('sending new client');
-    user.email = `new user ${uuidv4().slice(24)}`;
     localStorage.setItem("newClient", true);
-    axiosWithAuth(token)
-      .post(clientApi, user)
-      .then((res) => {
-        console.log("new client returned ID: ", res.data.id);
-        localStorage.setItem("selectedClientId", res.data.id);
-        props.history.push("/project-settings");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    props.sendNewClient(user);
+    props.history.push("/project-settings");
   }
 
   const [, setShowMenu] = useState(false);
@@ -61,19 +28,17 @@ function Clients(props) {
   }
 
   useEffect(() => {
-    if (!props.clients.length || localStorage.getItem('newClient')) {
-      getClients();
+    // check don't already have clients or just creating a new one
+    if (!props.clients.length || localStorage.getItem("newClient")) {
+      props.getClients();
     }
-    localStorage.removeItem('newClient')
+    localStorage.removeItem("newClient");
     return () => {};
   }, []);
 
-  console.log(props.clients);
-  const clients = (props.clients.filter(
-    (client) => client.admin === 0
-    ));
-  console.log(clients)
-  
+  // remove any admin accounts
+  const clients = props.clients.filter((client) => client.admin === 0);
+
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
@@ -95,7 +60,9 @@ function Clients(props) {
 }
 
 export default withRouter(
-  connect((state) => state, { setClients, setUser })(Clients)
+  connect((state) => state, { setClients, setUser, getClients, sendNewClient })(
+    Clients
+  )
 );
 
 const Container = styled.div`

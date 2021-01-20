@@ -1,15 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { setProjectValue } from "../../state/actionCreators/userActionCreators";
+import { sendUserChanges } from "../../state/actionCreators/userActionCreators";
 import { replaceRisks } from "../../state/actionCreators/riskActionCreators";
 import Slider from "../../images/Slider";
 import { projectOptions } from "../../data/projectOptions";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const riskApi = `${url()}api/users/user`;
-const token = localStorage.getItem("token");
 
 function RiskSettings(props) {
   const admin = props.user.admin;
@@ -19,40 +14,21 @@ function RiskSettings(props) {
   const currentMax = props.user[type.slice(0, 3) + "MaxRisks"];
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  function sendChanges(key, value) {
-    let id = '';
-    if (props.user.admin) {
-      id = localStorage.getItem('selectedClientId')
-    } else {
-      id = props.user.id
-    }
-    axiosWithAuth(token)
-    .put(riskApi, { key, value, id })
-    .then(() => {}) // no action when changes are sent, only when requested
-    .catch((error) => {
-      console.log(error.message);
-    });
-  }
-
   function onChange(event) {
-    const key = event.target.name
-    const value = event.target.value
-    props.setProjectValue(key, value);
-    sendChanges(key, value)
+    const key = event.target.name;
+    const value = event.target.value;
+    props.sendUserChanges(key, value, props.user.id);
   }
 
   function setColor(value) {
     const key = type.slice(0, 3) + "Color";
-    props.setProjectValue(key, value);  // change state
-    sendChanges(key, value)  // send to server
+    props.sendUserChanges(key, value, props.user.id);
   }
 
   function changeMax(event) {
-    const key = event.target.name
+    const key = event.target.name;
     const value = parseInt(event.target.value);
-    props.setProjectValue(key, value);
-    
-    sendChanges(key, value)
+    props.sendUserChanges(key, value, props.user.id);
   }
 
   return (
@@ -124,7 +100,7 @@ function RiskSettings(props) {
 
 export default connect((state) => state, {
   replaceRisks,
-  setProjectValue,
+  sendUserChanges,
 })(RiskSettings);
 
 const Container = styled.div`

@@ -5,46 +5,23 @@ import styled from "styled-components";
 import {
   updateTemplateProbability,
   updateTemplateConsequence,
-  deleteTemplateRisk,
   replaceTemplateRisks,
   updateTemplateRisk,
   toggleTemplateTypes,
+  updateTemplate,
+  deleteTemplate,
 } from "../../state/actionCreators/templateActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 import { projectOptions } from "../../data/projectOptions";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const templateApi = `${url()}api/users/templates`;
-const token = localStorage.getItem("token");
-
-function removeTemplate(id) {
-  const riskId = { id };
-  axiosWithAuth(token)
-    .delete(templateApi, { data: riskId })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
-}
 
 function TemplateSingle(props) {
   const type = props.user.selected.toLowerCase();
   const template = props.template;
   const riskRange = projectOptions.riskRange;
-  const {high, medium, low} = projectOptions;
+  const { high, medium, low } = projectOptions;
 
   function sendChanges() {
-    console.log("sent");
-
-    axiosWithAuth(token)
-      .put(templateApi, template)
-      .then(() => {}) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error.message);
-      });
+    props.updateTemplate(template);
   }
 
   function riskValue(value) {
@@ -63,8 +40,6 @@ function TemplateSingle(props) {
     props.updateTemplateRisk(template.id, "risk", calculatedRisk);
   }
 
-  // above here is checked
-
   function confirmConsequence() {
     const consequence = (template.consequence + 1) % riskRange.length;
     const calculatedRisk = consequence * template.probability;
@@ -73,9 +48,8 @@ function TemplateSingle(props) {
   }
 
   function confirmDelete() {
-    props.deleteTemplateRisk(template.id);
     setCheckDelete(false);
-    removeTemplate(template.id);
+    props.deleteTemplate(template.id);
   }
 
   function updateText(event) {
@@ -122,7 +96,7 @@ function TemplateSingle(props) {
   ]);
 
   return (
-    <Container high={high} medium={medium} low={low} >
+    <Container high={high} medium={medium} low={low}>
       {checkDelete ? (
         <div className="checkDelete" style={{ minHeight: height }}>
           <div className="cancel button" onClick={() => toggleDelete()}>
@@ -214,12 +188,13 @@ function TemplateSingle(props) {
 }
 
 export default connect((state) => state, {
+  updateTemplate,
   updateTemplateProbability,
   updateTemplateConsequence,
-  deleteTemplateRisk,
   replaceTemplateRisks,
   updateTemplateRisk,
   toggleTemplateTypes,
+  deleteTemplate,
 })(TemplateSingle);
 
 export const Container = styled.div`
@@ -299,13 +274,13 @@ export const Container = styled.div`
       /* margin-left: 5px; */
     }
     .high {
-      background-color: ${props => props.high};
+      background-color: ${(props) => props.high};
     }
     .medium {
-      background-color: ${props => props.medium};
+      background-color: ${(props) => props.medium};
     }
     .low {
-      background-color: ${props => props.low};
+      background-color: ${(props) => props.low};
     }
     /* .owner {
       text-align: center;

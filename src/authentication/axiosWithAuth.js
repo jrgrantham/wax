@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export default function withAuth(token) {
+export default function withAuth() {
+  const token = localStorage.getItem("token");
   const selectedClientId = localStorage.getItem("selectedClientId");
   const instance = axios.create({
     headers: {

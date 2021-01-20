@@ -1,38 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { toggleProjectBoolean } from "../state/actionCreators/userActionCreators";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
-
-const riskApi = `${url()}api/users/user`;
-const token = localStorage.getItem("token");
+import {
+  toggleProjectBoolean,
+  sendUserChanges,
+} from "../state/actionCreators/userActionCreators";
 
 function Slider(props) {
   const type = props.type;
   const isChecked = props.user[type.slice(0, 3) + "Display"];
   const changeable = props.user[type.slice(0, 3) + "DisplayChangeable"];
 
-  function sendChanges(key, value) {
-    let id = '';
-    if (props.user.admin) {
-      id = localStorage.getItem('selectedClientId')
-    } else {
-      id = props.user.id
-    }
-    axiosWithAuth(token)
-      .put(riskApi, { key, value, id })
-      .then(() => {}) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-
   function toggleDisplay() {
     if (changeable) {
       const key = props.type.slice(0, 3) + "Display";
       props.toggleProjectBoolean(key);
-      sendChanges(key, !isChecked)
+      props.sendUserChanges(key, !isChecked, props.user.id);
     }
   }
 
@@ -49,7 +32,10 @@ function Slider(props) {
     </Container>
   );
 }
-export default connect((state) => state, { toggleProjectBoolean })(Slider);
+export default connect((state) => state, {
+  toggleProjectBoolean,
+  sendUserChanges,
+})(Slider);
 
 const Container = styled.div`
   /* display: flex;

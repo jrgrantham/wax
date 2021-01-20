@@ -36,7 +36,7 @@ function Password(props) {
     const value = loginForm.new;
     let id = props.user.id;
 
-    axiosWithAuth(token)
+    axiosWithAuth()
       .put(editUserApi, { key, value, id })
       .then(() => {
         alert("Password changed");

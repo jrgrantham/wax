@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
-  addToProject,
+  addRisk,
+  // addToProject,
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
 import styled from "styled-components";
 import addIcon from "../../images/addIcon.png";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const riskApi = `${url()}api/users/risks/`;
-const token = localStorage.getItem("token");
 
 function Options(props) {
   const type = props.user.selected.toLowerCase();
@@ -18,10 +14,10 @@ function Options(props) {
   const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
     .length;
-  const riskLimit = usedRisks < maxRisks;
+  const notRiskLimit = usedRisks < maxRisks;
 
   function checkMax() {
-    if (riskLimit) {
+    if (notRiskLimit) {
       setAddRow(true);
     } else {
       alert(
@@ -30,30 +26,16 @@ function Options(props) {
     }
   }
 
-  // console.log(riskApi + props.user.id);
-
   function addToProject() {
-    if (riskLimit) {
-      axiosWithAuth(token)
-        .post(riskApi + props.user.id, emtpyRow)
-        .then((res) => {
-          console.log(res.data);
-          props.replaceRisks(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          // props.history.push("/login");
-        })
-        .finally(() => {
-          setAddRow(false);
-        });
+    if (notRiskLimit) {
+      props.addRisk(blankRisk);
+      setAddRow(false);
     }
   }
 
   const [addRow, setAddRow] = useState(false);
 
-  const emtpyRow = {
-    // id: randomId,
+  const blankRisk = {
     type,
     description: "",
     probability: 0,
@@ -79,11 +61,6 @@ function Options(props) {
     });
     props.replaceRisks(sortedRisks);
   }
-
-  // useEffect(() => {
-  //   sortRisks();
-  //   return () => {};
-  // }, []);
 
   return (
     <Container>
@@ -118,16 +95,16 @@ function Options(props) {
             </>
           ) : (
             <>
-              {!riskLimit ? (
+              {!notRiskLimit ? (
                 <p className="maxRisks">Risk Limit Reached</p>
               ) : null}
               <button className="button" onClick={() => sortRisks()}>
                 <p>Sort</p>
               </button>
-              {/* {riskLimit ? ( */}
-                <div className="image" onClick={() => checkMax()}>
-                  <img src={addIcon} alt="add" />
-                </div>
+              {/* {notRiskLimit ? ( */}
+              <div className="image" onClick={() => checkMax()}>
+                <img src={addIcon} alt="add" />
+              </div>
               {/* // ) : null} */}
             </>
           )}
@@ -138,7 +115,8 @@ function Options(props) {
 }
 
 export default connect((state) => state, {
-  addToProject,
+  // addToProject,
+  addRisk,
   replaceRisks,
 })(Options);
 

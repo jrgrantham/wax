@@ -5,46 +5,29 @@ import TemplateRisk from "./templateComponents/TemplateRisk";
 import styled from "styled-components";
 import Options from "./templateComponents/TemplateOptions";
 import Menu from "./Menu";
-import axiosWithAuth from "../authentication/axiosWithAuth";
-import url from "../helpers/url";
 import { setUser } from "../state/actionCreators/userActionCreators";
-import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import {
+  replaceTemplateRisks,
+  getTemplates,
+} from "../state/actionCreators/templateActionCreators";
 
 function Templates(props) {
-  function getTemplates() {
-    const templateApi = `${url()}api/users/templates`;
-    const token = localStorage.getItem("token");
-    axiosWithAuth(token)
-      .get(templateApi)
-      .then((res) => {
-        props.replaceTemplateRisks(res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      getTemplates();
-    }, 500);
-    return () => {
-      // send data back
-    };
-  }, []);
-
-  const templates = props.templates.entries.filter(
-    (risk) => risk.type === props.user.selected
-  );
-
   const [showMenu, setShowMenu] = useState(false);
+
   function location(event) {
     if (event.target.id === "menu" || event.target.id === "subMenu") {
       return;
     }
     setShowMenu(false);
   }
+  const templates = props.templates.entries.filter(
+    (risk) => risk.type === props.user.selected
+  );
+
+  useEffect(() => {
+    props.getTemplates();
+    return () => {};
+  }, []);
 
   return (
     <Container onClick={(event) => location(event)}>
@@ -60,9 +43,11 @@ function Templates(props) {
   );
 }
 
-export default connect((state) => state, { replaceTemplateRisks, setUser })(
-  Templates
-); //remove withRouter and the parens
+export default connect((state) => state, {
+  replaceTemplateRisks,
+  getTemplates,
+  setUser,
+})(Templates); //remove withRouter and the parens
 // export default withRouter (connect((state) => state, { replaceTemplateRisks, setUser })(Templates)); //remove withRouter and the parens
 
 const Container = styled.div`

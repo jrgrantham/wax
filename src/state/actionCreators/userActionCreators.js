@@ -21,7 +21,7 @@ export const getUser = () => async (dispatch) => {
   }
 };
 
-export const sendChanges = (key, value, id) => async (dispatch) => {
+export const sendUserChanges = (key, value, id) => async (dispatch) => {
   console.log("key:", key, "value:", value, "id:", id);
   try {
     await axiosWithAuth(token).put(userApi, { key, value, id });

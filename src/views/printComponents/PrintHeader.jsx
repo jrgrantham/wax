@@ -3,25 +3,10 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
-// import axiosWithAuth from "../../authentication/axiosWithAuth";
-// import url from "../../helpers/url";
-
-// const userApi = `${url()}api/users/user`;
-// const token = localStorage.getItem("token");
 
 function PrintHeader(props) {
-  // function sendChanges(key, value) {
-  //   axiosWithAuth(token)
-  //     .put(userApi, { key, value })
-  //     .then(() => {}) // no action when changes are sent, only when requested
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //     });
-  // }
-
   function setSelected(value) {
     props.setProjectValue("selected", value);
-    // sendChanges("selected", value);
   }
 
   function showMenu(e) {
@@ -140,7 +125,7 @@ const Container = styled.div`
   .titles {
     width: 100%;
     display: grid;
-  grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
+    grid-template-columns: 1fr 90px 90px 1fr 75px 20px;
     column-gap: 5px;
     padding: 5px 0 0px 25px;
     background-color: #e5e5e5;

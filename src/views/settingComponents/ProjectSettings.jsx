@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
 import { projectOptions } from "../../data/projectOptions";
-import { setUser } from "../../state/actionCreators/userActionCreators";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const userApi = `${url()}api/users/user`;
-const clientApi = `${url()}api/users/client/`;
-const token = localStorage.getItem("token");
+import {
+  setUser,
+  getUser,
+  sendUserChanges,
+} from "../../state/actionCreators/userActionCreators";
 
 function ProjectSettings(props) {
   const {
@@ -29,65 +27,13 @@ function ProjectSettings(props) {
     props.setProjectValue(key, value);
   }
 
-  function getSettings() {
-    console.log("fetching user");
-    const selectedUser = localStorage.getItem("selectedClientId");
-    axiosWithAuth(token)
-      .get(userApi)
-      .then((res) => {
-        // check response, if user not admin, set user
-        if (!res.data.admin) {
-          console.log("user is a client");
-          props.setUser(res.data);
-          // if user is admin, fetch the user by selected id
-        } else {
-          console.log("user is admin");
-          // props.setUser(res.data);
-          // if no user in storage, skip.
-          if (selectedUser) {
-            // const api = clientApi + selectedUser;
-            // console.log(api);
-            console.log("fetching client, ID:", selectedUser);
-            axiosWithAuth(token)
-              .get(clientApi + selectedUser)
-              .then((res) => {
-                console.log("client", selectedUser, "received");
-                props.setUser(res.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        // window.location.replace(`${url()}login`)
-        // props.history.push("/login");
-      });
-  }
-
   function sendChanges(event) {
-    const key = event.target.name;
-    const value = event.target.value;
-    let id = "";
-    if (props.user.admin) {
-      id = localStorage.getItem("selectedClientId");
-    } else {
-      id = props.user.id;
-    }
-    axiosWithAuth(token)
-      .put(userApi, { key, value, id })
-      .then(() => {}) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error);
-        // alert(error.message);
-      });
+    props.sendUserChanges(event.target.name, event.target.value, props.user.id);
   }
 
   useEffect(() => {
     if (!props.user.company || localStorage.getItem("newClient")) {
-      getSettings();
+      props.getUser();
     }
     return () => {};
   }, []);
@@ -97,20 +43,18 @@ function ProjectSettings(props) {
       <form className="projectForm">
         <h5>Project</h5>
 
-        {/* Account / Email */}
-        {props.user.admin ? (
-          <div className="info">
-            <label>Account / Email:</label>
-            <input
-              spellCheck="true"
-              type="text"
-              onChange={onChange}
-              onBlur={sendChanges}
-              name="email"
-              value={email}
-            />
-          </div>
-        ) : null}
+        <div className="info">
+          <label>Account / Email:</label>
+          <input
+            spellCheck="true"
+            type="text"
+            onChange={onChange}
+            onBlur={sendChanges}
+            name="email"
+            value={email}
+          />
+        </div>
+
 
         {/* Password */}
         <div className="info">
@@ -208,9 +152,12 @@ function ProjectSettings(props) {
   );
 }
 
-export default connect((state) => state, { setProjectValue, setUser })(
-  ProjectSettings
-);
+export default connect((state) => state, {
+  setProjectValue,
+  setUser,
+  getUser,
+  sendUserChanges,
+})(ProjectSettings);
 
 const Container = styled.div`
   display: flex;

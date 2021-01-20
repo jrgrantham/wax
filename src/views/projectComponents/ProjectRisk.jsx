@@ -7,45 +7,22 @@ import {
   updateConsequence,
   deleteRisk,
   updateRisk,
+  sendUpdatedRisk,
 } from "../../state/actionCreators/riskActionCreators";
 import removeIcon from "../../images/removeIcon.png";
 import { projectOptions } from "../../data/projectOptions";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-
-const riskApi = `${url()}api/users/risks`;
-const token = localStorage.getItem("token");
-
-function removeRisk(id) {
-  const riskId = { id };
-  console.log(riskId);
-  
-  axiosWithAuth(token)
-    .delete(riskApi, { data: riskId })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
-}
 
 function RiskSingle(props) {
-  function sendChanges() {
-    axiosWithAuth(token)
-      .put(riskApi, risk)
-      .then(() => {})  // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-
+  
   const type = props.user.selected.toLowerCase();
   const risk = props.risk;
   const riskRange = projectOptions.riskRange;
   const maxLength = props.user.maxCharacters;
-  const {high, medium, low} = projectOptions;
+  const { high, medium, low } = projectOptions;
   
+  function sendChanges() {
+    props.sendUpdatedRisk(risk);
+  }
   function riskValue(value) {
     return riskRange[value];
   }
@@ -56,8 +33,7 @@ function RiskSingle(props) {
     setCheckDelete(!checkDelete);
   }
   function confirmDelete() {
-    removeRisk(risk.id);
-    props.deleteRisk(type, risk.id); // send back from server, remove this
+    props.deleteRisk(type, risk.id);
     setCheckDelete(false);
   }
   function swipe(event) {
@@ -97,14 +73,14 @@ function RiskSingle(props) {
   }
   useEffect(() => {
     getMaxHeight();
-    sendChanges();
+    sendUpdatedRisk();
     return () => {
       // sendChanges(risk);
     };
   }, [props.risks, confirmConsequence, confirmProbability]);
 
   return (
-    <Container high={high} medium={medium} low={low} >
+    <Container high={high} medium={medium} low={low}>
       {checkDelete ? (
         <div className="checkDelete" style={{ minHeight: height }}>
           <div className="cancel button" onClick={() => toggleDelete()}>
@@ -181,6 +157,7 @@ export default connect((state) => state, {
   updateConsequence,
   deleteRisk,
   updateRisk,
+  sendUpdatedRisk,
 })(RiskSingle);
 
 export const Container = styled.div`
@@ -261,13 +238,13 @@ export const Container = styled.div`
       /* margin-left: 5px; */
     }
     .high {
-      background-color: ${props => props.high};
+      background-color: ${(props) => props.high};
     }
     .medium {
-      background-color: ${props => props.medium};
+      background-color: ${(props) => props.medium};
     }
     .low {
-      background-color: ${props => props.low};
+      background-color: ${(props) => props.low};
     }
     .owner {
       text-align: center;

@@ -3,18 +3,13 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import menu from "../../images/menu.png";
 import {
-  setProjectValue,
-  sendChanges,
+  // setProjectValue,
+  sendUserChanges,
 } from "../../state/actionCreators/userActionCreators";
 import {
-  addToProject,
+  // addToProject,
   replaceRisks,
 } from "../../state/actionCreators/riskActionCreators";
-// import axiosWithAuth from "../../authentication/axiosWithAuth";
-// import url from "../../helpers/url";
-
-// const userApi = `${url()}api/users/user`;
-// const token = localStorage.getItem("token");
 
 function RiskTable(props) {
   const countMan = props.risks.entries.filter(
@@ -32,27 +27,11 @@ function RiskTable(props) {
     (risk) => risk.type === "environmental"
   ).length;
 
-  // function sendChanges(key, value) {
-  //   let id = "";
-  //   if (props.user.admin) {
-  //     id = localStorage.getItem("selectedClientId");
-  //   } else {
-  //     id = props.user.id;
-  //   }
-  //   // console.log("setting risk type");
-  //   axiosWithAuth(token)
-  //     .put(userApi, { key, value, id })
-  //     .then(() => {}) // no action when changes are sent, only when requested
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //     });
-  // }
-
   function setSelected(value) {
     sortRisks();
-    // props.setProjectValue("selected", value);
-    props.sendChanges("selected", value, props.user.id);
-    // sendChanges("selected", value);
+    // user.id for actual user, not to change for client
+    // prevents fetching from local storage
+    props.sendUserChanges("selected", value, props.user.id);
   }
 
   function showMenu(e) {
@@ -95,27 +74,18 @@ function RiskTable(props) {
       <div className="types">
         <Type
           background={props.user.manColor}
-          // background={
-          //   selected === "managerial" ? props.user.manColor : "lightgrey"
-          // }
           onClick={() => setSelected("managerial")}
         >
           <h6>Managerial ({countMan})</h6>
         </Type>
         <Type
           background={props.user.comColor}
-          // background={
-          //   selected === "commercial" ? props.user.comColor : "lightgrey"
-          // }
           onClick={() => setSelected("commercial")}
         >
           <h6>Commercial ({countCom})</h6>
         </Type>
         <Type
           background={props.user.tecColor}
-          // background={
-          //   selected === "technical" ? props.user.tecColor : "lightgrey"
-          // }
           onClick={() => setSelected("technical")}
         >
           <h6>Technical ({countTec})</h6>
@@ -123,9 +93,6 @@ function RiskTable(props) {
         {props.user.envDisplay ? (
           <Type
             background={props.user.envColor}
-            // background={
-            //   selected === "environmental" ? props.user.envColor : "lightgrey"
-            // }
             onClick={() => setSelected("environmental")}
           >
             <h6>Environmental ({countEnv})</h6>
@@ -134,9 +101,6 @@ function RiskTable(props) {
         {props.user.legDisplay ? (
           <Type
             background={props.user.legColor}
-            // background={
-            //   selected === "legal" ? props.user.legColor : "lightgrey"
-            // }
             onClick={() => setSelected("legal")}
           >
             <h6>Legal ({countLeg})</h6>
@@ -162,9 +126,9 @@ function RiskTable(props) {
 }
 
 export default connect((state) => state, {
-  sendChanges,
-  setProjectValue,
-  addToProject,
+  sendUserChanges,
+  // setProjectValue,
+  // addToProject,
   replaceRisks,
 })(RiskTable);
 

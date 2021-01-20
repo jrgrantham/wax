@@ -3,21 +3,21 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 // import menu from "../../images/menu.png";
 import { setProjectValue } from "../../state/actionCreators/userActionCreators";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
+// import axiosWithAuth from "../../authentication/axiosWithAuth";
+// import url from "../../helpers/url";
 
-const userApi = `${url()}api/users/user`;
-const token = localStorage.getItem("token");
+// const userApi = `${url()}api/users/user`;
+// const token = localStorage.getItem("token");
 
 function TemplateHeader(props) {
-  function sendChanges(key, value) {
-    axiosWithAuth(token)
-      .put(userApi, { key, value })
-      .then(() => {}) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
+  // function sendChanges(key, value) {
+  //   axiosWithAuth(token)
+  //     .put(userApi, { key, value })
+  //     .then(() => {}) // no action when changes are sent, only when requested
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // }
 
   function setSelected(type) {
     props.setProjectValue("selected", type);
@@ -29,14 +29,6 @@ function TemplateHeader(props) {
 
   return (
     <Container color={color}>
-      {/* <header>
-        <div className="left">
-          <h4>Risk Templates - Admin</h4>
-        </div>
-        <div className="image" onClick={(e) => showMenu(e)}>
-          <img src={menu} alt="menu" />
-        </div>
-      </header> */}
       <div className="types">
         <Type
           background={props.user.manColor}
