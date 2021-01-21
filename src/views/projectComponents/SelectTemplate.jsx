@@ -3,27 +3,12 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import removeIcon from "../../images/removeIcon.png";
 import TemplateRisk from "./SelectSingle";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-import { replaceTemplateRisks } from "../../state/actionCreators/templateActionCreators";
-
-const templateApi = `${url()}api/users/templates`;
-const token = localStorage.getItem("token");
+import {
+  replaceTemplateRisks,
+  getTemplates,
+} from "../../state/actionCreators/templateActionCreators";
 
 function Templates(props) {
-  function getTemplates() {
-    if (props.user.useTemplates) {
-      axiosWithAuth(token)
-        .get(templateApi)
-        .then((res) => {
-          props.replaceTemplateRisks(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-  }
-
   const type = props.user.selected;
   const title = type.charAt(0).toUpperCase() + type.slice(1) + " Risks";
 
@@ -52,7 +37,7 @@ function Templates(props) {
     allTemplates = templateSelected.filter((template) => template.all === 1);
   }
 
-  // funtion to merge relevant arrays and remove duplicates
+  // function to merge relevant arrays and remove duplicates
   function mergedRisks() {
     // create single array of required types
     let relevantTemplates = []; // --------- ensure this is not the problem in production 'boolean'
@@ -100,13 +85,6 @@ function Templates(props) {
     return;
   }
 
-  // function closeTemplate() {
-  //   if (props.user.options[type].maxRisks === props.user[type].length() ) {
-  //     props.setShowTemplate(false);
-  //   }
-  // }
-  // closeTemplate()
-
   const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   const usedRisks = props.risks.entries.filter((risk) => risk.type === type)
     .length;
@@ -116,7 +94,8 @@ function Templates(props) {
   }
 
   useEffect(() => {
-    getTemplates();
+    // getTemplates();
+    props.getTemplates();
   }, []);
 
   return (
@@ -144,7 +123,10 @@ function Templates(props) {
   );
 }
 
-export default connect((state) => state, { replaceTemplateRisks })(Templates);
+export default connect((state) => state, {
+  replaceTemplateRisks,
+  getTemplates,
+})(Templates);
 
 const Container = styled.div`
   position: fixed;

@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import url from "../helpers/url";
 import { connect } from "react-redux";
-import { setUser } from "../state/actionCreators/userActionCreators";
+import {
+  setUser,
+  sendAdminChanges,
+} from "../state/actionCreators/userActionCreators";
 import eye from "../images/eye.png";
-import axiosWithAuth from "../authentication/axiosWithAuth";
 
 function Password(props) {
-  if (props.user.email === "") {
-    // uncomment line below once complete
-    redirect();
+  if (!props.user.admin) {
+    props.history.push("/admin");
   }
 
-  const token = localStorage.getItem("token");
-
-  const editUserApi = url() + "api/users/user";
   const blankForm = {
     email: "",
     old: "",
@@ -31,46 +28,12 @@ function Password(props) {
   }
 
   function sendChanges() {
-    console.log("key: password, value: ", loginForm.new);
+    console.log("key: password, value: ");
     const key = "password";
     const value = loginForm.new;
-    let id = props.user.id;
-
-    axiosWithAuth()
-      .put(editUserApi, { key, value, id })
-      .then(() => {
-        alert("Password changed");
-        redirect();
-      }) // no action when changes are sent, only when requested
-      .catch((error) => {
-        console.log(error);
-        // alert(error.message);
-      });
-  }
-
-  // function submit() {
-  //   axios
-  //     .post(editUserApi, loginForm)
-  //     .then(() => {
-  //       setLoginForm(blankForm);
-  //       // localStorage.setItem("token", response.data.token);
-  //       // props.setUser(response.data.settings);
-  //       redirect();
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-
-  //       setLoginForm(blankForm);
-  //     })
-  //     .finally(() => {}); // add code in the block if required
-  // }
-
-  function redirect(admin) {
-    if (admin) {
-      props.history.push("/admin");
-    } else {
-      props.history.push("/");
-    }
+    props.sendAdminChanges(key, value);
+    setLoginForm(blankForm);
+    props.history.push("/admin");
   }
 
   let button = "show";
@@ -94,8 +57,7 @@ function Password(props) {
   return (
     <Container style={{ opacity: opacity }}>
       <div className="contents">
-        Change Password
-        <div className="password">
+        {/* <div className="password">
           <input
             id="old"
             type="password"
@@ -104,13 +66,13 @@ function Password(props) {
             value={loginForm.old}
             onChange={onChange}
           />
-        </div>
+        </div> */}
         <div className="password">
           <input
             id="new"
             type="password"
             name="new"
-            placeholder="new password"
+            placeholder="Enter new password"
             value={loginForm.new}
             onChange={onChange}
           />
@@ -125,7 +87,9 @@ function Password(props) {
   );
 }
 
-export default connect((state) => state, { setUser })(Password);
+export default connect((state) => state, { setUser, sendAdminChanges })(
+  Password
+);
 
 const Container = styled.div`
   display: flex;

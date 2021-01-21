@@ -28,7 +28,7 @@ function ProjectSettings(props) {
   }
 
   function sendChanges(event) {
-    props.sendUserChanges(event.target.name, event.target.value, props.user.id);
+    props.sendUserChanges(event.target.name, event.target.value );
   }
 
   useEffect(() => {

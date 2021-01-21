@@ -15,7 +15,8 @@ import { sendNewClient } from "../state/actionCreators/clientActionCreators";
 function Clients(props) {
   function sendNewClient() {
     localStorage.setItem("newClient", true);
-    props.sendNewClient(user);
+    const newClient = {...user};
+    props.sendNewClient(newClient);
     props.history.push("/project-settings");
   }
 
@@ -29,12 +30,13 @@ function Clients(props) {
 
   useEffect(() => {
     // check don't already have clients or just creating a new one
-    if (!props.clients.length || localStorage.getItem("newClient")) {
-      props.getClients();
-    }
+    // if (!props.clients.length || localStorage.getItem("newClient")) {
+    //   props.getClients();
+    // }
+    props.getClients();
     localStorage.removeItem("newClient");
     return () => {};
-  }, []);
+  }, [sendNewClient]);
 
   // remove any admin accounts
   const clients = props.clients.filter((client) => client.admin === 0);

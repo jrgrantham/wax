@@ -50,16 +50,6 @@ function ProjectSettings(props) {
     sendChanges(key, value);
   }
 
-  // function selectAll() {
-  //   // ai, dlt, man
-  //   props.setProjectValue('ai', !props.user.ai);
-  //   sendChanges('ai', !props.user.ai);
-  //   props.setProjectValue('dlt', !props.user.ai);
-  //   sendChanges('dlt', !props.user.ai);
-  //   props.setProjectValue('man', !props.user.ai);
-  //   sendChanges('man', !props.user.ai);
-  // }
-
   return (
     <Container>
       <form className="projectForm">

@@ -1,15 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
-// import { addToProject } from "../../state/actionCreators/riskActionCreators";
 import addIcon from "../../images/addIcon.png";
-import axiosWithAuth from "../../authentication/axiosWithAuth";
-import url from "../../helpers/url";
-import { replaceRisks } from "../../state/actionCreators/riskActionCreators";
-
-const riskApi = `${url()}api/users/risks/`;
-const token = localStorage.getItem("token");
+import { replaceRisks, addRisk } from "../../state/actionCreators/riskActionCreators";
 
 function SelectTemplate(props) {
   const type = props.user.selected.toLowerCase();
@@ -17,7 +10,7 @@ function SelectTemplate(props) {
   const maxRisks = props.user[type.slice(0, 3) + "MaxRisks"];
   const riskCount = props.risks.entries.filter((risk) => risk.type === type)
     .length;
-  const riskLimit = riskCount < maxRisks;
+  const notRiskLimit = riskCount < maxRisks;
 
   const description = template.description
     .replace("[company name]", props.user.company)
@@ -29,28 +22,19 @@ function SelectTemplate(props) {
     .replace("[output nature]", props.user.nature)
     .replace("[ip method]", props.user.ipMethod);
 
+  const riskClone = {
+    templateId: template.id,
+    type,
+    description: description,
+    probability: template.probability,
+    consequence: template.consequence,
+    owner: props.user[type.slice(0, 3) + "DefaultOwner"],
+    mitigation: mitigation,
+  };
+
   function addRisk() {
-    if (riskLimit) {
-      const riskClone = {
-        templateId: template.id,
-        type,
-        description: description,
-        probability: template.probability,
-        consequence: template.consequence,
-        owner: props.user[type.slice(0, 3) + "DefaultOwner"],
-        mitigation: mitigation,
-      };
-      // props.addToProject(riskClone);
-      axiosWithAuth(token)
-        .post(riskApi + props.user.id, riskClone)
-        .then((res) => {
-          console.log(res.data);
-          props.replaceRisks(res.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          // props.history.push("/login");
-        });
+    if (notRiskLimit) {
+      props.addRisk(riskClone);
     }
   }
 
@@ -69,7 +53,7 @@ function SelectTemplate(props) {
 
 export default connect((state) => state, {
   replaceRisks,
-  // addToProject,
+  addRisk,
 })(SelectTemplate);
 
 export const Container = styled.div`

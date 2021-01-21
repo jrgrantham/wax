@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Clients from "./Clients";
 import Templates from "./Templates";
 import styled from "styled-components";
 import { replaceTemplateRisks } from "../state/actionCreators/templateActionCreators";
+import { getUser } from "../state/actionCreators/userActionCreators";
 
 function AdminDashboard(props) {
+
   const [displayClients, setDisplayClients] = useState(true);
 
   function logout() {
@@ -13,16 +15,24 @@ function AdminDashboard(props) {
     props.history.push("/login");
   }
 
+  function password() {
+    props.history.push("/password");
+  }
+
+  useEffect(() => {
+    props.getUser();
+  }, []);
+
   return (
     <Container>
       <header>
         <h3>Admin Dashboard</h3>
         <div>
-          <button
-            className="dashboard logout"
-            onClick={logout}
-          >
+          <button className="dashboard logout" onClick={logout}>
             <h5>Log out</h5>
+          </button>
+          <button className="dashboard logout" onClick={password}>
+            <h5>Accounts</h5>
           </button>
           <button
             className="dashboard left"
@@ -53,7 +63,7 @@ function AdminDashboard(props) {
   );
 }
 
-export default connect((state) => state, { replaceTemplateRisks })(
+export default connect((state) => state, { replaceTemplateRisks, getUser })(
   AdminDashboard
 );
 

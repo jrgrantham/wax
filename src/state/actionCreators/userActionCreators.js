@@ -3,6 +3,7 @@ import url from "../../helpers/url";
 import axiosWithAuth from "../../authentication/axiosWithAuth";
 
 const userApi = `${url()}api/users/user`;
+const adminApi = `${url()}api/users/admin`;
 const token = localStorage.getItem("token");
 
 export const getUser = () => async (dispatch) => {
@@ -21,10 +22,10 @@ export const getUser = () => async (dispatch) => {
   }
 };
 
-export const sendUserChanges = (key, value, id) => async (dispatch) => {
-  console.log("key:", key, "value:", value, "id:", id);
+export const sendUserChanges = (key, value ) => async (dispatch) => {
+  console.log("key:", key, "value:", value );
   try {
-    await axiosWithAuth(token).put(userApi, { key, value, id });
+    await axiosWithAuth(token).put(userApi, { key, value });
     // const response = await axiosWithAuth(token).put(userApi, { key, value, id });
     // console.log(response);
     dispatch({
@@ -35,6 +36,21 @@ export const sendUserChanges = (key, value, id) => async (dispatch) => {
       },
     });
   } catch (e) {
+    dispatch({
+      type: actionTypes.USERS_ERROR,
+      payload: console.log(e),
+    });
+  }
+};
+
+export const sendAdminChanges = (key, value ) => async (dispatch) => {
+  console.log("key:", key, "value:", value );
+  try {
+    await axiosWithAuth(token).put(adminApi, { key, value });
+    alert("Success");
+  } catch (e) {
+    alert("Failed");
+    console.log(e);
     dispatch({
       type: actionTypes.USERS_ERROR,
       payload: console.log(e),

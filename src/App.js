@@ -9,7 +9,6 @@ import {
   riskReducer,
 } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-// import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import {
   Route,
   withRouter,
@@ -44,7 +43,6 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
-
 
 function protectedRoute(Component, props) {
   // Not really secure. Any token would pass the test.
@@ -93,9 +91,7 @@ function App() {
             render={(props) => protectedRoute(Password, props)}
           />
           {/* <Route component={RiskTable} /> */}
-          <Route
-            render={(props) => protectedRoute(RiskTable, props)}
-          />
+          <Route render={(props) => protectedRoute(RiskTable, props)} />
         </Switch>
         <Footer />
       </BrowserRouter>
