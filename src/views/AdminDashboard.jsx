@@ -20,7 +20,7 @@ function AdminDashboard(props) {
   }
 
   useEffect(() => {
-    props.getUser();
+    // props.getUser();
   }, []);
 
   return (

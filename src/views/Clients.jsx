@@ -36,7 +36,7 @@ function Clients(props) {
     props.getClients();
     localStorage.removeItem("newClient");
     return () => {};
-  }, [sendNewClient]);
+  }, []);
 
   // remove any admin accounts
   const clients = props.clients.filter((client) => client.admin === 0);

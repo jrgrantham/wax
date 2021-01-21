@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import {
   setUser,
   sendAdminChanges,
+  getUser,
 } from "../state/actionCreators/userActionCreators";
+import { getClients } from "../state/actionCreators/clientActionCreators";
 import eye from "../images/eye.png";
 
 function Password(props) {
-  if (!props.user.admin) {
-    props.history.push("/admin");
-  }
-
   const blankForm = {
     email: "",
     old: "",
@@ -54,19 +52,25 @@ function Password(props) {
     setOpacity(1);
   }, 300);
 
+  useEffect(() => {
+    props.getUser();
+    props.getClients();
+    return () => {};
+  }, []);
+
+  function Account(client, index) {
+    return (
+      <div key={index} className="account">
+        <p>{client.email}</p>
+        <p>delete</p>
+      </div>
+    );
+  }
+
   return (
     <Container style={{ opacity: opacity }}>
       <div className="contents">
-        {/* <div className="password">
-          <input
-            id="old"
-            type="password"
-            name="old"
-            placeholder="current password"
-            value={loginForm.old}
-            onChange={onChange}
-          />
-        </div> */}
+        {props.user.email}
         <div className="password">
           <input
             id="new"
@@ -83,16 +87,21 @@ function Password(props) {
         <button onClick={sendChanges}>Submit</button>
         {/* <p>send me my password</p> */}
       </div>
+      {props.clients.map((client, index) => Account(client, index))}
     </Container>
   );
 }
 
-export default connect((state) => state, { setUser, sendAdminChanges })(
-  Password
-);
+export default connect((state) => state, {
+  setUser,
+  sendAdminChanges,
+  getClients,
+  getUser,
+})(Password);
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
@@ -131,7 +140,7 @@ const Container = styled.div`
     font-size: 0.8rem;
     padding: 0.6rem 1.6rem;
     border-radius: 5px;
-    border-color: 2px solid lightgrey;
+    border-color: 2px solid red;
     &:hover {
       cursor: pointer;
     }
@@ -141,8 +150,22 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 250px;
-    /* border: 1px solid red */
+    height: 150px;
+    margin-bottom: 30px;
+    width: 400px;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .account {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    padding: 20px;
+    margin: 10px;
+    border: 2px solid darkgray;
+    border-radius: 15px;
   }
 
   .image {
