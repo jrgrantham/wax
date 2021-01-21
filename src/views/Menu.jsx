@@ -78,7 +78,7 @@ function Menu(props) {
         <Link to="risk-document">
           <h6>Risk Document</h6>
         </Link>
-        {props.user.exportSpreadsheet ? (
+        {props.user.exportSpreadsheet || props.user.admin? (
           <h6 onClick={download}>Download CSV</h6>
         ) : null}
         <Link to="print">
@@ -90,9 +90,9 @@ function Menu(props) {
           <Link to="admin">
             <h6>Home</h6>
           </Link>
-          <Link to="password">
+          {/* <Link to="password">
             <h6>Change Password</h6>
-          </Link>
+          </Link> */}
         </div>
       ) : null}
       <div>

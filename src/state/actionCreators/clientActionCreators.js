@@ -23,6 +23,7 @@ export const getClients = () => async (dispatch) => {
 };
 
 export const sendNewClient = (user) => async (dispatch) => {
+  console.log('sending new client');
   try {
     const res = await axiosWithAuth(token).post(clientApi, user);
     console.log("new client returned ID: ", res.data.id);

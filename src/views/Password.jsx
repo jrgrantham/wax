@@ -8,6 +8,7 @@ import {
 } from "../state/actionCreators/userActionCreators";
 import { getClients } from "../state/actionCreators/clientActionCreators";
 import eye from "../images/eye.png";
+import Client from "./clientComponents/Client";
 
 function Password(props) {
   const blankForm = {
@@ -58,19 +59,25 @@ function Password(props) {
     return () => {};
   }, []);
 
-  function Account(client, index) {
-    return (
-      <div key={index} className="account">
-        <p>{client.email}</p>
-        <p>delete</p>
-      </div>
-    );
-  }
+  // function Account(client, index) {
+  //   return (
+  //     <div key={index} className="account">
+  //       <div>
+  //         <h6>{client.company}</h6>
+  //         <p>{client.email}</p>
+  //       </div>
+  //       {index < 3 ? null : <button>delete</button>}
+  //     </div>
+  //   );
+  // }
 
   return (
     <Container style={{ opacity: opacity }}>
       <div className="contents">
-        {props.user.email}
+        <div>
+          <h5>{props.user.company}</h5>
+          <h6>{props.user.email}</h6>
+        </div>
         <div className="password">
           <input
             id="new"
@@ -85,9 +92,12 @@ function Password(props) {
           </div>
         </div>
         <button onClick={sendChanges}>Submit</button>
+        <p>this will change the password immediately</p>
         {/* <p>send me my password</p> */}
       </div>
-      {props.clients.map((client, index) => Account(client, index))}
+      <div className="allAccounts">
+        {props.clients.map((client, index) => <Client client={client} key={index} />)}
+      </div>
     </Container>
   );
 }
@@ -123,6 +133,7 @@ const Container = styled.div`
     font-size: 0.8rem;
     padding: 10px;
     border-color: lightgray;
+    margin: 20px 0;
   }
   .password {
     display: flex;
@@ -150,18 +161,33 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 150px;
-    margin-bottom: 30px;
-    width: 400px;
-    border: 2px solid black;
+    margin: 50px 0px 20px 0px;
+    width: 500px;
+    border: 1px solid darkgray;
+    background-color: #f6f6f6;
     border-radius: 15px;
     padding: 20px;
+
+    h5, h6 {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+
+  .allAccounts {
+    margin-bottom: 50px;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .allAccounts::-webkit-scrollbar {
+    display: none;
   }
 
   .account {
     display: flex;
     justify-content: space-between;
-    width: 400px;
+    width: 500px;
     padding: 20px;
     margin: 10px;
     border: 2px solid darkgray;

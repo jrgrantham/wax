@@ -9,7 +9,7 @@ export default function Footer() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        developed by James Grantham
+        Designed by WAX developed by James Grantham
       </a>
     </Container>
   );

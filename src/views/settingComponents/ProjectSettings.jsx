@@ -28,21 +28,33 @@ function ProjectSettings(props) {
   }
 
   function sendChanges(event) {
-    props.sendUserChanges(event.target.name, event.target.value );
+    props.sendUserChanges(event.target.name, event.target.value);
   }
 
   useEffect(() => {
-    if (!props.user.company || localStorage.getItem("newClient")) {
-      props.getUser();
+    // if (!localStorage.getItem("newClient")) {
+    // props.getUser();
+    if (localStorage.getItem("newClient")) {
+      props.setProjectValue("email", "enter client email");
+      props.setProjectValue("password", 1234);
+      props.setProjectValue("company", "enter company name");
+      props.setProjectValue("project", "enter project");
+      props.setProjectValue("ipMethod", "enter new client email");
+      props.setProjectValue(
+        "application",
+        "enter application number if applicable"
+      );
     }
-    return () => {};
+    // }
+    return () => {
+      localStorage.removeItem("newClient");
+    };
   }, []);
 
   return (
     <Container>
       <form className="projectForm">
         <h5>Project</h5>
-
         <div className="info">
           <label>Account / Email:</label>
           <input
@@ -54,8 +66,6 @@ function ProjectSettings(props) {
             value={email}
           />
         </div>
-
-
         {/* Password */}
         <div className="info">
           <label>Password:</label>
@@ -70,8 +80,10 @@ function ProjectSettings(props) {
             value={password}
           />
         </div>
-
-        {/* company name */}
+        <div className="info">
+          <span>Caution - typing your password will change it immediately</span>
+          {/* <p>test</p> */}
+          </div> {/* company name */}
         <div className="info">
           <label>Company Name:</label>
           <input
@@ -83,7 +95,6 @@ function ProjectSettings(props) {
             value={company}
           />
         </div>
-
         {/* nature */}
         <div className="info">
           <label>Project Nature:</label>
@@ -103,7 +114,6 @@ function ProjectSettings(props) {
             })}
           </select>
         </div>
-
         {/* ipMethod */}
         <div className="info">
           <label>IP Protection:</label>
@@ -123,7 +133,6 @@ function ProjectSettings(props) {
             })}
           </select>
         </div>
-
         {/* project */}
         <div className="info">
           <label>Project Name: </label>
@@ -136,7 +145,6 @@ function ProjectSettings(props) {
             value={project}
           />
         </div>
-
         <div className="info">
           <label>IUK Application Number: </label>
           <input
@@ -192,6 +200,10 @@ const Container = styled.div`
       align-items: center;
       width: 100%;
       margin: 5px;
+      span {
+        font-size: 0.8rem;
+        margin: -5px 0 20px 5px;
+      }
     }
     .password {
       font-size: 0.7rem;

@@ -1,8 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-// user.email = `new user ${uuidv4().slice(24)}`;
 
 export const user = {
-  email: `new user ${uuidv4().slice(24)}`,
+  email: "",
   password: "",
   admin: false,
   company: "", // leave empty, this is for checking state

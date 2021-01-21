@@ -11,11 +11,13 @@ import {
 import { user } from "../data/newUser";
 import { setUser } from "../state/actionCreators/userActionCreators";
 import { sendNewClient } from "../state/actionCreators/clientActionCreators";
+import { v4 as uuidv4 } from "uuid";
 
 function Clients(props) {
   function sendNewClient() {
     localStorage.setItem("newClient", true);
-    const newClient = {...user};
+    const newClient = { ...user };
+    newClient.email = `new user ${uuidv4().slice(24)}`;
     props.sendNewClient(newClient);
     props.history.push("/project-settings");
   }
@@ -44,7 +46,7 @@ function Clients(props) {
   return (
     <Container onClick={(event) => location(event)}>
       <div className="banner">
-        <button className="createClient" onClick={sendNewClient}>
+        <button className="createClient" onClick={() => sendNewClient()}>
           <h6>Create New Client</h6>
           <div className="image">
             <img src={addIcon} alt="add" />
